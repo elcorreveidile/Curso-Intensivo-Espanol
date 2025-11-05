@@ -213,26 +213,9 @@
 
         <div class="card">
           <h3>📚 Materiales del Curso</h3>
-          <div class="material-buttons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;">
-            <button class="download-btn" style="padding: 10px 12px; background: #8b5cf6; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;" onclick="downloadFile('materials/tarjetas/nombres_personajes.pdf', 'Tarjetas_de_Nombres.pdf')">
-              👤 Tarjetas de Nombres
-            </button>
-            <button class="download-btn" style="padding: 10px 12px; background: #f59e0b; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;" onclick="downloadFile('materials/menus/menues_tapas.pdf', 'Menus_de_Tapas.pdf')">
-              🍽️ Menús de Tapas
-            </button>
-            <button class="download-btn" style="padding: 10px 12px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;" onclick="downloadFile('materials/vocabulario/flashcards_sesion1-6.pdf', 'Flashcards_Vocabulario.pdf')">
-              🗂️ Flashcards Vocabulario
-            </button>
-            <button class="download-btn" style="padding: 10px 12px; background: #f97316; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;" onclick="downloadFile('materials/plantillas/ejercicios_basicos.pdf', 'Ejercicios_Basicos.pdf')">
-              📝 Ejercicios Básicos
-            </button>
-            <button class="download-btn" style="padding: 10px 12px; background: #06b6d4; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;" onclick="downloadFile('materials/calendarios/calendario_horarios.pdf', 'Calendarios_y_Horarios.pdf')">
-              📅 Calendarios y Horarios
-            </button>
-            <button class="download-btn" style="padding: 10px 12px; background: #059669; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;" onclick="window.open('attendance-pdf.html', '_blank')">
-              📋 Generador de Asistencia
-            </button>
-          </div>
+          <p class="hint">Pulsa un material para ver sus opciones de descarga y visualización.</p>
+          <div id="chips-materials" style="display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0;"></div>
+          <ul class="list" id="lista-materials"></ul>
         </div>
 
         <div class="card">
@@ -564,6 +547,78 @@
         openDocument(path);
       }
     });
+
+    // ===== MATERIALES DEL CURSO =====
+    const MATERIALES_CURSO = [
+      { t: '📋 Guía del curso', href: 'materials/guia-curso.pdf', type: 'pdf' },
+      { t: '🗂️ Vocabulario esencial', href: 'materials/vocabulario.pdf', type: 'pdf' },
+      { t: '💬 Frases útiles', href: 'materials/frases-utiles.pdf', type: 'pdf' },
+      { t: '⚡ Verbos irregulares', href: 'materials/verbos.pdf', type: 'pdf' },
+      { t: '📝 Ejercicios prácticos', href: 'materials/ejercicios-practicos.pdf', type: 'pdf' },
+      { t: '👤 Tarjetas de nombres', href: 'materials/tarjetas/nombres_personajes.pdf', type: 'pdf' },
+      { t: '🍽️ Menús de tapas', href: 'materials/menus/menues_tapas.pdf', type: 'pdf' },
+      { t: '📚 Flashcards vocabulario', href: 'materials/vocabulario/flashcards_sesion1-6.pdf', type: 'pdf' },
+      { t: '📋 Ejercicios básicos', href: 'materials/plantillas/ejercicios_basicos.pdf', type: 'pdf' },
+      { t: '📅 Calendarios y horarios', href: 'materials/calendarios/calendario_horarios.pdf', type: 'pdf' }
+    ];
+
+    const MATERIALES_AVAILABLE = [
+      'guia-curso.pdf',
+      'vocabulario.pdf',
+      'frases-utiles.pdf',
+      'verbos.pdf',
+      'ejercicios-practicos.pdf',
+      'nombres_personajes.pdf',
+      'menues_tapas.pdf',
+      'flashcards_sesion1-6.pdf',
+      'ejercicios_basicos.pdf',
+      'calendario_horarios.pdf'
+    ];
+
+    function renderMaterialesCurso(){
+      const chips = document.getElementById('chips-materials');
+      const list = document.getElementById('lista-materials');
+      chips.innerHTML = ''; list.innerHTML = '';
+
+      MATERIALES_CURSO.forEach((m) => {
+        const span = document.createElement('span');
+        span.className = 'chip';
+        span.textContent = m.t;
+
+        span.onclick = () => {
+          document.querySelectorAll('#chips-materials .chip').forEach(c=>c.classList.remove('active'));
+          span.classList.add('active');
+
+          const fileName = m.href.split('/').pop();
+          const fileExists = MATERIALES_AVAILABLE.includes(fileName);
+
+          if (fileExists) {
+            const isPDF = m.type === 'pdf' || m.href.endsWith('.pdf');
+            const fileIcon = isPDF ? '📄' : '📝';
+            const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
+
+            list.innerHTML = `
+              <li><button class="btn primary" ${dataAttr}="${m.href}">${fileIcon} Ver en navegador (${m.t})</button></li>
+              <li><button class="btn" onclick="window.open('${m.href}', '_blank')">🔗 Abrir en nueva pestaña</button></li>
+              <li><button class="btn" onclick="downloadFile('${m.href}', '${m.t.replace(/[^a-zA-Z0-9]/g, '_')}.pdf')">💾 Descargar directamente</button></li>
+              <li><button class="btn" onclick="copyPDFLink('${m.href}')">📋 Copiar enlace</button></li>
+            `;
+          } else {
+            list.innerHTML = `
+              <li class="muted">📝 ${m.t}</li>
+              <li class="muted" style="font-size: 0.9rem; margin-top: 10px;">
+                ⚠️ Este material estará disponible próximamente.<br>
+                Los materiales del curso se irán subiendo según avance el programa.
+              </li>
+            `;
+          }
+        };
+        chips.appendChild(span);
+      });
+
+      if(MATERIALES_CURSO[0]) setTimeout(()=> chips.querySelector('.chip')?.click(), 0);
+      else list.innerHTML = '<li class="muted">No hay materiales subidos todavía.</li>';
+    }
 
     // ===== GUÍAS POR SESIÓN =====
     const GUIAS_S1 = [
@@ -996,6 +1051,7 @@ Respuestas útiles:
     updateCurrentDate();
     initQRSystem();
     renderGuiasS1();
+    renderMaterialesCurso();
   </script>
 </body>
 </html>
