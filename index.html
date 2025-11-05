@@ -598,6 +598,7 @@
               <li><button class="btn primary" ${dataAttr}="${s.href}">${fileIcon} Ver en navegador (${s.t})</button></li>
               <li><button class="btn" onclick="window.open('${s.href}', '_blank')">🔗 Abrir en nueva pestaña</button></li>
               <li><button class="btn" onclick="downloadFile('${s.href}', '${s.t}.pdf')">💾 Descargar directamente</button></li>
+              <li><button class="btn" onclick="copyPDFLink('${s.href}')">📋 Copiar enlace</button></li>
             `;
           } else {
             list.innerHTML = `
@@ -617,12 +618,148 @@
     }
 
     function downloadFile(url, filename) {
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      // Para archivos PDF, intentar múltiples métodos
+      if (url.endsWith('.pdf')) {
+        // Método 1: Abrir en nueva pestaña (método más compatible)
+        const newWindow = window.open(url, '_blank');
+
+        // Método 2: Si el popup es bloqueado, intentar descarga directa
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+          const a = document.createElement('a');
+          a.href = url;
+          a.target = '_blank';
+          a.download = filename;
+
+          // Añadir al DOM y hacer click
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+          // Mostrar mensaje de ayuda al usuario
+          showPDFHelpMessage();
+        }
+      } else {
+        // Para archivos no PDF, usar método normal
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    }
+
+    function showPDFHelpMessage() {
+      // Crear mensaje temporal para ayudar al usuario
+      const message = document.createElement('div');
+      message.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #1e40af;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 1000;
+        max-width: 300px;
+        font-size: 14px;
+      `;
+      message.innerHTML = `
+        <strong>💡 Ayuda:</strong><br>
+        Si el PDF no se abre, revisa las pestañas emergentes o la barra de descargas.
+        <button onclick="this.parentElement.remove()" style="
+          background: white;
+          color: #1e40af;
+          border: none;
+          padding: 4px 8px;
+          border-radius: 4px;
+          margin-left: 10px;
+          cursor: pointer;
+        ">×</button>
+      `;
+
+      document.body.appendChild(message);
+
+      // Auto-eliminar después de 8 segundos
+      setTimeout(() => {
+        if (message.parentElement) {
+          message.remove();
+        }
+      }, 8000);
+    }
+
+    function copyPDFLink(url) {
+      // Obtener la URL completa del servidor actual
+      const fullUrl = window.location.origin + '/' + url;
+
+      // Copiar al portapapeles
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(fullUrl).then(() => {
+          showCopySuccessMessage();
+        }).catch(() => {
+          fallbackCopyTextToClipboard(fullUrl);
+        });
+      } else {
+        fallbackCopyTextToClipboard(fullUrl);
+      }
+    }
+
+    function fallbackCopyTextToClipboard(text) {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
+        showCopySuccessMessage();
+      } catch (err) {
+        console.error('Error al copiar el texto: ', err);
+      }
+
+      document.body.removeChild(textArea);
+    }
+
+    function showCopySuccessMessage() {
+      const message = document.createElement('div');
+      message.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #059669;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 1000;
+        font-size: 14px;
+      `;
+      message.innerHTML = `
+        <strong>✅ ¡Enlace copiado!</strong><br>
+        Ya puedes compartir el PDF.
+        <button onclick="this.parentElement.remove()" style="
+          background: white;
+          color: #059669;
+          border: none;
+          padding: 4px 8px;
+          border-radius: 4px;
+          margin-left: 10px;
+          cursor: pointer;
+        ">×</button>
+      `;
+
+      document.body.appendChild(message);
+
+      setTimeout(() => {
+        if (message.parentElement) {
+          message.remove();
+        }
+      }, 4000);
     }
 
     // Sistema de Asistencia QR
