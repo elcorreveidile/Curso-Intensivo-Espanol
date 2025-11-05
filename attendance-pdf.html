@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Hoja de Asistencia - Producción Oral B2.1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #1e40af;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: #374151;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #1e40af;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .preview {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            background: #f9fafb;
+        }
+
+        .preview h3 {
+            color: #374151;
+            margin-bottom: 15px;
+        }
+
+        .students-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .student-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .student-name {
+            flex: 1;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .attendance-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .present {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .absent {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="images/Logo-CLM-V1.jpg" alt="Logo CLM" class="logo">
+            <h1>Generador de Hoja de Asistencia</h1>
+            <p class="subtitle">Producción Oral B2.1 - Universidad de Granada</p>
+        </div>
+
+        <div class="controls">
+            <div class="form-group">
+                <label for="session">Sesión</label>
+                <select id="session">
+                    <option value="S1">S1 - Introducción</option>
+                    <option value="S2">S2 - Conversación básica</option>
+                    <option value="S3">S3 - Expresiones idiomáticas</option>
+                    <option value="S4">S4 - Debates</option>
+                    <option value="S5">S5 - Presentaciones</option>
+                    <option value="S6">S6 - Exámenes finales</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Fecha</label>
+                <input type="date" id="date" value="">
+            </div>
+
+            <div class="form-group">
+                <label for="classTime">Hora de inicio</label>
+                <input type="time" id="classTime" value="12:30">
+            </div>
+
+            <div class="form-group">
+                <label for="classroom">Aula</label>
+                <input type="text" id="classroom" value="Aula 2.1" placeholder="Número de aula">
+            </div>
+        </div>
+
+        <div class="buttons-container">
+            <button class="btn btn-primary" onclick="generatePDF()">
+                📄 Generar PDF en blanco
+            </button>
+            <button class="btn btn-success" onclick="generatePDFWithAttendance()">
+                📊 Generar PDF con asistencia registrada
+            </button>
+            <button class="btn btn-secondary" onclick="loadAttendanceData()">
+                🔄 Cargar datos de asistencia
+            </button>
+        </div>
+
+        <div class="preview" id="preview" style="display: none;">
+            <h3>Vista previa de asistencia del día</h3>
+            <div class="students-list" id="studentsList">
+                <!-- Students will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lista de estudiantes autorizados con ID y variantes
+        const AUTHORIZED_STUDENTS = [
+            {
+                id: '1523',
+                fullName: 'BAI, MIAORUI',
+                variants: ['Miaorui Bai', 'Miaorui', 'M. Bai', 'Bai']
+            },
+            {
+                id: '2847',
+                fullName: 'CHAFFIN, NATHANIEL HAYEN',
+                variants: ['Nathaniel Chaffin', 'Nathaniel', 'N. Chaffin', 'Nat', 'Chaffin']
+            },
+            {
+                id: '3915',
+                fullName: 'DIAZ, ANGELA CLARICE',
+                variants: ['Angela Diaz', 'Angela', 'A. Diaz', 'Diaz']
+            },
+            {
+                id: '4602',
+                fullName: 'KEMPF, RYAN ELIZABETH',
+                variants: ['Ryan Kempf', 'Ryan', 'R. Kempf', 'Kempf']
+            },
+            {
+                id: '5789',
+                fullName: 'LANTER, WESLEY MITCHELL',
+                variants: ['Wesley Lanter', 'Wesley', 'W. Lanter', 'Lanter']
+            },
+            {
+                id: '6134',
+                fullName: 'MANCIPE, GABRIEL FELIPE',
+                variants: ['Gabriel Mancipe', 'Gabriel', 'G. Mancipe', 'Mancipe']
+            },
+            {
+                id: '7256',
+                fullName: 'MIRANDA, MARISOL ESPERANZA',
+                variants: ['Marisol Miranda', 'Marisol', 'M. Miranda', 'Miranda']
+            },
+            {
+                id: '8901',
+                fullName: 'MOREY, GABRIELLE KAI',
+                variants: ['Gabrielle Morey', 'Gabrielle', 'G. Morey', 'Morey', 'Kai']
+            },
+            {
+                id: '9467',
+                fullName: 'PORTZLINE, EVAN GRACE',
+                variants: ['Evan Portzline', 'Evan', 'E. Portzline', 'Portzline']
+            },
+            {
+                id: '1089',
+                fullName: 'SALAZAR, NATALIE',
+                variants: ['Natalie Salazar', 'Natalie', 'N. Salazar', 'Salazar']
+            }
+        ];
+
+        let attendanceRecords = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set today's date by default
+            document.getElementById('date').value = new Date().toISOString().split('T')[0];
+            loadAttendanceData();
+        });
+
+        function loadAttendanceData() {
+            // Load attendance records from localStorage
+            const stored = localStorage.getItem('attendanceRecords');
+            if (stored) {
+                try {
+                    attendanceRecords = JSON.parse(stored);
+                    displayPreview();
+                } catch (err) {
+                    console.error('Error loading attendance data:', err);
+                    attendanceRecords = [];
+                }
+            }
+        }
+
+        function displayPreview() {
+            const selectedDate = document.getElementById('date').value;
+            const selectedSession = document.getElementById('session').value;
+
+            // Filter records for selected date and session
+            const dayRecords = attendanceRecords.filter(record => {
+                const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
+                return recordDate === selectedDate && record.session === selectedSession;
+            });
+
+            const studentsList = document.getElementById('studentsList');
+            const preview = document.getElementById('preview');
+
+            studentsList.innerHTML = '';
+
+            AUTHORIZED_STUDENTS.forEach(student => {
+                const attendanceRecord = dayRecords.find(record =>
+                    record.studentId === student.id
+                );
+
+                const studentDiv = document.createElement('div');
+                studentDiv.className = 'student-item';
+
+                const statusClass = attendanceRecord ? 'present' : 'pending';
+                const statusText = attendanceRecord ? 'Presente' : 'Pendiente';
+
+                const displayName = attendanceRecord ? attendanceRecord.studentName : student.fullName;
+                studentDiv.innerHTML = `
+                    <div class="student-name">${displayName} (${student.id})</div>
+                    <div class="attendance-status ${statusClass}">${statusText}</div>
+                `;
+
+                studentsList.appendChild(studentDiv);
+            });
+
+            preview.style.display = 'block';
+        }
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('l', 'mm', 'a4'); // landscape orientation
+
+            const session = document.getElementById('session').value;
+            const date = document.getElementById('date').value;
+            const classTime = document.getElementById('classTime').value;
+            const classroom = document.getElementById('classroom').value;
+
+            // Format date for display
+            const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Header
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.text('UNIVERSIDAD DE GRANADA', doc.internal.pageSize.width / 2, 20, { align: 'center' });
+            doc.text('CENTRO DE LENGUAS MODERNAS', doc.internal.pageSize.width / 2, 27, { align: 'center' });
+
+            doc.setFontSize(14);
+            doc.text('Producción Oral B2.1', doc.internal.pageSize.width / 2, 35, { align: 'center' });
+
+            // Course info
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Hoja de Asistencia - ${session}`, doc.internal.pageSize.width / 2, 45, { align: 'center' });
+            doc.text(`Fecha: ${formattedDate}`, doc.internal.pageSize.width / 2, 52, { align: 'center' });
+            doc.text(`Hora: ${classTime} - Aula: ${classroom}`, doc.internal.pageSize.width / 2, 59, { align: 'center' });
+
+            // Table headers
+            const headers = ['Nº', 'Nombre del Estudiante', 'Firma', 'Hora de llegada', 'Observaciones'];
+
+            // Table data (empty students for blank sheet)
+            const students = AUTHORIZED_STUDENTS.map((student, index) => [
+                (index + 1).toString(),
+                `${student.fullName} (${student.id})`,
+                '',  // Signature space
+                '',  // Time space
+                ''   // Observations space
+            ]);
+
+            // Add additional empty rows
+            for (let i = 0; i < 5; i++) {
+                students.push(['', '', '', '', '']);
+            }
+
+            // Generate table
+            doc.autoTable({
+                head: [headers],
+                body: students,
+                startY: 70,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [30, 64, 175],
+                    textColor: 255,
+                    fontStyle: 'bold'
+                },
+                columnStyles: {
+                    0: { cellWidth: 20 },  // Nº
+                    1: { cellWidth: 80 },  // Name
+                    2: { cellWidth: 40 },  // Signature
+                    3: { cellWidth: 30 },  // Time
+                    4: { cellWidth: 50 }   // Observations
+                },
+                styles: {
+                    fontSize: 10,
+                    cellPadding: 3
+                }
+            });
+
+            // Footer
+            const finalY = doc.lastAutoTable.finalY + 15;
+            doc.setFontSize(10);
+            doc.text('Profesor/a: _________________________     Firma: _________________________', 20, finalY);
+            doc.text(`Generado: ${new Date().toLocaleString('es-ES')}`, doc.internal.pageSize.width - 20, finalY, { align: 'right' });
+
+            // Save PDF
+            const fileName = `asistencia_${session}_${date.replace(/-/g, '_')}.pdf`;
+            doc.save(fileName);
+        }
+
+        function generatePDFWithAttendance() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('l', 'mm', 'a4');
+
+            const session = document.getElementById('session').value;
+            const date = document.getElementById('date').value;
+            const classTime = document.getElementById('classTime').value;
+            const classroom = document.getElementById('classroom').value;
+
+            // Format date for display
+            const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Filter records for selected date and session
+            const dayRecords = attendanceRecords.filter(record => {
+                const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
+                return recordDate === date && record.session === session;
+            });
+
+            // Header (same as blank PDF)
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.text('UNIVERSIDAD DE GRANADA', doc.internal.pageSize.width / 2, 20, { align: 'center' });
+            doc.text('CENTRO DE LENGUAS MODERNAS', doc.internal.pageSize.width / 2, 27, { align: 'center' });
+
+            doc.setFontSize(14);
+            doc.text('Producción Oral B2.1', doc.internal.pageSize.width / 2, 35, { align: 'center' });
+
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Hoja de Asistencia - ${session}`, doc.internal.pageSize.width / 2, 45, { align: 'center' });
+            doc.text(`Fecha: ${formattedDate}`, doc.internal.pageSize.width / 2, 52, { align: 'center' });
+            doc.text(`Hora: ${classTime} - Aula: ${classroom}`, doc.internal.pageSize.width / 2, 59, { align: 'center' });
+
+            // Attendance statistics
+            const presentCount = dayRecords.length;
+            const totalCount = AUTHORIZED_STUDENTS.length;
+            const attendanceRate = Math.round((presentCount / totalCount) * 100);
+
+            doc.setFontSize(11);
+            doc.text(`Asistencia: ${presentCount}/${totalCount} estudiantes (${attendanceRate}%)`, doc.internal.pageSize.width / 2, 66, { align: 'center' });
+
+            // Table headers
+            const headers = ['Nº', 'Nombre del Estudiante', 'Asistencia', 'Hora de llegada', 'Observaciones'];
+
+            // Table data with attendance information
+            const students = AUTHORIZED_STUDENTS.map((student, index) => {
+                const attendanceRecord = dayRecords.find(record => record.studentId === student.id);
+
+                return [
+                    (index + 1).toString(),
+                    `${student.fullName} (${student.id})`,
+                    attendanceRecord ? `✓ ${attendanceRecord.studentName}` : '✗ Ausente',
+                    attendanceRecord ? new Date(attendanceRecord.timestamp).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : '-',
+                    attendanceRecord && attendanceRecord.ipAddress ? `IP: ${attendanceRecord.ipAddress}` : ''
+                ];
+            });
+
+            // Add summary rows
+            students.push([
+                '',
+                'RESUMEN',
+                `${presentCount} presentes`,
+                `${totalCount - presentCount} ausentes`,
+                `${attendanceRate}% asistencia`
+            ]);
+
+            // Generate table
+            doc.autoTable({
+                head: [headers],
+                body: students,
+                startY: 75,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [30, 64, 175],
+                    textColor: 255,
+                    fontStyle: 'bold'
+                },
+                columnStyles: {
+                    0: { cellWidth: 20 },  // Nº
+                    1: { cellWidth: 70 },  // Name
+                    2: { cellWidth: 35 },  // Attendance
+                    3: { cellWidth: 30 },  // Time
+                    4: { cellWidth: 45 }   // Observations
+                },
+                styles: {
+                    fontSize: 9,
+                    cellPadding: 2
+                },
+                didParseCell: function(data) {
+                    // Color code attendance status
+                    if (data.column.index === 2 && data.row.index < AUTHORIZED_STUDENTS.length) {
+                        if (data.cell.raw.includes('Presente')) {
+                            data.cell.styles.fillColor = [209, 250, 229]; // Green
+                        } else if (data.cell.raw.includes('Ausente')) {
+                            data.cell.styles.fillColor = [254, 226, 226]; // Red
+                        }
+                    }
+                }
+            });
+
+            // Footer
+            const finalY = doc.lastAutoTable.finalY + 15;
+            doc.setFontSize(10);
+            doc.text('Profesor/a: _________________________     Firma: _________________________', 20, finalY);
+            doc.text(`Generado: ${new Date().toLocaleString('es-ES')} | Datos actualizados en tiempo real`, doc.internal.pageSize.width - 20, finalY, { align: 'right' });
+
+            // Save PDF
+            const fileName = `asistencia_con_datos_${session}_${date.replace(/-/g, '_')}.pdf`;
+            doc.save(fileName);
+        }
+
+        // Update preview when controls change
+        document.getElementById('date').addEventListener('change', displayPreview);
+        document.getElementById('session').addEventListener('change', displayPreview);
+    </script>
+</body>
+</html>

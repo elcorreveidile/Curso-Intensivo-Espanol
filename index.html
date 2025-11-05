@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Curso Intensivo de Español — Nivel 3 CLM (A1.2-A2.1)</title>
+  <style>
+    :root{
+      --fg:#1f2937; --bg:#ffffff; --border:#e5e7eb; --brand:#059669; --card:#ffffff;
+      --s1:#fef3c7; --s2:#dbeafe; --s3:#dcfce7; --s4:#fae8ff; --s5:#e0f2fe;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:1rem}
+    :target{scroll-margin-top:72px}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--border)}
+    .nav .inner{display:flex;gap:.5rem;align-items:center}
+    .brand{font-weight:800;display:flex;align-items:center;gap:.75rem}
+    .brand .logo{height:40px;width:auto;object-fit:contain}
+    .spacer{flex:1}
+    .links{display:flex;gap:.5rem;align-items:center}
+    .links a{display:inline-block;padding:.5rem .75rem;border:1px solid var(--border);border-radius:9999px;background:#fff;white-space:nowrap}
+    .hamb{display:none;appearance:none;border:1px solid var(--border);background:#fff;border-radius:.75rem;padding:.5rem .6rem}
+    .mobile-panel{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 6px 20px rgba(0,0,0,.06)}
+    .mobile-panel .row{display:flex;overflow-x:auto;gap:.5rem;padding:.75rem 1rem}
+    .mobile-panel a{display:inline-block;padding:.5rem .75rem;border:1px solid var(--border);border-radius:9999px;background:#fff;white-space:nowrap}
+
+    /* Layout */
+    .section{padding:3rem 0;position:relative;overflow:hidden}
+    .section > .container{position:relative;z-index:1}
+    /* Fondo con imagen opcional (velo 0.35) */
+    .section::before{content:"";position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:.35;z-index:0}
+    #s1{background:var(--s1)} #s2{background:var(--s2)} #s3{background:var(--s3)} #s4{background:var(--s4)} #s5{background:var(--s5)}
+    /* Si subes imágenes a materials/img/s1.jpg...s5.jpg, se verán sin tocar el HTML */
+    #s1::before{background-image:url("materials/img/s1.jpg?v=1")}
+    #s2::before{background-image:url("materials/img/s2.jpg?v=1")}
+    #s3::before{background-image:url("materials/img/s3.jpg?v=1")}
+    #s4::before{background-image:url("materials/img/s4.jpg?v=1")}
+    #s5::before{background-image:url("materials/img/s5.jpg?v=1")}
+
+    h1{font-size:clamp(1.8rem,2.5vw,3rem);margin:.3rem 0}
+    h2{font-size:clamp(1.5rem,2vw,2.2rem);margin:0 0 .5rem 0}
+    h3{margin:.5rem 0}
+    .muted{color:#374151;font-size:.95rem}
+    .btn{display:inline-block;padding:.6rem 1rem;border-radius:9999px;border:1px solid var(--border);background:#fff;cursor:pointer}
+    .btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+    .list{padding-left:1.1rem}
+    .list li{margin:.35rem 0}
+    .footer{border-top:1px solid var(--border);padding:1rem 0;color:#6b7280}
+    .card{background:rgba(255,255,255,.92);border:1px solid var(--border);border-radius:1rem;padding:1rem}
+    @media(max-width:899px){.card{background:rgba(255,255,255,.96)}}
+    .grid{display:grid;gap:1rem}
+    @media(min-width:900px){.grid-3{grid-template-columns: 1fr 1fr 1fr;}}
+    .chip{display:inline-block;padding:.25rem .6rem;border:1px solid var(--border);border-radius:9999px;margin:.15rem .25rem;background:#fff;cursor:pointer}
+    .chip.active{background:#059669;color:#fff;border-color:#059669}
+    .hint{font-size:.9rem;color:#334155;margin:.25rem 0 .5rem}
+
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid var(--border);padding:.6rem;text-align:left}
+    th{background:#f8fafc}
+
+    @media (max-width:899px){.links{display:none}.hamb{display:inline-block}.container{padding:.75rem 1rem}.section{padding:2rem 0}}
+    .nav.open .mobile-panel{display:block}
+
+    /* Visor PDF */
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:50}
+    .overlay.show{display:block}
+    .viewer{position:fixed;inset:5% 3%;background:#111827;border-radius:1rem;box-shadow:0 25px 50px rgba(0,0,0,.35);display:none;flex-direction:column;z-index:60}
+    .viewer .top{display:flex;align-items:center;gap:.5rem;padding:.6rem .75rem;background:#0f172a;color:#fff;border-top-left-radius:1rem;border-top-right-radius:1rem;flex-wrap:wrap}
+    .viewer .top .spacer{flex:1}
+    .viewer .btn{border-color:#334155;background:#fff;color:#0f172a;font-weight:600;padding:.45rem .8rem;border-radius:.65rem;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
+    .viewer iframe{flex:1;border:0;border-bottom-left-radius:1rem;border-bottom-right-radius:1rem;background:#fff}
+    .viewer .content{flex:1;border-bottom-left-radius:1rem;border-bottom-right-radius:1rem;background:#fff;padding:2rem;overflow-y:auto;font-family:Georgia, serif;line-height:1.6;color:#1f2937}
+    .viewer .content pre{white-space:pre-wrap;font-family:inherit;margin:0}
+    .viewer .content h1{font-size:1.8rem;color:#111827;margin-bottom:1rem;border-bottom:2px solid #e5e7eb;padding-bottom:0.5rem}
+    .viewer .content h2{font-size:1.4rem;color:#374151;margin-top:1.5rem;margin-bottom:0.75rem}
+    .viewer .content h3{font-size:1.2rem;color:#4b5563;margin-top:1rem;margin-bottom:0.5rem}
+    .viewer .content ul{margin:0.5rem 0;padding-left:1.5rem}
+    .viewer .content li{margin:0.3rem 0}
+    .viewer .content strong{color:#111827}
+    @media (max-width:640px){ .viewer{inset:4% 2%} .viewer .btn{flex:1;justify-content:center;min-width:120px} #fileName{flex-basis:100%;font-size:1rem} .viewer .content{padding:1rem} }
+
+    /* Estilos especiales para este curso */
+    .highlight-box {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 2px solid #f59e0b;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+    }
+    .highlight-box h3 {
+      color: #92400e;
+      margin-top: 0;
+    }
+    .schedule-card {
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      border: 2px solid #3b82f6;
+      border-radius: 1rem;
+      padding: 1.2rem;
+      margin: 0.5rem 0;
+    }
+    .time-badge {
+      display: inline-block;
+      background: #059669;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin: 0.2rem 0.2rem 0.2rem 0;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <!-- NAV -->
+  <div class="nav" id="nav">
+    <div class="container inner">
+      <div class="brand">
+        <img src="images/Logo-CLM-V1.jpg" alt="Logo CLM" class="logo">
+        🇪🇸 Curso Intensivo de Español — Nivel 3 CLM
+      </div>
+      <div class="spacer"></div>
+      <div class="links" aria-label="Menú principal">
+        <a href="#s1">Guía</a>
+        <a href="#s2">Competencias</a>
+        <a href="#s3">Temario</a>
+        <a href="#s4">Proyectos</a>
+        <a href="#s5">Evaluación</a>
+        <a href="#descargas">Descargas</a>
+        <a href="#foro">Foro</a>
+        <a href="#taller">Taller</a>
+      </div>
+      <button class="hamb" id="hamb" aria-label="Abrir menú">☰</button>
+    </div>
+    <div class="mobile-panel" id="mobilePanel">
+      <div class="row">
+        <a href="#s1">Guía</a>
+        <a href="#s2">Competencias</a>
+        <a href="#s3">Temario</a>
+        <a href="#s4">Proyectos</a>
+        <a href="#s5">Evaluación</a>
+        <a href="#descargas">Descargas</a>
+        <a href="#foro">Foro</a>
+        <a href="#taller">Taller</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 1: GUÍA -->
+  <section class="section" id="s1">
+    <div class="container">
+      <div id="current-date" style="text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;"></div>
+      <h2>📘 Guía del curso</h2>
+
+      <div class="highlight-box">
+        <h3>🌍 ¡Bienvenidos al Curso Intensivo de Español!</h3>
+        <p><strong>Nivel 3 CLM (A1.2-A2.1)</strong> - Un curso diseñado especialmente para estudiantes americanos y asiáticos que quieren mejorar rápidamente su español en un ambiente inmersivo y dinámico.</p>
+        <p><strong>📅 Fechas:</strong> 6 al 27 de noviembre de 2024</p>
+        <p><strong>👥 Grupo reducido:</strong> 9-10 estudiantes para atención personalizada</p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Datos clave</h3>
+          <div id="qr-attendance" style="text-align: center; margin: 15px 0;">
+            <h4 style="color: var(--primary-color); margin-bottom: 10px;">📱 Asistencia del Día</h4>
+            <div id="qr-code-container" style="background: white; padding: 15px; border-radius: 8px; display: inline-block; border: 2px solid var(--border-color);">
+              <div id="qr-code"></div>
+            </div>
+            <div id="qr-timer" style="margin-top: 10px; font-weight: 600; color: var(--secondary-color);"></div>
+            <p style="font-size: 0.9rem; color: var(--muted-color); margin-top: 10px;">
+              Escanear con el móvil para registrar asistencia
+            </p>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px;">
+              <button id="generate-new-qr" style="padding: 8px 16px; background: var(--secondary-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">
+                Generar Nuevo Código
+              </button>
+              <button id="open-pdf-generator" style="padding: 8px 16px; background: #059669; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;" onclick="window.open('attendance-pdf.html', '_blank')">
+                📄 Generar Hoja de Asistencia
+              </button>
+            </div>
+          </div>
+          <ul class="list">
+            <li>2024/2025</li>
+            <li><strong>6 – 27 noviembre 2024</strong></li>
+            <li>Curso intensivo · 40 horas</li>
+            <li><strong>Profesor:</strong> Javier Benítez Láinez</li>
+            <li><strong>Aula:</strong> A2</li>
+            <li><strong>Nivel:</strong> 3 CLM (A1.2-A2.1)</li>
+            <li><strong>Requisitos:</strong> Nivel básico de español</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>📅 Horario del curso</h3>
+          <div class="schedule-card">
+            <h4>Lunes y Miércoles</h4>
+            <div class="time-badge">8:30 - 10:30</div>
+            <p>2 horas de clase intensiva</p>
+          </div>
+          <div class="schedule-card">
+            <h4>Jueves</h4>
+            <div class="time-badge">8:30 - 12:30</div>
+            <p>4 horas con sesión práctica y cultural</p>
+          </div>
+          <h3 style="margin-top:.75rem">Objetivo general</h3>
+          <p>Desarrollar las competencias comunicativas básicas en español para alcanzar un nivel A2.1, enfocándose en la comunicación práctica para situaciones cotidianas y académicas.</p>
+        </div>
+
+        <div class="card">
+          <h3>Guías de la sesión</h3>
+          <p class="hint">Pulsa la sesión para abrir su guía (PDF).</p>
+          <div id="chips-s1"></div>
+          <ul class="list" id="lista-s1"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: COMPETENCIAS -->
+  <section class="section" id="s2">
+    <div class="container">
+      <h2>🎯 Competencias del Nivel A1.2-A2.1</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>📖 Comprensión</h3>
+          <ul class="list">
+            <li><strong>Comprensión auditiva:</strong> Instrucciones simples, preguntas básicas y conversaciones cotidianas.</li>
+            <li><strong>Comprensión lectora:</strong> Textos cortos, mensajes, emails y documentos sencillos.</li>
+            <li><strong>Vocabulario básico:</strong> 800-1000 palabras esenciales para la vida diaria.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>💬 Interacción y expresión</h3>
+          <ul class="list">
+            <li><strong>Conversación básica:</strong> Presentarse, hablar de gustos, rutina diaria y planes.</li>
+            <li><strong>Situaciones prácticas:</strong> En restaurante, tienda, transporte, asking for directions.</li>
+            <li><strong>Descripciones simples:</strong> Personas, lugares, objetos y actividades cotidianas.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>✍️ Producción escrita</h3>
+          <ul class="list">
+            <li><strong>Redacciones básicas:</strong> Emails, mensajes, postales y notas cortas.</li>
+            <li><strong>Formularios sencillos:</strong> Información personal, datos básicos.</li>
+            <li><strong>Gramática esencial:</strong> Presente, pasado simple, futuro próximo y estructuras básicas.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3: TEMARIO -->
+  <section class="section" id="s3">
+    <div class="container">
+      <h2>🗂️ Temario del curso</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Módulo 1: Comunicación básica</h3>
+          <ul class="list">
+            <li>Saludos y presentaciones formales e informales</li>
+            <li>Alfabeto y pronunciación española</li>
+            <li>Números, fechas y horas</li>
+            <li>Nacionalidades y países de habla hispana</li>
+            <li>Familia y relaciones personales</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Módulo 2: Vida cotidiana</h3>
+          <ul class="list">
+            <li>Rutina diaria y actividades</li>
+            <li>Comida y restaurantes</li>
+            <li>Compras y tiendas</li>
+            <li>Transporte y direcciones</li>
+            <li>Tiempo libre y hobbies</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Módulo 3: Situaciones prácticas</h3>
+          <ul class="list">
+            <li>En el hotel y aeropuerto</li>
+            <li>Visitas médicas y farmacia</li>
+            <li>Bancos y dinero</li>
+            <li>Teléfono y comunicación digital</li>
+            <li>Cultura y costumbres españolas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 4: PROYECTOS -->
+  <section class="section" id="s4">
+    <div class="container">
+      <h2>🧭 Proyectos y actividades</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>🎭 Role-playing diario</h3>
+          <p>Escenificaciones de situaciones reales: pedir café, comprar billetes, pedir direcciones, hacer reservas.</p>
+          <ul class="list">
+            <li>Restaurante español</li>
+            <li>Estación de tren</li>
+            <li>Tienda de ropa</li>
+            <li>Oficina de turismo</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>📸 Proyecto fotográfico</h3>
+          <p>"Mi día en Granada" - Documentación fotográfica con descripciones en español de lugares y experiencias.</p>
+          <ul class="list">
+            <li>Visitas a lugares emblemáticos</li>
+            <li>Descripción de fotos en español</li>
+            <li>Presentación oral del proyecto</li>
+            <li>Pequeña guía turística personal</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🍳 Taller de cocina española</h3>
+          <p>Actividad práctica para aprender vocabulario de cocina y seguir instrucciones en español.</p>
+          <ul class="list">
+            <li>Tortilla española</li>
+            <li>Gazpacho andaluz</li>
+            <li>Recetas bilingües</li>
+            <li>Video tutorial explicando el proceso</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 5: EVALUACIÓN -->
+  <section class="section" id="s5">
+    <div class="container">
+      <h2>📊 Evaluación</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Asistencia y participación</h3>
+          <p>Asistencia mínima del 85% para ser evaluado.</p>
+          <h3 style="margin-top:.5rem">Sistema español</h3>
+          <p>Sobresaliente (9–10), Notable (7–8.99), Aprobado (5–6.99), Suspenso (0–4.99).</p>
+        </div>
+        <div class="card">
+          <h3>60% · Evaluación continua</h3>
+          <ul class="list">
+            <li>Participación activa en clase (20%)</li>
+            <li>Tareas diarias y homework (15%)</li>
+            <li>Proyecto fotográfico (15%)</li>
+            <li>Taller de cocina (10%)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>40% · Pruebas finales</h3>
+          <ul class="list">
+            <li>Examen oral: conversación básica (20%)</li>
+            <li>Examen escrito: comprensión y expresión (20%)</li>
+            <li>Evaluación práctica en situaciones reales</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESCARGAS -->
+  <section class="section" id="descargas">
+    <div class="container">
+      <h2>📥 Descargas</h2>
+      <div class="card">
+        <table>
+          <thead><tr><th>Documento</th><th>Acción</th></tr></thead>
+          <tbody>
+            <tr><td>Guía del curso (PDF)</td><td><button class="btn" data-pdf="materials/guia-curso.pdf">Abrir/descargar</button></td></tr>
+            <tr><td>Vocabulario esencial (PDF)</td><td><button class="btn" data-pdf="materials/vocabulario.pdf">Abrir/descargar</button></td></tr>
+            <tr><td>Frases útiles (PDF)</td><td><button class="btn" data-pdf="materials/frases-utiles.pdf">Abrir/descargar</button></td></tr>
+            <tr><td>Verbos irregulares (PDF)</td><td><button class="btn" data-pdf="materials/verbos.pdf">Abrir/descargar</button></td></tr>
+          </tbody>
+        </table>
+        <p class="muted" style="margin-top:.4rem">Sube tus PDF a <code>materials/</code> con estos nombres o cámbialos aquí.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORO -->
+  <section class="section" id="foro">
+    <div class="container">
+      <h2>💬 Foro</h2>
+      <div class="card">
+        <p>Usaremos el foro/plataforma del centro.</p>
+        <p><a class="btn primary" href="#" target="_blank" rel="noreferrer">Abrir foro</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TALLER -->
+  <section class="section" id="taller">
+    <div class="container">
+      <h2>🛠️ Taller de práctica</h2>
+      <div class="card">
+        <div class="grid" style="grid-template-columns:1fr;gap:1rem">
+          <label>Actividad
+            <select id="obra">
+              <option>Conversación básica</option>
+              <option>Pedir en restaurante</option>
+              <option>Comprar en tienda</option>
+              <option>Pedir direcciones</option>
+              <option>Presentación personal</option>
+            </select>
+          </label>
+          <label>Situación
+            <input id="titulo" placeholder="Ej.: En el restaurante español" />
+          </label>
+          <label>Diálogo / Frases útiles
+            <textarea id="guion" rows="8" placeholder="Escribe aquí las frases y diálogos para practicar..."></textarea>
+          </label>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+            <button class="btn primary" id="guardar">Descargar .txt</button>
+            <button class="btn" id="plantilla">Cargar plantilla</button>
+            <button class="btn" id="limpiar">Limpiar</button>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:.75rem">La descarga funciona sin servidor: genera un archivo de texto al momento.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container">© <span id="y"></span> Curso Intensivo de Español — Nivel 3 CLM · Universidad de Granada</div></footer>
+
+  <!-- Visor de Documentos -->
+  <div class="overlay" id="overlay"></div>
+  <div class="viewer" id="viewer">
+    <div class="top">
+      <strong id="fileName">Documento</strong>
+      <div class="spacer"></div>
+      <a class="btn" id="openTab" target="_blank" rel="noopener">Abrir en pestaña</a>
+      <a class="btn" id="download" download>Descargar</a>
+      <button class="btn primary" id="closeViewer">Volver</button>
+    </div>
+    <iframe id="frame" title="Visor PDF" src="about:blank" style="display:none;"></iframe>
+    <div id="textcontent" class="content" style="display:none;"></div>
+  </div>
+
+  <script>
+    // Año
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Menú móvil
+    const nav = document.getElementById('nav');
+    const hamb = document.getElementById('hamb');
+    hamb?.addEventListener('click', ()=> nav.classList.toggle('open'));
+    document.querySelectorAll('#mobilePanel a').forEach(a=> a.addEventListener('click', ()=> nav.classList.remove('open')));
+
+    // Visor de Documentos
+    const overlay = document.getElementById('overlay');
+    const viewer = document.getElementById('viewer');
+    const frame = document.getElementById('frame');
+    const textcontent = document.getElementById('textcontent');
+    const openTab = document.getElementById('openTab');
+    const download = document.getElementById('download');
+    const fileName = document.getElementById('fileName');
+    const closeViewer = document.getElementById('closeViewer');
+
+    function formatTextContent(text) {
+      let formatted = text
+        .replace(/\n\n+/g, '</p><p>')
+        .replace(/^\S+/m, '<p>')
+        .replace(/([A-Z][A-ZÁ-Ú\s]+:)/g, '<strong>$1</strong>')
+        .replace(/SESIÓN (\d+):/g, '<h1>SESIÓN $1:')
+        .replace(/(\d+\.\s[^:]+:)/g, '<h2>$1</h2>')
+        .replace(/^•\s(.+)$/gm, '<li>$1</li>')
+        .replace(/^- (.+)$/gm, '<li>$1</li>');
+
+      formatted = formatted.replace(/(<li>.*?<\/li>)/gs, '<ul>$1</ul>');
+      formatted += '</p>';
+
+      return formatted;
+    }
+
+    async function openDocument(path){
+      fileName.textContent = decodeURIComponent(path.split('/').pop());
+      const extension = path.split('.').pop().toLowerCase();
+
+      openTab.href = path;
+      download.href = path;
+      overlay.classList.add('show');
+      viewer.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+
+      if (extension === 'pdf') {
+        frame.style.display = 'block';
+        textcontent.style.display = 'none';
+        frame.src = path;
+      } else if (extension === 'txt' || extension === 'rtf') {
+        frame.style.display = 'none';
+        textcontent.style.display = 'block';
+
+        try {
+          const response = await fetch(path);
+          if (!response.ok) throw new Error('No se pudo cargar el archivo');
+
+          let text = await response.text();
+
+          if (extension === 'rtf') {
+            text = text.replace(/\\[^a-zA-Z]+\d*/g, '')
+                      .replace(/\{[^}]*\}/g, '')
+                      .replace(/\\par/g, '\n')
+                      .replace(/\\tab/g, '  ')
+                      .replace(/\\'d[0-9a-fA-F]{2}/g, '')
+                      .replace(/\\[a-zA-Z]+\s*/g, '');
+          }
+
+          textcontent.innerHTML = formatTextContent(text);
+        } catch (error) {
+          textcontent.innerHTML = `<p>Error al cargar el documento: ${error.message}</p>`;
+        }
+      } else {
+        window.open(path, '_blank');
+        closeDocument();
+      }
+    }
+
+    function closeDocument(){
+      overlay.classList.remove('show');
+      viewer.style.display = 'none';
+      frame.src = 'about:blank';
+      textcontent.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    overlay.addEventListener('click', closeDocument);
+    closeViewer.addEventListener('click', closeDocument);
+
+    document.addEventListener('click', (e)=>{
+      const target = e.target.closest('[data-pdf], [data-doc]');
+      if(target){
+        e.preventDefault();
+        const path = target.getAttribute('data-pdf') || target.getAttribute('data-doc');
+        openDocument(path);
+      }
+    });
+
+    // ===== GUÍAS POR SESIÓN =====
+    const GUIAS_S1 = [
+      { t: 'Sesión 1 · Presentaciones y alfabeto', href: 'materials/cuadernos/S1_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 2 · Números y fechas', href: 'materials/cuadernos/S2_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 3 · Familia y descripciones', href: 'materials/cuadernos/S3_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 4 · Rutina diaria', href: 'materials/cuadernos/S4_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 5 · Comida y restaurante', href: 'materials/cuadernos/S5_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 6 · Compras y tiendas', href: 'materials/cuadernos/S6_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 7 · Transporte y direcciones', href: 'materials/cuadernos/S7_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 8 · Tiempo libre y hobbies', href: 'materials/cuadernos/S8_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 9 · Proyecto fotográfico', href: 'materials/cuadernos/S9_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 10 · Taller de cocina', href: 'materials/cuadernos/S10_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 11 · Repaso general', href: 'materials/cuadernos/S11_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 12 · Evaluación final', href: 'materials/cuadernos/S12_Espanol_Intensivo.pdf', type: 'pdf' },
+    ];
+
+    const SESSIONS_AVAILABLE = [
+      'S1_Espanol_Intensivo.pdf',
+      'S2_Espanol_Intensivo.pdf',
+      'S3_Espanol_Intensivo.pdf',
+      'S4_Espanol_Intensivo.pdf',
+      'S5_Espanol_Intensivo.pdf',
+      'S6_Espanol_Intensivo.pdf',
+      'S7_Espanol_Intensivo.pdf',
+      'S8_Espanol_Intensivo.pdf',
+      'S9_Espanol_Intensivo.pdf',
+      'S10_Espanol_Intensivo.pdf',
+      'S11_Espanol_Intensivo.pdf',
+      'S12_Espanol_Intensivo.pdf'
+    ];
+
+    function renderGuiasS1(){
+      const chips = document.getElementById('chips-s1');
+      const list = document.getElementById('lista-s1');
+      chips.innerHTML = ''; list.innerHTML = '';
+
+      GUIAS_S1.forEach((s) => {
+        const span = document.createElement('span');
+        span.className = 'chip';
+        span.textContent = s.t;
+
+        span.onclick = () => {
+          document.querySelectorAll('#chips-s1 .chip').forEach(c=>c.classList.remove('active'));
+          span.classList.add('active');
+
+          const fileName = s.href.split('/').pop();
+          const fileExists = SESSIONS_AVAILABLE.includes(fileName);
+
+          if (fileExists) {
+            const isPDF = s.type === 'pdf' || s.href.endsWith('.pdf');
+            const fileIcon = isPDF ? '📄' : '📝';
+            const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
+
+            list.innerHTML = `
+              <li><button class="btn primary" ${dataAttr}="${s.href}">${fileIcon} Ver en navegador (${s.t})</button></li>
+              <li><button class="btn" onclick="window.open('${s.href}', '_blank')">🔗 Abrir en nueva pestaña</button></li>
+              <li><button class="btn" onclick="downloadFile('${s.href}', '${s.t}.pdf')">💾 Descargar directamente</button></li>
+            `;
+          } else {
+            list.innerHTML = `
+              <li class="muted">📝 ${s.t}</li>
+              <li class="muted" style="font-size: 0.9rem; margin-top: 10px;">
+                ⚠️ Este material estará disponible próximamente.<br>
+                Los materiales del curso se irán subiendo según avance el programa.
+              </li>
+            `;
+          }
+        };
+        chips.appendChild(span);
+      });
+
+      if(GUIAS_S1[0]) setTimeout(()=> chips.querySelector('.chip')?.click(), 0);
+      else list.innerHTML = '<li class="muted">No hay guías subidas todavía.</li>';
+    }
+
+    function downloadFile(url, filename) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    // Sistema de Asistencia QR
+    let qrTimer;
+    let currentToken;
+    let timeRemaining = 300;
+
+    function generateToken() {
+      const timestamp = Date.now();
+      const random = Math.random().toString(36).substring(7);
+      return `${timestamp}-${random}`;
+    }
+
+    function generateQR() {
+      currentToken = generateToken();
+
+      const now = new Date();
+      const date = now.toISOString().split('T')[0];
+      const time = now.toTimeString().split(' ')[0].substring(0, 5);
+      const sessionId = `${date}_${time}`;
+
+      const qrData = {
+        sessionId: sessionId,
+        timestamp: now.toISOString(),
+        type: 'attendance'
+      };
+
+      const baseUrl = 'https://elcorreveidile.github.io';
+      const attendanceUrl = `${baseUrl}/Curso-Intensivo-Espanol/attendance-register.html?qr=${encodeURIComponent(JSON.stringify(qrData))}`;
+
+      document.getElementById('qr-code').innerHTML = '';
+
+      new QRCode(document.getElementById('qr-code'), {
+        text: attendanceUrl,
+        width: 200,
+        height: 200,
+        colorDark: '#059669',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      localStorage.setItem('currentQRData', JSON.stringify(qrData));
+      localStorage.setItem('currentSession', JSON.stringify({
+        sessionId: sessionId,
+        timestamp: now.toISOString(),
+        date: now.toDateString()
+      }));
+
+      timeRemaining = 300;
+      startQRTimer();
+    }
+
+    function startQRTimer() {
+      if (qrTimer) {
+        clearInterval(qrTimer);
+      }
+
+      const timerElement = document.getElementById('qr-timer');
+
+      qrTimer = setInterval(() => {
+        if (timeRemaining <= 0) {
+          clearInterval(qrTimer);
+          generateQR();
+          return;
+        }
+
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        timerElement.textContent = `Expira en: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        if (timeRemaining < 60) {
+          timerElement.style.color = '#dc2626';
+        } else {
+          timerElement.style.color = '#059669';
+        }
+
+        timeRemaining--;
+      }, 1000);
+    }
+
+    function initQRSystem() {
+      const qrContainer = document.getElementById('qr-attendance');
+      const generateBtn = document.getElementById('generate-new-qr');
+
+      if (qrContainer) {
+        generateQR();
+
+        if (generateBtn) {
+          generateBtn.addEventListener('click', () => {
+            generateQR();
+          });
+        }
+
+        setInterval(() => {
+          generateQR();
+        }, 5 * 60 * 1000);
+      }
+    }
+
+    function updateCurrentDate() {
+      const dateElement = document.getElementById('current-date');
+      if (dateElement) {
+        const today = new Date();
+        const days = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+        const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+        const dayName = days[today.getDay()];
+        const day = today.getDate();
+        const monthName = months[today.getMonth()];
+        const year = today.getFullYear();
+
+        dateElement.textContent = `Hoy es ${dayName}, ${day} de ${monthName} de ${year}`;
+      }
+    }
+
+    // Plantillas para el taller
+    const PLANTILLAS = {
+      'Conversación básica': `Diálogo: Presentaciones
+------------------------
+Persona A: Hola, ¿cómo te llamas?
+Persona B: Me llamo [nombre]. ¿Y tú?
+Persona A: Yo soy [nombre]. ¿De dónde eres?
+Persona B: Soy de [país]. ¿Y tú?
+Persona A: Soy de [país]. Mucho gusto.
+Persona B: Encantado/a.`,
+
+      'Pedir en restaurante': `Frases útiles: Restaurante
+----------------------------
+CAMARERO/A: ¿Qué desea tomar?
+TÚ: Quisiera...
+TÚ: Me pone...
+TÚ: Tráigame...
+
+Para pedir:
+- Una paella
+- Un café con leche
+- Agua mineral
+- La cuenta, por favor
+
+Para preguntar:
+- ¿Qué me recomienda?
+- ¿Cuánto cuesta?
+- ¿Tiene vegetariano?`,
+
+      'Comprar en tienda': `Frases útiles: Tienda
+-------------------------
+VENDEDOR/A: ¿En qué puedo ayudarle?
+TÚ: Busco...
+TÚ: ¿Cuánto cuesta?
+TÚ: ¿Tiene en otra talla/color?
+
+Para pagar:
+- ¿Aceptan tarjetas?
+- ¿Puedo pagar con móvil?
+- ¿Dónde está el probador?
+
+Despedida:
+- Gracias
+- Adiós
+- Hasta luego`,
+
+      'Pedir direcciones': `Frases útiles: Direcciones
+----------------------------
+PERO: Disculpe, ¿por favor... ¿dónde está [lugar]?
+LOCAL: Siga todo recto y gire a la derecha/izquierda.
+
+Preguntas comunes:
+- ¿Cómo llego a...?
+- ¿Está lejos?
+- ¿Hay una parada de metro cerca?
+- ¿Dónde está el baño?
+
+Respuestas útiles:
+- Está a cinco minutos andando
+- Tenga que coger el autobús número 12
+- No, está muy cerca`
+    };
+
+    document.getElementById('plantilla')?.addEventListener('click', () => {
+      const actividad = document.getElementById('obra').value;
+      const plantilla = PLANTILLAS[actividad];
+      if (plantilla) {
+        document.getElementById('guion').value = plantilla;
+      }
+    });
+
+    document.getElementById('limpiar')?.addEventListener('click', () => {
+      document.getElementById('titulo').value = '';
+      document.getElementById('guion').value = '';
+    });
+
+    document.getElementById('guardar')?.addEventListener('click', () => {
+      const actividad = document.getElementById('obra').value;
+      const titulo = document.getElementById('titulo').value || 'práctica';
+      const guion = document.getElementById('guion').value;
+
+      const texto = `${actividad}: ${titulo}\n${'='.repeat(50)}\n\n${guion}\n\n---\nGenerado en Curso Intensivo de Español - Nivel 3 CLM`;
+
+      const blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${actividad.replace(/\s+/g, '_')}_${titulo.replace(/\s+/g, '_')}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    updateCurrentDate();
+    initQRSystem();
+    renderGuiasS1();
+  </script>
+</body>
+</html>

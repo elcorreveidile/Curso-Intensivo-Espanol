@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Asistencia - Profesor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .admin-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            display: none;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #1e40af;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #374151;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #1e40af;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1e40af;
+        }
+
+        .stat-card h3 {
+            color: #1e40af;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .attendance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .attendance-table th,
+        .attendance-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .attendance-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .attendance-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-present {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-late {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .session-filter {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-box input {
+            flex: 1;
+            max-width: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box input {
+                max-width: 100%;
+            }
+
+            .export-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div class="login-container" id="loginContainer">
+            <div class="header">
+                <img src="images/Logo-CLM-V1.jpg" alt="Logo CLM" class="logo">
+                <h1>Panel Profesor</h1>
+                <p class="subtitle">Acceso al Sistema de Asistencia</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="password">Contraseña de acceso</label>
+                    <input type="password" id="password" required placeholder="Ingresa tu contraseña">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Acceder al Panel
+                </button>
+
+                <div style="margin-top: 15px; text-align: center;">
+                    <button type="button" class="btn btn-secondary" style="font-size: 12px; padding: 8px 16px;" onclick="resetSession()">
+                        🔄 Resetear Sesión
+                    </button>
+                    <div style="margin-top: 10px; font-size: 11px; color: #6b7280;">
+                        Contraseña: <code>ugr2024</code>
+                    </div>
+                </div>
+            </form>
+
+            <p style="text-align: center; color: #6b7280; font-size: 14px; margin-top: 20px;">
+                Sistema de asistencia - Producción Oral B2.1
+            </p>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-container" id="adminContainer">
+            <div class="header">
+                <img src="images/Logo-CLM-V1.jpg" alt="Logo CLM" class="logo">
+                <h1>Panel de Asistencia</h1>
+                <p class="subtitle">Gesti&oacute;n de registros de asistencia</p>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Total Hoy</h3>
+                    <div class="number" id="todayCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Esta Semana</h3>
+                    <div class="number" id="weekCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total del Curso</h3>
+                    <div class="number" id="totalCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Tasa de Asistencia</h3>
+                    <div class="number" id="attendanceRate">0%</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Buscar por nombre o DNI...">
+                    <button class="btn btn-secondary" onclick="searchRecords()">Buscar</button>
+                </div>
+
+                <select id="sessionFilter" class="session-filter">
+                    <option value="">Todas las sesiones</option>
+                    <option value="Sesión actual">Sesión actual</option>
+                    <option value="S1">S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
+                </select>
+
+                <div class="export-buttons">
+                    <button class="btn btn-secondary" onclick="exportToCSV()">📊 Exportar CSV</button>
+                    <button class="btn btn-success" onclick="window.open('attendance-pdf.html', '_blank')">📄 Generar PDF</button>
+                    <button class="btn btn-primary" onclick="window.open('email-sender.html', '_blank')">📧 Enviar IDs por Email</button>
+                    <button class="btn btn-secondary" onclick="refreshData()">🔄 Actualizar</button>
+                    <button class="btn btn-warning" onclick="debugLocalStorage()">🐛 Debug LocalStorage</button>
+                </div>
+            </div>
+
+            <!-- Attendance Table -->
+            <table class="attendance-table">
+                <thead>
+                    <tr>
+                        <th>Fecha y Hora</th>
+                        <th>Estudiante</th>
+                        <th>ID</th>
+                        <th>DNI</th>
+                        <th>Email</th>
+                        <th>Sesión</th>
+                        <th>IP</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceTableBody">
+                    <!-- Records will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const ADMIN_PASSWORD = 'ugr2024'; // Change this to your preferred password
+        const STORAGE_KEY = 'attendanceRecords';
+
+        // DOM elements
+        const loginContainer = document.getElementById('loginContainer');
+        const adminContainer = document.getElementById('adminContainer');
+        const loginForm = document.getElementById('loginForm');
+
+        // State
+        let attendanceRecords = [];
+        let filteredRecords = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthentication();
+            loginForm.addEventListener('submit', handleLogin);
+        });
+
+        function checkAuthentication() {
+            // TEMPORARY: Skip authentication for immediate access
+            console.log('🔓 TEMPORARY: Skipping authentication for immediate access');
+            showAdminPanel();
+
+            // Original code (commented out):
+            // const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+            // console.log('🔍 Checking authentication, found:', isAuthenticated);
+
+            // if (isAuthenticated === 'true') {
+            //     console.log('✅ Already authenticated, showing admin panel');
+            //     showAdminPanel();
+            // } else {
+            //     console.log('❌ Not authenticated, showing login');
+            // }
+        }
+
+        function resetSession() {
+            console.log('🔄 Resetting session');
+            sessionStorage.removeItem('adminAuthenticated');
+            localStorage.clear();
+            location.reload();
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+
+            console.log('🔑 Login attempt with password:', password);
+            console.log('🔑 Expected ADMIN_PASSWORD:', ADMIN_PASSWORD);
+            console.log('🔑 Password match:', password === ADMIN_PASSWORD);
+
+            if (password === ADMIN_PASSWORD) {
+                console.log('✅ Login successful');
+                sessionStorage.setItem('adminAuthenticated', 'true');
+                showAdminPanel();
+            } else {
+                console.log('❌ Login failed');
+                alert('Contraseña incorrecta. Por favor, inténtalo de nuevo.\n\nPista: ugr2024');
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+            }
+        }
+
+        function showAdminPanel() {
+            console.log('🚪 Showing admin panel');
+
+            // Hide login, show admin
+            loginContainer.style.display = 'none';
+            adminContainer.style.display = 'block';
+
+            console.log('🚪 Admin panel displayed, loading data...');
+
+            // Load data
+            loadAttendanceData();
+            updateStatistics();
+            displayRecords();
+
+            console.log('🚪 Admin panel fully loaded');
+        }
+
+        function loadAttendanceData() {
+            console.log('🔍 LOADING ATTENDANCE DATA FROM ALL SOURCES');
+            console.log('🔍 localStorage available:', typeof Storage !== 'undefined');
+            console.log('🔍 Complete localStorage contents:');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                console.log(`  - ${key}: ${value?.substring(0, 150)}${value?.length > 150 ? '...' : ''}`);
+            }
+
+            console.log('🔍 Complete sessionStorage contents:');
+            for (let i = 0; i < sessionStorage.length; i++) {
+                const key = sessionStorage.key(i);
+                const value = sessionStorage.getItem(key);
+                console.log(`  - ${key}: ${value?.substring(0, 150)}${value?.length > 150 ? '...' : ''}`);
+            }
+
+            let allRecords = [];
+            let sources = [];
+
+            // SOURCE 1: localStorage (primary) - SIMPLIFIED
+            try {
+                const stored = localStorage.getItem('attendanceRecords');
+                console.log('🔍 localStorage attendanceRecords raw value:', stored);
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    console.log('🔍 localStorage parsed records:', parsed);
+                    console.log('🔍 localStorage parsed records count:', parsed.length);
+                    console.log('🔍 localStorage first record sample:', parsed[0]);
+                    allRecords.push(...parsed);
+                    sources.push(`localStorage (${parsed.length} records)`);
+                    console.log('✅ localStorage loaded:', parsed.length, 'records');
+                } else {
+                    console.log('⚠️ localStorage has no attendanceRecords key');
+                }
+            } catch (err) {
+                console.error('❌ localStorage error:', err);
+                console.error('❌ localStorage error stack:', err.stack);
+            }
+
+            // SOURCE 2: sessionStorage (backup) - SIMPLIFIED
+            try {
+                const sessionStored = sessionStorage.getItem('attendanceSession');
+                console.log('🔍 sessionStorage attendanceSession raw value:', sessionStored);
+                if (sessionStored) {
+                    const sessionParsed = JSON.parse(sessionStored);
+                    console.log('🔍 sessionStorage parsed records:', sessionParsed);
+                    allRecords.push(...sessionParsed);
+                    sources.push(`sessionStorage (${sessionParsed.length} records)`);
+                    console.log('✅ sessionStorage loaded:', sessionParsed.length, 'records');
+                } else {
+                    console.log('⚠️ sessionStorage has no attendanceSession key');
+                }
+            } catch (err) {
+                console.error('❌ sessionStorage error:', err);
+            }
+
+            // Remove duplicates based on timestamp and student ID
+            const uniqueRecords = [];
+            const seen = new Set();
+
+            allRecords.forEach(record => {
+                const key = `${record.timestamp}_${record.studentId}`;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    uniqueRecords.push(record);
+                }
+            });
+
+            // Sort by timestamp (newest first)
+            uniqueRecords.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            attendanceRecords = uniqueRecords;
+
+            console.log('🎯 FINAL RESULT:');
+            console.log('Total unique records:', attendanceRecords.length);
+            console.log('Sources used:', sources);
+            console.log('Records:', attendanceRecords);
+
+            // Update display with source info
+            updateDataSourceInfo(sources);
+
+            // Also try to load from other sources if available
+            loadFromCloudStorage();
+        }
+
+        // Removed async IndexedDB to avoid async/await errors
+        // loadFromIndexedDB function removed temporarily
+
+        function updateDataSourceInfo(sources) {
+            // Display information about data sources
+            const infoDiv = document.createElement('div');
+            infoDiv.style.cssText = `
+                background: #f0f9ff;
+                border: 1px solid #bae6fd;
+                border-radius: 6px;
+                padding: 10px;
+                margin-bottom: 15px;
+                font-size: 12px;
+                color: #0c4a6e;
+            `;
+
+            infoDiv.innerHTML = `
+                <strong>📊 Fuentes de datos:</strong> ${sources.join(', ')}<br>
+                <strong>Total registros únicos:</strong> ${attendanceRecords.length}
+            `;
+
+            const existingInfo = document.querySelector('.data-source-info');
+            if (existingInfo) {
+                existingInfo.replaceWith(infoDiv);
+            } else {
+                const container = document.querySelector('.admin-container');
+                const header = container.querySelector('.header');
+                header.insertAdjacentElement('afterend', infoDiv);
+                infoDiv.className = 'data-source-info';
+            }
+        }
+
+        async function loadFromCloudStorage() {
+            // This would load from your cloud storage (JSONBin, Firebase, etc.)
+            // For now, we'll use localStorage only
+        }
+
+        function updateStatistics() {
+            const today = new Date().toDateString();
+            const todayRecords = attendanceRecords.filter(record =>
+                new Date(record.timestamp).toDateString() === today
+            );
+
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+            const weekRecords = attendanceRecords.filter(record =>
+                new Date(record.timestamp) >= oneWeekAgo
+            );
+
+            document.getElementById('todayCount').textContent = todayRecords.length;
+            document.getElementById('weekCount').textContent = weekRecords.length;
+            document.getElementById('totalCount').textContent = attendanceRecords.length;
+
+            // Calculate attendance rate (you'd need total expected students)
+            const expectedStudents = 15; // Update this based on your class size
+            const latestSession = getLatestSession();
+            const sessionRecords = attendanceRecords.filter(record =>
+                record.session === latestSession
+            );
+            const rate = expectedStudents > 0 ?
+                Math.round((sessionRecords.length / expectedStudents) * 100) : 0;
+            document.getElementById('attendanceRate').textContent = rate + '%';
+        }
+
+        function getLatestSession() {
+            if (attendanceRecords.length === 0) return 'Sesión actual';
+
+            const latest = attendanceRecords.reduce((latest, record) => {
+                return new Date(record.timestamp) > new Date(latest.timestamp) ? record : latest;
+            });
+
+            return latest.session || 'Sesión actual';
+        }
+
+        function displayRecords() {
+            const tbody = document.getElementById('attendanceTableBody');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const sessionFilter = document.getElementById('sessionFilter').value;
+
+            // Apply filters
+            filteredRecords = attendanceRecords.filter(record => {
+                const matchesSearch = !searchTerm ||
+                    (record.studentName && record.studentName.toLowerCase().includes(searchTerm)) ||
+                    (record.studentDNI && record.studentDNI.toLowerCase().includes(searchTerm));
+
+                const matchesSession = !sessionFilter || record.session === sessionFilter;
+
+                return matchesSearch && matchesSession;
+            });
+
+            // Sort by date (newest first)
+            filteredRecords.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            // Clear and populate table
+            tbody.innerHTML = '';
+
+            if (filteredRecords.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: #6b7280;">No se encontraron registros</td></tr>';
+                return;
+            }
+
+            filteredRecords.forEach(record => {
+                const row = document.createElement('tr');
+                const date = new Date(record.timestamp);
+                const dateStr = date.toLocaleString('es-ES');
+
+                // Determine if student was late (more than 15 minutes after session start)
+                const sessionStart = new Date(date);
+                sessionStart.setHours(12, 30, 0, 0); // Assuming 12:30 start time
+                const isLate = date - sessionStart > 15 * 60 * 1000;
+
+                row.innerHTML = `
+                    <td>${dateStr}</td>
+                    <td><strong>${record.studentName || 'Desconocido'}</strong></td>
+                    <td><code>${record.studentId || '-'}</code></td>
+                    <td>${record.studentDNI || '-'}</td>
+                    <td>${record.studentEmail || '-'}</td>
+                    <td>${record.session || 'Sesión actual'}</td>
+                    <td>${record.ipAddress || record.ip || '-'}</td>
+                    <td>
+                        <span class="status-badge ${isLate ? 'status-late' : 'status-present'}">
+                            ${isLate ? 'Tarde' : 'A tiempo'}
+                        </span>
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        function searchRecords() {
+            displayRecords();
+        }
+
+        function exportToCSV() {
+            if (filteredRecords.length === 0) {
+                alert('No hay registros para exportar');
+                return;
+            }
+
+            const headers = ['Fecha', 'Nombre', 'ID', 'DNI', 'Email', 'Sesión', 'IP', 'Estado'];
+            const csvContent = [
+                headers.join(','),
+                ...filteredRecords.map(record => {
+                    const date = new Date(record.timestamp).toLocaleString('es-ES');
+                    const sessionStart = new Date(record.timestamp);
+                    sessionStart.setHours(12, 30, 0, 0);
+                    const isLate = record.timestamp - sessionStart > 15 * 60 * 1000;
+
+                    return [
+                        `"${date}"`,
+                        `"${record.studentName || 'Desconocido'}"`,
+                        `"${record.studentId || ''}"`,
+                        `"${record.studentDNI || ''}"`,
+                        `"${record.studentEmail || ''}"`,
+                        `"${record.session || 'Sesión actual'}"`,
+                        `"${record.ipAddress || record.ip || ''}"`,
+                        `"${isLate ? 'Tarde' : 'A tiempo'}"`
+                    ].join(',');
+                })
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+
+            link.setAttribute('href', url);
+            link.setAttribute('download', `asistencia_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function refreshData() {
+            loadAttendanceData();
+            updateStatistics();
+            displayRecords();
+        }
+
+        function debugLocalStorage() {
+            console.log('=== DEBUGGING LOCAL STORAGE ===');
+
+            // Check all localStorage keys
+            const allKeys = Object.keys(localStorage);
+            console.log('All localStorage keys:', allKeys);
+
+            // Check attendanceRecords specifically
+            const attendanceData = localStorage.getItem('attendanceRecords');
+            console.log('attendanceRecords raw:', attendanceData);
+
+            if (attendanceData) {
+                try {
+                    const parsed = JSON.parse(attendanceData);
+                    console.log('attendanceRecords parsed:', parsed);
+                    console.log('Number of records:', parsed.length);
+
+                    parsed.forEach((record, index) => {
+                        console.log(`Record ${index}:`, {
+                            studentName: record.studentName,
+                            studentId: record.studentId,
+                            timestamp: record.timestamp,
+                            session: record.session
+                        });
+                    });
+                } catch (e) {
+                    console.error('Error parsing attendanceRecords:', e);
+                }
+            } else {
+                console.log('No attendanceRecords found');
+            }
+
+            // Check other keys
+            const otherKeys = ['lastAttendanceRecord', 'adminNotification', 'attendanceUpdate'];
+            otherKeys.forEach(key => {
+                const value = localStorage.getItem(key);
+                if (value) {
+                    console.log(`${key}:`, value);
+                }
+            });
+
+            alert('Debug info logged to console. Press F12 to see details.');
+        }
+
+        // Listen for attendance updates from other tabs
+        window.addEventListener('attendanceUpdate', (event) => {
+            console.log('Received attendance update:', event.detail);
+            loadAttendanceData();
+            updateStatistics();
+            displayRecords();
+        });
+
+        // Listen for storage events (cross-tab communication)
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'attendanceUpdate' || event.key === 'attendanceRecords') {
+                console.log('Storage update detected:', event.key);
+                loadAttendanceData();
+                updateStatistics();
+                displayRecords();
+            }
+        });
+
+        // Auto-refresh every 10 seconds (faster for debugging)
+        setInterval(() => {
+            if (adminContainer.style.display !== 'none') {
+                refreshData();
+            }
+        }, 10000);
+
+        // Comprehensive debugging function
+        function debugCompleteSystem() {
+            console.log('=== 🔍 COMPREHENSIVE SYSTEM DEBUG ===');
+            console.log('🔍 localStorage available:', typeof Storage !== 'undefined');
+            console.log('🔍 sessionStorage available:', typeof sessionStorage !== 'undefined');
+
+            console.log('\n=== LOCALSTORAGE CONTENTS ===');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                console.log(`${key}: ${value?.substring(0, 200)}${value?.length > 200 ? '...' : ''} (${value?.length} chars)`);
+            }
+
+            console.log('\n=== SESSIONSTORAGE CONTENTS ===');
+            for (let i = 0; i < sessionStorage.length; i++) {
+                const key = sessionStorage.key(i);
+                const value = sessionStorage.getItem(key);
+                console.log(`${key}: ${value?.substring(0, 200)}${value?.length > 200 ? '...' : ''} (${value?.length} chars)`);
+            }
+
+            console.log('\n=== ATTENDANCE RECORDS ANALYSIS ===');
+            const attendanceData = localStorage.getItem('attendanceRecords');
+            if (attendanceData) {
+                try {
+                    const parsed = JSON.parse(attendanceData);
+                    console.log('✅ attendanceRecords found and parsed');
+                    console.log('📊 Total records:', parsed.length);
+                    console.log('📊 First 3 records:', parsed.slice(0, 3));
+                    console.log('📊 Last 3 records:', parsed.slice(-3));
+
+                    // Check record structure
+                    if (parsed.length > 0) {
+                        console.log('📋 Record structure sample:', Object.keys(parsed[0]));
+                    }
+                } catch (e) {
+                    console.error('❌ Failed to parse attendanceRecords:', e);
+                }
+            } else {
+                console.log('❌ No attendanceRecords found in localStorage');
+            }
+
+            console.log('\n=== UI ELEMENTS CHECK ===');
+            const elements = ['todayCount', 'weekCount', 'totalCount', 'attendanceRate', 'recordsTable'];
+            elements.forEach(id => {
+                const element = document.getElementById(id);
+                console.log(`${id}: ${element ? '✅ Found' : '❌ Missing'} ${element ? '- Content: ' + element.textContent : ''}`);
+            });
+
+            console.log('\n=== CURRENT SYSTEM STATE ===');
+            console.log('📊 attendanceRecords variable length:', attendanceRecords.length);
+            console.log('📊 attendanceRecords variable content:', attendanceRecords.slice(0, 3));
+            console.log('🎯 Admin panel visible:', adminContainer.style.display !== 'none');
+
+            console.log('\n=== MANUAL TEST FUNCTION ===');
+            console.log('💡 To manually test attendance registration, run: testAddRecord()');
+        }
+
+        function testAddRecord() {
+            console.log('🧪 TESTING: Adding manual attendance record...');
+            const testRecord = {
+                studentName: 'TEST STUDENT',
+                studentId: '9999',
+                timestamp: new Date().toISOString(),
+                session: 'Sesión de prueba',
+                ip: '127.0.0.1'
+            };
+
+            try {
+                const existing = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+                existing.push(testRecord);
+                localStorage.setItem('attendanceRecords', JSON.stringify(existing));
+                console.log('✅ Test record added successfully');
+                console.log('🔄 Refreshing data...');
+                loadAttendanceData();
+                updateStatistics();
+                displayRecords();
+            } catch (error) {
+                console.error('❌ Failed to add test record:', error);
+            }
+        }
+
+        // Make debug functions available globally
+        window.debugCompleteSystem = debugCompleteSystem;
+        window.testAddRecord = testAddRecord;
+
+        // Also refresh when window gets focus (user switches back to admin tab)
+        window.addEventListener('focus', () => {
+            if (adminContainer.style.display !== 'none') {
+                refreshData();
+            }
+        });
+
+        // Listen for storage changes from other tabs
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'attendanceRecords') {
+                console.log('Storage event detected for attendanceRecords');
+                if (adminContainer.style.display !== 'none') {
+                    refreshData();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

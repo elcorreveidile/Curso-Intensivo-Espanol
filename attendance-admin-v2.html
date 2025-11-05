@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Asistencia - Producción Oral B2.1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #1e40af;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: #f3f4f6;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #1e40af;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .students-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+            font-size: 14px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            font-size: 14px;
+            color: #111827;
+        }
+
+        .student-name {
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .student-id {
+            background: #e5e7eb;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        .attendance-cell {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .attendance-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            min-width: 50px;
+        }
+
+        .present {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .absent {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .empty {
+            background: #f9fafb;
+            color: #9ca3af;
+        }
+
+        .session-header {
+            background: #eff6ff;
+            color: #1e40af;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .session-header:hover {
+            background: #dbeafe;
+        }
+
+        .qr-section {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .qr-container {
+            display: inline-block;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        #qrcode {
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: border-color 0.2s;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .session-info {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+
+        .table-container {
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .stats {
+                justify-content: center;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 800px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-container" id="loginContainer">
+        <div class="container">
+            <div class="header">
+                <img src="images/Logo-CLM-V1.jpg" alt="Logo CLM" class="logo">
+                <h1>Panel Profesor</h1>
+                <p class="subtitle">Acceso al Sistema de Asistencia</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="password">Contraseña de acceso</label>
+                    <input type="password" id="password" required placeholder="Ingresa tu contraseña">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Acceder al Panel
+                </button>
+
+                <div style="margin-top: 15px; text-align: center;">
+                    <div style="margin-top: 10px; font-size: 11px; color: #6b7280;">
+                        Contraseña: <code>ugr2024</code>
+                    </div>
+                </div>
+            </form>
+
+            <p style="text-align: center; color: #6b7280; font-size: 14px; margin-top: 20px;">
+                Sistema de asistencia - Producción Oral B2.1
+            </p>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-container" id="adminContainer" style="display: none;">
+        <div class="container">
+            <div class="header">
+                <img src="images/Logo-CLM-V1.jpg" alt="Logo CLM" class="logo">
+                <h1>Panel de Asistencia</h1>
+                <p class="subtitle">Producción Oral B2.1 - Universidad de Granada</p>
+            </div>
+
+        <!-- QR Generation Section -->
+        <div class="qr-section">
+            <div class="session-info" id="currentSession">Generando QR para sesión actual...</div>
+            <button class="btn btn-primary" onclick="generateNewQR()">
+                🔄 Generar Nuevo QR
+            </button>
+            <button class="btn btn-success" onclick="exportToExcel()">
+                📊 Exportar a Excel
+            </button>
+            <div class="qr-container" id="qrContainer" style="display: none;">
+                <div id="qrcode"></div>
+                <p style="margin-top: 15px; color: #6b7280; font-size: 14px;">
+                    Escanea este QR para registrar asistencia
+                </p>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="controls">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalStudents">10</div>
+                    <div class="stat-label">Total Estudiantes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalSessions">0</div>
+                    <div class="stat-label">Sesiones Totales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="todayPresent">0</div>
+                    <div class="stat-label">Presentes Hoy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="attendanceRate">0%</div>
+                    <div class="stat-label">Tasa Asistencia</div>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="btn btn-secondary" onclick="refreshData()">
+                    🔄 Actualizar
+                </button>
+                <a href="index.html" class="btn btn-secondary">
+                    🏠 Página Principal
+                </a>
+            </div>
+        </div>
+
+        <!-- Students Attendance Table -->
+        <div class="students-table">
+            <div class="table-container">
+                <table id="attendanceTable">
+                    <thead id="tableHead">
+                        <!-- Dynamic headers will be inserted here -->
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Dynamic rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script>
+        // Database configuration
+        const DB_NAME = 'AttendanceDB';
+        const DB_VERSION = 1;
+        const STORE_NAME = 'attendance';
+
+        // Student data with ID and name variants
+        const STUDENTS = [
+            { id: '1523', name: 'BAI, MIAORUI' },
+            { id: '2847', name: 'CHAFFIN, NATHANIEL HAYEN' },
+            { id: '3915', name: 'DIAZ, ANGELA CLARICE' },
+            { id: '4602', name: 'KEMPF, RYAN ELIZABETH' },
+            { id: '5789', name: 'LANTER, WESLEY MITCHELL' },
+            { id: '6134', name: 'MANCIPE, GABRIEL FELIPE' },
+            { id: '7256', name: 'MIRANDA, MARISOL ESPERANZA' },
+            { id: '8901', name: 'MOREY, GABRIELLE KAI' },
+            { id: '9467', name: 'PORTZLINE, EVAN GRACE' },
+            { id: '1089', name: 'SALAZAR, NATALIE' }
+        ];
+
+        let db;
+        let currentQRData = null;
+        let qrCode = null;
+
+        // Initialize IndexedDB
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => {
+                    db = request.result;
+                    resolve(db);
+                };
+
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        const store = db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+                        store.createIndex('studentId', 'studentId', { unique: false });
+                        store.createIndex('sessionId', 'sessionId', { unique: false });
+                        store.createIndex('timestamp', 'timestamp', { unique: false });
+                    }
+                };
+            });
+        }
+
+        // Generate session ID
+        function generateSessionId() {
+            const now = new Date();
+            const date = now.toISOString().split('T')[0]; // YYYY-MM-DD
+            const time = now.toTimeString().split(' ')[0].substring(0, 5); // HH:MM
+            return `${date}_${time}`;
+        }
+
+        // Get current session
+        function getCurrentSession() {
+            const today = new Date().toDateString();
+            const stored = localStorage.getItem('currentSession');
+
+            if (stored) {
+                const sessionData = JSON.parse(stored);
+                const sessionDate = new Date(sessionData.timestamp).toDateString();
+
+                if (sessionDate === today) {
+                    return sessionData;
+                }
+            }
+
+            // Create new session for today
+            const newSession = {
+                sessionId: generateSessionId(),
+                timestamp: new Date().toISOString(),
+                date: today
+            };
+
+            localStorage.setItem('currentSession', JSON.stringify(newSession));
+            return newSession;
+        }
+
+        // Generate QR Code
+        function generateNewQR() {
+            const session = getCurrentSession();
+            currentQRData = {
+                sessionId: session.sessionId,
+                timestamp: new Date().toISOString(),
+                type: 'attendance'
+            };
+
+            // Clear previous QR
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = '';
+
+            // Generate new QR
+            qrCode = new QRCode(qrContainer, {
+                text: JSON.stringify(currentQRData),
+                width: 200,
+                height: 200,
+                colorDark: '#1e40af',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Update session info
+            document.getElementById('currentSession').textContent =
+                `Sesión: ${session.sessionId.replace('_', ' - ')}`;
+            document.getElementById('qrContainer').style.display = 'block';
+
+            // Auto-refresh every 5 minutes
+            setTimeout(generateNewQR, 5 * 60 * 1000);
+        }
+
+        // Load attendance data from IndexedDB
+        function loadAttendanceData() {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.getAll();
+
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+        }
+
+        // Get unique sessions
+        function getUniqueSessions(records) {
+            const sessions = [...new Set(records.map(r => r.sessionId))];
+            return sessions.sort().reverse(); // Most recent first
+        }
+
+        // Build attendance table
+        function buildTable() {
+            loadAttendanceData().then(records => {
+                const sessions = getUniqueSessions(records);
+                const tableHead = document.getElementById('tableHead');
+                const tableBody = document.getElementById('tableBody');
+
+                // Update statistics
+                updateStatistics(records, sessions);
+
+                // Clear existing content
+                tableHead.innerHTML = '';
+                tableBody.innerHTML = '';
+
+                // Build header
+                const headerRow = document.createElement('tr');
+                headerRow.innerHTML = `
+                    <th style="position: sticky; left: 0; background: #f9fafb; z-index: 11;">Estudiante</th>
+                    <th style="position: sticky; left: 150px; background: #f9fafb; z-index: 11;">ID</th>
+                `;
+
+                sessions.forEach(session => {
+                    const th = document.createElement('th');
+                    th.className = 'session-header';
+                    th.textContent = formatSessionHeader(session);
+                    th.onclick = () => exportSessionToPDF(session);
+                    headerRow.appendChild(th);
+                });
+
+                tableHead.appendChild(headerRow);
+
+                // Build rows for each student
+                STUDENTS.forEach(student => {
+                    const row = document.createElement('tr');
+
+                    // Student info (sticky columns)
+                    row.innerHTML = `
+                        <td style="position: sticky; left: 0; background: white; z-index: 10; font-weight: 600; color: #1e40af;">
+                            ${student.name}
+                        </td>
+                        <td style="position: sticky; left: 150px; background: white; z-index: 10;">
+                            <span class="student-id">${student.id}</span>
+                        </td>
+                    `;
+
+                    // Attendance for each session
+                    sessions.forEach(session => {
+                        const attendance = records.find(r =>
+                            r.studentId === student.id && r.sessionId === session
+                        );
+
+                        const td = document.createElement('td');
+                        td.className = 'attendance-cell';
+
+                        if (attendance) {
+                            td.innerHTML = `<span class="attendance-status present">Presente ✓</span>`;
+                        } else {
+                            td.innerHTML = `<span class="attendance-status absent">Ausente ✗</span>`;
+                        }
+
+                        row.appendChild(td);
+                    });
+
+                    tableBody.appendChild(row);
+                });
+
+            }).catch(error => {
+                console.error('Error loading attendance data:', error);
+                alert('Error al cargar datos de asistencia');
+            });
+        }
+
+        // Format session header
+        function formatSessionHeader(sessionId) {
+            const parts = sessionId.split('_');
+            if (parts.length >= 2) {
+                const date = parts[0];
+                const time = parts[1];
+                const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+                    day: '2-digit',
+                    month: '2-digit'
+                });
+                return `${formattedDate}\n${time}`;
+            }
+            return sessionId;
+        }
+
+        // Update statistics
+        function updateStatistics(records, sessions) {
+            const today = new Date().toDateString();
+            const todaySessions = sessions.filter(session => {
+                const sessionDate = new Date(session.split('_')[0]).toDateString();
+                return sessionDate === today;
+            });
+
+            const todayAttendance = records.filter(r => {
+                const recordDate = new Date(r.timestamp).toDateString();
+                return recordDate === today;
+            });
+
+            const totalPossible = STUDENTS.length * Math.max(sessions.length, 1);
+            const attendanceRate = sessions.length > 0 ?
+                Math.round((records.length / totalPossible) * 100) : 0;
+
+            document.getElementById('totalStudents').textContent = STUDENTS.length;
+            document.getElementById('totalSessions').textContent = sessions.length;
+            document.getElementById('todayPresent').textContent = todayAttendance.length;
+            document.getElementById('attendanceRate').textContent = attendanceRate + '%';
+        }
+
+        // Refresh data
+        function refreshData() {
+            buildTable();
+        }
+
+        // Export to Excel (CSV format)
+        function exportToExcel() {
+            loadAttendanceData().then(records => {
+                const sessions = getUniqueSessions(records);
+                let csv = 'Estudiante,ID,' + sessions.map(s => formatSessionHeader(s)).join(',') + '\n';
+
+                STUDENTS.forEach(student => {
+                    let row = `"${student.name}","${student.id}"`;
+
+                    sessions.forEach(session => {
+                        const attendance = records.find(r =>
+                            r.studentId === student.id && r.sessionId === session
+                        );
+                        row += ',' + (attendance ? 'Presente' : 'Ausente');
+                    });
+
+                    csv += row + '\n';
+                });
+
+                // Download CSV
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `asistencia_${new Date().toISOString().split('T')[0]}.csv`;
+                link.click();
+
+            }).catch(error => {
+                console.error('Error exporting to Excel:', error);
+                alert('Error al exportar a Excel');
+            });
+        }
+
+        // Export single session to PDF
+        function exportSessionToPDF(sessionId) {
+            console.log('Exporting session', sessionId, 'to PDF');
+            // Implementation would go here
+        }
+
+        // Initialize application
+        async function init() {
+            console.log('🚀 Iniciando aplicación...');
+            try {
+                console.log('📊 Inicializando base de datos...');
+                await initDB();
+
+                console.log('📱 Generando QR...');
+                generateNewQR();
+
+                console.log('📋 Construyendo tabla...');
+                buildTable();
+
+                // Auto-refresh every 30 seconds
+                setInterval(buildTable, 30000);
+
+                console.log('✅ Aplicación inicializada correctamente');
+
+            } catch (error) {
+                console.error('Error initializing application:', error);
+                alert('Error al inicializar la aplicación: ' + error.message);
+            }
+        }
+
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+
+            if (password === 'ugr2024') {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('adminContainer').style.display = 'block';
+                // Initialize the main application after login
+                init();
+            } else {
+                alert('Contraseña incorrecta. Intenta de nuevo.');
+                document.getElementById('password').value = '';
+            }
+        });
+
+        // Start application when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Don't initialize immediately, wait for login
+            console.log('Panel listo. Inicia sesión para continuar.');
+        });
+    </script>
+</body>
+</html>

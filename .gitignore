@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Node modules (si se añade en el futuro)
+node_modules/
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos generados automáticamente
+materials/generated/
