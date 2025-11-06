@@ -343,6 +343,145 @@ sessions = [
             'Continuar con nivel B1',
             'Mantener contacto con companeros'
         ]
+    },
+    {
+        'num': 13,
+        'title': 'Sesion 13 - Cultura y regiones de Espana',
+        'duracion': '2 horas',
+        'objetivos': [
+            'Conocer las comunidades autonomas de Espana',
+            'Tradiciones y festividades espanolas',
+            'Diferencias culturales entre regiones',
+            'Expresar opiniones sobre cultura'
+        ],
+        'vocab': {
+            'Regiones': 'Andalucia, Cataluna, Madrid, Valencia, Galicia, Pais Vasco, Castilla, Aragon',
+            'Cultura': 'flamenco, paella, tapas, siesta, Semana Santa, Feria de Abril, San Fermin, Tomatina',
+            'Opiniones': 'Creo que..., Pienso que..., En mi opinion..., Me parece que..., Estoy de acuerdo'
+        },
+        'actividades': [
+            'EJERCICIO 1 (20 min): Presentacion de mapa de Espana - Identificar regiones en parejas',
+            'EJERCICIO 2 (25 min): Juego de tarjetas - Emparejar regiones con platos tipicos y tradiciones',
+            'EJERCICIO 3 (30 min): Role-play en grupos - Planear un viaje por 3 regiones de Espana',
+            'EJERCICIO 4 (25 min): Debate dirigido - Cual es la region mas interesante y por que?',
+            'EJERCICIO 5 (20 min): Video cultural - Ver clips de festividades y discutir en clase'
+        ],
+        'tarea': [
+            'Investigar una comunidad autonoma y preparar presentacion de 3 minutos',
+            'Escribir comparacion entre 2 regiones espanolas (150 palabras)',
+            'Lista de 10 festividades espanolas con fechas'
+        ]
+    },
+    {
+        'num': 14,
+        'title': 'Sesion 14 - Salud y emergencias',
+        'duracion': '2 horas',
+        'objetivos': [
+            'Vocabulario medico basico',
+            'Describir sintomas y malestares',
+            'Conversaciones en farmacia y medico',
+            'Sistema de salud espanol'
+        ],
+        'vocab': {
+            'Sintomas': 'dolor de cabeza, fiebre, tos, resfriado, gripe, alergia, mareado, cansado',
+            'Farmacia': 'Necesito algo para... Tiene algo para el dolor? receta, medicamento, pastillas',
+            'Medico': 'Me duele... Tengo... desde hace... Que me recomienda? Cuanto cuesta la consulta?'
+        },
+        'actividades': [
+            'EJERCICIO 1 (15 min): Vocabulario corporal - Simon dice (tocar partes del cuerpo)',
+            'EJERCICIO 2 (25 min): Role-play farmacia - Parejas practican comprar medicamentos',
+            'EJERCICIO 3 (30 min): Consulta medica - Role-play medico-paciente con tarjetas de sintomas',
+            'EJERCICIO 4 (20 min): Listening - Audio de conversacion en farmacia, completar ejercicios',
+            'EJERCICIO 5 (30 min): Situaciones de emergencia - Grupos resuelven escenarios urgentes'
+        ],
+        'tarea': [
+            'Escribir dialogo completo en una farmacia (10 intercambios)',
+            'Describir una visita al medico (pasado)',
+            'Memorizar 15 partes del cuerpo y 10 sintomas'
+        ]
+    },
+    {
+        'num': 15,
+        'title': 'Sesion 15 - Viajes y alojamiento',
+        'duracion': '2 horas',
+        'objetivos': [
+            'Reservar hotel y alojamiento',
+            'Vocabulario de aeropuerto y estacion',
+            'Resolver problemas de viaje',
+            'Dar y entender informacion turistica'
+        ],
+        'vocab': {
+            'Hotel': 'reserva, habitacion individual/doble, pension completa, media pension, check-in, check-out',
+            'Aeropuerto': 'vuelo, puerta de embarque, equipaje, retraso, cancelado, pasaporte, tarjeta de embarque',
+            'Problemas': 'He perdido..., No funciona..., Hay un problema con..., Podria ayudarme?'
+        },
+        'actividades': [
+            'EJERCICIO 1 (20 min): Telefonos rotos - Cadena de informacion de reservas hoteleras',
+            'EJERCICIO 2 (30 min): Role-play recepcion hotel - Check-in con problemas (habitacion incorrecta)',
+            'EJERCICIO 3 (25 min): Simulacion aeropuerto - Stations con facturacion, seguridad, embarque',
+            'EJERCICIO 4 (25 min): Resolver problemas - Grupos reciben situaciones problematicas de viaje',
+            'EJERCICIO 5 (20 min): Escribir quejas formales - Email al hotel sobre problema'
+        ],
+        'tarea': [
+            'Planear itinerario de viaje completo a Espana (5 dias)',
+            'Escribir email de reserva de hotel',
+            'Lista de vocabulario: 20 palabras de viajes'
+        ]
+    },
+    {
+        'num': 16,
+        'title': 'Sesion 16 - Tecnologia y comunicacion',
+        'duracion': '2 horas',
+        'objetivos': [
+            'Vocabulario de tecnologia moderna',
+            'Conversaciones telefonicas formales e informales',
+            'Escribir emails y mensajes',
+            'Redes sociales y expresiones digitales'
+        ],
+        'vocab': {
+            'Tecnologia': 'movil, ordenador, tableta, wifi, contrasena, aplicacion, descargar, conectar',
+            'Telefono': 'Digame? De parte de quien? Le paso con... Un momento por favor, No cuelgue',
+            'Digital': 'enviar mensaje, subir foto, compartir, seguir, me gusta, comentario, etiquetar'
+        },
+        'actividades': [
+            'EJERCICIO 1 (20 min): Llamadas telefonicas - Parejas con pantalla divisora practican llamadas',
+            'EJERCICIO 2 (25 min): Problemas tecnicos - Role-play servicio tecnico resolviendo problemas',
+            'EJERCICIO 3 (30 min): Escribir mensajes - Diferentes contextos (formal, informal, urgente)',
+            'EJERCICIO 4 (25 min): Redes sociales - Crear perfil ficticio y interactuar en espanol',
+            'EJERCICIO 5 (20 min): Dictado digital - Escuchar mensajes de voz y transcribir'
+        ],
+        'tarea': [
+            'Escribir 3 emails: formal (trabajo), semiformal (profesor), informal (amigo)',
+            'Grabar audio de 2 minutos presentandote',
+            'Seguir cuentas en espanol en redes sociales'
+        ]
+    },
+    {
+        'num': 17,
+        'title': 'Sesion 17 - Proyecto final integrador',
+        'duracion': '2 horas',
+        'objetivos': [
+            'Integrar todo el contenido del curso',
+            'Presentaciones orales completas',
+            'Demostrar fluidez conversacional',
+            'Reflexionar sobre el progreso'
+        ],
+        'vocab': {
+            'Presentacion': 'Buenos dias a todos, Hoy voy a hablar de..., En primer lugar..., Finalmente...',
+            'Integracion': 'Repaso de verbos, tiempos, vocabulario tematico de sesiones 1-16'
+        },
+        'actividades': [
+            'EJERCICIO 1 (30 min): Presentaciones finales - Cada estudiante presenta tema elegido (5 min)',
+            'EJERCICIO 2 (30 min): Speed conversations - Rotacion rapida practicando todos los temas',
+            'EJERCICIO 3 (25 min): Debate final - Discusion grupal sobre tema cultural controversial',
+            'EJERCICIO 4 (20 min): Juego de repaso integral - Kahoot o Jeopardy con todo el contenido',
+            'EJERCICIO 5 (15 min): Reflexion y feedback - Que aprendimos? Como mejorar?'
+        ],
+        'tarea': [
+            'Autoevaluacion completa del curso',
+            'Plan personal de estudio continuo',
+            'Carta de despedida a los companeros en espanol'
+        ]
     }
 ]
 
