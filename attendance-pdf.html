@@ -291,7 +291,30 @@
             const stored = localStorage.getItem('attendanceRecords');
             if (stored) {
                 try {
-                    attendanceRecords = JSON.parse(stored);
+                    let records = JSON.parse(stored);
+
+                    // Limpiar duplicados: mantener solo el primer registro por estudiante por día
+                    const uniqueRecords = [];
+                    const seen = new Set();
+
+                    records.forEach(record => {
+                        const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
+                        const key = `${recordDate}_${record.studentId}`;
+
+                        if (!seen.has(key)) {
+                            seen.add(key);
+                            uniqueRecords.push(record);
+                        }
+                    });
+
+                    attendanceRecords = uniqueRecords;
+
+                    // Guardar versión limpia en localStorage
+                    if (uniqueRecords.length !== records.length) {
+                        localStorage.setItem('attendanceRecords', JSON.stringify(uniqueRecords));
+                        console.log(`Limpiados ${records.length - uniqueRecords.length} registros duplicados`);
+                    }
+
                     displayPreview();
                 } catch (err) {
                     console.error('Error loading attendance data:', err);
@@ -353,6 +376,13 @@
                 month: 'long',
                 day: 'numeric'
             });
+
+            // Logo CLM (esquina superior izquierda)
+            try {
+                doc.addImage('images/Logo-CLM-V1.jpg', 'JPEG', 10, 10, 20, 20);
+            } catch (e) {
+                console.log('No se pudo cargar el logo');
+            }
 
             // Header
             doc.setFontSize(16);
@@ -444,6 +474,13 @@
                 // El sessionId tiene formato: YYYY-MM-DD_HH:MM, así que comparamos por fecha
                 return recordDate === date;
             });
+
+            // Logo CLM (esquina superior izquierda)
+            try {
+                doc.addImage('images/Logo-CLM-V1.jpg', 'JPEG', 10, 10, 20, 20);
+            } catch (e) {
+                console.log('No se pudo cargar el logo');
+            }
 
             // Header (same as blank PDF)
             doc.setFontSize(16);

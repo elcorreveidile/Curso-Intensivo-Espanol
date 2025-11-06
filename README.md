@@ -8,7 +8,7 @@ Web del Curso Intensivo de Español (Nivel 3 CLM - A1.2-A2.1) diseñado para est
 - **Horario:** De lunes a jueves: 8:30 - 10:30
 - **Nivel:** 3 CLM (A1.2-A2.1)
 - **Profesor:** Javier Benítez Láinez
-- **Ubicación:** Aula A2, Universidad de Granada
+- **Ubicación:** Aula 24, Universidad de Granada
 
 ## 🎯 Características
 
