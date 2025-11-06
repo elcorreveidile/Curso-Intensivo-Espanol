@@ -109,19 +109,51 @@
             font-size: 14px;
         }
 
-        .form-group input, .form-group select {
+        .form-group select {
             width: 100%;
             padding: 12px 16px;
             border: 2px solid #e5e7eb;
             border-radius: 10px;
             font-size: 16px;
             transition: all 0.3s ease;
+            background-color: white;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group select:focus {
             outline: none;
             border-color: #059669;
             box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+
+        .student-id-display {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .student-id-display.show {
+            display: block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .student-id-display .label {
+            font-size: 12px;
+            color: #0369a1;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .student-id-display .id-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0c4a6e;
+            font-family: 'Courier New', monospace;
         }
 
         .btn {
@@ -234,7 +266,7 @@
         <div class="content">
             <div class="qr-info">
                 <h2>✅ Código QR Escaneado</h2>
-                <p>Por favor, completa tus datos para registrar tu asistencia</p>
+                <p>Selecciona tu nombre para registrar tu asistencia</p>
             </div>
 
             <div class="session-info" id="sessionInfo">
@@ -244,30 +276,26 @@
 
             <form id="attendanceForm">
                 <div class="form-group">
-                    <label for="studentName">Nombre completo *</label>
-                    <input type="text" id="studentName" name="studentName" required placeholder="Ej: John Smith">
-                </div>
-
-                <div class="form-group">
-                    <label for="studentEmail">Email institucional *</label>
-                    <input type="email" id="studentEmail" name="studentEmail" required placeholder="Ej: john.smith@university.edu">
-                </div>
-
-                <div class="form-group">
-                    <label for="studentId">Identificación de estudiante *</label>
-                    <input type="text" id="studentId" name="studentId" required placeholder="Ej: US123456">
-                </div>
-
-                <div class="form-group">
-                    <label for="nationality">Nacionalidad *</label>
-                    <select id="nationality" name="nationality" required>
-                        <option value="">Selecciona tu nacionalidad</option>
-                        <option value="americana">Americana/USA</option>
-                        <option value="japonesa">Japonesa</option>
-                        <option value="china">China</option>
-                        <option value="coreana">Coreana</option>
-                        <option value="otra">Otra</option>
+                    <label for="studentSelect">Selecciona tu nombre *</label>
+                    <select id="studentSelect" name="studentSelect" required>
+                        <option value="">-- Selecciona tu nombre --</option>
+                        <option value="EST-001">BENNASRI, MAMMER PAOLO</option>
+                        <option value="EST-002">COCKRELL, JAMES RYDER</option>
+                        <option value="EST-003">LU, JIAQI</option>
+                        <option value="EST-004">MOLLAH, ALLAN SHUMON</option>
+                        <option value="EST-005">TJAHAJA, DYLANN</option>
+                        <option value="EST-006">WALKER, KAMRYN</option>
+                        <option value="EST-007">WANG, XINYI</option>
+                        <option value="EST-008">WILLIAMS, DIOR</option>
+                        <option value="EST-009">XU, JIAHUI</option>
+                        <option value="EST-010">ZHANG, ANJIE</option>
+                        <option value="EST-011">ZHANG, JING</option>
                     </select>
+                </div>
+
+                <div class="student-id-display" id="studentIdDisplay">
+                    <div class="label">Tu ID de estudiante</div>
+                    <div class="id-value" id="studentIdValue">---</div>
                 </div>
 
                 <div class="loading" id="loading">
@@ -290,12 +318,27 @@
         </div>
 
         <div class="footer">
-            <p>© 2024 Universidad de Granada - Centro de Lenguas Modernas</p>
+            <p>© 2025 Universidad de Granada - Centro de Lenguas Modernas</p>
             <p>Si tienes problemas, contacta con tu profesor</p>
         </div>
     </div>
 
     <script>
+        // Lista de estudiantes con sus IDs
+        const STUDENTS = {
+            'EST-001': 'BENNASRI, MAMMER PAOLO',
+            'EST-002': 'COCKRELL, JAMES RYDER',
+            'EST-003': 'LU, JIAQI',
+            'EST-004': 'MOLLAH, ALLAN SHUMON',
+            'EST-005': 'TJAHAJA, DYLANN',
+            'EST-006': 'WALKER, KAMRYN',
+            'EST-007': 'WANG, XINYI',
+            'EST-008': 'WILLIAMS, DIOR',
+            'EST-009': 'XU, JIAHUI',
+            'EST-010': 'ZHANG, ANJIE',
+            'EST-011': 'ZHANG, JING'
+        };
+
         // Parse QR data from URL
         function getQRData() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -369,13 +412,29 @@
             successDiv.style.display = 'block';
         }
 
+        // Handle student selection
+        document.getElementById('studentSelect').addEventListener('change', (e) => {
+            const studentId = e.target.value;
+            const idDisplay = document.getElementById('studentIdDisplay');
+            const idValue = document.getElementById('studentIdValue');
+
+            if (studentId) {
+                idValue.textContent = studentId;
+                idDisplay.classList.add('show');
+            } else {
+                idDisplay.classList.remove('show');
+            }
+        });
+
         // Handle form submission
         document.getElementById('attendanceForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const submitBtn = document.getElementById('submitBtn');
             const loading = document.getElementById('loading');
-            const formData = new FormData(e.target);
+            const studentSelect = document.getElementById('studentSelect');
+            const studentId = studentSelect.value;
+            const studentName = STUDENTS[studentId];
 
             // Get QR data
             const qrData = getQRData();
@@ -384,14 +443,9 @@
                 return;
             }
 
-            // Validate form
-            const name = formData.get('studentName').trim();
-            const email = formData.get('studentEmail').trim();
-            const studentId = formData.get('studentId').trim();
-            const nationality = formData.get('nationality');
-
-            if (!name || !email || !studentId || !nationality) {
-                showError('Por favor, completa todos los campos obligatorios');
+            // Validate selection
+            if (!studentId || !studentName) {
+                showError('Por favor, selecciona tu nombre');
                 return;
             }
 
@@ -403,18 +457,28 @@
             const attendanceData = {
                 sessionId: qrData.sessionId,
                 timestamp: qrData.timestamp,
-                studentName: name,
-                studentEmail: email,
                 studentId: studentId,
-                nationality: nationality,
+                studentName: studentName,
                 registeredAt: new Date().toISOString(),
-                userAgent: navigator.userAgent,
                 course: 'Curso Intensivo de Español - Nivel 3 CLM'
             };
 
             try {
-                // Store in localStorage (for demo purposes)
+                // Store in localStorage
                 const existingRecords = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+
+                // Check if student already registered for this session
+                const alreadyRegistered = existingRecords.some(
+                    record => record.sessionId === qrData.sessionId && record.studentId === studentId
+                );
+
+                if (alreadyRegistered) {
+                    showError('Ya has registrado tu asistencia para esta sesión');
+                    loading.style.display = 'none';
+                    submitBtn.disabled = false;
+                    return;
+                }
+
                 existingRecords.push(attendanceData);
                 localStorage.setItem('attendanceRecords', JSON.stringify(existingRecords));
 
@@ -422,10 +486,11 @@
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
                 // Show success
-                showSuccess('¡Asistencia registrada correctamente!');
+                showSuccess('¡Asistencia registrada correctamente, ' + studentName.split(',')[0] + '!');
 
                 // Reset form
                 e.target.reset();
+                document.getElementById('studentIdDisplay').classList.remove('show');
 
                 // Hide loading and re-enable button after delay
                 setTimeout(() => {
@@ -434,11 +499,7 @@
 
                     // Redirect or close window after showing success
                     setTimeout(() => {
-                        if (window.close) {
-                            window.close();
-                        } else {
-                            window.location.href = 'about:blank';
-                        }
+                        window.location.href = 'index.html';
                     }, 2000);
                 }, 1500);
 
