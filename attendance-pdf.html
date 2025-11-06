@@ -243,54 +243,59 @@
         // Lista de estudiantes autorizados con ID y variantes
         const AUTHORIZED_STUDENTS = [
             {
-                id: '1523',
-                fullName: 'BAI, MIAORUI',
-                variants: ['Miaorui Bai', 'Miaorui', 'M. Bai', 'Bai']
+                id: 'EST-001',
+                fullName: 'BENNASRI, MAMMER PAOLO',
+                variants: ['Mammer Paolo Bennasri', 'Mammer', 'Bennasri', 'Paolo']
             },
             {
-                id: '2847',
-                fullName: 'CHAFFIN, NATHANIEL HAYEN',
-                variants: ['Nathaniel Chaffin', 'Nathaniel', 'N. Chaffin', 'Nat', 'Chaffin']
+                id: 'EST-002',
+                fullName: 'COCKRELL, JAMES RYDER',
+                variants: ['James Ryder Cockrell', 'James', 'Cockrell', 'Ryder']
             },
             {
-                id: '3915',
-                fullName: 'DIAZ, ANGELA CLARICE',
-                variants: ['Angela Diaz', 'Angela', 'A. Diaz', 'Diaz']
+                id: 'EST-003',
+                fullName: 'LU, JIAQI',
+                variants: ['Jiaqi Lu', 'Jiaqi', 'Lu']
             },
             {
-                id: '4602',
-                fullName: 'KEMPF, RYAN ELIZABETH',
-                variants: ['Ryan Kempf', 'Ryan', 'R. Kempf', 'Kempf']
+                id: 'EST-004',
+                fullName: 'MOLLAH, ALLAN SHUMON',
+                variants: ['Allan Shumon Mollah', 'Allan', 'Mollah', 'Shumon']
             },
             {
-                id: '5789',
-                fullName: 'LANTER, WESLEY MITCHELL',
-                variants: ['Wesley Lanter', 'Wesley', 'W. Lanter', 'Lanter']
+                id: 'EST-005',
+                fullName: 'TJAHAJA, DYLANN',
+                variants: ['Dylann Tjahaja', 'Dylann', 'Tjahaja']
             },
             {
-                id: '6134',
-                fullName: 'MANCIPE, GABRIEL FELIPE',
-                variants: ['Gabriel Mancipe', 'Gabriel', 'G. Mancipe', 'Mancipe']
+                id: 'EST-006',
+                fullName: 'WALKER, KAMRYN',
+                variants: ['Kamryn Walker', 'Kamryn', 'Walker']
             },
             {
-                id: '7256',
-                fullName: 'MIRANDA, MARISOL ESPERANZA',
-                variants: ['Marisol Miranda', 'Marisol', 'M. Miranda', 'Miranda']
+                id: 'EST-007',
+                fullName: 'WANG, XINYI',
+                variants: ['Xinyi Wang', 'Xinyi', 'Wang']
             },
             {
-                id: '8901',
-                fullName: 'MOREY, GABRIELLE KAI',
-                variants: ['Gabrielle Morey', 'Gabrielle', 'G. Morey', 'Morey', 'Kai']
+                id: 'EST-008',
+                fullName: 'WILLIAMS, DIOR',
+                variants: ['Dior Williams', 'Dior', 'Williams']
             },
             {
-                id: '9467',
-                fullName: 'PORTZLINE, EVAN GRACE',
-                variants: ['Evan Portzline', 'Evan', 'E. Portzline', 'Portzline']
+                id: 'EST-009',
+                fullName: 'XU, JIAHUI',
+                variants: ['Jiahui Xu', 'Jiahui', 'Xu']
             },
             {
-                id: '1089',
-                fullName: 'SALAZAR, NATALIE',
-                variants: ['Natalie Salazar', 'Natalie', 'N. Salazar', 'Salazar']
+                id: 'EST-010',
+                fullName: 'ZHANG, ANJIE',
+                variants: ['Anjie Zhang', 'Anjie', 'Zhang']
+            },
+            {
+                id: 'EST-011',
+                fullName: 'ZHANG, JING',
+                variants: ['Jing Zhang', 'Jing', 'Zhang']
             }
         ];
 
@@ -324,7 +329,8 @@
             // Filter records for selected date and session
             const dayRecords = attendanceRecords.filter(record => {
                 const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
-                return recordDate === selectedDate && record.session === selectedSession;
+                // El sessionId tiene formato: YYYY-MM-DD_HH:MM, así que comparamos por fecha
+                return recordDate === selectedDate;
             });
 
             const studentsList = document.getElementById('studentsList');
@@ -460,7 +466,8 @@
             // Filter records for selected date and session
             const dayRecords = attendanceRecords.filter(record => {
                 const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
-                return recordDate === date && record.session === session;
+                // El sessionId tiene formato: YYYY-MM-DD_HH:MM, así que comparamos por fecha
+                return recordDate === date;
             });
 
             // Header (same as blank PDF)
