@@ -656,12 +656,22 @@
       'S17_Espanol_Intensivo.pdf'
     ];
 
+    // Materiales adicionales por sesión
+    const MATERIALES_ADICIONALES = {
+      3: [
+        { nombre: '📊 Presentación: Familia y Descripciones', href: 'materials/familia-y-descripciones.pdf' }
+      ],
+      5: [
+        { nombre: '🍽️ Presentación: Tapas Españolas', href: 'materials/Tapas.pdf' }
+      ]
+    };
+
     function renderGuiasS1(){
       const chips = document.getElementById('chips-s1');
       const list = document.getElementById('lista-s1');
       chips.innerHTML = ''; list.innerHTML = '';
 
-      GUIAS_S1.forEach((s) => {
+      GUIAS_S1.forEach((s, index) => {
         const span = document.createElement('span');
         span.className = 'chip';
         span.textContent = s.t;
@@ -672,18 +682,31 @@
 
           const fileName = s.href.split('/').pop();
           const fileExists = SESSIONS_AVAILABLE.includes(fileName);
+          const sessionNumber = index + 1;
 
           if (fileExists) {
             const isPDF = s.type === 'pdf' || s.href.endsWith('.pdf');
             const fileIcon = isPDF ? '📄' : '📝';
             const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
 
-            list.innerHTML = `
+            let htmlContent = `
               <li><button class="btn primary" ${dataAttr}="${s.href}">${fileIcon} Ver en navegador (${s.t})</button></li>
               <li><button class="btn" onclick="window.open('${s.href}', '_blank')">🔗 Abrir en nueva pestaña</button></li>
               <li><button class="btn" onclick="downloadFile('${s.href}', '${s.t}.pdf')">💾 Descargar directamente</button></li>
               <li><button class="btn" onclick="copyPDFLink('${s.href}')">📋 Copiar enlace</button></li>
             `;
+
+            // Añadir materiales adicionales si existen
+            if (MATERIALES_ADICIONALES[sessionNumber]) {
+              htmlContent += '<li style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #e5e7eb;"><strong>Materiales adicionales:</strong></li>';
+              MATERIALES_ADICIONALES[sessionNumber].forEach(material => {
+                htmlContent += `
+                  <li><button class="btn" data-pdf="${material.href}">${material.nombre}</button></li>
+                `;
+              });
+            }
+
+            list.innerHTML = htmlContent;
           } else {
             list.innerHTML = `
               <li class="muted">📝 ${s.t}</li>
