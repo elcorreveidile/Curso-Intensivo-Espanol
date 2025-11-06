@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Asistencia - Curso Intensivo de Español</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .qr-info {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f0fdf4;
+            border-radius: 15px;
+            border: 2px solid #86efac;
+        }
+
+        .qr-info h2 {
+            color: #059669;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .session-info {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #059669;
+        }
+
+        .session-info p {
+            margin: 5px 0;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .session-info strong {
+            color: #1e293b;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+
+        .student-id-display {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .student-id-display.show {
+            display: block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .student-id-display .label {
+            font-size: 12px;
+            color: #0369a1;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .student-id-display .id-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0c4a6e;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            color: #059669;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            border: 2px solid #fca5a5;
+            color: #dc2626;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #059669;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer {
+            background: #f8fafc;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Registro de Asistencia</h1>
+            <p>Curso Intensivo de Español - Nivel 3 CLM</p>
+        </div>
+
+        <div class="content">
+            <div class="qr-info">
+                <h2>✅ Código QR Escaneado</h2>
+                <p>Selecciona tu nombre para registrar tu asistencia</p>
+            </div>
+
+            <div class="session-info" id="sessionInfo">
+                <p><strong>Sesión:</strong> <span id="sessionId">Cargando...</span></p>
+                <p><strong>Fecha y hora:</strong> <span id="sessionTime">Cargando...</span></p>
+            </div>
+
+            <form id="attendanceForm">
+                <div class="form-group">
+                    <label for="studentSelect">Selecciona tu nombre *</label>
+                    <select id="studentSelect" name="studentSelect" required>
+                        <option value="">-- Selecciona tu nombre --</option>
+                        <option value="EST-001">BENNASRI, MAMMER PAOLO</option>
+                        <option value="EST-002">COCKRELL, JAMES RYDER</option>
+                        <option value="EST-003">LU, JIAQI</option>
+                        <option value="EST-004">MOLLAH, ALLAN SHUMON</option>
+                        <option value="EST-005">TJAHAJA, DYLANN</option>
+                        <option value="EST-006">WALKER, KAMRYN</option>
+                        <option value="EST-007">WANG, XINYI</option>
+                        <option value="EST-008">WILLIAMS, DIOR</option>
+                        <option value="EST-009">XU, JIAHUI</option>
+                        <option value="EST-010">ZHANG, ANJIE</option>
+                        <option value="EST-011">ZHANG, JING</option>
+                    </select>
+                </div>
+
+                <div class="student-id-display" id="studentIdDisplay">
+                    <div class="label">Tu ID de estudiante</div>
+                    <div class="id-value" id="studentIdValue">---</div>
+                </div>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Registrando asistencia...</p>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    ✅ ¡Asistencia registrada correctamente!
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    ❌ Error al registrar la asistencia
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">
+                    Registrar Asistencia
+                </button>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Universidad de Granada - Centro de Lenguas Modernas</p>
+            <p>Si tienes problemas, contacta con tu profesor</p>
+        </div>
+    </div>
+
+    <script>
+        // Lista de estudiantes con sus IDs
+        const STUDENTS = {
+            'EST-001': 'BENNASRI, MAMMER PAOLO',
+            'EST-002': 'COCKRELL, JAMES RYDER',
+            'EST-003': 'LU, JIAQI',
+            'EST-004': 'MOLLAH, ALLAN SHUMON',
+            'EST-005': 'TJAHAJA, DYLANN',
+            'EST-006': 'WALKER, KAMRYN',
+            'EST-007': 'WANG, XINYI',
+            'EST-008': 'WILLIAMS, DIOR',
+            'EST-009': 'XU, JIAHUI',
+            'EST-010': 'ZHANG, ANJIE',
+            'EST-011': 'ZHANG, JING'
+        };
+
+        // Parse QR data from URL
+        function getQRData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const qrParam = urlParams.get('qr');
+
+            if (qrParam) {
+                try {
+                    return JSON.parse(decodeURIComponent(qrParam));
+                } catch (e) {
+                    console.error('Error parsing QR data:', e);
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        // Format date and time
+        function formatDateTime(isoString) {
+            const date = new Date(isoString);
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return date.toLocaleDateString('es-ES', options);
+        }
+
+        // Initialize session info
+        function initSessionInfo() {
+            const qrData = getQRData();
+
+            if (!qrData) {
+                showError('Código QR no válido o expirado');
+                return;
+            }
+
+            // Check if QR is expired (5 minutes)
+            const now = new Date();
+            const qrTime = new Date(qrData.timestamp);
+            const diffMinutes = (now - qrTime) / (1000 * 60);
+
+            if (diffMinutes > 5) {
+                showError('El código QR ha expirado. Por favor, solicita uno nuevo.');
+                document.getElementById('submitBtn').disabled = true;
+                return;
+            }
+
+            // Display session info
+            document.getElementById('sessionId').textContent = qrData.sessionId;
+            document.getElementById('sessionTime').textContent = formatDateTime(qrData.timestamp);
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = '❌ ' + message;
+            errorDiv.style.display = 'block';
+
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = '✅ ' + message;
+            successDiv.style.display = 'block';
+        }
+
+        // Handle student selection
+        document.getElementById('studentSelect').addEventListener('change', (e) => {
+            const studentId = e.target.value;
+            const idDisplay = document.getElementById('studentIdDisplay');
+            const idValue = document.getElementById('studentIdValue');
+
+            if (studentId) {
+                idValue.textContent = studentId;
+                idDisplay.classList.add('show');
+            } else {
+                idDisplay.classList.remove('show');
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('attendanceForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const studentSelect = document.getElementById('studentSelect');
+            const studentId = studentSelect.value;
+            const studentName = STUDENTS[studentId];
+
+            // Get QR data
+            const qrData = getQRData();
+            if (!qrData) {
+                showError('Código QR no válido');
+                return;
+            }
+
+            // Validate selection
+            if (!studentId || !studentName) {
+                showError('Por favor, selecciona tu nombre');
+                return;
+            }
+
+            // Show loading
+            submitBtn.disabled = true;
+            loading.style.display = 'block';
+
+            // Prepare attendance data
+            const attendanceData = {
+                sessionId: qrData.sessionId,
+                timestamp: qrData.timestamp,
+                studentId: studentId,
+                studentName: studentName,
+                registeredAt: new Date().toISOString(),
+                course: 'Curso Intensivo de Español - Nivel 3 CLM'
+            };
+
+            try {
+                // Store in localStorage
+                const existingRecords = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+
+                // Check if student already registered for this session
+                const alreadyRegistered = existingRecords.some(
+                    record => record.sessionId === qrData.sessionId && record.studentId === studentId
+                );
+
+                if (alreadyRegistered) {
+                    showError('Ya has registrado tu asistencia para esta sesión');
+                    loading.style.display = 'none';
+                    submitBtn.disabled = false;
+                    return;
+                }
+
+                existingRecords.push(attendanceData);
+                localStorage.setItem('attendanceRecords', JSON.stringify(existingRecords));
+
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Show success
+                showSuccess('¡Asistencia registrada correctamente, ' + studentName.split(',')[0] + '!');
+
+                // Reset form
+                e.target.reset();
+                document.getElementById('studentIdDisplay').classList.remove('show');
+
+                // Hide loading and re-enable button after delay
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                    submitBtn.disabled = false;
+
+                    // Redirect or close window after showing success
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }, 1500);
+
+            } catch (error) {
+                console.error('Error registering attendance:', error);
+                showError('Error al registrar la asistencia. Por favor, intenta de nuevo.');
+
+                loading.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            initSessionInfo();
+        });
+
+        // Prevent form resubmission on page refresh
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</body>
+</html>
