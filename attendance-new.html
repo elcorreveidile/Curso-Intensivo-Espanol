@@ -467,13 +467,15 @@
                 // Store in localStorage
                 const existingRecords = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
 
-                // Check if student already registered for this session
-                const alreadyRegistered = existingRecords.some(
-                    record => record.sessionId === qrData.sessionId && record.studentId === studentId
-                );
+                // Check if student already registered today (by date, not sessionId)
+                const today = new Date(qrData.timestamp).toISOString().split('T')[0];
+                const alreadyRegistered = existingRecords.some(record => {
+                    const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
+                    return recordDate === today && record.studentId === studentId;
+                });
 
                 if (alreadyRegistered) {
-                    showError('Ya has registrado tu asistencia para esta sesión');
+                    showError('Ya has registrado tu asistencia para hoy');
                     loading.style.display = 'none';
                     submitBtn.disabled = false;
                     return;
