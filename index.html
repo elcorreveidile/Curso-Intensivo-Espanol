@@ -30,15 +30,12 @@
     /* Layout */
     .section{padding:3rem 0;position:relative;overflow:hidden}
     .section > .container{position:relative;z-index:1}
-    /* Fondo con imagen opcional (velo 0.35) */
-    .section::before{content:"";position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:.35;z-index:0}
-    #s1{background:var(--s1)} #s2{background:var(--s2)} #s3{background:var(--s3)} #s4{background:var(--s4)} #s5{background:var(--s5)}
-    /* Si subes imágenes a materials/img/s1.jpg...s5.jpg, se verán sin tocar el HTML */
-    #s1::before{background-image:url("materials/img/s1.jpg?v=1")}
-    #s2::before{background-image:url("materials/img/s2.jpg?v=1")}
-    #s3::before{background-image:url("materials/img/s3.jpg?v=1")}
-    #s4::before{background-image:url("materials/img/s4.jpg?v=1")}
-    #s5::before{background-image:url("materials/img/s5.jpg?v=1")}
+    /* Fondo con colores sólidos */
+    #s1{background:var(--s1)}
+    #s2{background:var(--s2)}
+    #s3{background:var(--s3)}
+    #s4{background:var(--s4)}
+    #s5{background:var(--s5)}
 
     h1{font-size:clamp(1.8rem,2.5vw,3rem);margin:.3rem 0}
     h2{font-size:clamp(1.5rem,2vw,2.2rem);margin:0 0 .5rem 0}
