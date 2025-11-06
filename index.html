@@ -214,14 +214,14 @@
           <div id="chips-materials" style="display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0;"></div>
           <ul class="list" id="lista-materials"></ul>
 
-          <!-- Hoja de Asistencia - Acceso discreto -->
-          <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee;">
-            <p style="font-size: 12px; color: #666; margin: 0 0 8px 0;">📄 Hoja de Asistencia:</p>
+          <!-- Hoja de Asistencia - Solo visible para profesor (access URL con ?profesor=1) -->
+          <div id="profesor-only" style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee; display: none;">
+            <p style="font-size: 12px; color: #666; margin: 0 0 8px 0;">📄 Hoja de Asistencia (Acceso Profesor):</p>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <button class="btn" onclick="window.open('materials/hoja-asistencia.pdf', '_blank')" style="font-size: 12px; padding: 4px 8px;">
+              <button class="btn" onclick="window.open('materials/hoja-asistencia.pdf', '_blank')" style="font-size: 12px; padding: 4px 8px; background: #ff6b6b;">
                 📋 Abrir Hoja de Asistencia
               </button>
-              <button class="btn" onclick="downloadPDF('materials/hoja-asistencia.pdf', 'hoja-asistencia.pdf')" style="font-size: 12px; padding: 4px 8px;">
+              <button class="btn" onclick="downloadPDF('materials/hoja-asistencia.pdf', 'hoja-asistencia.pdf')" style="font-size: 12px; padding: 4px 8px; background: #ff6b6b;">
                 ⬇️ Descargar
               </button>
             </div>
@@ -1052,6 +1052,17 @@ Respuestas útiles:
     initQRSystem();
     renderGuiasS1();
     renderMaterialesCurso();
+
+    // Verificar acceso de profesor para Hoja de Asistencia
+    const urlParams = new URLSearchParams(window.location.search);
+    const profesorAccess = urlParams.get('profesor') || urlParams.get('profesor_access') || urlParams.get('admin');
+
+    if (profesorAccess === '1' || profesorAccess === 'true' || profesorAccess === 'javier2025') {
+      const profesorSection = document.getElementById('profesor-only');
+      if (profesorSection) {
+        profesorSection.style.display = 'block';
+      }
+    }
   </script>
 </body>
 </html>
