@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Hoja de Asistencia - Producción Oral B2.1</title>
+    <title>Generador de Hoja de Asistencia - Curso Intensivo de Español</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
@@ -187,35 +187,13 @@
         <div class="header">
             <img src="images/Logo-CLM-V1.jpg" alt="Logo CLM" class="logo">
             <h1>Generador de Hoja de Asistencia</h1>
-            <p class="subtitle">Producción Oral B2.1 - Universidad de Granada</p>
+            <p class="subtitle">Curso Intensivo de Español - Nivel 3 CLM - Universidad de Granada</p>
         </div>
 
         <div class="controls">
             <div class="form-group">
-                <label for="session">Sesión</label>
-                <select id="session">
-                    <option value="S1">S1 - Introducción</option>
-                    <option value="S2">S2 - Conversación básica</option>
-                    <option value="S3">S3 - Expresiones idiomáticas</option>
-                    <option value="S4">S4 - Debates</option>
-                    <option value="S5">S5 - Presentaciones</option>
-                    <option value="S6">S6 - Exámenes finales</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="date">Fecha</label>
+                <label for="date">Fecha de la clase</label>
                 <input type="date" id="date" value="">
-            </div>
-
-            <div class="form-group">
-                <label for="classTime">Hora de inicio</label>
-                <input type="time" id="classTime" value="12:30">
-            </div>
-
-            <div class="form-group">
-                <label for="classroom">Aula</label>
-                <input type="text" id="classroom" value="Aula 2.1" placeholder="Número de aula">
             </div>
         </div>
 
@@ -324,9 +302,8 @@
 
         function displayPreview() {
             const selectedDate = document.getElementById('date').value;
-            const selectedSession = document.getElementById('session').value;
 
-            // Filter records for selected date and session
+            // Filter records for selected date
             const dayRecords = attendanceRecords.filter(record => {
                 const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
                 // El sessionId tiene formato: YYYY-MM-DD_HH:MM, así que comparamos por fecha
@@ -365,10 +342,9 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF('l', 'mm', 'a4'); // landscape orientation
 
-            const session = document.getElementById('session').value;
             const date = document.getElementById('date').value;
-            const classTime = document.getElementById('classTime').value;
-            const classroom = document.getElementById('classroom').value;
+            const classTime = '8:30';
+            const classroom = 'Aula 24';
 
             // Format date for display
             const formattedDate = new Date(date).toLocaleDateString('es-ES', {
@@ -385,12 +361,12 @@
             doc.text('CENTRO DE LENGUAS MODERNAS', doc.internal.pageSize.width / 2, 27, { align: 'center' });
 
             doc.setFontSize(14);
-            doc.text('Producción Oral B2.1', doc.internal.pageSize.width / 2, 35, { align: 'center' });
+            doc.text('Curso Intensivo de Español - Nivel 3 CLM', doc.internal.pageSize.width / 2, 35, { align: 'center' });
 
             // Course info
             doc.setFontSize(12);
             doc.setFont(undefined, 'normal');
-            doc.text(`Hoja de Asistencia - ${session}`, doc.internal.pageSize.width / 2, 45, { align: 'center' });
+            doc.text('Hoja de Asistencia', doc.internal.pageSize.width / 2, 45, { align: 'center' });
             doc.text(`Fecha: ${formattedDate}`, doc.internal.pageSize.width / 2, 52, { align: 'center' });
             doc.text(`Hora: ${classTime} - Aula: ${classroom}`, doc.internal.pageSize.width / 2, 59, { align: 'center' });
 
@@ -442,7 +418,7 @@
             doc.text(`Generado: ${new Date().toLocaleString('es-ES')}`, doc.internal.pageSize.width - 20, finalY, { align: 'right' });
 
             // Save PDF
-            const fileName = `asistencia_${session}_${date.replace(/-/g, '_')}.pdf`;
+            const fileName = `asistencia_${date.replace(/-/g, '_')}.pdf`;
             doc.save(fileName);
         }
 
@@ -450,10 +426,9 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF('l', 'mm', 'a4');
 
-            const session = document.getElementById('session').value;
             const date = document.getElementById('date').value;
-            const classTime = document.getElementById('classTime').value;
-            const classroom = document.getElementById('classroom').value;
+            const classTime = '8:30';
+            const classroom = 'Aula 24';
 
             // Format date for display
             const formattedDate = new Date(date).toLocaleDateString('es-ES', {
@@ -463,7 +438,7 @@
                 day: 'numeric'
             });
 
-            // Filter records for selected date and session
+            // Filter records for selected date
             const dayRecords = attendanceRecords.filter(record => {
                 const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
                 // El sessionId tiene formato: YYYY-MM-DD_HH:MM, así que comparamos por fecha
@@ -477,11 +452,11 @@
             doc.text('CENTRO DE LENGUAS MODERNAS', doc.internal.pageSize.width / 2, 27, { align: 'center' });
 
             doc.setFontSize(14);
-            doc.text('Producción Oral B2.1', doc.internal.pageSize.width / 2, 35, { align: 'center' });
+            doc.text('Curso Intensivo de Español - Nivel 3 CLM', doc.internal.pageSize.width / 2, 35, { align: 'center' });
 
             doc.setFontSize(12);
             doc.setFont(undefined, 'normal');
-            doc.text(`Hoja de Asistencia - ${session}`, doc.internal.pageSize.width / 2, 45, { align: 'center' });
+            doc.text('Hoja de Asistencia', doc.internal.pageSize.width / 2, 45, { align: 'center' });
             doc.text(`Fecha: ${formattedDate}`, doc.internal.pageSize.width / 2, 52, { align: 'center' });
             doc.text(`Hora: ${classTime} - Aula: ${classroom}`, doc.internal.pageSize.width / 2, 59, { align: 'center' });
 
@@ -560,13 +535,12 @@
             doc.text(`Generado: ${new Date().toLocaleString('es-ES')} | Datos actualizados en tiempo real`, doc.internal.pageSize.width - 20, finalY, { align: 'right' });
 
             // Save PDF
-            const fileName = `asistencia_con_datos_${session}_${date.replace(/-/g, '_')}.pdf`;
+            const fileName = `asistencia_con_datos_${date.replace(/-/g, '_')}.pdf`;
             doc.save(fileName);
         }
 
-        // Update preview when controls change
+        // Update preview when date changes
         document.getElementById('date').addEventListener('change', displayPreview);
-        document.getElementById('session').addEventListener('change', displayPreview);
     </script>
 </body>
 </html>
