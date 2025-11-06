@@ -51,46 +51,60 @@ class ProfessionalPDF(FPDF):
         # Título de capítulo elegante
         self.set_font('Arial', 'B', 16)
         self.set_text_color(0, 51, 102)
-        self.cell(0, 12, clean_text(title), 0, 1, 'L')
-        self.ln(5)
+        self.cell(0, 10, clean_text(title), 0, 1, 'L')
+        self.ln(3)
 
     def section_title(self, title):
         # Título de sección
         self.set_font('Arial', 'B', 13)
         self.set_text_color(51, 102, 153)
-        self.cell(0, 10, clean_text(title), 0, 1, 'L')
-        self.ln(3)
+        self.cell(0, 8, clean_text(title), 0, 1, 'L')
+        self.ln(2)
 
     def body_text(self, text):
         # Texto del cuerpo
         self.set_font('Arial', '', 11)
         self.set_text_color(0, 0, 0)
-        self.multi_cell(0, 6, clean_text(text))
-        self.ln(5)
+        self.multi_cell(0, 5, clean_text(text))
+        self.ln(3)
 
     def highlight_box(self, title, content):
-        # Caja resaltada
-        self.set_fill_color(240, 248, 255)
-        self.set_draw_color(100, 149, 237)
-        self.rect(10, self.get_y(), 190, 40, 'FD')
-        self.set_y(self.get_y() + 5)
-
+        # Caja resaltada con altura automática
         self.set_font('Arial', 'B', 12)
         self.set_text_color(0, 51, 102)
-        self.cell(0, 8, clean_text(title), 0, 1, 'L')
+
+        # Calcular altura necesaria para el contenido
+        lines = self.multi_cell(0, 5, clean_text(title), 0, 'L')
+        title_height = len(title.split('\n')) * 5 + 5
+
+        content_lines = content.split('\n')
+        content_height = len(content_lines) * 5 + 10
+
+        total_height = title_height + content_height + 10
+
+        # Dibujar rectángulo con altura adecuada
+        self.set_fill_color(240, 248, 255)
+        self.set_draw_color(100, 149, 237)
+        self.rect(10, self.get_y(), 190, total_height, 'FD')
+
+        # Agregar texto dentro del rectángulo
+        self.set_y(self.get_y() + 3)
+        self.cell(0, 5, clean_text(title), 0, 1, 'L')
 
         self.set_font('Arial', '', 11)
         self.set_text_color(51, 51, 51)
-        self.multi_cell(0, 6, clean_text(content))
-        self.set_y(self.get_y() + 10)
+        for line in content_lines:
+            self.cell(0, 5, clean_text(line), 0, 1, 'L')
+
+        self.set_y(self.get_y() + 5)
 
     def bullet_point(self, text):
         # Punto de viñeta
         self.set_font('Arial', '', 11)
         self.set_text_color(0, 0, 0)
-        self.cell(10, 6, '-', 0, 0)
-        self.multi_cell(0, 6, clean_text(text))
-        self.ln(2)
+        self.cell(10, 5, '-', 0, 0)
+        self.multi_cell(0, 5, clean_text(text))
+        self.ln(1)
 
     def vocabulary_pair(self, spanish, english):
         # Par de vocabulario
@@ -102,12 +116,20 @@ class ProfessionalPDF(FPDF):
         self.set_text_color(0, 0, 0)
 
 def create_guia_curso_pdf():
-    """Crear guía del curso profesional"""
+    """Crear guía del curso profesional con espaciado optimizado"""
 
     pdf = ProfessionalPDF()
     pdf.title = 'Guia del Curso'
     pdf.alias_nb_pages()
     pdf.add_page()
+    pdf.set_auto_page_break(auto=True, margin=25)
+
+    # Función para verificar espacio restante
+    def check_space(required=30):
+        if pdf.get_y() > 250:
+            pdf.add_page()
+            return True
+        return False
 
     # Contenido principal
     pdf.chapter_title('Guia del Curso Intensivo de Espanol')
@@ -119,7 +141,7 @@ def create_guia_curso_pdf():
                      'Duracion: 40 horas intensivas\n'
                      'Ubicacion: Centro de Lenguas Modernas, UGR')
 
-    # Secciones
+    # Secciones optimizadas
     pdf.section_title('1. Informacion General')
     pdf.body_text('El Curso Intensivo de Espanol - Nivel 3 CLM esta disenado para estudiantes con '
                  'conocimientos basicos de espanol que desean alcanzar un nivel A2.1 en un corto '
@@ -127,6 +149,7 @@ def create_guia_curso_pdf():
                  'practicas para desarrollar las cuatro competencias linguisticas: '
                  'comprension auditiva, comprension lectora, expresion oral y expresion escrita.')
 
+    check_space()
     pdf.section_title('2. Objetivos del Curso')
     pdf.body_text('Al finalizar el curso, los estudiantes seran capaces de:')
 
@@ -139,9 +162,12 @@ def create_guia_curso_pdf():
         'Apreciar aspectos culturales del mundo hispanohablante'
     ]
 
-    for objetivo in objetivos:
+    for i, objetivo in enumerate(objetivos):
+        if i > 0 and i % 3 == 0:  # Evitar grandes bloques
+            check_space()
         pdf.bullet_point(objetivo)
 
+    check_space()
     pdf.section_title('3. Metodologia')
     pdf.body_text('El curso utiliza una metodologia comunicativa y participativa que incluye:')
 
@@ -155,15 +181,19 @@ def create_guia_curso_pdf():
         'Feedback personalizado para cada estudiante'
     ]
 
-    for metodo in metodologia:
+    for i, metodo in enumerate(metodologia):
+        if i > 0 and i % 3 == 0:
+            check_space()
         pdf.bullet_point(metodo)
 
-    pdf.add_page()
+    check_space()
     pdf.section_title('4. Evaluacion')
-
     pdf.body_text('La evaluacion del curso combina componentes continuos y finales:')
 
-    pdf.body_text('60% - Evaluacion Continua:')
+    pdf.set_font('Arial', 'B', 11)
+    pdf.cell(0, 6, '60% - Evaluacion Continua:', 0, 1)
+    pdf.set_font('Arial', '', 11)
+
     continua = [
         'Participacion activa en clase (20%)',
         'Tareas y actividades diarias (15%)',
@@ -174,7 +204,10 @@ def create_guia_curso_pdf():
     for item in continua:
         pdf.bullet_point(f'{item}')
 
-    pdf.body_text('40% - Evaluacion Final:')
+    pdf.set_font('Arial', 'B', 11)
+    pdf.cell(0, 8, '40% - Evaluacion Final:', 0, 1)
+    pdf.set_font('Arial', '', 11)
+
     finales = [
         'Examen oral: Entrevista y conversacion (20%)',
         'Examen escrito: Comprension y expresion (20%)'
@@ -183,6 +216,7 @@ def create_guia_curso_pdf():
     for item in finales:
         pdf.bullet_point(f'{item}')
 
+    check_space()
     pdf.section_title('5. Recursos y Materiales')
     pdf.body_text('Los estudiantes tendran acceso a:')
 
@@ -195,9 +229,12 @@ def create_guia_curso_pdf():
         'Tutorias individuales con el profesor'
     ]
 
-    for recurso in recursos:
+    for i, recurso in enumerate(recursos):
+        if i > 0 and i % 3 == 0:
+            check_space()
         pdf.bullet_point(recurso)
 
+    check_space()
     pdf.section_title('6. Horario y Asistencia')
     pdf.body_text('El curso se desarrolla en el siguiente horario:')
 
