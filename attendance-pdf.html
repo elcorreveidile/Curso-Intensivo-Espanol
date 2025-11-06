@@ -207,6 +207,9 @@
             <button class="btn btn-secondary" onclick="loadAttendanceData()">
                 🔄 Cargar datos de asistencia
             </button>
+            <button class="btn btn-secondary" onclick="clearOldData()" style="background: #dc2626;">
+                🗑️ Limpiar datos viejos
+            </button>
         </div>
 
         <div class="preview" id="preview" style="display: none;">
@@ -293,11 +296,20 @@
                 try {
                     let records = JSON.parse(stored);
 
-                    // Limpiar duplicados: mantener solo el primer registro por estudiante por día
+                    // IDs válidos para validación
+                    const validIds = AUTHORIZED_STUDENTS.map(s => s.id);
+
+                    // Limpiar duplicados Y validar que los IDs sean correctos
                     const uniqueRecords = [];
                     const seen = new Set();
 
                     records.forEach(record => {
+                        // Solo procesar si tiene studentId válido
+                        if (!record.studentId || !validIds.includes(record.studentId)) {
+                            console.warn('Registro inválido encontrado (ID no autorizado):', record);
+                            return; // Skip este registro
+                        }
+
                         const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
                         const key = `${recordDate}_${record.studentId}`;
 
@@ -312,14 +324,24 @@
                     // Guardar versión limpia en localStorage
                     if (uniqueRecords.length !== records.length) {
                         localStorage.setItem('attendanceRecords', JSON.stringify(uniqueRecords));
-                        console.log(`Limpiados ${records.length - uniqueRecords.length} registros duplicados`);
+                        console.log(`Limpiados ${records.length - uniqueRecords.length} registros inválidos/duplicados`);
                     }
 
+                    console.log(`Total registros válidos cargados: ${uniqueRecords.length}`);
                     displayPreview();
                 } catch (err) {
                     console.error('Error loading attendance data:', err);
                     attendanceRecords = [];
                 }
+            }
+        }
+
+        function clearOldData() {
+            if (confirm('¿Estás seguro de que quieres eliminar TODOS los datos de asistencia? Esta acción no se puede deshacer.')) {
+                localStorage.removeItem('attendanceRecords');
+                attendanceRecords = [];
+                displayPreview();
+                alert('Datos eliminados correctamente. Ahora puedes empezar de cero.');
             }
         }
 
@@ -469,11 +491,16 @@
             });
 
             // Filter records for selected date
+            const validIds = AUTHORIZED_STUDENTS.map(s => s.id);
             const dayRecords = attendanceRecords.filter(record => {
                 const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
-                // El sessionId tiene formato: YYYY-MM-DD_HH:MM, así que comparamos por fecha
-                return recordDate === date;
+                // Solo incluir registros con IDs válidos
+                return recordDate === date && record.studentId && validIds.includes(record.studentId);
             });
+
+            console.log(`Fecha seleccionada: ${date}`);
+            console.log(`Registros del día (filtrados): ${dayRecords.length}`);
+            console.log('IDs de estudiantes en registros:', dayRecords.map(r => r.studentId));
 
             // Logo CLM (esquina superior izquierda)
             try {
@@ -497,11 +524,15 @@
             doc.text(`Fecha: ${formattedDate}`, doc.internal.pageSize.width / 2, 52, { align: 'center' });
             doc.text(`Hora: ${classTime} - Aula: ${classroom}`, doc.internal.pageSize.width / 2, 59, { align: 'center' });
 
-            // Attendance statistics - contar solo estudiantes únicos
+            // Attendance statistics - contar solo estudiantes únicos CON ID VÁLIDO
             const uniqueStudentIds = [...new Set(dayRecords.map(record => record.studentId))];
             const presentCount = uniqueStudentIds.length;
             const totalCount = AUTHORIZED_STUDENTS.length;
-            const attendanceRate = Math.round((presentCount / totalCount) * 100);
+            const absentCount = totalCount - presentCount;
+            const attendanceRate = totalCount > 0 ? Math.round((presentCount / totalCount) * 100) : 0;
+
+            console.log(`Estudiantes únicos presentes: ${presentCount}/${totalCount} (${attendanceRate}%)`);
+            console.log('IDs únicos:', uniqueStudentIds);
 
             doc.setFontSize(11);
             doc.text(`Asistencia: ${presentCount}/${totalCount} estudiantes (${attendanceRate}%)`, doc.internal.pageSize.width / 2, 66, { align: 'center' });
@@ -527,7 +558,7 @@
                 '',
                 'RESUMEN',
                 `${presentCount} presentes`,
-                `${totalCount - presentCount} ausentes`,
+                `${absentCount} ausentes`,
                 `${attendanceRate}% asistencia`
             ]);
 
