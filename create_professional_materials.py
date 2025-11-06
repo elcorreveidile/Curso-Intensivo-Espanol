@@ -234,7 +234,8 @@ def create_guia_curso_pdf():
             check_space()
         pdf.bullet_point(recurso)
 
-    check_space()
+    # Forzar nueva página para la sección de Horario y Asistencia
+    pdf.add_page()
     pdf.section_title('6. Horario y Asistencia')
     pdf.body_text('El curso se desarrolla en el siguiente horario:')
 
