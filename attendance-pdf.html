@@ -349,7 +349,7 @@
                 const statusClass = attendanceRecord ? 'present' : 'pending';
                 const statusText = attendanceRecord ? 'Presente' : 'Pendiente';
 
-                const displayName = attendanceRecord ? attendanceRecord.studentName : student.fullName;
+                const displayName = student.fullName;
                 studentDiv.innerHTML = `
                     <div class="student-name">${displayName} (${student.id})</div>
                     <div class="attendance-status ${statusClass}">${statusText}</div>
@@ -485,8 +485,9 @@
             doc.text(`Fecha: ${formattedDate}`, doc.internal.pageSize.width / 2, 52, { align: 'center' });
             doc.text(`Hora: ${classTime} - Aula: ${classroom}`, doc.internal.pageSize.width / 2, 59, { align: 'center' });
 
-            // Attendance statistics
-            const presentCount = dayRecords.length;
+            // Attendance statistics - contar solo estudiantes únicos
+            const uniqueStudentIds = [...new Set(dayRecords.map(record => record.studentId))];
+            const presentCount = uniqueStudentIds.length;
             const totalCount = AUTHORIZED_STUDENTS.length;
             const attendanceRate = Math.round((presentCount / totalCount) * 100);
 
@@ -503,9 +504,9 @@
                 return [
                     (index + 1).toString(),
                     `${student.fullName} (${student.id})`,
-                    attendanceRecord ? `✓ ${attendanceRecord.studentName}` : '✗ Ausente',
-                    attendanceRecord ? new Date(attendanceRecord.timestamp).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : '-',
-                    attendanceRecord && attendanceRecord.ipAddress ? `IP: ${attendanceRecord.ipAddress}` : ''
+                    attendanceRecord ? '✓ Presente' : '✗ Ausente',
+                    attendanceRecord ? new Date(attendanceRecord.registeredAt).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : '-',
+                    ''
                 ];
             });
 
