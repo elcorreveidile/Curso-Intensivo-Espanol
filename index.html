@@ -549,75 +549,65 @@
     });
 
     // ===== MATERIALES DEL CURSO =====
-    const MATERIALES_CURSO = [
-      { t: '📋 Guía del curso', href: 'materials/guia-curso.pdf', type: 'pdf' },
-      { t: '🗂️ Vocabulario esencial', href: 'materials/vocabulario.pdf', type: 'pdf' },
-      { t: '💬 Frases útiles', href: 'materials/frases-utiles.pdf', type: 'pdf' },
-      { t: '⚡ Verbos irregulares', href: 'materials/verbos.pdf', type: 'pdf' },
-      { t: '📝 Ejercicios prácticos', href: 'materials/ejercicios-practicos.pdf', type: 'pdf' },
-      { t: '👤 Tarjetas de nombres', href: 'materials/tarjetas/nombres_personajes.pdf', type: 'pdf' },
-      { t: '🍽️ Menús de tapas', href: 'materials/menus/menues_tapas.pdf', type: 'pdf' },
-      { t: '📚 Flashcards vocabulario', href: 'materials/vocabulario/flashcards_sesion1-6.pdf', type: 'pdf' },
-      { t: '📋 Ejercicios básicos', href: 'materials/plantillas/ejercicios_basicos.pdf', type: 'pdf' },
-      { t: '📅 Calendarios y horarios', href: 'materials/calendarios/calendario_horarios.pdf', type: 'pdf' }
-    ];
-
-    const MATERIALES_AVAILABLE = [
-      'guia-curso.pdf',
-      'vocabulario.pdf',
-      'frases-utiles.pdf',
-      'verbos.pdf',
-      'ejercicios-practicos.pdf',
-      'nombres_personajes.pdf',
-      'menues_tapas.pdf',
-      'flashcards_sesion1-6.pdf',
-      'ejercicios_basicos.pdf',
-      'calendario_horarios.pdf'
-    ];
-
     function renderMaterialesCurso(){
-      const chips = document.getElementById('chips-materials');
-      const list = document.getElementById('lista-materials');
-      chips.innerHTML = ''; list.innerHTML = '';
+      try {
+        const chips = document.getElementById('chips-materials');
+        const list = document.getElementById('lista-materials');
 
-      MATERIALES_CURSO.forEach((m) => {
-        const span = document.createElement('span');
-        span.className = 'chip';
-        span.textContent = m.t;
+        if (!chips || !list) {
+          console.error('Elements not found: chips-materials or lista-materials');
+          return;
+        }
 
-        span.onclick = () => {
-          document.querySelectorAll('#chips-materials .chip').forEach(c=>c.classList.remove('active'));
-          span.classList.add('active');
+        chips.innerHTML = '';
+        list.innerHTML = '';
 
-          const fileName = m.href.split('/').pop();
-          const fileExists = MATERIALES_AVAILABLE.includes(fileName);
+        const materiales = [
+          { t: 'Guia del curso', href: 'materials/guia-curso.pdf' },
+          { t: 'Vocabulario esencial', href: 'materials/vocabulario.pdf' },
+          { t: 'Frases utiles', href: 'materials/frases-utiles.pdf' },
+          { t: 'Verbos irregulares', href: 'materials/verbos.pdf' },
+          { t: 'Ejercicios practicos', href: 'materials/ejercicios-practicos.pdf' },
+          { t: 'Tarjetas de nombres', href: 'materials/tarjetas/nombres_personajes.pdf' },
+          { t: 'Menus de tapas', href: 'materials/menus/menues_tapas.pdf' },
+          { t: 'Flashcards vocabulario', href: 'materials/vocabulario/flashcards_sesion1-6.pdf' },
+          { t: 'Ejercicios basicos', href: 'materials/plantillas/ejercicios_basicos.pdf' },
+          { t: 'Calendarios y horarios', href: 'materials/calendarios/calendario_horarios.pdf' }
+        ];
 
-          if (fileExists) {
-            const isPDF = m.type === 'pdf' || m.href.endsWith('.pdf');
-            const fileIcon = isPDF ? '📄' : '📝';
-            const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
+        materiales.forEach((m) => {
+          const span = document.createElement('span');
+          span.className = 'chip';
+          span.textContent = m.t;
+
+          span.onclick = () => {
+            document.querySelectorAll('#chips-materials .chip').forEach(c=>c.classList.remove('active'));
+            span.classList.add('active');
+
+            const fileName = m.href.split('/').pop();
 
             list.innerHTML = `
-              <li><button class="btn primary" ${dataAttr}="${m.href}">${fileIcon} Ver en navegador (${m.t})</button></li>
+              <li><button class="btn primary" data-pdf="${m.href}">📄 Ver en navegador</button></li>
               <li><button class="btn" onclick="window.open('${m.href}', '_blank')">🔗 Abrir en nueva pestaña</button></li>
-              <li><button class="btn" onclick="downloadFile('${m.href}', '${m.t.replace(/[^a-zA-Z0-9]/g, '_')}.pdf')">💾 Descargar directamente</button></li>
+              <li><button class="btn" onclick="downloadFile('${m.href}', '${fileName}')">💾 Descargar directamente</button></li>
               <li><button class="btn" onclick="copyPDFLink('${m.href}')">📋 Copiar enlace</button></li>
             `;
-          } else {
-            list.innerHTML = `
-              <li class="muted">📝 ${m.t}</li>
-              <li class="muted" style="font-size: 0.9rem; margin-top: 10px;">
-                ⚠️ Este material estará disponible próximamente.<br>
-                Los materiales del curso se irán subiendo según avance el programa.
-              </li>
-            `;
-          }
-        };
-        chips.appendChild(span);
-      });
+          };
+          chips.appendChild(span);
+        });
 
-      if(MATERIALES_CURSO[0]) setTimeout(()=> chips.querySelector('.chip')?.click(), 0);
-      else list.innerHTML = '<li class="muted">No hay materiales subidos todavía.</li>';
+        // Seleccionar el primer material automáticamente
+        if (materiales.length > 0) {
+          setTimeout(() => {
+            const firstChip = chips.querySelector('.chip');
+            if (firstChip) {
+              firstChip.click();
+            }
+          }, 100);
+        }
+      } catch (error) {
+        console.error('Error in renderMaterialesCurso:', error);
+      }
     }
 
     // ===== GUÍAS POR SESIÓN =====
