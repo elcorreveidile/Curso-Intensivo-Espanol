@@ -2056,6 +2056,148 @@ def create_ejercicios_practicos_pdf():
     pdf.output('materials/ejercicios-practicos.pdf')
     print("✅ Created professional ejercicios-practicos.pdf")
 
+def create_hoja_asistencia_pdf():
+    """Crear hoja de asistencia para el curso"""
+
+    pdf = ProfessionalPDF()
+    pdf.title = 'Hoja de Asistencia'
+    pdf.alias_nb_pages()
+    pdf.add_page()
+
+    # Título principal
+    pdf.chapter_title('Hoja de Asistencia')
+    pdf.chapter_title('Curso Intensivo de Espanol - Nivel 3 CLM')
+
+    # Información del curso
+    pdf.highlight_box('Informacion del Curso',
+                     'Profesor: Javier Benitez Lainez\n'
+                     'Periodo: 6 - 27 de noviembre de 2025\n'
+                     'Duracion: 40 horas (8 horas semanales)\n'
+                     'Asistencia minima requerida: 85%\n'
+                     'Total de sesiones: 20 clases')
+
+    # Instrucciones
+    pdf.section_title('Instrucciones de Uso')
+    pdf.body_text('Esta hoja de asistencia debe ser completada por el profesor en cada sesion. '
+                 'Los estudiantes deben firmar para confirmar su presencia. '
+                 'La asistencia se registra diariamente y se calcula el porcentaje acumulado.')
+
+    # Tabla de asistencia
+    pdf.section_title('Registro de Asistencia')
+    pdf.set_font('Arial', 'B', 10)
+    pdf.set_text_color(0, 0, 0)
+
+    # Encabezados de tabla
+    headers = ['Fecha', 'Dia', 'Hora Inicio', 'Hora Fin', 'Firma']
+    widths = [30, 20, 25, 25, 90]
+
+    y_pos = pdf.get_y()
+
+    # Línea de encabezado
+    pdf.set_draw_color(0, 0, 0)
+    pdf.line(10, y_pos, 200, y_pos)
+
+    for i, header in enumerate(headers):
+        x_pos = 10 + sum(widths[:i])
+        pdf.set_x(x_pos)
+        pdf.cell(widths[i], 8, header, 0, 0, 'C')
+
+    y_pos += 8
+    pdf.line(10, y_pos, 200, y_pos)
+
+    # Filas de asistencia (20 sesiones)
+    pdf.set_font('Arial', '', 10)
+    sesiones = [
+        ('6 nov', 'Jueves', '08:30', '12:30'),
+        ('10 nov', 'Lunes', '08:30', '10:30'),
+        ('12 nov', 'Miercoles', '08:30', '10:30'),
+        ('13 nov', 'Jueves', '08:30', '12:30'),
+        ('17 nov', 'Lunes', '08:30', '10:30'),
+        ('19 nov', 'Miercoles', '08:30', '10:30'),
+        ('20 nov', 'Jueves', '08:30', '12:30'),
+        ('24 nov', 'Lunes', '08:30', '10:30'),
+        ('26 nov', 'Miercoles', '08:30', '10:30'),
+        ('27 nov', 'Jueves', '08:30', '12:30')
+    ]
+
+    for fecha, dia, inicio, fin in sesiones:
+        y_pos += 10
+        if y_pos > 260:  # Nueva página si es necesario
+            pdf.add_page()
+            y_pos = 50
+
+        # Línea de separación
+        pdf.line(10, y_pos - 1, 200, y_pos - 1)
+
+        # Datos de la fila
+        data = [fecha, dia, inicio, fin, '']
+        for i, item in enumerate(data):
+            x_pos = 10 + sum(widths[:i])
+            pdf.set_x(x_pos)
+            if i == 4:  # Columna de firma
+                pdf.line(x_pos + 5, y_pos + 5, x_pos + 85, y_pos + 5)
+                pdf.line(x_pos + 5, y_pos + 8, x_pos + 85, y_pos + 8)
+            else:
+                pdf.cell(widths[i], 8, item, 0, 0, 'C')
+
+    # Línea final
+    y_pos += 9
+    pdf.line(10, y_pos, 200, y_pos)
+
+    pdf.add_page()
+
+    # Resumen de asistencia
+    pdf.section_title('Resumen de Asistencia')
+    pdf.body_text('Calculo del porcentaje de asistencia:')
+
+    resumen_data = [
+        ('Total de sesiones:', '20 clases'),
+        ('Asistencia minima para aprobar:', '17 clases (85%)'),
+        ('Total horas del curso:', '40 horas'),
+        ('Horas minimas requeridas:', '34 horas')
+    ]
+
+    for concepto, valor in resumen_data:
+        pdf.set_font('Arial', 'B', 11)
+        pdf.cell(100, 8, concepto, 0, 0)
+        pdf.set_font('Arial', '', 11)
+        pdf.cell(0, 8, valor, 0, 1)
+
+    pdf.ln(10)
+
+    # Sección de observaciones
+    pdf.section_title('Observaciones y Notas')
+    pdf.body_text('Espacio para registrar observaciones importantes sobre la asistencia:')
+
+    pdf.set_font('Arial', '', 11)
+    for i in range(8):
+        pdf.set_x(15)
+        pdf.cell(10, 6, f'{i+1}.', 0, 0)
+        pdf.multi_cell(0, 6, '_________________________________________________________', 0, 1)
+
+    # Firmas al final
+    pdf.set_y(pdf.get_y() + 20)
+    pdf.section_title('Firmas')
+
+    pdf.set_font('Arial', 'B', 11)
+    pdf.cell(90, 8, 'Firma del Profesor:', 0, 0)
+    pdf.cell(0, 8, 'Firma del Coordinador:', 0, 1)
+
+    pdf.ln(15)
+
+    pdf.set_font('Arial', '', 11)
+    pdf.cell(90, 6, '_______________________', 0, 0)
+    pdf.cell(0, 6, '_______________________', 0, 1)
+
+    pdf.cell(90, 6, 'Javier Benitez Lainez', 0, 0)
+    pdf.cell(0, 6, 'Nombre y Apellidos', 0, 1)
+
+    pdf.cell(90, 6, 'Profesor de Espanol', 0, 0)
+    pdf.cell(0, 6, 'Coordinador CLM', 0, 1)
+
+    pdf.output('materials/hoja-asistencia.pdf')
+    print("✅ Created professional hoja-asistencia.pdf")
+
 def main():
     """Crear todos los PDFs profesionales"""
 
@@ -2070,6 +2212,7 @@ def main():
     create_frases_utiles_pdf()
     create_verbos_irregulares_pdf()
     create_ejercicios_practicos_pdf()
+    create_hoja_asistencia_pdf()
 
     print("\n🎉 All professional PDFs created successfully!")
     print("📚 Course materials now have professional formatting and complete content")

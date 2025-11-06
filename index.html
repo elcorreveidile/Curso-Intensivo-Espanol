@@ -213,6 +213,19 @@
           <p class="hint">Pulsa un material para ver sus opciones de descarga y visualización.</p>
           <div id="chips-materials" style="display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0;"></div>
           <ul class="list" id="lista-materials"></ul>
+
+          <!-- Hoja de Asistencia - Acceso discreto -->
+          <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee;">
+            <p style="font-size: 12px; color: #666; margin: 0 0 8px 0;">📄 Hoja de Asistencia:</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn" onclick="window.open('materials/hoja-asistencia.pdf', '_blank')" style="font-size: 12px; padding: 4px 8px;">
+                📋 Abrir Hoja de Asistencia
+              </button>
+              <button class="btn" onclick="downloadPDF('materials/hoja-asistencia.pdf', 'hoja-asistencia.pdf')" style="font-size: 12px; padding: 4px 8px;">
+                ⬇️ Descargar
+              </button>
+            </div>
+          </div>
         </div>
 
         <div class="card">
