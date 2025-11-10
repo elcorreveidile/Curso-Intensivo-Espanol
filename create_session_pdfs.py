@@ -114,7 +114,7 @@ sessions = [
     {
         'num': 4,
         'title': 'Sesion 4 - Rutina diaria',
-        'duracion': '4 horas',
+        'duracion': '2 horas',
         'objetivos': [
             'Verbos reflexivos',
             'Expresar rutinas y habitos',
@@ -192,7 +192,7 @@ sessions = [
     {
         'num': 7,
         'title': 'Sesion 7 - Transporte y direcciones',
-        'duracion': '4 horas',
+        'duracion': '2 horas',
         'objetivos': [
             'Medios de transporte',
             'Dar y pedir direcciones',
@@ -270,7 +270,7 @@ sessions = [
     {
         'num': 10,
         'title': 'Sesion 10 - Taller de cocina',
-        'duracion': '4 horas',
+        'duracion': '2 horas',
         'objetivos': [
             'Vocabulario de cocina',
             'Imperativo en recetas',
@@ -321,7 +321,7 @@ sessions = [
     {
         'num': 12,
         'title': 'Sesion 12 - Evaluacion final',
-        'duracion': '4 horas',
+        'duracion': '2 horas',
         'objetivos': [
             'Examen escrito (comprension y expresion)',
             'Examen oral (conversacion y entrevista)',
@@ -504,7 +504,7 @@ def create_session_pdf(session):
     pdf.set_text_color(51, 51, 51)
     pdf.cell(0, 6, 'Periodo: 6 - 27 de noviembre de 2025', border=0)
     pdf.ln()
-    pdf.cell(0, 6, 'Profesor: Javier Benitez Lainez | Aula: A2', border=0)
+    pdf.cell(0, 6, 'Profesor: Javier Benitez Lainez | Aula: 24', border=0)
     pdf.ln()
     pdf.cell(0, 6, f'Duracion: {session["duracion"]}', border=0)
     pdf.ln(12)

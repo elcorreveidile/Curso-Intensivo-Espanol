@@ -5,7 +5,8 @@ Web del Curso Intensivo de Español (Nivel 3 CLM - A1.2-A2.1) diseñado para est
 ## 📅 Información del Curso
 
 - **Fechas:** 6 - 27 de noviembre de 2025
-- **Horario:** De lunes a jueves: 8:30 - 10:30
+- **Horario:** Lunes a jueves: 8:30 - 10:30 (2 horas diarias)
+- **Total:** 12 días de clase, 24 horas (17 sesiones disponibles)
 - **Nivel:** 3 CLM (A1.2-A2.1)
 - **Profesor:** Javier Benítez Láinez
 - **Ubicación:** Aula 24, Universidad de Granada
