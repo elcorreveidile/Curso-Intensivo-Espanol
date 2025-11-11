@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea para casa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+            background-color: #f8d56f;
+            color: #333;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 40px 70px;
+            display: flex;
+            flex-direction: column;
+        }
+        .homework-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            flex-grow: 1;
+        }
+        .homework-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: flex-start;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .homework-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+        .homework-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 25px;
+            flex-shrink: 0;
+        }
+        .homework-icon i {
+            font-size: 32px;
+        }
+        .homework-content {
+            flex-grow: 1;
+        }
+        .homework-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .homework-description {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #555;
+        }
+        .key-requirements {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .key-requirement {
+            background-color: rgba(100, 181, 246, 0.1);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1976d2;
+            display: flex;
+            align-items: center;
+        }
+        .key-requirement i {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        .footer {
+            padding: 15px 70px;
+            background-color: #f8d56f;
+            color: #333;
+            font-size: 14px;
+            text-align: right;
+        }
+        
+        /* Color variations for each homework */
+        .homework-1 .homework-icon {
+            background-color: rgba(100, 181, 246, 0.1);
+        }
+        .homework-1 .homework-icon i {
+            color: #64b5f6;
+        }
+        .homework-1 .key-requirement {
+            background-color: rgba(100, 181, 246, 0.1);
+            color: #1976d2;
+        }
+        
+        .homework-2 .homework-icon {
+            background-color: rgba(129, 199, 132, 0.1);
+        }
+        .homework-2 .homework-icon i {
+            color: #81c784;
+        }
+        .homework-2 .key-requirement {
+            background-color: rgba(129, 199, 132, 0.1);
+            color: #388e3c;
+        }
+        
+        .homework-3 .homework-icon {
+            background-color: rgba(255, 183, 77, 0.1);
+        }
+        .homework-3 .homework-icon i {
+            color: #ffb74d;
+        }
+        .homework-3 .key-requirement {
+            background-color: rgba(255, 183, 77, 0.1);
+            color: #f57c00;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Tarea para casa</h1>
+        </div>
+        
+        <div class="content">
+            <div class="homework-container">
+                <div class="homework-card homework-1">
+                    <div class="homework-icon">
+                        <i class="material-icons">edit</i>
+                    </div>
+                    <div class="homework-content">
+                        <h2 class="homework-title">Escribir tu rutina diaria completa</h2>
+                        <p class="homework-description">
+                            Describe tu rutina diaria desde que te levantas hasta que te acuestas
+                        </p>
+                        <div class="key-requirements">
+                            <div class="key-requirement">
+                                <i class="material-icons">check</i>
+                                5+ verbos reflexivos
+                            </div>
+                            <div class="key-requirement">
+                                <i class="material-icons">check</i>
+                                3+ adverbios de frecuencia
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="homework-card homework-2">
+                    <div class="homework-icon">
+                        <i class="material-icons">compare_arrows</i>
+                    </div>
+                    <div class="homework-content">
+                        <h2 class="homework-title">Comparar tu rutina con la de un amigo</h2>
+                        <p class="homework-description">
+                            Entrevista a un amigo o familiar sobre su rutina diaria y escribe un párrafo comparando ambas rutinas
+                        </p>
+                        <div class="key-requirements">
+                            <div class="key-requirement">
+                                <i class="material-icons">check</i>
+                                Similitudes
+                            </div>
+                            <div class="key-requirement">
+                                <i class="material-icons">check</i>
+                                Diferencias
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="homework-card homework-3">
+                    <div class="homework-icon">
+                        <i class="material-icons">autorenew</i>
+                    </div>
+                    <div class="homework-content">
+                        <h2 class="homework-title">Practicar verbos reflexivos</h2>
+                        <p class="homework-description">
+                            Completa los ejercicios del cuaderno sobre verbos reflexivos y crea 5 oraciones originales usando diferentes verbos reflexivos
+                        </p>
+                        <div class="key-requirements">
+                            <div class="key-requirement">
+                                <i class="material-icons">check</i>
+                                Ejercicios del cuaderno
+                            </div>
+                            <div class="key-requirement">
+                                <i class="material-icons">check</i>
+                                5 oraciones originales
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Sesión 4 - Rutina diaria | Curso Intensivo de Español - Nivel 3 CLM
+        </div>
+    </div>
+</body>
+</html>
