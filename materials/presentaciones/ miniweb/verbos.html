@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verbos reflexivos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+            background-color: #f8d56f;
+            color: #333;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 40px 70px;
+            display: flex;
+            flex-direction: column;
+        }
+        .reflexive-container {
+            display: flex;
+            gap: 40px;
+            flex-grow: 1;
+        }
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .right-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .definition-box {
+            background-color: rgba(100, 181, 246, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #64b5f6;
+        }
+        .definition-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1976d2;
+            display: flex;
+            align-items: center;
+        }
+        .definition-title i {
+            margin-right: 12px;
+            font-size: 28px;
+        }
+        .definition-text {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+        .pronoun-box {
+            background-color: rgba(229, 115, 115, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #e57373;
+            flex-grow: 1;
+        }
+        .pronoun-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #d32f2f;
+            display: flex;
+            align-items: center;
+        }
+        .pronoun-title i {
+            margin-right: 12px;
+            font-size: 28px;
+        }
+        .pronoun-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .pronoun-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 12px 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            font-size: 20px;
+            font-weight: 600;
+            color: #d32f2f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+        }
+        .conjugation-box {
+            background-color: rgba(129, 199, 132, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #81c784;
+            margin-bottom: 30px;
+        }
+        .conjugation-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #388e3c;
+            display: flex;
+            align-items: center;
+        }
+        .conjugation-title i {
+            margin-right: 12px;
+            font-size: 28px;
+        }
+        .conjugation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .conjugation-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 12px 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        .subject {
+            font-weight: 600;
+            margin-right: 10px;
+            color: #388e3c;
+        }
+        .verb {
+            font-weight: 500;
+        }
+        .pronoun {
+            font-weight: 700;
+            color: #e57373;
+        }
+        .examples-box {
+            background-color: rgba(255, 183, 77, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #ffb74d;
+            flex-grow: 1;
+        }
+        .examples-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #f57c00;
+            display: flex;
+            align-items: center;
+        }
+        .examples-title i {
+            margin-right: 12px;
+            font-size: 28px;
+        }
+        .examples-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .example-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        .example-item i {
+            margin-right: 15px;
+            color: #ffb74d;
+            font-size: 22px;
+        }
+        .footer {
+            padding: 15px 70px;
+            background-color: #f8d56f;
+            color: #333;
+            font-size: 14px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Verbos reflexivos</h1>
+        </div>
+        
+        <div class="content">
+            <div class="reflexive-container">
+                <div class="left-section">
+                    <div class="definition-box">
+                        <h2 class="definition-title">
+                            <i class="material-icons">info</i>
+                            ¿Qué son?
+                        </h2>
+                        <p class="definition-text">
+                            Un verbo reflexivo es aquel cuya acción realiza y recibe el sujeto.
+                        </p>
+                    </div>
+                    
+                    <div class="pronoun-box">
+                        <h2 class="pronoun-title">
+                            <i class="material-icons">record_voice_over</i>
+                            Pronombres reflexivos
+                        </h2>
+                        <p class="definition-text">
+                            Se conjugan con pronombres reflexivos que concuerdan con el sujeto:
+                        </p>
+                        <div class="pronoun-list">
+                            <div class="pronoun-item">me</div>
+                            <div class="pronoun-item">te</div>
+                            <div class="pronoun-item">se</div>
+                            <div class="pronoun-item">nos</div>
+                            <div class="pronoun-item">os</div>
+                            <div class="pronoun-item">se</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-section">
+                    <div class="conjugation-box">
+                        <h2 class="conjugation-title">
+                            <i class="material-icons">autorenew</i>
+                            Conjugación (levantarse)
+                        </h2>
+                        <div class="conjugation-grid">
+                            <div class="conjugation-item">
+                                <span class="subject">Yo</span> <span class="pronoun">me</span> <span class="verb">levanto</span>
+                            </div>
+                            <div class="conjugation-item">
+                                <span class="subject">Tú</span> <span class="pronoun">te</span> <span class="verb">levantas</span>
+                            </div>
+                            <div class="conjugation-item">
+                                <span class="subject">Él/Ella/Usted</span> <span class="pronoun">se</span> <span class="verb">levanta</span>
+                            </div>
+                            <div class="conjugation-item">
+                                <span class="subject">Nosotros/as</span> <span class="pronoun">nos</span> <span class="verb">levantamos</span>
+                            </div>
+                            <div class="conjugation-item">
+                                <span class="subject">Vosotros/as</span> <span class="pronoun">os</span> <span class="verb">levantáis</span>
+                            </div>
+                            <div class="conjugation-item">
+                                <span class="subject">Ellos/as/Ustedes</span> <span class="pronoun">se</span> <span class="verb">levantan</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="examples-box">
+                        <h2 class="examples-title">
+                            <i class="material-icons">format_quote</i>
+                            Ejemplos en contexto
+                        </h2>
+                        <div class="examples-list">
+                            <div class="example-item">
+                                <i class="material-icons">alarm</i>
+                                Me levanto a las 7 de la mañana
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">shower</i>
+                                Nos duchamos antes de salir
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">bedtime</i>
+                                Se acuesta tarde los fines de semana
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Sesión 4 - Rutina diaria | Curso Intensivo de Español - Nivel 3 CLM
+        </div>
+    </div>
+</body>
+</html>
