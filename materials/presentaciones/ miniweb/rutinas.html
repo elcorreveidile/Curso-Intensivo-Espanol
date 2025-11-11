@@ -141,6 +141,36 @@
             font-size: 14px;
             text-align: right;
         }
+        .nav-buttons {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        .nav-button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Source Sans Pro', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none;
+        }
+        .nav-button:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -233,7 +263,18 @@
                 </div>
             </div>
         </div>
-        
+
+        <div class="nav-buttons">
+            <a href="objetivos.html" class="nav-button">
+                <i class="material-icons">arrow_back</i>
+                <span>Anterior</span>
+            </a>
+            <a href="verbos.html" class="nav-button">
+                <span>Siguiente</span>
+                <i class="material-icons">arrow_forward</i>
+            </a>
+        </div>
+
         <div class="footer">
             Sesión 4 - Rutina diaria | Curso Intensivo de Español - Nivel 3 CLM
         </div>
