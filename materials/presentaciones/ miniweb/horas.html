@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La hora en contexto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+            background-color: #f8d56f;
+            color: #333;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 40px 70px;
+            display: flex;
+            flex-direction: column;
+        }
+        .time-container {
+            display: flex;
+            gap: 40px;
+            flex-grow: 1;
+        }
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .right-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .format-box {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            flex-grow: 1;
+        }
+        .format-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        .format-title i {
+            margin-right: 12px;
+            font-size: 28px;
+            color: #64b5f6;
+        }
+        .time-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .time-item {
+            display: flex;
+            align-items: center;
+            background-color: rgba(100, 181, 246, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.2s ease;
+        }
+        .time-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .time-icon {
+            background-color: #64b5f6;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .time-icon i {
+            color: #fff;
+            font-size: 22px;
+        }
+        .time-text {
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .expressions-box {
+            background-color: rgba(255, 183, 77, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #ffb74d;
+            flex-grow: 1;
+        }
+        .expressions-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f57c00;
+            display: flex;
+            align-items: center;
+        }
+        .expressions-title i {
+            margin-right: 12px;
+            font-size: 28px;
+        }
+        .expressions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .expression-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+        }
+        .expression-term {
+            font-weight: 700;
+            color: #f57c00;
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        .expression-meaning {
+            font-size: 18px;
+        }
+        .context-box {
+            background-color: rgba(129, 199, 132, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #81c784;
+            flex-grow: 1;
+        }
+        .context-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #388e3c;
+            display: flex;
+            align-items: center;
+        }
+        .context-title i {
+            margin-right: 12px;
+            font-size: 28px;
+        }
+        .context-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .context-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+        }
+        .context-item i {
+            margin-right: 15px;
+            color: #81c784;
+            font-size: 22px;
+        }
+        .context-text {
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .highlight {
+            font-weight: 700;
+            color: #e57373;
+        }
+        .footer {
+            padding: 15px 70px;
+            background-color: #f8d56f;
+            color: #333;
+            font-size: 14px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">La hora en contexto</h1>
+        </div>
+        
+        <div class="content">
+            <div class="time-container">
+                <div class="left-section">
+                    <div class="format-box">
+                        <h2 class="format-title">
+                            <i class="material-icons">schedule</i>
+                            Formato de 12 horas
+                        </h2>
+                        <div class="time-examples">
+                            <div class="time-item">
+                                <div class="time-icon">
+                                    <i class="material-icons">access_time</i>
+                                </div>
+                                <div class="time-text">Son las <span class="highlight">siete</span> de la mañana</div>
+                            </div>
+                            <div class="time-item">
+                                <div class="time-icon">
+                                    <i class="material-icons">access_time</i>
+                                </div>
+                                <div class="time-text">Es la <span class="highlight">una y cuarto</span></div>
+                            </div>
+                            <div class="time-item">
+                                <div class="time-icon">
+                                    <i class="material-icons">access_time</i>
+                                </div>
+                                <div class="time-text">Son las <span class="highlight">tres y media</span></div>
+                            </div>
+                            <div class="time-item">
+                                <div class="time-icon">
+                                    <i class="material-icons">access_time</i>
+                                </div>
+                                <div class="time-text">Son las <span class="highlight">cinco menos cuarto</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="format-box">
+                        <h2 class="format-title">
+                            <i class="material-icons">watch</i>
+                            Formato de 24 horas
+                        </h2>
+                        <div class="time-examples">
+                            <div class="time-item">
+                                <div class="time-icon">
+                                    <i class="material-icons">access_time</i>
+                                </div>
+                                <div class="time-text">Son las <span class="highlight">catorce treinta</span></div>
+                            </div>
+                            <div class="time-item">
+                                <div class="time-icon">
+                                    <i class="material-icons">access_time</i>
+                                </div>
+                                <div class="time-text">Son las <span class="highlight">dieciocho cuarenta y cinco</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-section">
+                    <div class="expressions-box">
+                        <h2 class="expressions-title">
+                            <i class="material-icons">translate</i>
+                            Expresiones de tiempo
+                        </h2>
+                        <div class="expressions-grid">
+                            <div class="expression-item">
+                                <span class="expression-term">a las...</span>
+                                <span class="expression-meaning">hora específica</span>
+                            </div>
+                            <div class="expression-item">
+                                <span class="expression-term">de la mañana/tarde/noche</span>
+                                <span class="expression-meaning">período del día</span>
+                            </div>
+                            <div class="expression-item">
+                                <span class="expression-term">en punto</span>
+                                <span class="expression-meaning">hora exacta</span>
+                            </div>
+                            <div class="expression-item">
+                                <span class="expression-term">y cuarto</span>
+                                <span class="expression-meaning">15 minutos</span>
+                            </div>
+                            <div class="expression-item">
+                                <span class="expression-term">y media</span>
+                                <span class="expression-meaning">30 minutos</span>
+                            </div>
+                            <div class="expression-item">
+                                <span class="expression-term">menos cuarto</span>
+                                <span class="expression-meaning">45 minutos</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="context-box">
+                        <h2 class="context-title">
+                            <i class="material-icons">format_quote</i>
+                            Ejemplos en contexto
+                        </h2>
+                        <div class="context-examples">
+                            <div class="context-item">
+                                <i class="material-icons">alarm</i>
+                                <div class="context-text"><span class="highlight">Me levanto a las siete</span> de la mañana</div>
+                            </div>
+                            <div class="context-item">
+                                <i class="material-icons">restaurant</i>
+                                <div class="context-text"><span class="highlight">Almuerzo a las dos</span> de la tarde</div>
+                            </div>
+                            <div class="context-item">
+                                <i class="material-icons">bedtime</i>
+                                <div class="context-text"><span class="highlight">Me acuesto a las once</span> de la noche</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Sesión 4 - Rutina diaria | Curso Intensivo de Español - Nivel 3 CLM
+        </div>
+    </div>
+</body>
+</html>
