@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adverbios de frecuencia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+            background-color: #f8d56f;
+            color: #333;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 40px 70px;
+            display: flex;
+            flex-direction: column;
+        }
+        .frequency-container {
+            display: flex;
+            gap: 40px;
+            flex-grow: 1;
+        }
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .right-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .definition-box {
+            background-color: rgba(129, 199, 132, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #81c784;
+        }
+        .definition-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #388e3c;
+            display: flex;
+            align-items: center;
+        }
+        .definition-title i {
+            margin-right: 12px;
+            font-size: 28px;
+        }
+        .definition-text {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+        .frequency-scale {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .scale-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        .scale-title i {
+            margin-right: 12px;
+            font-size: 28px;
+            color: #81c784;
+        }
+        .frequency-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-grow: 1;
+        }
+        .frequency-item {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        .frequency-label {
+            width: 140px;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            z-index: 2;
+        }
+        .frequency-bar-fill {
+            height: 100%;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            font-weight: 600;
+            color: #fff;
+            z-index: 1;
+        }
+        .examples-box {
+            background-color: rgba(255, 183, 77, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #ffb74d;
+            flex-grow: 1;
+        }
+        .examples-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f57c00;
+            display: flex;
+            align-items: center;
+        }
+        .examples-title i {
+            margin-right: 12px;
+            font-size: 28px;
+        }
+        .examples-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .example-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        .example-item i {
+            margin-right: 15px;
+            color: #ffb74d;
+            font-size: 22px;
+        }
+        .example-text {
+            font-weight: 500;
+        }
+        .example-adverb {
+            font-weight: 700;
+            color: #e57373;
+            margin-right: 5px;
+        }
+        .footer {
+            padding: 15px 70px;
+            background-color: #f8d56f;
+            color: #333;
+            font-size: 14px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Adverbios de frecuencia</h1>
+        </div>
+        
+        <div class="content">
+            <div class="frequency-container">
+                <div class="left-section">
+                    <div class="definition-box">
+                        <h2 class="definition-title">
+                            <i class="material-icons">info</i>
+                            ¿Qué son?
+                        </h2>
+                        <p class="definition-text">
+                            Indican con qué frecuencia ocurre una acción.
+                        </p>
+                    </div>
+                    
+                    <div class="frequency-scale">
+                        <h2 class="scale-title">
+                            <i class="material-icons">timeline</i>
+                            Escala de frecuencia
+                        </h2>
+                        <div class="frequency-bar">
+                            <div class="frequency-item">
+                                <div class="frequency-label">Siempre</div>
+                                <div class="frequency-bar-fill" style="width: 100%; background-color: #d32f2f;">100%</div>
+                            </div>
+                            <div class="frequency-item">
+                                <div class="frequency-label">Normalmente</div>
+                                <div class="frequency-bar-fill" style="width: 90%; background-color: #e57373;">90%</div>
+                            </div>
+                            <div class="frequency-item">
+                                <div class="frequency-label">A menudo</div>
+                                <div class="frequency-bar-fill" style="width: 70%; background-color: #ffb74d;">70%</div>
+                            </div>
+                            <div class="frequency-item">
+                                <div class="frequency-label">A veces</div>
+                                <div class="frequency-bar-fill" style="width: 50%; background-color: #fdd835;">50%</div>
+                            </div>
+                            <div class="frequency-item">
+                                <div class="frequency-label">Ocasionalmente</div>
+                                <div class="frequency-bar-fill" style="width: 30%; background-color: #81c784;">30%</div>
+                            </div>
+                            <div class="frequency-item">
+                                <div class="frequency-label">Raramente</div>
+                                <div class="frequency-bar-fill" style="width: 10%; background-color: #64b5f6;">10%</div>
+                            </div>
+                            <div class="frequency-item">
+                                <div class="frequency-label">Nunca</div>
+                                <div class="frequency-bar-fill" style="width: 0%; background-color: #9575cd;">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-section">
+                    <div class="examples-box">
+                        <h2 class="examples-title">
+                            <i class="material-icons">format_quote</i>
+                            Ejemplos en contexto
+                        </h2>
+                        <div class="examples-list">
+                            <div class="example-item">
+                                <i class="material-icons">looks_one</i>
+                                <span class="example-text"><span class="example-adverb">Siempre</span> me levanto a las 7</span>
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">looks_two</i>
+                                <span class="example-text"><span class="example-adverb">Normalmente</span> desayuno a las 8</span>
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">looks_3</i>
+                                <span class="example-text"><span class="example-adverb">A menudo</span> practico deportes</span>
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">looks_4</i>
+                                <span class="example-text"><span class="example-adverb">A veces</span> salgo con amigos</span>
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">looks_5</i>
+                                <span class="example-text"><span class="example-adverb">Raramente</span> veo televisión</span>
+                            </div>
+                            <div class="example-item">
+                                <i class="material-icons">looks_6</i>
+                                <span class="example-text"><span class="example-adverb">Nunca</span> me acuesto tarde</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Sesión 4 - Rutina diaria | Curso Intensivo de Español - Nivel 3 CLM
+        </div>
+    </div>
+</body>
+</html>
