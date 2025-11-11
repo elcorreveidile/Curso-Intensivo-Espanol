@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades de clase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+            background-color: #f8d56f;
+            color: #333;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 40px 70px;
+            display: flex;
+            flex-direction: column;
+        }
+        .activities-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            flex-grow: 1;
+        }
+        .activity-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+        .activity-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #f8d56f;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .activity-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .activity-icon i {
+            font-size: 32px;
+        }
+        .activity-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .activity-description {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #555;
+            flex-grow: 1;
+        }
+        .key-points {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .key-point {
+            background-color: rgba(100, 181, 246, 0.1);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1976d2;
+            display: flex;
+            align-items: center;
+        }
+        .key-point i {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        .footer {
+            padding: 15px 70px;
+            background-color: #f8d56f;
+            color: #333;
+            font-size: 14px;
+            text-align: right;
+        }
+        
+        /* Color variations for each activity */
+        .activity-1 .activity-icon {
+            background-color: rgba(100, 181, 246, 0.1);
+        }
+        .activity-1 .activity-icon i {
+            color: #64b5f6;
+        }
+        .activity-1 .activity-number {
+            background-color: #64b5f6;
+            color: white;
+        }
+        
+        .activity-2 .activity-icon {
+            background-color: rgba(129, 199, 132, 0.1);
+        }
+        .activity-2 .activity-icon i {
+            color: #81c784;
+        }
+        .activity-2 .activity-number {
+            background-color: #81c784;
+            color: white;
+        }
+        
+        .activity-3 .activity-icon {
+            background-color: rgba(255, 183, 77, 0.1);
+        }
+        .activity-3 .activity-icon i {
+            color: #ffb74d;
+        }
+        .activity-3 .activity-number {
+            background-color: #ffb74d;
+            color: white;
+        }
+        
+        .activity-4 .activity-icon {
+            background-color: rgba(229, 115, 115, 0.1);
+        }
+        .activity-4 .activity-icon i {
+            color: #e57373;
+        }
+        .activity-4 .activity-number {
+            background-color: #e57373;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Actividades de clase</h1>
+        </div>
+        
+        <div class="content">
+            <div class="activities-container">
+                <div class="activity-card activity-1">
+                    <div class="activity-number">1</div>
+                    <div class="activity-icon">
+                        <i class="material-icons">person</i>
+                    </div>
+                    <h2 class="activity-title">Describir tu día típico</h2>
+                    <p class="activity-description">
+                        Los estudiantes describen su rutina diaria usando verbos reflexivos y adverbios de frecuencia.
+                    </p>
+                    <div class="key-points">
+                        <div class="key-point">
+                            <i class="material-icons">check</i>
+                            Verbos reflexivos
+                        </div>
+                        <div class="key-point">
+                            <i class="material-icons">check</i>
+                            Adverbios de frecuencia
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-card activity-2">
+                    <div class="activity-number">2</div>
+                    <div class="activity-icon">
+                        <i class="material-icons">compare_arrows</i>
+                    </div>
+                    <h2 class="activity-title">Comparar rutinas</h2>
+                    <p class="activity-description">
+                        En parejas, los estudiantes comparan sus rutinas diarias y encuentran similitudes y diferencias.
+                    </p>
+                    <div class="key-points">
+                        <div class="key-point">
+                            <i class="material-icons">check</i>
+                            Trabajo en parejas
+                        </div>
+                        <div class="key-point">
+                            <i class="material-icons">check</i>
+                            Similitudes y diferencias
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-card activity-3">
+                    <div class="activity-number">3</div>
+                    <div class="activity-icon">
+                        <i class="material-icons">schedule</i>
+                    </div>
+                    <h2 class="activity-title">Crear un horario ideal</h2>
+                    <p class="activity-description">
+                        Los estudiantes diseñan su horario ideal para un día de la semana, indicando las horas y las actividades.
+                    </p>
+                    <div class="key-points">
+                        <div class="key-point">
+                            <i class="material-icons">check</i>
+                            Horarios
+                        </div>
+                        <div class="key-point">
+                            <i class="material-icons">check</i>
+                            Expresiones de tiempo
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-card activity-4">
+                    <div class="activity-number">4</div>
+                    <div class="activity-icon">
+                        <i class="material-icons">record_voice_over</i>
+                    </div>
+                    <h2 class="activity-title">Entrevista a un compañero</h2>
+                    <p class="activity-description">
+                        Los estudiantes preparan preguntas sobre la rutina diaria y entrevistan a un compañero, luego presentan los resultados a la clase.
+                    </p>
+                    <div class="key-points">
+                        <div class="key-point">
+                            <i class="material-icons">check</i>
+                            Formulación de preguntas
+                        </div>
+                        <div class="key-point">
+                            <i class="material-icons">check</i>
+                            Presentación oral
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Sesión 4 - Rutina diaria | Curso Intensivo de Español - Nivel 3 CLM
+        </div>
+    </div>
+</body>
+</html>
