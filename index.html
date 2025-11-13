@@ -624,6 +624,7 @@
       { t: 'Sesión 5 · Comida y restaurante', href: 'materials/cuadernos/S5_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 6 · Compras y tiendas', href: 'materials/cuadernos/S6_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 7 · Transporte y direcciones', href: 'materials/cuadernos/S7_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: '🌐 Miniweb: Transporte y direcciones', href: 'materials/miniweb/direcciones/index.html', type: 'web' },
       { t: 'Sesión 8 · Tiempo libre y hobbies', href: 'materials/cuadernos/S8_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 9 · Proyecto fotográfico', href: 'materials/cuadernos/S9_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 10 · Taller de cocina', href: 'materials/cuadernos/S10_Espanol_Intensivo.pdf', type: 'pdf' },
@@ -686,6 +687,16 @@
           const fileName = s.href.split('/').pop();
           const fileExists = SESSIONS_AVAILABLE.includes(fileName);
           const sessionNumber = index + 1;
+
+          // Handle web links (miniwebs)
+          if (s.type === 'web') {
+            let htmlContent = `
+              <li><button class="btn primary" onclick="window.open('${s.href}', '_blank')">🌐 Abrir miniweb</button></li>
+              <li><button class="btn" onclick="copyPDFLink('${s.href}')">📋 Copiar enlace</button></li>
+            `;
+            list.innerHTML = htmlContent;
+            return;
+          }
 
           if (fileExists) {
             const isPDF = s.type === 'pdf' || s.href.endsWith('.pdf');
