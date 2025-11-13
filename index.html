@@ -1097,6 +1097,29 @@
       'S17_Espanol_Intensivo.pdf'
     ];
 
+    const MINIWEB_LINKS = {
+      8: {
+        url: 'https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/',
+        label: '🌐 MiniWeb: Transporte y Direcciones',
+        color: '#27ae60'
+      },
+      9: {
+        url: 'https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/ocio/',
+        label: '🌐 MiniWeb: Ocio y Aficiones',
+        color: '#667eea'
+      },
+      10: {
+        url: 'https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/fotos/',
+        label: '🌐 MiniWeb: Proyecto de Fotos',
+        color: '#ff6b6b'
+      },
+      11: {
+        url: 'https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/tecnologia/',
+        label: '🌐 MiniWeb: Tecnología y Comunicación',
+        color: '#0ea5e9'
+      }
+    };
+
     // Materiales adicionales por sesión
     const MATERIALES_ADICIONALES = {
       3: [
@@ -1126,33 +1149,17 @@
 
           const fileName = s.href.split('/').pop();
           const fileExists = SESSIONS_AVAILABLE.includes(fileName);
-          const sessionNumber = index + 1;
-
-          // Handle web links (miniwebs)
-          if (s.type === 'web') {
-            let htmlContent = `
-              <li><button class="btn primary" onclick="window.open('${s.href}', '_blank')">🌐 Abrir miniweb</button></li>
-              <li><button class="btn" onclick="copyPDFLink('${s.href}')">📋 Copiar enlace</button></li>
-            `;
-            list.innerHTML = htmlContent;
-            return;
-          }
+          const sessionMatch = s.t.match(/Sesión\s+(\d+)/i);
+          const sessionNumber = sessionMatch ? parseInt(sessionMatch[1], 10) : index + 1;
 
           if (fileExists) {
             const isPDF = s.type === 'pdf' || s.href.endsWith('.pdf');
             const fileIcon = isPDF ? '📄' : '📝';
             const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
 
-          // Añadir enlace a miniweb si es la sesión 8, 9 o 10
+            // Añadir enlace a miniweb si hay una configurada para la sesión seleccionada
             let miniwebLink = '';
-            if (s.t.includes('Sesión 8')) {
-              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/', '_blank')" style="background: #27ae60;">🌐 MiniWeb: Transporte y Direcciones</button></li>`;
-            } else if (s.t.includes('Sesión 9')) {
-              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/ocio/', '_blank')" style="background: #667eea;">🌐 MiniWeb: Ocio y Aficiones</button></li>`;
-            } else if (s.t.includes('Sesión 10')) {
-              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/fotos/', '_blank')" style="background: #ff6b6b;">🌐 MiniWeb: Proyecto de Fotos</button></li>`;
-            } else if (s.t.includes('Sesión 16')) {
-              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/tecnologia/', '_blank')" style="background: #0ea5e9;">🌐 MiniWeb: Tecnología y Comunicación</button></li>`;
+
             }
 
             let htmlContent = `
