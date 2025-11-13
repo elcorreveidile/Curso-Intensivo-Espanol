@@ -21,7 +21,9 @@
             height: 720px;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: url('https://sfile.chatglm.cn/images-ppt/57f5425af3ce.jpg');
+            background-size: cover;
+            background-position: center;
         }
         .overlay {
             position: absolute;
@@ -29,7 +31,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.75);
             display: flex;
         }
         .left-content {
@@ -51,7 +53,7 @@
         .title {
             font-size: 60px;
             font-weight: 700;
-            color: #667eea;
+            color: #c82333;
             margin-bottom: 20px;
             line-height: 1.2;
         }
@@ -67,8 +69,8 @@
             margin-bottom: 5px;
         }
         .keyword-box {
-            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-            border-left: 4px solid #667eea;
+            background-color: rgba(201, 76, 76, 0.1);
+            border-left: 4px solid #c94c4c;
             padding: 15px;
             margin-bottom: 15px;
             border-radius: 4px;
@@ -76,7 +78,7 @@
         .keyword-title {
             font-size: 22px;
             font-weight: 600;
-            color: #667eea;
+            color: #c94c4c;
             margin-bottom: 10px;
         }
         .keyword {
@@ -89,7 +91,7 @@
         }
         .keyword i {
             margin-right: 10px;
-            color: #667eea;
+            color: #c94c4c;
         }
         .navigation {
             position: fixed;
@@ -100,7 +102,7 @@
             z-index: 1000;
         }
         .nav-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #c82333;
             color: white;
             padding: 12px 24px;
             border-radius: 6px;
@@ -110,13 +112,11 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s;
+            transition: background-color 0.3s;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .nav-button:hover {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            background-color: #a01d28;
         }
         .nav-button i {
             font-size: 20px;
