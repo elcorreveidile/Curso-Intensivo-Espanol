@@ -19,7 +19,7 @@
 
 ### 3. Materiales Regenerados
 
-#### Sesiones del Curso (12 PDFs)
+#### Sesiones del Curso (17 PDFs)
 - `S1_Espanol_Intensivo.pdf` - Presentaciones y alfabeto
 - `S2_Espanol_Intensivo.pdf` - Números y fechas
 - `S3_Espanol_Intensivo.pdf` - Familia y descripciones
@@ -32,6 +32,11 @@
 - `S10_Espanol_Intensivo.pdf` - Taller de cocina
 - `S11_Espanol_Intensivo.pdf` - Repaso general
 - `S12_Espanol_Intensivo.pdf` - Evaluación final
+- `S13_Espanol_Intensivo.pdf` - Cultura y regiones de España
+- `S14_Espanol_Intensivo.pdf` - Salud y emergencias
+- `S15_Espanol_Intensivo.pdf` - Viajes y alojamiento
+- `S16_Espanol_Intensivo.pdf` - Tecnología y comunicación
+- `S17_Espanol_Intensivo.pdf` - Proyecto final integrador
 
 #### Materiales Adicionales (10 PDFs)
 - `materials/calendarios/calendario_horarios.pdf` - Calendario actualizado
@@ -49,9 +54,9 @@
 ### 4. Calendario del Curso
 - **Período:** 6 - 27 de noviembre de 2025
 - **Horario:**
-  - Lunes y Miércoles: 8:30 - 10:30 (2 horas)
-  - Jueves: 8:30 - 12:30 (4 horas)
-- **Total:** 12 sesiones, 40 horas
+  - Lunes a Jueves: 8:30 - 10:30 (2 horas diarias)
+- **Total:** 12 días de clase, 24 horas totales, 17 sesiones disponibles
+- **Nota:** Algunas clases avanzan más rápido con 2 sesiones por día según el ritmo del grupo
 - **Evaluación final:** Jueves 27 de noviembre
 
 ## 📋 Estructura Final

@@ -360,11 +360,11 @@
               </div>
           </div>
           <ul class="list">
-            <li>2024/2025</li>
+            <li>2025/2026</li>
             <li><strong>6 – 27 noviembre 2025</strong></li>
-            <li>Curso intensivo · 40 horas</li>
+            <li>Curso intensivo · 24 horas (17 sesiones)</li>
             <li><strong>Profesor:</strong> Javier Benítez Láinez</li>
-            <li><strong>Aula:</strong> A2</li>
+            <li><strong>Aula:</strong> 24</li>
             <li><strong>Nivel:</strong> 3 CLM (A1.2-A2.1)</li>
             <li><strong>Requisitos:</strong> Nivel básico de español</li>
           </ul>
@@ -373,13 +373,20 @@
         <div class="card">
           <h3>📅 Horario del curso</h3>
           <div class="schedule-card">
-            <h4>Lunes a Jueves</h4>
+            <h4>De lunes a jueves</h4>
             <div class="time-badge">8:30 - 10:30</div>
             <p>2 horas de clase intensiva diaria</p>
           </div>
           <p><strong>Total: 8 horas semanales</strong> con enfoque en comunicación práctica</p>
           <h3 style="margin-top:.75rem">Objetivo general</h3>
           <p>Desarrollar las competencias comunicativas básicas en español para alcanzar un nivel A2.1, enfocándose en la comunicación práctica para situaciones cotidianas y académicas.</p>
+        </div>
+
+        <div class="card">
+          <h3>Guías de la sesión</h3>
+          <p class="hint">Pulsa la sesión para abrir su guía (PDF).</p>
+          <div id="chips-s1"></div>
+          <ul class="list" id="lista-s1"></ul>
         </div>
 
         <div class="card">
@@ -400,13 +407,6 @@
               </button>
             </div>
           </div>
-        </div>
-
-        <div class="card">
-          <h3>Guías de la sesión</h3>
-          <p class="hint">Pulsa la sesión para abrir su guía (PDF).</p>
-          <div id="chips-s1"></div>
-          <ul class="list" id="lista-s1"></ul>
         </div>
       </div>
     </div>
@@ -1081,6 +1081,11 @@
       { t: 'Sesión 10 · Taller de cocina', href: 'materials/cuadernos/S10_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 11 · Repaso general', href: 'materials/cuadernos/S11_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 12 · Evaluación final', href: 'materials/cuadernos/S12_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 13 · Cultura y regiones de España', href: 'materials/cuadernos/S13_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 14 · Salud y emergencias', href: 'materials/cuadernos/S14_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 15 · Viajes y alojamiento', href: 'materials/cuadernos/S15_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 16 · Tecnología y comunicación', href: 'materials/cuadernos/S16_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 17 · Proyecto final integrador', href: 'materials/cuadernos/S17_Espanol_Intensivo.pdf', type: 'pdf' },
     ];
 
     const SESSIONS_AVAILABLE = [
@@ -1095,15 +1100,33 @@
       'S9_Espanol_Intensivo.pdf',
       'S10_Espanol_Intensivo.pdf',
       'S11_Espanol_Intensivo.pdf',
-      'S12_Espanol_Intensivo.pdf'
+      'S12_Espanol_Intensivo.pdf',
+      'S13_Espanol_Intensivo.pdf',
+      'S14_Espanol_Intensivo.pdf',
+      'S15_Espanol_Intensivo.pdf',
+      'S16_Espanol_Intensivo.pdf',
+      'S17_Espanol_Intensivo.pdf'
     ];
+
+    // Materiales adicionales por sesión
+    const MATERIALES_ADICIONALES = {
+      3: [
+        { nombre: '📊 Presentación: Familia y Descripciones', href: 'materials/familia-y-descripciones.pdf' }
+      ],
+      4: [
+        { nombre: '🌍 Presentación: Rutina Diaria y Choque Cultural', href: 'materials/presentaciones/S4_Rutina_Diaria_Choque_Cultural.pdf' }
+      ],
+      5: [
+        { nombre: '🍽️ Presentación: Tapas Españolas', href: 'materials/Tapas.pdf' }
+      ]
+    };
 
     function renderGuiasS1(){
       const chips = document.getElementById('chips-s1');
       const list = document.getElementById('lista-s1');
       chips.innerHTML = ''; list.innerHTML = '';
 
-      GUIAS_S1.forEach((s) => {
+      GUIAS_S1.forEach((s, index) => {
         const span = document.createElement('span');
         span.className = 'chip';
         span.textContent = s.t;
@@ -1114,23 +1137,46 @@
 
           const fileName = s.href.split('/').pop();
           const fileExists = SESSIONS_AVAILABLE.includes(fileName);
+          const sessionNumber = index + 1;
+
+          // Handle web links (miniwebs)
+          if (s.type === 'web') {
+            let htmlContent = `
+              <li><button class="btn primary" onclick="window.open('${s.href}', '_blank')">🌐 Abrir miniweb</button></li>
+              <li><button class="btn" onclick="copyPDFLink('${s.href}')">📋 Copiar enlace</button></li>
+            `;
+            list.innerHTML = htmlContent;
+            return;
+          }
 
           if (fileExists) {
             const isPDF = s.type === 'pdf' || s.href.endsWith('.pdf');
             const fileIcon = isPDF ? '📄' : '📝';
             const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
 
-            // Añadir enlace a miniweb si es la sesión 7
+          // Añadir enlace a miniweb si es la sesión 7
             const miniwebLink = s.t.includes('Sesión 7') ?
               `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/', '_blank')" style="background: #27ae60;">🌐 MiniWeb: Transporte y Direcciones</button></li>` : '';
 
-            list.innerHTML = `
+            let htmlContent = `
               <li><button class="btn primary" ${dataAttr}="${s.href}">${fileIcon} Ver en navegador (${s.t})</button></li>
               <li><button class="btn" onclick="window.open('${s.href}', '_blank')">🔗 Abrir en nueva pestaña</button></li>
               <li><button class="btn" onclick="downloadFile('${s.href}', '${s.t}.pdf')">💾 Descargar directamente</button></li>
               <li><button class="btn" onclick="copyPDFLink('${s.href}')">📋 Copiar enlace</button></li>
               ${miniwebLink}
             `;
+
+            // Añadir materiales adicionales si existen
+            if (MATERIALES_ADICIONALES[sessionNumber]) {
+              htmlContent += '<li style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #e5e7eb;"><strong>Materiales adicionales:</strong></li>';
+              MATERIALES_ADICIONALES[sessionNumber].forEach(material => {
+                htmlContent += `
+                  <li><button class="btn" data-pdf="${material.href}">${material.nombre}</button></li>
+                `;
+              });
+            }
+
+            list.innerHTML = htmlContent;
           } else {
             list.innerHTML = `
               <li class="muted">📝 ${s.t}</li>
@@ -1319,7 +1365,7 @@
       };
 
       const baseUrl = 'https://elcorreveidile.github.io';
-      const attendanceUrl = `${baseUrl}/Curso-Intensivo-Espanol/attendance-register.html?qr=${encodeURIComponent(JSON.stringify(qrData))}`;
+      const attendanceUrl = `${baseUrl}/Curso-Intensivo-Espanol/attendance-register.html?v=2&qr=${encodeURIComponent(JSON.stringify(qrData))}`;
 
       document.getElementById('qr-code').innerHTML = '';
 

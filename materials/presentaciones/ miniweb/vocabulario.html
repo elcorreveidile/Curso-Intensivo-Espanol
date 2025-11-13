@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulario clave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+            background-color: #f8d56f;
+            color: #333;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 40px 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .vocabulary-container {
+            display: flex;
+            gap: 40px;
+            height: 100%;
+        }
+        .vocabulary-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #e57373;
+            display: flex;
+            align-items: center;
+        }
+        .section-title i {
+            margin-right: 12px;
+            font-size: 32px;
+        }
+        .vocabulary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .vocabulary-item {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 16px 20px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+        .vocabulary-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+        }
+        .verb-item {
+            border-left: 4px solid #64b5f6;
+        }
+        .adverb-item {
+            border-left: 4px solid #81c784;
+        }
+        .vocabulary-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .verb-icon {
+            background-color: rgba(100, 181, 246, 0.1);
+        }
+        .verb-icon i {
+            color: #64b5f6;
+        }
+        .adverb-icon {
+            background-color: rgba(129, 199, 132, 0.1);
+        }
+        .adverb-icon i {
+            color: #81c784;
+        }
+        .vocabulary-text {
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .footer {
+            padding: 15px 70px;
+            background-color: #f8d56f;
+            color: #333;
+            font-size: 14px;
+            text-align: right;
+        }
+        .nav-buttons {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        .nav-button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Source Sans Pro', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none;
+        }
+        .nav-button:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Vocabulario clave</h1>
+        </div>
+        
+        <div class="content">
+            <div class="vocabulary-container">
+                <div class="vocabulary-section">
+                    <h2 class="section-title">
+                        <i class="material-icons">autorenew</i>
+                        Verbos reflexivos
+                    </h2>
+                    <div class="vocabulary-grid">
+                        <div class="vocabulary-item verb-item">
+                            <div class="vocabulary-icon verb-icon">
+                                <i class="material-icons">hotel</i>
+                            </div>
+                            <div class="vocabulary-text">levantarse</div>
+                        </div>
+                        <div class="vocabulary-item verb-item">
+                            <div class="vocabulary-icon verb-icon">
+                                <i class="material-icons">shower</i>
+                            </div>
+                            <div class="vocabulary-text">ducharse</div>
+                        </div>
+                        <div class="vocabulary-item verb-item">
+                            <div class="vocabulary-icon verb-icon">
+                                <i class="material-icons">checkroom</i>
+                            </div>
+                            <div class="vocabulary-text">vestirse</div>
+                        </div>
+                        <div class="vocabulary-item verb-item">
+                            <div class="vocabulary-icon verb-icon">
+                                <i class="material-icons">free_breakfast</i>
+                            </div>
+                            <div class="vocabulary-text">desayunar</div>
+                        </div>
+                        <div class="vocabulary-item verb-item">
+                            <div class="vocabulary-icon verb-icon">
+                                <i class="material-icons">restaurant</i>
+                            </div>
+                            <div class="vocabulary-text">almorzar</div>
+                        </div>
+                        <div class="vocabulary-item verb-item">
+                            <div class="vocabulary-icon verb-icon">
+                                <i class="material-icons">dinner_dining</i>
+                            </div>
+                            <div class="vocabulary-text">cenar</div>
+                        </div>
+                        <div class="vocabulary-item verb-item">
+                            <div class="vocabulary-icon verb-icon">
+                                <i class="material-icons">bedtime</i>
+                            </div>
+                            <div class="vocabulary-text">acostarse</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vocabulary-section">
+                    <h2 class="section-title">
+                        <i class="material-icons">repeat</i>
+                        Adverbios de frecuencia
+                    </h2>
+                    <div class="vocabulary-grid">
+                        <div class="vocabulary-item adverb-item">
+                            <div class="vocabulary-icon adverb-icon">
+                                <i class="material-icons">looks_one</i>
+                            </div>
+                            <div class="vocabulary-text">siempre</div>
+                        </div>
+                        <div class="vocabulary-item adverb-item">
+                            <div class="vocabulary-icon adverb-icon">
+                                <i class="material-icons">looks_two</i>
+                            </div>
+                            <div class="vocabulary-text">a menudo</div>
+                        </div>
+                        <div class="vocabulary-item adverb-item">
+                            <div class="vocabulary-icon adverb-icon">
+                                <i class="material-icons">looks_3</i>
+                            </div>
+                            <div class="vocabulary-text">a veces</div>
+                        </div>
+                        <div class="vocabulary-item adverb-item">
+                            <div class="vocabulary-icon adverb-icon">
+                                <i class="material-icons">looks_4</i>
+                            </div>
+                            <div class="vocabulary-text">raramente</div>
+                        </div>
+                        <div class="vocabulary-item adverb-item">
+                            <div class="vocabulary-icon adverb-icon">
+                                <i class="material-icons">looks_5</i>
+                            </div>
+                            <div class="vocabulary-text">nunca</div>
+                        </div>
+                        <div class="vocabulary-item adverb-item">
+                            <div class="vocabulary-icon adverb-icon">
+                                <i class="material-icons">today</i>
+                            </div>
+                            <div class="vocabulary-text">todos los días</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <a href="tareas.html" class="nav-button">
+                <i class="material-icons">arrow_back</i>
+                <span>Anterior</span>
+            </a>
+        </div>
+
+        <div class="footer">
+            Sesión 4 - Rutina diaria | Curso Intensivo de Español - Nivel 3 CLM
+        </div>
+    </div>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Hoja de Asistencia - Producción Oral B2.1</title>
+    <title>Generador de Hoja de Asistencia - Curso Intensivo de Español</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
@@ -187,35 +187,13 @@
         <div class="header">
             <img src="images/Logo-CLM-V1.jpg" alt="Logo CLM" class="logo">
             <h1>Generador de Hoja de Asistencia</h1>
-            <p class="subtitle">Producción Oral B2.1 - Universidad de Granada</p>
+            <p class="subtitle">Curso Intensivo de Español - Nivel 3 CLM - Universidad de Granada</p>
         </div>
 
         <div class="controls">
             <div class="form-group">
-                <label for="session">Sesión</label>
-                <select id="session">
-                    <option value="S1">S1 - Introducción</option>
-                    <option value="S2">S2 - Conversación básica</option>
-                    <option value="S3">S3 - Expresiones idiomáticas</option>
-                    <option value="S4">S4 - Debates</option>
-                    <option value="S5">S5 - Presentaciones</option>
-                    <option value="S6">S6 - Exámenes finales</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="date">Fecha</label>
+                <label for="date">Fecha de la clase</label>
                 <input type="date" id="date" value="">
-            </div>
-
-            <div class="form-group">
-                <label for="classTime">Hora de inicio</label>
-                <input type="time" id="classTime" value="12:30">
-            </div>
-
-            <div class="form-group">
-                <label for="classroom">Aula</label>
-                <input type="text" id="classroom" value="Aula 2.1" placeholder="Número de aula">
             </div>
         </div>
 
@@ -228,6 +206,9 @@
             </button>
             <button class="btn btn-secondary" onclick="loadAttendanceData()">
                 🔄 Cargar datos de asistencia
+            </button>
+            <button class="btn btn-secondary" onclick="clearOldData()" style="background: #dc2626;">
+                🗑️ Limpiar datos viejos
             </button>
         </div>
 
@@ -243,54 +224,59 @@
         // Lista de estudiantes autorizados con ID y variantes
         const AUTHORIZED_STUDENTS = [
             {
-                id: '1523',
-                fullName: 'BAI, MIAORUI',
-                variants: ['Miaorui Bai', 'Miaorui', 'M. Bai', 'Bai']
+                id: 'EST-001',
+                fullName: 'BENNASRI, MAMMER PAOLO',
+                variants: ['Mammer Paolo Bennasri', 'Mammer', 'Bennasri', 'Paolo']
             },
             {
-                id: '2847',
-                fullName: 'CHAFFIN, NATHANIEL HAYEN',
-                variants: ['Nathaniel Chaffin', 'Nathaniel', 'N. Chaffin', 'Nat', 'Chaffin']
+                id: 'EST-002',
+                fullName: 'COCKRELL, JAMES RYDER',
+                variants: ['James Ryder Cockrell', 'James', 'Cockrell', 'Ryder']
             },
             {
-                id: '3915',
-                fullName: 'DIAZ, ANGELA CLARICE',
-                variants: ['Angela Diaz', 'Angela', 'A. Diaz', 'Diaz']
+                id: 'EST-003',
+                fullName: 'LU, JIAQI',
+                variants: ['Jiaqi Lu', 'Jiaqi', 'Lu']
             },
             {
-                id: '4602',
-                fullName: 'KEMPF, RYAN ELIZABETH',
-                variants: ['Ryan Kempf', 'Ryan', 'R. Kempf', 'Kempf']
+                id: 'EST-004',
+                fullName: 'MOLLAH, ALLAN SHUMON',
+                variants: ['Allan Shumon Mollah', 'Allan', 'Mollah', 'Shumon']
             },
             {
-                id: '5789',
-                fullName: 'LANTER, WESLEY MITCHELL',
-                variants: ['Wesley Lanter', 'Wesley', 'W. Lanter', 'Lanter']
+                id: 'EST-005',
+                fullName: 'TJAHAJA, DYLANN',
+                variants: ['Dylann Tjahaja', 'Dylann', 'Tjahaja']
             },
             {
-                id: '6134',
-                fullName: 'MANCIPE, GABRIEL FELIPE',
-                variants: ['Gabriel Mancipe', 'Gabriel', 'G. Mancipe', 'Mancipe']
+                id: 'EST-006',
+                fullName: 'WALKER, KAMRYN',
+                variants: ['Kamryn Walker', 'Kamryn', 'Walker']
             },
             {
-                id: '7256',
-                fullName: 'MIRANDA, MARISOL ESPERANZA',
-                variants: ['Marisol Miranda', 'Marisol', 'M. Miranda', 'Miranda']
+                id: 'EST-007',
+                fullName: 'WANG, XINYI',
+                variants: ['Xinyi Wang', 'Xinyi', 'Wang']
             },
             {
-                id: '8901',
-                fullName: 'MOREY, GABRIELLE KAI',
-                variants: ['Gabrielle Morey', 'Gabrielle', 'G. Morey', 'Morey', 'Kai']
+                id: 'EST-008',
+                fullName: 'WILLIAMS, DIOR',
+                variants: ['Dior Williams', 'Dior', 'Williams']
             },
             {
-                id: '9467',
-                fullName: 'PORTZLINE, EVAN GRACE',
-                variants: ['Evan Portzline', 'Evan', 'E. Portzline', 'Portzline']
+                id: 'EST-009',
+                fullName: 'XU, JIAHUI',
+                variants: ['Jiahui Xu', 'Jiahui', 'Xu']
             },
             {
-                id: '1089',
-                fullName: 'SALAZAR, NATALIE',
-                variants: ['Natalie Salazar', 'Natalie', 'N. Salazar', 'Salazar']
+                id: 'EST-010',
+                fullName: 'ZHANG, ANJIE',
+                variants: ['Anjie Zhang', 'Anjie', 'Zhang']
+            },
+            {
+                id: 'EST-011',
+                fullName: 'ZHANG, JING',
+                variants: ['Jing Zhang', 'Jing', 'Zhang']
             }
         ];
 
@@ -308,7 +294,40 @@
             const stored = localStorage.getItem('attendanceRecords');
             if (stored) {
                 try {
-                    attendanceRecords = JSON.parse(stored);
+                    let records = JSON.parse(stored);
+
+                    // IDs válidos para validación
+                    const validIds = AUTHORIZED_STUDENTS.map(s => s.id);
+
+                    // Limpiar duplicados Y validar que los IDs sean correctos
+                    const uniqueRecords = [];
+                    const seen = new Set();
+
+                    records.forEach(record => {
+                        // Solo procesar si tiene studentId válido
+                        if (!record.studentId || !validIds.includes(record.studentId)) {
+                            console.warn('Registro inválido encontrado (ID no autorizado):', record);
+                            return; // Skip este registro
+                        }
+
+                        const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
+                        const key = `${recordDate}_${record.studentId}`;
+
+                        if (!seen.has(key)) {
+                            seen.add(key);
+                            uniqueRecords.push(record);
+                        }
+                    });
+
+                    attendanceRecords = uniqueRecords;
+
+                    // Guardar versión limpia en localStorage
+                    if (uniqueRecords.length !== records.length) {
+                        localStorage.setItem('attendanceRecords', JSON.stringify(uniqueRecords));
+                        console.log(`Limpiados ${records.length - uniqueRecords.length} registros inválidos/duplicados`);
+                    }
+
+                    console.log(`Total registros válidos cargados: ${uniqueRecords.length}`);
                     displayPreview();
                 } catch (err) {
                     console.error('Error loading attendance data:', err);
@@ -317,14 +336,23 @@
             }
         }
 
+        function clearOldData() {
+            if (confirm('¿Estás seguro de que quieres eliminar TODOS los datos de asistencia? Esta acción no se puede deshacer.')) {
+                localStorage.removeItem('attendanceRecords');
+                attendanceRecords = [];
+                displayPreview();
+                alert('Datos eliminados correctamente. Ahora puedes empezar de cero.');
+            }
+        }
+
         function displayPreview() {
             const selectedDate = document.getElementById('date').value;
-            const selectedSession = document.getElementById('session').value;
 
-            // Filter records for selected date and session
+            // Filter records for selected date
             const dayRecords = attendanceRecords.filter(record => {
                 const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
-                return recordDate === selectedDate && record.session === selectedSession;
+                // El sessionId tiene formato: YYYY-MM-DD_HH:MM, así que comparamos por fecha
+                return recordDate === selectedDate;
             });
 
             const studentsList = document.getElementById('studentsList');
@@ -343,7 +371,7 @@
                 const statusClass = attendanceRecord ? 'present' : 'pending';
                 const statusText = attendanceRecord ? 'Presente' : 'Pendiente';
 
-                const displayName = attendanceRecord ? attendanceRecord.studentName : student.fullName;
+                const displayName = student.fullName;
                 studentDiv.innerHTML = `
                     <div class="student-name">${displayName} (${student.id})</div>
                     <div class="attendance-status ${statusClass}">${statusText}</div>
@@ -359,10 +387,9 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF('l', 'mm', 'a4'); // landscape orientation
 
-            const session = document.getElementById('session').value;
             const date = document.getElementById('date').value;
-            const classTime = document.getElementById('classTime').value;
-            const classroom = document.getElementById('classroom').value;
+            const classTime = '8:30';
+            const classroom = 'Aula 24';
 
             // Format date for display
             const formattedDate = new Date(date).toLocaleDateString('es-ES', {
@@ -372,6 +399,13 @@
                 day: 'numeric'
             });
 
+            // Logo CLM (esquina superior izquierda)
+            try {
+                doc.addImage('images/Logo-CLM-V1.jpg', 'JPEG', 10, 10, 20, 20);
+            } catch (e) {
+                console.log('No se pudo cargar el logo');
+            }
+
             // Header
             doc.setFontSize(16);
             doc.setFont(undefined, 'bold');
@@ -379,12 +413,12 @@
             doc.text('CENTRO DE LENGUAS MODERNAS', doc.internal.pageSize.width / 2, 27, { align: 'center' });
 
             doc.setFontSize(14);
-            doc.text('Producción Oral B2.1', doc.internal.pageSize.width / 2, 35, { align: 'center' });
+            doc.text('Curso Intensivo de Español - Nivel 3 CLM', doc.internal.pageSize.width / 2, 35, { align: 'center' });
 
             // Course info
             doc.setFontSize(12);
             doc.setFont(undefined, 'normal');
-            doc.text(`Hoja de Asistencia - ${session}`, doc.internal.pageSize.width / 2, 45, { align: 'center' });
+            doc.text('Hoja de Asistencia', doc.internal.pageSize.width / 2, 45, { align: 'center' });
             doc.text(`Fecha: ${formattedDate}`, doc.internal.pageSize.width / 2, 52, { align: 'center' });
             doc.text(`Hora: ${classTime} - Aula: ${classroom}`, doc.internal.pageSize.width / 2, 59, { align: 'center' });
 
@@ -436,7 +470,7 @@
             doc.text(`Generado: ${new Date().toLocaleString('es-ES')}`, doc.internal.pageSize.width - 20, finalY, { align: 'right' });
 
             // Save PDF
-            const fileName = `asistencia_${session}_${date.replace(/-/g, '_')}.pdf`;
+            const fileName = `asistencia_${date.replace(/-/g, '_')}.pdf`;
             doc.save(fileName);
         }
 
@@ -444,10 +478,9 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF('l', 'mm', 'a4');
 
-            const session = document.getElementById('session').value;
             const date = document.getElementById('date').value;
-            const classTime = document.getElementById('classTime').value;
-            const classroom = document.getElementById('classroom').value;
+            const classTime = '8:30';
+            const classroom = 'Aula 24';
 
             // Format date for display
             const formattedDate = new Date(date).toLocaleDateString('es-ES', {
@@ -457,11 +490,24 @@
                 day: 'numeric'
             });
 
-            // Filter records for selected date and session
+            // Filter records for selected date
+            const validIds = AUTHORIZED_STUDENTS.map(s => s.id);
             const dayRecords = attendanceRecords.filter(record => {
                 const recordDate = new Date(record.timestamp).toISOString().split('T')[0];
-                return recordDate === date && record.session === session;
+                // Solo incluir registros con IDs válidos
+                return recordDate === date && record.studentId && validIds.includes(record.studentId);
             });
+
+            console.log(`Fecha seleccionada: ${date}`);
+            console.log(`Registros del día (filtrados): ${dayRecords.length}`);
+            console.log('IDs de estudiantes en registros:', dayRecords.map(r => r.studentId));
+
+            // Logo CLM (esquina superior izquierda)
+            try {
+                doc.addImage('images/Logo-CLM-V1.jpg', 'JPEG', 10, 10, 20, 20);
+            } catch (e) {
+                console.log('No se pudo cargar el logo');
+            }
 
             // Header (same as blank PDF)
             doc.setFontSize(16);
@@ -470,18 +516,23 @@
             doc.text('CENTRO DE LENGUAS MODERNAS', doc.internal.pageSize.width / 2, 27, { align: 'center' });
 
             doc.setFontSize(14);
-            doc.text('Producción Oral B2.1', doc.internal.pageSize.width / 2, 35, { align: 'center' });
+            doc.text('Curso Intensivo de Español - Nivel 3 CLM', doc.internal.pageSize.width / 2, 35, { align: 'center' });
 
             doc.setFontSize(12);
             doc.setFont(undefined, 'normal');
-            doc.text(`Hoja de Asistencia - ${session}`, doc.internal.pageSize.width / 2, 45, { align: 'center' });
+            doc.text('Hoja de Asistencia', doc.internal.pageSize.width / 2, 45, { align: 'center' });
             doc.text(`Fecha: ${formattedDate}`, doc.internal.pageSize.width / 2, 52, { align: 'center' });
             doc.text(`Hora: ${classTime} - Aula: ${classroom}`, doc.internal.pageSize.width / 2, 59, { align: 'center' });
 
-            // Attendance statistics
-            const presentCount = dayRecords.length;
+            // Attendance statistics - contar solo estudiantes únicos CON ID VÁLIDO
+            const uniqueStudentIds = [...new Set(dayRecords.map(record => record.studentId))];
+            const presentCount = uniqueStudentIds.length;
             const totalCount = AUTHORIZED_STUDENTS.length;
-            const attendanceRate = Math.round((presentCount / totalCount) * 100);
+            const absentCount = totalCount - presentCount;
+            const attendanceRate = totalCount > 0 ? Math.round((presentCount / totalCount) * 100) : 0;
+
+            console.log(`Estudiantes únicos presentes: ${presentCount}/${totalCount} (${attendanceRate}%)`);
+            console.log('IDs únicos:', uniqueStudentIds);
 
             doc.setFontSize(11);
             doc.text(`Asistencia: ${presentCount}/${totalCount} estudiantes (${attendanceRate}%)`, doc.internal.pageSize.width / 2, 66, { align: 'center' });
@@ -496,9 +547,9 @@
                 return [
                     (index + 1).toString(),
                     `${student.fullName} (${student.id})`,
-                    attendanceRecord ? `✓ ${attendanceRecord.studentName}` : '✗ Ausente',
-                    attendanceRecord ? new Date(attendanceRecord.timestamp).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : '-',
-                    attendanceRecord && attendanceRecord.ipAddress ? `IP: ${attendanceRecord.ipAddress}` : ''
+                    attendanceRecord ? '✓ Presente' : '✗ Ausente',
+                    attendanceRecord ? new Date(attendanceRecord.registeredAt).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : '-',
+                    ''
                 ];
             });
 
@@ -507,7 +558,7 @@
                 '',
                 'RESUMEN',
                 `${presentCount} presentes`,
-                `${totalCount - presentCount} ausentes`,
+                `${absentCount} ausentes`,
                 `${attendanceRate}% asistencia`
             ]);
 
@@ -552,13 +603,12 @@
             doc.text(`Generado: ${new Date().toLocaleString('es-ES')} | Datos actualizados en tiempo real`, doc.internal.pageSize.width - 20, finalY, { align: 'right' });
 
             // Save PDF
-            const fileName = `asistencia_con_datos_${session}_${date.replace(/-/g, '_')}.pdf`;
+            const fileName = `asistencia_con_datos_${date.replace(/-/g, '_')}.pdf`;
             doc.save(fileName);
         }
 
-        // Update preview when controls change
+        // Update preview when date changes
         document.getElementById('date').addEventListener('change', displayPreview);
-        document.getElementById('session').addEventListener('change', displayPreview);
     </script>
 </body>
 </html>
