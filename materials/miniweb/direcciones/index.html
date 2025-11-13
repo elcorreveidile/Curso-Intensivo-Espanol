@@ -1,162 +1,211 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Source Sans Pro', sans-serif; color: #333; overflow: hidden; }
-    .slide { width: 1280px; height: 720px; position: relative; overflow: hidden; background-image: url('https://sfile.chatglm.cn/images-ppt/57f5425af3ce.jpg'); background-size: cover; background-position: center; }
-    .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.75); display: flex; }
-    .left-content { width: 60%; padding-left: 70px; padding-right: 20px; display: flex; flex-direction: column; justify-content: center; }
-    .right-content { width: 40%; padding-left: 20px; padding-right: 70px; display: flex; flex-direction: column; justify-content: center; }
-    .title { font-size: 60px; font-weight: 700; color: #c82333; margin-bottom: 20px; line-height: 1.2; }
-    .subtitle { font-size: 20px; font-weight: 600; color: #555; margin-bottom: 10px; }
-    .info { font-size: 18px; color: #555; margin-bottom: 5px; }
-    .keyword-box { background-color: rgba(201, 76, 76, 0.1); border-left: 4px solid #c94c4c; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
-    .keyword-title { font-size: 22px; font-weight: 600; color: #c94c4c; margin-bottom: 10px; }
-    .keyword { font-size: 20px; font-weight: 600; color: #333; margin-bottom: 8px; display: flex; align-items: center; }
-    .keyword i { margin-right: 10px; color: #c94c4c; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 7 - Transporte y direcciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-image: url('https://sfile.chatglm.cn/images-ppt/57f5425af3ce.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.75);
+            display: flex;
+        }
+        .left-content {
+            width: 60%;
+            padding-left: 70px;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .right-content {
+            width: 40%;
+            padding-left: 20px;
+            padding-right: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .title {
+            font-size: 60px;
+            font-weight: 700;
+            color: #c82333;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .info {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .keyword-box {
+            background-color: rgba(201, 76, 76, 0.1);
+            border-left: 4px solid #c94c4c;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .keyword-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #c94c4c;
+            margin-bottom: 10px;
+        }
+        .keyword {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .keyword i {
+            margin-right: 10px;
+            color: #c94c4c;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background-color: #c82333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background-color: #a01d28;
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
 
-    /* Botones de navegación */
-    .navigation-buttons {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      display: flex;
-      gap: 10px;
-    }
-
-    .nav-btn {
-      background: #c82333;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .nav-btn.next {
-      background: #27ae60;
-    }
-
-    .nav-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .nav-btn:disabled:hover {
-      transform: none;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-  </style>
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                flex-direction: column;
+                position: static;
+            }
+            .left-content, .right-content {
+                width: 100%;
+                padding: 20px;
+            }
+            .title {
+                font-size: 32px;
+            }
+            .subtitle {
+                font-size: 16px;
+            }
+            .info {
+                font-size: 14px;
+            }
+            .keyword-title {
+                font-size: 18px;
+            }
+            .keyword {
+                font-size: 16px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="slide">
-    <div class="overlay">
-      <div class="left-content">
-        <h1 class="title">Sesión 7</h1>
-        <h2 class="subtitle">Transporte y direcciones</h2>
-        <p class="info">Curso Intensivo de Español - Nivel 3 CLM</p>
-        <p class="info">Periodo: 6 - 27 de noviembre de 2025</p>
-        <p class="info">Profesor: Javier Benitez Lainez | Aula: 26</p>
-        <p class="info">Duración: 2 horas</p>
-      </div>
-      <div class="right-content">
-        <div class="keyword-box">
-          <div class="keyword-title">Objetivos de hoy</div>
-          <div class="keyword"><i>directions_car</i> Medios de transporte</div>
-          <div class="keyword"><i>map</i> Dar y pedir direcciones</div>
-          <div class="keyword"><i>place</i> Preposiciones de lugar</div>
-          <div class="keyword"><i>record_voice_over</i> Imperativo para instrucciones</div>
+    <div class="slide">
+        <div class="overlay">
+            <div class="left-content">
+                <h1 class="title">Sesión 7<br>Transporte y direcciones</h1>
+                <p class="subtitle">Curso Intensivo de Español - Nivel 3 CLM</p>
+                <p class="info">Periodo: 6 - 27 de noviembre de 2025</p>
+                <p class="info">Profesor: Javier Benitez Lainez | Aula: 26</p>
+                <p class="info">Duración: 2 horas</p>
+            </div>
+            <div class="right-content">
+                <div class="keyword-box">
+                    <h3 class="keyword-title">Objetivos de hoy</h3>
+                    <div class="keyword">
+                        <i class="material-icons">directions_car</i>
+                        Medios de transporte
+                    </div>
+                    <div class="keyword">
+                        <i class="material-icons">map</i>
+                        Dar y pedir direcciones
+                    </div>
+                    <div class="keyword">
+                        <i class="material-icons">place</i>
+                        Preposiciones de lugar
+                    </div>
+                    <div class="keyword">
+                        <i class="material-icons">record_voice_over</i>
+                        Imperativo para instrucciones
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-
-  <!-- Botones de navegación -->
-  <div class="navigation-buttons">
-    <button class="nav-btn" onclick="navigatePrevious()" id="prevBtn">
-      ← Anterior
-    </button>
-    <button class="nav-btn next" onclick="navigateNext()" id="nextBtn">
-      Siguiente →
-    </button>
-  </div>
-
-  <script>
-    // Lista de páginas de la miniweb (en orden)
-    const pages = [
-      'index.html',
-      'page2.html',
-      'page3.html',
-      'page4.html',
-      'page5.html'
-    ];
-
-    // Función para ir a la página anterior
-    function navigatePrevious() {
-      const currentPage = window.location.pathname.split('/').pop();
-      const currentIndex = pages.indexOf(currentPage);
-
-      if (currentIndex > 0) {
-        window.location.href = pages[currentIndex - 1];
-      } else {
-        // Si estamos en la primera página, ir al curso principal
-        window.location.href = 'https://elcorreveidile.github.io/Curso-Intensivo-Espanol/#sesion-7';
-      }
-    }
-
-    // Función para ir a la siguiente página
-    function navigateNext() {
-      const currentPage = window.location.pathname.split('/').pop();
-      const currentIndex = pages.indexOf(currentPage);
-
-      if (currentIndex < pages.length - 1 && currentIndex >= 0) {
-        window.location.href = pages[currentIndex + 1];
-      } else {
-        // Si estamos en la última página o no hay siguiente, volver al inicio
-        window.location.href = 'index.html';
-      }
-    }
-
-    // Navegación con teclado
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'ArrowLeft') {
-        navigatePrevious();
-      } else if (event.key === 'ArrowRight') {
-        navigateNext();
-      }
-    });
-
-    // Actualizar estado de los botones al cargar
-    document.addEventListener('DOMContentLoaded', function() {
-      const currentPage = window.location.pathname.split('/').pop();
-      const currentIndex = pages.indexOf(currentPage);
-
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-
-      // Desactivar botón anterior si estamos en la primera página
-      if (currentIndex === 0) {
-        prevBtn.disabled = false; // Permitir volver al curso
-        prevBtn.textContent = '← Volver al curso';
-      }
-
-      // Desactivar botón siguiente si estamos en la última página
-      if (currentIndex === pages.length - 1 || currentIndex === -1) {
-        nextBtn.disabled = true;
-      }
-    });
-  </script>
+    <div class="navigation">
+        <a href="objetivos.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
 </body>
 </html>
