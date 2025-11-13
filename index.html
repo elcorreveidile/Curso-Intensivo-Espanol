@@ -2173,59 +2173,8 @@ Respuestas útiles:
   </script>
 
   <!-- Floating Action Button -->
-  <div class="fab" onclick="openQuickTools()" title="Herramientas Rápidas">
-    ⚡
-  </div>
-
-  <!-- Quick Tools Modal -->
-  <div id="quickTools" class="overlay" onclick="closeQuickTools(event)">
-    <div class="viewer" style="inset: 10% 20%; max-width: 600px; margin: auto;" onclick="event.stopPropagation()">
-      <div class="top">
-        <span>Herramientas de Aprendizaje Rápido</span>
-        <div class="spacer"></div>
-        <button class="btn" onclick="closeQuickTools()">✕</button>
-      </div>
-      <div class="content" style="padding: 1.5rem; text-align: center;">
-        <h3 style="color: var(--brand); margin-bottom: 1.5rem;">🚀 Acceso Rápido</h3>
-
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s2', '_self')">
-            🎯 Competencias
-          </button>
-          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s3', '_self')">
-            📚 Temario
-          </button>
-          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s5', '_self')">
-            📝 Evaluación
-          </button>
-          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#descargas', '_self')">
-            📂 Descargas
-          </button>
-        </div>
-
-        <h4 style="color: var(--secondary-color); margin-bottom: 1rem;">🎵 Recursos de Audio</h4>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-          <button class="btn" style="padding: 0.8rem;" onclick="alert('Próximamente: Audioprácticas')">
-            🎧 Audioprácticas
-          </button>
-          <button class="btn" style="padding: 0.8rem;" onclick="alert('Próximamente: Pronunciación')">
-            🔊 Pronunciación
-          </button>
-          <button class="btn" style="padding: 0.8rem;" onclick="startVocabularyTimer()">
-            ⏱️ Temporizador Vocab
-          </button>
-          <button class="btn" style="padding: 0.8rem;" onclick="openPronunciationGuide()">
-            🗣️ Guía Pronunciación
-          </button>
-        </div>
-
-        <div style="padding: 1rem; background: var(--s1); border-radius: 0.5rem; margin-top: 1rem;">
-          <p style="margin: 0; color: #92400e;">
-            <strong>💡 Tip del día:</strong> Practica español 15 minutos diarios para mejores resultados.
-          </p>
-        </div>
-      </div>
-    </div>
+  <div class="fab" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Volver arriba">
+    ↑
   </div>
 
 </body>
