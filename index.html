@@ -1149,7 +1149,8 @@
 
           const fileName = s.href.split('/').pop();
           const fileExists = SESSIONS_AVAILABLE.includes(fileName);
-          const sessionNumber = index + 1;
+          const sessionMatch = s.t.match(/Sesión\s+(\d+)/i);
+          const sessionNumber = sessionMatch ? parseInt(sessionMatch[1], 10) : index + 1;
 
           // Handle web links (miniwebs)
           if (s.type === 'web') {
