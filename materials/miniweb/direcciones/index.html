@@ -121,6 +121,51 @@
         .nav-button i {
             font-size: 20px;
         }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                flex-direction: column;
+                position: static;
+            }
+            .left-content, .right-content {
+                width: 100%;
+                padding: 20px;
+            }
+            .title {
+                font-size: 32px;
+            }
+            .subtitle {
+                font-size: 16px;
+            }
+            .info {
+                font-size: 14px;
+            }
+            .keyword-title {
+                font-size: 18px;
+            }
+            .keyword {
+                font-size: 16px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
