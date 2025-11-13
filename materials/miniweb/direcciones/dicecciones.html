@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulario de direcciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+            background-color: #f1f3f5;
+            border-bottom: 3px solid #c82333;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            color: #c82333;
+        }
+        .content {
+            display: flex;
+            flex-grow: 1;
+            padding: 30px 70px;
+        }
+        .vocabulary {
+            width: 60%;
+            padding-right: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        .examples {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+        }
+        .category {
+            margin-bottom: 25px;
+        }
+        .category-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .category-title i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .vocabulary-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-left: 38px;
+        }
+        .vocab-item {
+            background-color: rgba(201, 76, 76, 0.08);
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        .vocab-item i {
+            margin-right: 8px;
+            color: #c82333;
+            font-size: 20px;
+        }
+        .examples-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .examples-title i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .example-item {
+            background-color: rgba(201, 76, 76, 0.05);
+            border-left: 3px solid #c82333;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 0 6px 6px 0;
+        }
+        .example-spanish {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .example-translation {
+            font-size: 18px;
+            color: #555;
+        }
+        .image-container {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 220px;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Vocabulario de direcciones</h1>
+        </div>
+        <div class="content">
+            <div class="vocabulary">
+                <div class="category">
+                    <div class="category-title">
+                        <i class="material-icons">place</i>
+                        Preposiciones de lugar
+                    </div>
+                    <div class="vocabulary-items">
+                        <div class="vocab-item">
+                            <i class="material-icons">arrow_upward</i>
+                            Todo recto
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">arrow_right_alt</i>
+                            A la derecha
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">arrow_left_alt</i>
+                            A la izquierda
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">next_plan</i>
+                            Al lado de
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">visibility</i>
+                            Enfrente de
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">arrow_back</i>
+                            Detrás de
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category">
+                    <div class="category-title">
+                        <i class="material-icons">location_city</i>
+                        Lugares en la ciudad
+                    </div>
+                    <div class="vocabulary-items">
+                        <div class="vocab-item">
+                            <i class="material-icons">add_road</i>
+                            Calle
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">signpost</i>
+                            Avenida
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">crop_square</i>
+                            Plaza
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">turn_slight_right</i>
+                            Esquina
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">traffic</i>
+                            Semáforo
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category">
+                    <div class="category-title">
+                        <i class="material-icons">directions</i>
+                        Verbos de acción
+                    </div>
+                    <div class="vocabulary-items">
+                        <div class="vocab-item">
+                            <i class="material-icons">rotate_right</i>
+                            Girar
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">trending_flat</i>
+                            Seguir
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">compare_arrows</i>
+                            Cruzar
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">directions_walk</i>
+                            Caminar
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="examples">
+                <div class="examples-title">
+                    <i class="material-icons">format_quote</i>
+                    Ejemplos
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-spanish">Sigue todo recto hasta el semáforo.</div>
+                    <div class="example-translation">Go straight until traffic light.</div>
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-spanish">Gira a la izquierda en la esquina.</div>
+                    <div class="example-translation">Turn left at corner.</div>
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-spanish">El museo está al lado de la plaza.</div>
+                    <div class="example-translation">The museum is next to square.</div>
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-spanish">Cruza la avenida con cuidado.</div>
+                    <div class="example-translation">Cross avenue carefully.</div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://sfile.chatglm.cn/images-ppt/dc622c51c795.jpg" alt="Mapa de ciudad con indicaciones en español">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
