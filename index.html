@@ -1063,18 +1063,18 @@
       { t: 'Sesión 3 · Familia y descripciones', href: 'materials/cuadernos/S3_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 4 · Rutina diaria', href: 'materials/cuadernos/S4_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 5 · Comida y restaurante', href: 'materials/cuadernos/S5_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 6 · Compras y tiendas', href: 'materials/cuadernos/S6_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 7 · Transporte y direcciones', href: 'materials/cuadernos/S7_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 8 · Tiempo libre y hobbies', href: 'materials/cuadernos/S8_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 9 · Proyecto fotográfico', href: 'materials/cuadernos/S9_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 10 · Taller de cocina', href: 'materials/cuadernos/S10_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 11 · Repaso general', href: 'materials/cuadernos/S11_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 12 · Evaluación final', href: 'materials/cuadernos/S12_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 6 · Taller de cocina', href: 'materials/cuadernos/S10_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 7 · Compras y tiendas', href: 'materials/cuadernos/S6_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 8 · Transporte y direcciones', href: 'materials/cuadernos/S7_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 9 · Tiempo libre y hobbies', href: 'materials/cuadernos/S8_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 10 · Proyecto fotográfico', href: 'materials/cuadernos/S9_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 11 · Tecnología y comunicación', href: 'materials/cuadernos/S16_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 12 · Proyecto final integrador', href: 'materials/cuadernos/S17_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 13 · Cultura y regiones de España', href: 'materials/cuadernos/S13_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 14 · Salud y emergencias', href: 'materials/cuadernos/S14_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 15 · Viajes y alojamiento', href: 'materials/cuadernos/S15_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 16 · Tecnología y comunicación', href: 'materials/cuadernos/S16_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 17 · Proyecto final integrador', href: 'materials/cuadernos/S17_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 16 · Repaso general', href: 'materials/cuadernos/S11_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 17 · Evaluación final', href: 'materials/cuadernos/S12_Espanol_Intensivo.pdf', type: 'pdf' },
     ];
 
     const SESSIONS_AVAILABLE = [
@@ -1143,13 +1143,13 @@
             const fileIcon = isPDF ? '📄' : '📝';
             const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
 
-          // Añadir enlace a miniweb si es la sesión 7, 8 o 9
+          // Añadir enlace a miniweb si es la sesión 8, 9 o 10
             let miniwebLink = '';
-            if (s.t.includes('Sesión 7')) {
+            if (s.t.includes('Sesión 8')) {
               miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/', '_blank')" style="background: #27ae60;">🌐 MiniWeb: Transporte y Direcciones</button></li>`;
-            } else if (s.t.includes('Sesión 8')) {
-              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/ocio/', '_blank')" style="background: #667eea;">🌐 MiniWeb: Ocio y Aficiones</button></li>`;
             } else if (s.t.includes('Sesión 9')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/ocio/', '_blank')" style="background: #667eea;">🌐 MiniWeb: Ocio y Aficiones</button></li>`;
+            } else if (s.t.includes('Sesión 10')) {
               miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/fotos/', '_blank')" style="background: #ff6b6b;">🌐 MiniWeb: Proyecto de Fotos</button></li>`;
             }
 
