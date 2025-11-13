@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 9 - Proyecto de fotos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+        }
+        .left-content {
+            width: 60%;
+            padding-left: 70px;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .right-content {
+            width: 40%;
+            padding-left: 20px;
+            padding-right: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .title {
+            font-size: 60px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .info {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .keyword-box {
+            background: linear-gradient(135deg, #feca57 0%, #ffb347 100%);
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .keyword-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        .keyword {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .keyword i {
+            margin-right: 10px;
+            color: #ff6b6b;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                flex-direction: column;
+                position: static;
+            }
+            .left-content, .right-content {
+                width: 100%;
+                padding: 20px;
+            }
+            .title {
+                font-size: 32px;
+            }
+            .subtitle {
+                font-size: 16px;
+            }
+            .info {
+                font-size: 14px;
+            }
+            .keyword-title {
+                font-size: 18px;
+            }
+            .keyword {
+                font-size: 16px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <div class="left-content">
+                <h1 class="title">Sesión 9<br>Proyecto de fotos</h1>
+                <p class="subtitle">Curso Intensivo de Español - Nivel 3 CLM</p>
+                <p class="info">Sesión: 18 de noviembre de 2025</p>
+                <p class="info">Profesor: Javier Benitez Lainez | Aula: 24</p>
+                <p class="info">Duración: 2 horas</p>
+            </div>
+            <div class="right-content">
+                <div class="keyword-box">
+                    <h3 class="keyword-title">Objetivos de hoy</h3>
+                    <div class="keyword">
+                        <i class="material-icons">photo_camera</i>
+                        Describir fotos y lugares
+                    </div>
+                    <div class="keyword">
+                        <i class="material-icons">travel_explore</i>
+                        Narrar experiencias pasadas
+                    </div>
+                    <div class="keyword">
+                        <i class="material-icons">history</i>
+                        Pretérito perfecto simple
+                    </div>
+                    <div class="keyword">
+                        <i class="material-icons">link</i>
+                        Conectores temporales
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="objetivos.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

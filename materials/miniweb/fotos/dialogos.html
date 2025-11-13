@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diálogos - Sesión 9</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 70px;
+            overflow-y: auto;
+        }
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .dialogue-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 5px solid #ff6b6b;
+        }
+        .dialogue-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f7931e;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dialogue-title i {
+            font-size: 32px;
+        }
+        .dialogue-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .dialogue-line {
+            display: flex;
+            align-items: start;
+            gap: 15px;
+        }
+        .dialogue-line.speaker-a {
+            justify-content: flex-start;
+        }
+        .dialogue-line.speaker-b {
+            justify-content: flex-end;
+        }
+        .speaker-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .speech-bubble {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            position: relative;
+        }
+        .speaker-a .speech-bubble {
+            background: linear-gradient(135deg, #feca57 0%, #ffb347 100%);
+            border-bottom-left-radius: 5px;
+        }
+        .speaker-b .speech-bubble {
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
+            border-bottom-right-radius: 5px;
+        }
+        .spanish-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .english-text {
+            font-size: 15px;
+            color: #666;
+            font-style: italic;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                position: static;
+                padding: 20px;
+            }
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            .dialogue-section {
+                padding: 20px;
+            }
+            .dialogue-title {
+                font-size: 22px;
+            }
+            .dialogue-title i {
+                font-size: 24px;
+            }
+            .speaker-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            .speech-bubble {
+                max-width: 80%;
+            }
+            .spanish-text {
+                font-size: 16px;
+            }
+            .english-text {
+                font-size: 13px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="page-title">Diálogos</h1>
+
+            <div class="dialogue-section">
+                <h2 class="dialogue-title">
+                    <i class="material-icons">photo_camera</i>
+                    Diálogo 1: Describiendo una foto de vacaciones
+                </h2>
+                <div class="dialogue-content">
+                    <div class="dialogue-line speaker-a">
+                        <div class="speaker-icon">A</div>
+                        <div class="speech-bubble">
+                            <div class="spanish-text">¡Mira esta foto! La saqué el verano pasado en Sevilla.</div>
+                            <div class="english-text">Look at this photo! I took it last summer in Seville.</div>
+                        </div>
+                    </div>
+
+                    <div class="dialogue-line speaker-b">
+                        <div class="speech-bubble">
+                            <div class="spanish-text">¡Qué bonita! ¿Qué es ese edificio tan grande?</div>
+                            <div class="english-text">How beautiful! What is that big building?</div>
+                        </div>
+                        <div class="speaker-icon">B</div>
+                    </div>
+
+                    <div class="dialogue-line speaker-a">
+                        <div class="speaker-icon">A</div>
+                        <div class="speech-bubble">
+                            <div class="spanish-text">Es la Catedral de Sevilla. Es antigua y muy interesante.</div>
+                            <div class="english-text">It's the Cathedral of Seville. It's old and very interesting.</div>
+                        </div>
+                    </div>
+
+                    <div class="dialogue-line speaker-b">
+                        <div class="speech-bubble">
+                            <div class="spanish-text">¿Qué hiciste después de visitarla?</div>
+                            <div class="english-text">What did you do after visiting it?</div>
+                        </div>
+                        <div class="speaker-icon">B</div>
+                    </div>
+
+                    <div class="dialogue-line speaker-a">
+                        <div class="speaker-icon">A</div>
+                        <div class="speech-bubble">
+                            <div class="spanish-text">Primero, subí a la Giralda. Después, caminé por el barrio de Santa Cruz. Finalmente, comí tapas en un bar típico.</div>
+                            <div class="english-text">First, I climbed the Giralda. Then, I walked through the Santa Cruz neighborhood. Finally, I ate tapas at a typical bar.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dialogue-section">
+                <h2 class="dialogue-title">
+                    <i class="material-icons">travel_explore</i>
+                    Diálogo 2: Hablando de un viaje memorable
+                </h2>
+                <div class="dialogue-content">
+                    <div class="dialogue-line speaker-a">
+                        <div class="speaker-icon">C</div>
+                        <div class="speech-bubble">
+                            <div class="spanish-text">Cuéntame de tu viaje a Barcelona. ¿Te gustó?</div>
+                            <div class="english-text">Tell me about your trip to Barcelona. Did you like it?</div>
+                        </div>
+                    </div>
+
+                    <div class="dialogue-line speaker-b">
+                        <div class="speech-bubble">
+                            <div class="spanish-text">¡Me encantó! Fue una experiencia increíble.</div>
+                            <div class="english-text">I loved it! It was an incredible experience.</div>
+                        </div>
+                        <div class="speaker-icon">D</div>
+                    </div>
+
+                    <div class="dialogue-line speaker-a">
+                        <div class="speaker-icon">C</div>
+                        <div class="speech-bubble">
+                            <div class="spanish-text">¿Qué lugares visitaste?</div>
+                            <div class="english-text">What places did you visit?</div>
+                        </div>
+                    </div>
+
+                    <div class="dialogue-line speaker-b">
+                        <div class="speech-bubble">
+                            <div class="spanish-text">Primero, visité la Sagrada Familia. Es moderna y muy grande. Luego, fui al Parque Güell y saqué muchas fotos. Entonces, bajé a Las Ramblas y comí en un restaurante delicioso. Por último, vi el atardecer en la playa.</div>
+                            <div class="english-text">First, I visited the Sagrada Familia. It's modern and very big. Then, I went to Park Güell and took many photos. Then, I went down to Las Ramblas and ate at a delicious restaurant. Finally, I watched the sunset at the beach.</div>
+                        </div>
+                        <div class="speaker-icon">D</div>
+                    </div>
+
+                    <div class="dialogue-line speaker-a">
+                        <div class="speaker-icon">C</div>
+                        <div class="speech-bubble">
+                            <div class="spanish-text">¡Qué día tan completo! ¿Tienes fotos?</div>
+                            <div class="english-text">What a full day! Do you have photos?</div>
+                        </div>
+                    </div>
+
+                    <div class="dialogue-line speaker-b">
+                        <div class="speech-bubble">
+                            <div class="spanish-text">Sí, ¡tengo más de cien fotos!</div>
+                            <div class="english-text">Yes, I have more than a hundred photos!</div>
+                        </div>
+                        <div class="speaker-icon">D</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="practica.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="cultura.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

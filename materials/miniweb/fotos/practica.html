@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica - Sesión 9</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 70px;
+            overflow-y: auto;
+        }
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .practice-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #ff6b6b;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .section-icon {
+            font-size: 36px;
+            color: #f7931e;
+        }
+        .section-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+        .exercise {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .exercise-number {
+            font-weight: 700;
+            color: #f7931e;
+            margin-bottom: 8px;
+        }
+        .exercise-text {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .blank {
+            display: inline-block;
+            min-width: 150px;
+            border-bottom: 2px solid #ff6b6b;
+            padding: 2px 5px;
+            margin: 0 5px;
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        .answer-key {
+            background: linear-gradient(135deg, #feca57 0%, #ffb347 100%);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            margin-top: 10px;
+        }
+        .answer-key strong {
+            color: #ff6b6b;
+        }
+        .match-exercise {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .match-column {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .match-item {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #f7931e;
+            font-size: 16px;
+        }
+        .match-label {
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-right: 10px;
+        }
+        .order-sentences {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sentence-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #f7931e;
+            font-size: 16px;
+        }
+        .sentence-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                position: static;
+                padding: 20px;
+            }
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            .practice-section {
+                padding: 20px;
+            }
+            .section-icon {
+                font-size: 28px;
+            }
+            .section-title {
+                font-size: 20px;
+            }
+            .exercise-text {
+                font-size: 16px;
+            }
+            .blank {
+                min-width: 100px;
+            }
+            .match-exercise {
+                grid-template-columns: 1fr;
+            }
+            .match-item, .sentence-box {
+                font-size: 14px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="page-title">Práctica Interactiva</h1>
+
+            <div class="practice-section">
+                <div class="section-header">
+                    <i class="material-icons section-icon">edit</i>
+                    <h2 class="section-title">Ejercicio 1: Completa con el pretérito</h2>
+                </div>
+                <div class="exercise">
+                    <div class="exercise-number">1.</div>
+                    <div class="exercise-text">
+                        El año pasado yo <span class="blank">(visitar)</span> España por primera vez.
+                    </div>
+                </div>
+                <div class="exercise">
+                    <div class="exercise-number">2.</div>
+                    <div class="exercise-text">
+                        Mis amigos <span class="blank">(comer)</span> paella en un restaurante valenciano.
+                    </div>
+                </div>
+                <div class="exercise">
+                    <div class="exercise-number">3.</div>
+                    <div class="exercise-text">
+                        Nosotros <span class="blank">(vivir)</span> una experiencia increíble en Granada.
+                    </div>
+                </div>
+                <div class="exercise">
+                    <div class="exercise-number">4.</div>
+                    <div class="exercise-text">
+                        Tú <span class="blank">(sacar)</span> muchas fotos en la Alhambra, ¿verdad?
+                    </div>
+                </div>
+                <div class="answer-key">
+                    <strong>Respuestas:</strong> 1. visité | 2. comieron | 3. vivimos | 4. sacaste
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <div class="section-header">
+                    <i class="material-icons section-icon">compare</i>
+                    <h2 class="section-title">Ejercicio 2: Relaciona descripción con foto</h2>
+                </div>
+                <div class="match-exercise">
+                    <div class="match-column">
+                        <h3 style="color: #ff6b6b; margin-bottom: 15px;">Descripciones</h3>
+                        <div class="match-item">
+                            <span class="match-label">A.</span> Un edificio antiguo y bonito
+                        </div>
+                        <div class="match-item">
+                            <span class="match-label">B.</span> Una playa grande con agua azul
+                        </div>
+                        <div class="match-item">
+                            <span class="match-label">C.</span> Una ciudad moderna con rascacielos
+                        </div>
+                        <div class="match-item">
+                            <span class="match-label">D.</span> Un pueblo pequeño y típico
+                        </div>
+                    </div>
+                    <div class="match-column">
+                        <h3 style="color: #ff6b6b; margin-bottom: 15px;">Lugares</h3>
+                        <div class="match-item">
+                            <span class="match-label">1.</span> La Alhambra, Granada
+                        </div>
+                        <div class="match-item">
+                            <span class="match-label">2.</span> Costa del Sol, Málaga
+                        </div>
+                        <div class="match-item">
+                            <span class="match-label">3.</span> Barcelona moderna
+                        </div>
+                        <div class="match-item">
+                            <span class="match-label">4.</span> Pueblo blanco, Andalucía
+                        </div>
+                    </div>
+                </div>
+                <div class="answer-key">
+                    <strong>Respuestas:</strong> A-1 | B-2 | C-3 | D-4
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <div class="section-header">
+                    <i class="material-icons section-icon">sort</i>
+                    <h2 class="section-title">Ejercicio 3: Ordena la historia con conectores</h2>
+                </div>
+                <div class="order-sentences">
+                    <div class="sentence-box">
+                        <span class="sentence-number">?</span>
+                        <strong>Después</strong>, caminamos por el Barrio Gótico.
+                    </div>
+                    <div class="sentence-box">
+                        <span class="sentence-number">?</span>
+                        <strong>Finalmente</strong>, volvimos al hotel muy cansados pero felices.
+                    </div>
+                    <div class="sentence-box">
+                        <span class="sentence-number">?</span>
+                        <strong>Primero</strong>, visitamos la Sagrada Familia.
+                    </div>
+                    <div class="sentence-box">
+                        <span class="sentence-number">?</span>
+                        <strong>Luego</strong>, comimos tapas en un restaurante del centro.
+                    </div>
+                    <div class="sentence-box">
+                        <span class="sentence-number">?</span>
+                        <strong>Entonces</strong>, decidimos ir a la playa de la Barceloneta.
+                    </div>
+                </div>
+                <div class="answer-key">
+                    <strong>Orden correcto:</strong> Primero (3) → Después (1) → Luego (4) → Entonces (5) → Finalmente (2)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="actividades.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="dialogos.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

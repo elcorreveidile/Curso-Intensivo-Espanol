@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades de Clase - Sesión 9</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 70px;
+            overflow-y: auto;
+        }
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .activity-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-top: 6px solid #ff6b6b;
+        }
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        .activity-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .activity-icon {
+            font-size: 48px;
+            color: #f7931e;
+        }
+        .activity-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .activity-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ff6b6b;
+            flex: 1;
+        }
+        .activity-description {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .activity-objectives {
+            background: linear-gradient(135deg, #feca57 0%, #ffb347 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .activity-objectives ul {
+            margin-left: 20px;
+        }
+        .activity-objectives li {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                position: static;
+                padding: 20px;
+            }
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            .activities-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .activity-card {
+                padding: 20px;
+            }
+            .activity-header {
+                gap: 10px;
+            }
+            .activity-icon {
+                font-size: 36px;
+            }
+            .activity-number {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .activity-title {
+                font-size: 20px;
+            }
+            .activity-description {
+                font-size: 16px;
+            }
+            .activity-objectives li {
+                font-size: 14px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="page-title">Actividades de Clase</h1>
+
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-header">
+                        <div class="activity-number">1</div>
+                        <i class="material-icons activity-icon">collections</i>
+                        <h2 class="activity-title">Presentar fotos personales</h2>
+                    </div>
+                    <p class="activity-description">
+                        Cada estudiante presenta 3-5 fotos personales y las describe a la clase.
+                        Practica describir lugares, personas y momentos especiales.
+                    </p>
+                    <div class="activity-objectives">
+                        <strong>Incluir:</strong>
+                        <ul>
+                            <li>¿Dónde sacaste la foto?</li>
+                            <li>¿Cuándo fue?</li>
+                            <li>¿Qué hay en la foto?</li>
+                            <li>¿Por qué es especial?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-header">
+                        <div class="activity-number">2</div>
+                        <i class="material-icons activity-icon">place</i>
+                        <h2 class="activity-title">Describir lugares visitados</h2>
+                    </div>
+                    <p class="activity-description">
+                        En parejas, describe un lugar que visitaste recientemente.
+                        Tu compañero te hace preguntas para obtener más información.
+                    </p>
+                    <div class="activity-objectives">
+                        <strong>Practicar:</strong>
+                        <ul>
+                            <li>Adjetivos descriptivos</li>
+                            <li>Pretérito perfecto simple</li>
+                            <li>Expresiones de tiempo pasado</li>
+                            <li>Conectores temporales</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-header">
+                        <div class="activity-number">3</div>
+                        <i class="material-icons activity-icon">record_voice_over</i>
+                        <h2 class="activity-title">Contar anécdotas</h2>
+                    </div>
+                    <p class="activity-description">
+                        Cuenta una anécdota interesante o divertida de un viaje.
+                        Usa conectores temporales para organizar tu historia.
+                    </p>
+                    <div class="activity-objectives">
+                        <strong>Estructura:</strong>
+                        <ul>
+                            <li>Primero: Contexto (dónde, cuándo)</li>
+                            <li>Después/Luego: Desarrollo</li>
+                            <li>Entonces: Momento clave</li>
+                            <li>Finalmente: Conclusión</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-header">
+                        <div class="activity-number">4</div>
+                        <i class="material-icons activity-icon">photo_album</i>
+                        <h2 class="activity-title">Álbum de recuerdos</h2>
+                    </div>
+                    <p class="activity-description">
+                        En grupos pequeños, crea un álbum digital con fotos del grupo.
+                        Escribe descripciones en pretérito para cada foto.
+                    </p>
+                    <div class="activity-objectives">
+                        <strong>Proyecto grupal:</strong>
+                        <ul>
+                            <li>5-10 fotos por grupo</li>
+                            <li>Descripción de 50-100 palabras</li>
+                            <li>Usar vocabulario de la sesión</li>
+                            <li>Presentación final</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="conectores.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="practica.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

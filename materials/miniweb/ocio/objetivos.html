@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetivos de la sesión - Ocio y aficiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 70px;
+        }
+        .title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .objective-card {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-left: 6px solid #667eea;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .objective-icon {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .objective-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.4;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                position: static;
+                padding: 20px;
+                padding-bottom: 80px;
+            }
+            .title {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+            .objectives-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .objective-card {
+                padding: 20px;
+            }
+            .objective-icon {
+                font-size: 36px;
+                margin-bottom: 10px;
+            }
+            .objective-title {
+                font-size: 18px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="title">Objetivos de la sesión</h1>
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <i class="material-icons objective-icon">sports_tennis</i>
+                    <div class="objective-title">Actividades de tiempo libre</div>
+                </div>
+                <div class="objective-card">
+                    <i class="material-icons objective-icon">fitness_center</i>
+                    <div class="objective-title">Deportes y hobbies</div>
+                </div>
+                <div class="objective-card">
+                    <i class="material-icons objective-icon">star</i>
+                    <div class="objective-title">Expresar habilidades</div>
+                </div>
+                <div class="objective-card">
+                    <i class="material-icons objective-icon">menu_book</i>
+                    <div class="objective-title">Verbos irregulares</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="index.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="vocabulario.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>
