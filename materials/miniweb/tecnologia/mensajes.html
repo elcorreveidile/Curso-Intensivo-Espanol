@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3 · Escribir mensajes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: #111827; color: #f8fafc; }
+        .slide { width: 1280px; min-height: 720px; position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(59, 130, 246, 0.28), rgba(56, 189, 248, 0.18)), url('https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1400&q=80') center/cover; padding: 70px 80px 120px; }
+        .overlay { background: rgba(15, 23, 42, 0.78); border-radius: 28px; padding: 40px; display: grid; gap: 28px; box-shadow: 0 25px 60px rgba(15, 23, 42, 0.6); }
+        h1 { font-size: 38px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        p.lead { font-size: 18px; color: #cbd5f5; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: rgba(248, 250, 252, 0.1); border-radius: 20px; padding: 24px; border: 1px solid rgba(148, 163, 184, 0.25); display: grid; gap: 14px; }
+        .card h2 { font-size: 20px; font-weight: 700; color: #f8fafc; display: flex; align-items: center; gap: 8px; }
+        .context { font-size: 15px; color: #e2e8f0; line-height: 1.45; }
+        .responses { display: grid; gap: 10px; }
+        button.option { background: rgba(59, 130, 246, 0.18); color: #e0f2fe; border: 1px solid transparent; padding: 10px 14px; border-radius: 12px; text-align: left; font-size: 15px; cursor: pointer; transition: transform 0.2s ease, border 0.2s ease; }
+        button.option:hover { transform: translateX(2px); border-color: rgba(96, 165, 250, 0.6); }
+        .feedback { min-height: 24px; font-size: 15px; font-weight: 600; }
+        .correct { color: #34d399; }
+        .incorrect { color: #f87171; }
+        .navigation { position: fixed; bottom: 20px; left: 20px; display: flex; gap: 12px; z-index: 1000; }
+        .nav-button { background: #38bdf8; color: #0f172a; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-size: 18px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 12px 30px rgba(56, 189, 248, 0.3); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(56, 189, 248, 0.45); }
+        @media (max-width: 992px) { .slide { width: 100%; padding: 30px 24px 130px; } }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <div class="overlay">
+            <h1><i class="material-icons">mark_email_read</i> Ejercicio 3 · Escribir mensajes</h1>
+            <p class="lead">Elige el mensaje que mejor se adapta al contexto (formal, semiformal o informal). Después, reescribe la respuesta con tus propias palabras y compártela con un compañero.</p>
+            <div class="grid">
+                <article class="card" data-answer="c">
+                    <h2><i class="material-icons">work</i> Contexto 1 · Oferta de trabajo</h2>
+                    <p class="context">Respondes a un email del departamento de recursos humanos que te invita a una entrevista.</p>
+                    <div class="responses">
+                        <button class="option" data-value="a">¡Hey! El miércoles por la mañana genial. ¿Dónde quedamos?</button>
+                        <button class="option" data-value="b">Buenas, sí voy. Enviadme la dirección y ya.</button>
+                        <button class="option" data-value="c">Estimada señora Díaz, muchas gracias por la invitación. Confirmo mi asistencia el miércoles a las 10:00.</button>
+                    </div>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+                <article class="card" data-answer="a">
+                    <h2><i class="material-icons">school</i> Contexto 2 · Profesor universitario</h2>
+                    <p class="context">Necesitas pedir al profesor Benítez una prórroga de dos días para entregar un trabajo.</p>
+                    <div class="responses">
+                        <button class="option" data-value="a">Buenos días, profesor Benítez. ¿Sería posible entregar el trabajo el viernes? Gracias por su comprensión.</button>
+                        <button class="option" data-value="b">Profe, no lo tengo listo. ¿Lo puedo entregar cuando pueda?</button>
+                        <button class="option" data-value="c">Querido Javier, me da pereza terminarlo hoy. ¿Vale si lo mando otro día?</button>
+                    </div>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+                <article class="card" data-answer="b">
+                    <h2><i class="material-icons">celebration</i> Contexto 3 · Mensaje urgente a una amiga</h2>
+                    <p class="context">Tu amiga Paula llega a Granada esta noche y necesitas avisarle de un cambio de planes.</p>
+                    <div class="responses">
+                        <button class="option" data-value="a">Buenas tardes, señora Paula. Lamento comunicarle que habrá un retraso.</button>
+                        <button class="option" data-value="b">Pau! El tren se retrasa 40 min. Te espero en la entrada principal, no te preocupes 💪</button>
+                        <button class="option" data-value="c">Estimadísima Paula, espero que su viaje haya sido agradable.</button>
+                    </div>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="tecnicos.html"><i class="material-icons">arrow_back</i> Anterior</a>
+        <a class="nav-button" href="redes.html">Siguiente <i class="material-icons">arrow_forward</i></a>
+    </nav>
+
+    <script>
+        document.querySelectorAll('.card').forEach(card => {
+            const feedback = card.querySelector('.feedback');
+            const answer = card.dataset.answer;
+            card.querySelectorAll('.option').forEach(button => {
+                button.addEventListener('click', () => {
+                    const value = button.dataset.value;
+                    if (value === answer) {
+                        feedback.textContent = '✅ Registro adecuado para este contexto.';
+                        feedback.className = 'feedback correct';
+                    } else {
+                        feedback.textContent = '❌ Esta respuesta no corresponde al registro correcto. ¡Intenta de nuevo!';
+                        feedback.className = 'feedback incorrect';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 16 - Tecnología y comunicación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #1f2933;
+            background-color: #eef2f7;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-image: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #4338ca 100%);
+            color: #f8fafc;
+        }
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            backdrop-filter: blur(2px);
+            background: linear-gradient(120deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 64, 175, 0.75) 60%, rgba(99, 102, 241, 0.65) 100%);
+        }
+        .left-content,
+        .right-content {
+            width: 50%;
+            padding: 60px 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .session-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: rgba(99, 102, 241, 0.2);
+            color: #c7d2fe;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+        .title {
+            font-size: 60px;
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+        .subtitle {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #dbeafe;
+        }
+        .info {
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: #e2e8f0;
+        }
+        .right-box {
+            background: rgba(15, 23, 42, 0.55);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.35);
+        }
+        .box-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #f8fafc;
+        }
+        .goals {
+            display: grid;
+            gap: 12px;
+        }
+        .goal {
+            display: flex;
+            gap: 12px;
+            align-items: start;
+            padding: 14px 18px;
+            background: rgba(148, 163, 184, 0.12);
+            border-radius: 14px;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+        .goal i {
+            color: #c7d2fe;
+            font-size: 24px;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: #6366f1;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5);
+            background: #4f46e5;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+            }
+            .overlay {
+                flex-direction: column;
+            }
+            .left-content,
+            .right-content {
+                width: 100%;
+                padding: 30px 24px 120px;
+            }
+            .title {
+                font-size: 36px;
+            }
+            .subtitle,
+            .info {
+                font-size: 16px;
+            }
+            .goal {
+                font-size: 16px;
+            }
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <div class="overlay">
+            <div class="left-content">
+                <span class="session-tag"><i class="material-icons">memory</i> Sesión 16</span>
+                <h1 class="title">Tecnología y comunicación</h1>
+                <p class="subtitle">Curso Intensivo de Español · Nivel 3 CLM</p>
+                <p class="info">Sesión: 19 de noviembre de 2025</p>
+                <p class="info">Duración: 2 horas</p>
+                <p class="info">Profesor: Javier Benítez Laínez</p>
+                <p class="info">Aula: 24 · Universidad de Granada</p>
+            </div>
+            <div class="right-content">
+                <div class="right-box">
+                    <h2 class="box-title"><i class="material-icons">emoji_objects</i> Objetivos principales</h2>
+                    <div class="goals">
+                        <div class="goal"><i class="material-icons">wifi</i><span>Dominar el vocabulario de la tecnología moderna y los dispositivos digitales.</span></div>
+                        <div class="goal"><i class="material-icons">call</i><span>Practicar conversaciones telefónicas formales e informales.</span></div>
+                        <div class="goal"><i class="material-icons">mail</i><span>Escribir emails y mensajes según el registro adecuado.</span></div>
+                        <div class="goal"><i class="material-icons">share</i><span>Interactuar con expresiones de redes sociales y etiquetas digitales.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="objetivos.html">Siguiente <i class="material-icons">arrow_forward</i></a>
+    </nav>
+</body>
+</html>

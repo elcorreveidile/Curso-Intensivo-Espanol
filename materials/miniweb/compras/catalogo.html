@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 · Catálogo de moda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Source Sans Pro', sans-serif; background: #fff7ed; color: #4c1d95; }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            padding: 70px 80px 120px;
+            background: linear-gradient(140deg, rgba(254, 243, 199, 0.95) 0%, rgba(253, 230, 138, 0.9) 55%, rgba(234, 179, 8, 0.88) 100%);
+            border-radius: 36px;
+            box-shadow: 0 35px 80px rgba(202, 138, 4, 0.3);
+        }
+        h1 { font-size: 36px; display: flex; align-items: center; gap: 12px; color: #b45309; margin-bottom: 16px; }
+        p.lead { font-size: 18px; color: #92400e; margin-bottom: 30px; max-width: 760px; }
+        .grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            display: grid;
+            gap: 16px;
+            position: relative;
+        }
+        .card h2 { font-size: 22px; color: #c2410c; display: flex; align-items: center; gap: 8px; }
+        .card p { color: #7c2d12; line-height: 1.5; }
+        .actions { display: grid; gap: 10px; }
+        button.action {
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: rgba(234, 179, 8, 0.22);
+            color: #b45309;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.2s ease, border 0.2s ease;
+        }
+        button.action:hover { transform: translateX(3px); border-color: rgba(217, 119, 6, 0.35); }
+        .note { font-size: 15px; color: #9a3412; }
+        .feedback { min-height: 24px; font-weight: 600; }
+        .correct { color: #047857; }
+        .incorrect { color: #b91c1c; }
+        .navigation { position: fixed; bottom: 24px; left: 24px; display: flex; gap: 16px; }
+        .nav-button {
+            background: #d97706;
+            color: #fff7ed;
+            padding: 12px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 18px 40px rgba(217, 119, 6, 0.32);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 22px 46px rgba(217, 119, 6, 0.4); }
+        @media (max-width: 992px) {
+            .slide { width: 100%; border-radius: 0; padding: 40px 24px 130px; }
+            h1 { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <h1><i class="material-icons">collections_bookmark</i> Ejercicio 4 · Catálogo de moda</h1>
+        <p class="lead">Cada equipo crea una página de catálogo. Activa las tarjetas para recibir instrucciones específicas y completa el reto colaborativo.</p>
+        <div class="grid">
+            <article class="card" data-answer="a">
+                <h2><i class="material-icons">group</i> Equipo A · Street Style</h2>
+                <p>Combinación juvenil con colores vivos y accesorios llamativos.</p>
+                <div class="actions">
+                    <button class="action" data-option="a">Usad fotos en movimiento y lenguaje informal.</button>
+                    <button class="action" data-option="b">Incluid únicamente ropa formal y tonos neutros.</button>
+                </div>
+                <p class="feedback" aria-live="polite"></p>
+            </article>
+            <article class="card" data-answer="b">
+                <h2><i class="material-icons">group</i> Equipo B · Oficina creativa</h2>
+                <p>Look profesional pero fresco para un coworking.</p>
+                <div class="actions">
+                    <button class="action" data-option="a">Añadid precios altísimos para dar exclusividad.</button>
+                    <button class="action" data-option="b">Presentad comparaciones de precios accesibles.</button>
+                </div>
+                <p class="feedback" aria-live="polite"></p>
+            </article>
+            <article class="card" data-answer="c">
+                <h2><i class="material-icons">group</i> Equipo C · Escapada de fin de semana</h2>
+                <p>Ropa cómoda y funcional para viajar ligero.</p>
+                <div class="actions">
+                    <button class="action" data-option="a">Incluid traje de gala y tacones altos.</button>
+                    <button class="action" data-option="b">Elegid prendas que necesitan plancha.</button>
+                    <button class="action" data-option="c">Combinad mochilas, sudaderas y zapatillas.</button>
+                </div>
+                <p class="feedback" aria-live="polite"></p>
+            </article>
+        </div>
+        <p class="note">Tip: Añadid códigos QR para que el profesorado pueda evaluar rápidamente vuestras creaciones.</p>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="comparar.html"><i class="material-icons">arrow_back</i> Comparar precios</a>
+        <a class="nav-button" href="tareas.html">Tarea para casa <i class="material-icons">arrow_forward</i></a>
+    </nav>
+
+    <script>
+        document.querySelectorAll('.card[data-answer]').forEach(card => {
+            const answer = card.dataset.answer;
+            const feedback = card.querySelector('.feedback');
+            card.querySelectorAll('.action').forEach(button => {
+                button.addEventListener('click', () => {
+                    card.querySelectorAll('.action').forEach(btn => btn.setAttribute('data-selected', 'false'));
+                    button.setAttribute('data-selected', 'true');
+                    if (button.dataset.option === answer) {
+                        feedback.textContent = '✅ ¡Genial! Esa orientación encaja con la temática del equipo.';
+                        feedback.className = 'feedback correct';
+                    } else {
+                        feedback.textContent = '❌ Esa opción no refleja la misión del equipo. Revisa la descripción.';
+                        feedback.className = 'feedback incorrect';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

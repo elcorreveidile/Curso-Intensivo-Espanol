@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulario clave · Compras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Source Sans Pro', sans-serif; background: #fef3c7; color: #312e81; }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            padding: 70px 80px 120px;
+            background: linear-gradient(160deg, rgba(254, 243, 199, 0.95) 0%, rgba(252, 211, 77, 0.9) 60%, rgba(251, 191, 36, 0.88) 100%);
+            border-radius: 36px;
+            box-shadow: 0 40px 90px rgba(217, 119, 6, 0.28);
+        }
+        h1 { font-size: 40px; display: flex; align-items: center; gap: 12px; color: #b91c1c; margin-bottom: 22px; }
+        p.lead { font-size: 18px; color: #78350f; margin-bottom: 30px; max-width: 760px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+        .card {
+            background: rgba(255, 255, 255, 0.82);
+            border-radius: 22px;
+            padding: 22px;
+            display: grid;
+            gap: 16px;
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.05), transparent 60%);
+            pointer-events: none;
+        }
+        .card h2 { font-size: 22px; color: #7c2d12; display: flex; align-items: center; gap: 8px; }
+        .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .chip {
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(217, 119, 6, 0.15);
+            color: #7c2d12;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .chip:hover { transform: translateY(-2px); background: rgba(217, 119, 6, 0.25); }
+        .chip[data-selected="true"] { background: #b91c1c; color: #fef3c7; }
+        .quiz {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px dashed rgba(180, 83, 9, 0.4);
+            display: grid;
+            gap: 14px;
+        }
+        .quiz h3 { font-size: 20px; color: #7c2d12; display: flex; align-items: center; gap: 6px; }
+        .options { display: grid; gap: 8px; }
+        button.option {
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: rgba(217, 119, 6, 0.16);
+            color: #7c2d12;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-align: left;
+            transition: transform 0.2s ease, border 0.2s ease;
+        }
+        button.option:hover { transform: translateX(3px); border-color: rgba(185, 28, 28, 0.35); }
+        .feedback { min-height: 24px; font-weight: 700; }
+        .correct { color: #15803d; }
+        .incorrect { color: #be123c; }
+        .navigation { position: fixed; bottom: 24px; left: 24px; display: flex; gap: 16px; }
+        .nav-button {
+            background: #ea580c;
+            color: #fff7ed;
+            padding: 12px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 18px 35px rgba(234, 88, 12, 0.32);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 22px 40px rgba(234, 88, 12, 0.4); }
+        @media (max-width: 992px) {
+            .slide { width: 100%; border-radius: 0; padding: 40px 24px 130px; }
+            h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <h1><i class="material-icons">style</i> Vocabulario imprescindible</h1>
+        <p class="lead">Haz clic en cada palabra para seleccionarla según la categoría y responde al mini quiz para preparar la práctica en tienda.</p>
+        <div class="grid">
+            <article class="card" data-category="ropa">
+                <h2><i class="material-icons">checkroom</i> Ropa y accesorios</h2>
+                <div class="chips">
+                    <span class="chip" data-term="camisa">camisa</span>
+                    <span class="chip" data-term="pantalón">pantalón</span>
+                    <span class="chip" data-term="falda">falda</span>
+                    <span class="chip" data-term="vestido">vestido</span>
+                    <span class="chip" data-term="zapatos">zapatos</span>
+                    <span class="chip" data-term="chaqueta">chaqueta</span>
+                    <span class="chip" data-term="abrigo">abrigo</span>
+                </div>
+            </article>
+            <article class="card" data-category="compras">
+                <h2><i class="material-icons">point_of_sale</i> Expresiones útiles</h2>
+                <div class="chips">
+                    <span class="chip" data-term="¿Cuánto cuesta?">¿Cuánto cuesta?</span>
+                    <span class="chip" data-term="¿Dónde está?">¿Dónde está?</span>
+                    <span class="chip" data-term="este">este</span>
+                    <span class="chip" data-term="ese">ese</span>
+                    <span class="chip" data-term="aquel">aquel</span>
+                </div>
+            </article>
+            <article class="card">
+                <h2><i class="material-icons">quiz</i> Mini reto</h2>
+                <div class="quiz" data-answer="b">
+                    <h3><i class="material-icons">translate</i> ¿Qué frase usarías para pedir una talla diferente?</h3>
+                    <div class="options">
+                        <button class="option" data-value="a">¿Me das otro color?</button>
+                        <button class="option" data-value="b">¿Tienes esta camisa en otra talla?</button>
+                        <button class="option" data-value="c">¿Cuánto cuesta ese pantalón?</button>
+                    </div>
+                    <p class="feedback" aria-live="polite"></p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="objetivos.html"><i class="material-icons">arrow_back</i> Agenda</a>
+        <a class="nav-button" href="roleplay.html">Role-play <i class="material-icons">arrow_forward</i></a>
+    </nav>
+
+    <script>
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const selected = chip.getAttribute('data-selected') === 'true';
+                chip.setAttribute('data-selected', selected ? 'false' : 'true');
+            });
+        });
+
+        document.querySelectorAll('.quiz').forEach(quiz => {
+            const answer = quiz.dataset.answer;
+            const feedback = quiz.querySelector('.feedback');
+            quiz.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', () => {
+                    if (option.dataset.value === answer) {
+                        feedback.textContent = '✅ Correcto. ¡Así pides una talla diferente con cortesía!';
+                        feedback.className = 'feedback correct';
+                    } else {
+                        feedback.textContent = '❌ No exactamente. Piensa en la palabra "talla".';
+                        feedback.className = 'feedback incorrect';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
