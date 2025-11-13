@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diálogos - Conversaciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            background-color: #f8f9fa;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .header {
+            padding: 40px 70px 20px;
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+            border-bottom: 3px solid #2193b0;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: slideInLeft 0.6s ease-out;
+        }
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .content {
+            padding: 40px 70px;
+        }
+        .dialogue-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            animation: fadeIn 0.6s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .dialogue-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .dialogue-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2193b0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dialogue-title i {
+            font-size: 32px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .scenario {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            font-size: 18px;
+            color: #1565c0;
+            font-weight: 600;
+            border-left: 5px solid #2193b0;
+        }
+        .messages {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .message {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            animation: slideInMessage 0.4s ease-out;
+        }
+        @keyframes slideInMessage {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .message.tourist {
+            flex-direction: row-reverse;
+        }
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .avatar.local {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .avatar.tourist {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .bubble {
+            max-width: 65%;
+            padding: 18px 24px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .bubble:hover {
+            transform: scale(1.02);
+        }
+        .bubble.local {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-bottom-left-radius: 5px;
+        }
+        .bubble.tourist {
+            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+            border-bottom-right-radius: 5px;
+        }
+        .speaker-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .spanish-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .english-text {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+        }
+        .play-btn {
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(33, 147, 176, 0.3);
+            margin: 0 auto;
+        }
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(33, 147, 176, 0.4);
+        }
+        .play-btn:active {
+            transform: scale(0.95);
+        }
+        .play-btn i {
+            font-size: 28px;
+        }
+        .practice-section {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe6eb 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+            border: 2px solid #ffc1cc;
+        }
+        .practice-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #c82333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .practice-prompt {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #c82333;
+        }
+        .vocab-highlight {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        .vocab-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #d35400;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .vocab-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .vocab-item {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .vocab-item:hover {
+            transform: translateX(5px);
+        }
+        .vocab-item i {
+            color: #d35400;
+            font-size: 18px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(33, 147, 176, 0.3);
+        }
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(33, 147, 176, 0.4);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+            }
+            .header {
+                padding: 20px;
+            }
+            .title {
+                font-size: 28px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .dialogue-title {
+                font-size: 22px;
+            }
+            .bubble {
+                max-width: 85%;
+            }
+            .spanish-text {
+                font-size: 16px;
+            }
+            .english-text {
+                font-size: 14px;
+            }
+            .vocab-list {
+                grid-template-columns: 1fr;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">💬 Diálogos - Conversaciones en Español</h1>
+        </div>
+        <div class="content">
+            <!-- Dialogue 1: Asking for directions -->
+            <div class="dialogue-container">
+                <h2 class="dialogue-title">
+                    <i class="material-icons">map</i>
+                    Diálogo 1: Pidiendo Direcciones
+                </h2>
+                <div class="scenario">
+                    📍 Situación: Un turista pregunta cómo llegar al museo en el centro de Madrid
+                </div>
+
+                <div class="messages">
+                    <div class="message tourist">
+                        <div class="bubble tourist">
+                            <div class="speaker-name">Turista</div>
+                            <div class="spanish-text">Disculpe, ¿cómo puedo llegar al Museo del Prado?</div>
+                            <div class="english-text">Excuse me, how can I get to the Prado Museum?</div>
+                        </div>
+                        <div class="avatar tourist">🧑‍💼</div>
+                    </div>
+
+                    <div class="message local">
+                        <div class="avatar local">👨‍🦱</div>
+                        <div class="bubble local">
+                            <div class="speaker-name">Local</div>
+                            <div class="spanish-text">¡Por supuesto! Sigue todo recto por esta calle hasta el semáforo.</div>
+                            <div class="english-text">Of course! Go straight on this street until the traffic light.</div>
+                        </div>
+                    </div>
+
+                    <div class="message local">
+                        <div class="avatar local">👨‍🦱</div>
+                        <div class="bubble local">
+                            <div class="speaker-name">Local</div>
+                            <div class="spanish-text">Luego, gira a la derecha en la Calle de Alcalá.</div>
+                            <div class="english-text">Then, turn right onto Alcalá Street.</div>
+                        </div>
+                    </div>
+
+                    <div class="message local">
+                        <div class="avatar local">👨‍🦱</div>
+                        <div class="bubble local">
+                            <div class="speaker-name">Local</div>
+                            <div class="spanish-text">El museo está al lado del parque, a unos diez minutos caminando.</div>
+                            <div class="english-text">The museum is next to the park, about ten minutes walking.</div>
+                        </div>
+                    </div>
+
+                    <div class="message tourist">
+                        <div class="bubble tourist">
+                            <div class="speaker-name">Turista</div>
+                            <div class="spanish-text">¡Muchas gracias! ¿Está muy lejos?</div>
+                            <div class="english-text">Thank you very much! Is it very far?</div>
+                        </div>
+                        <div class="avatar tourist">🧑‍💼</div>
+                    </div>
+
+                    <div class="message local">
+                        <div class="avatar local">👨‍🦱</div>
+                        <div class="bubble local">
+                            <div class="speaker-name">Local</div>
+                            <div class="spanish-text">No, está bastante cerca. También puedes tomar el metro, línea 2.</div>
+                            <div class="english-text">No, it's quite close. You can also take the metro, line 2.</div>
+                        </div>
+                    </div>
+
+                    <div class="message tourist">
+                        <div class="bubble tourist">
+                            <div class="speaker-name">Turista</div>
+                            <div class="spanish-text">Perfecto. ¡Que tenga un buen día!</div>
+                            <div class="english-text">Perfect. Have a good day!</div>
+                        </div>
+                        <div class="avatar tourist">🧑‍💼</div>
+                    </div>
+                </div>
+
+                <button class="play-btn" onclick="playDialogue(1)" title="Reproducir diálogo">
+                    <i class="material-icons">play_arrow</i>
+                </button>
+
+                <div class="vocab-highlight">
+                    <div class="vocab-title">
+                        <i class="material-icons">auto_stories</i>
+                        Vocabulario Clave
+                    </div>
+                    <div class="vocab-list">
+                        <div class="vocab-item">
+                            <i class="material-icons">check_circle</i>
+                            Disculpe - Excuse me
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">check_circle</i>
+                            Todo recto - Straight ahead
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">check_circle</i>
+                            Gira a la derecha - Turn right
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">check_circle</i>
+                            Al lado de - Next to
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">check_circle</i>
+                            Bastante cerca - Quite close
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practice-section">
+                    <div class="practice-title">
+                        <i class="material-icons">psychology</i>
+                        Ahora tú prueba:
+                    </div>
+                    <div class="practice-prompt">
+                        🎭 Roleplay: Imagina que eres el turista. Pregunta cómo llegar a la estación de tren más cercana. Usa: "Disculpe", "¿cómo llego a...?", "Muchas gracias"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dialogue 2: Taking public transport -->
+            <div class="dialogue-container">
+                <h2 class="dialogue-title">
+                    <i class="material-icons">directions_bus</i>
+                    Diálogo 2: En el Metro
+                </h2>
+                <div class="scenario">
+                    🚇 Situación: Comprando billetes en el metro de Barcelona
+                </div>
+
+                <div class="messages">
+                    <div class="message tourist">
+                        <div class="bubble tourist">
+                            <div class="speaker-name">Turista</div>
+                            <div class="spanish-text">Buenos días. ¿Cuánto cuesta un billete sencillo?</div>
+                            <div class="english-text">Good morning. How much is a single ticket?</div>
+                        </div>
+                        <div class="avatar tourist">👩‍🦰</div>
+                    </div>
+
+                    <div class="message local">
+                        <div class="avatar local">👨‍💼</div>
+                        <div class="bubble local">
+                            <div class="speaker-name">Taquillero</div>
+                            <div class="spanish-text">El billete sencillo cuesta 2,40 euros.</div>
+                            <div class="english-text">A single ticket costs 2.40 euros.</div>
+                        </div>
+                    </div>
+
+                    <div class="message tourist">
+                        <div class="bubble tourist">
+                            <div class="speaker-name">Turista</div>
+                            <div class="spanish-text">¿Hay billetes de varios viajes?</div>
+                            <div class="english-text">Are there multi-trip tickets?</div>
+                        </div>
+                        <div class="avatar tourist">👩‍🦰</div>
+                    </div>
+
+                    <div class="message local">
+                        <div class="avatar local">👨‍💼</div>
+                        <div class="bubble local">
+                            <div class="speaker-name">Taquillero</div>
+                            <div class="spanish-text">Sí, la T-10 tiene 10 viajes y cuesta 11,35 euros.</div>
+                            <div class="english-text">Yes, the T-10 has 10 trips and costs 11.35 euros.</div>
+                        </div>
+                    </div>
+
+                    <div class="message tourist">
+                        <div class="bubble tourist">
+                            <div class="speaker-name">Turista</div>
+                            <div class="spanish-text">Perfecto. Dame una T-10, por favor.</div>
+                            <div class="english-text">Perfect. Give me a T-10, please.</div>
+                        </div>
+                        <div class="avatar tourist">👩‍🦰</div>
+                    </div>
+
+                    <div class="message local">
+                        <div class="avatar local">👨‍💼</div>
+                        <div class="bubble local">
+                            <div class="speaker-name">Taquillero</div>
+                            <div class="spanish-text">Aquí tiene. No olvide validar el billete antes de subir al metro.</div>
+                            <div class="english-text">Here you are. Don't forget to validate the ticket before getting on the metro.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="play-btn" onclick="playDialogue(2)" title="Reproducir diálogo">
+                    <i class="material-icons">play_arrow</i>
+                </button>
+
+                <div class="vocab-highlight">
+                    <div class="vocab-title">
+                        <i class="material-icons">auto_stories</i>
+                        Vocabulario Clave
+                    </div>
+                    <div class="vocab-list">
+                        <div class="vocab-item">
+                            <i class="material-icons">check_circle</i>
+                            Billete sencillo - Single ticket
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">check_circle</i>
+                            Varios viajes - Multiple trips
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">check_circle</i>
+                            Dame - Give me
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">check_circle</i>
+                            Validar - To validate
+                        </div>
+                        <div class="vocab-item">
+                            <i class="material-icons">check_circle</i>
+                            Subir al metro - Get on the metro
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practice-section">
+                    <div class="practice-title">
+                        <i class="material-icons">psychology</i>
+                        Ahora tú prueba:
+                    </div>
+                    <div class="practice-prompt">
+                        🎭 Roleplay: Estás en la estación de autobuses. Pregunta cuánto cuesta el billete a Sevilla y a qué hora sale el próximo autobús.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="practica.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="cultura.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+
+    <script>
+        function playDialogue(num) {
+            const btn = event.target.closest('.play-btn');
+            const icon = btn.querySelector('i');
+            const messages = btn.closest('.dialogue-container').querySelectorAll('.message');
+
+            // Change icon to pause
+            icon.textContent = 'pause';
+            btn.disabled = true;
+
+            // Animate messages sequentially
+            messages.forEach((msg, index) => {
+                setTimeout(() => {
+                    msg.style.animation = 'none';
+                    setTimeout(() => {
+                        msg.style.animation = 'slideInMessage 0.4s ease-out';
+                    }, 10);
+
+                    // Play a subtle sound effect (simulated with visual feedback)
+                    msg.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        msg.style.transform = 'scale(1)';
+                    }, 200);
+                }, index * 800);
+            });
+
+            // Reset button after animation
+            setTimeout(() => {
+                icon.textContent = 'play_arrow';
+                btn.disabled = false;
+            }, messages.length * 800 + 500);
+        }
+
+        // Add hover effect to messages
+        document.querySelectorAll('.message').forEach(msg => {
+            msg.addEventListener('mouseenter', function() {
+                this.querySelector('.bubble').style.transform = 'scale(1.02)';
+            });
+            msg.addEventListener('mouseleave', function() {
+                this.querySelector('.bubble').style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
