@@ -271,12 +271,6 @@
       box-shadow: 0 8px 25px rgba(5,150,105,0.3);
       transition: all 0.3s ease;
       z-index: 15;
-      opacity: 0;
-      visibility: hidden;
-    }
-    .fab.visible {
-      opacity: 1;
-      visibility: visible;
     }
     .fab:hover {
       transform: translateY(-2px) scale(1.1);
@@ -1142,7 +1136,9 @@
 
             // Añadir enlace a miniweb si hay una configurada para la sesión seleccionada
             let miniwebLink = '';
-            if (s.t.includes('Sesión 8')) {
+            if (s.t.includes('Sesión 7')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/compras/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Compras y Tiendas</button></li>`;
+            } else if (s.t.includes('Sesión 8')) {
               miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Transporte y Direcciones</button></li>`;
             } else if (s.t.includes('Sesión 9')) {
               miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/ocio/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Ocio y Aficiones</button></li>`;
@@ -1188,82 +1184,6 @@
 
       if(GUIAS_S1[0]) setTimeout(()=> chips.querySelector('.chip')?.click(), 0);
       else list.innerHTML = '<li class="muted">No hay guías subidas todavía.</li>';
-    }
-
-    const MINIWEB_DYNAMIC_LINKS = {
-      7: {
-        label: '🌐 MiniWeb: Compras y Tiendas',
-        url: 'https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/compras/'
-      }
-    };
-
-    function setupMiniwebAutoLinks() {
-      const chipsContainer = document.getElementById('chips-s1');
-      const listContainer = document.getElementById('lista-s1');
-
-      if (!chipsContainer || !listContainer) {
-        return;
-      }
-
-      let isMutatingMiniweb = false;
-
-      const refreshMiniwebLink = () => {
-        if (isMutatingMiniweb) {
-          return;
-        }
-
-        isMutatingMiniweb = true;
-
-        try {
-          listContainer.querySelectorAll('li[data-miniweb-dynamic]').forEach(el => el.remove());
-
-          const activeChip = chipsContainer.querySelector('.chip.active');
-          if (!activeChip) {
-            return;
-          }
-
-          const match = activeChip.textContent.match(/Sesión\s+(\d+)/i);
-          if (!match) {
-            return;
-          }
-
-          const sessionNumber = parseInt(match[1], 10);
-          const config = MINIWEB_DYNAMIC_LINKS[sessionNumber];
-
-          if (!config) {
-            return;
-          }
-
-          const li = document.createElement('li');
-          li.setAttribute('data-miniweb-dynamic', sessionNumber.toString());
-
-          const button = document.createElement('button');
-          button.className = 'btn';
-          button.style.background = '#c82333';
-          button.style.color = 'white';
-          button.textContent = config.label;
-          button.addEventListener('click', () => window.open(config.url, '_blank'));
-
-          li.appendChild(button);
-          listContainer.appendChild(li);
-        } finally {
-          isMutatingMiniweb = false;
-        }
-      };
-
-      const observer = new MutationObserver(() => {
-        if (!isMutatingMiniweb) {
-          refreshMiniwebLink();
-        }
-      });
-
-      observer.observe(listContainer, { childList: true });
-
-      chipsContainer.addEventListener('click', () => {
-        setTimeout(refreshMiniwebLink, 0);
-      });
-
-      refreshMiniwebLink();
     }
 
     function downloadFile(url, filename) {
@@ -1622,7 +1542,6 @@ Respuestas útiles:
     initQRSystem();
     renderGuiasS1();
     renderMaterialesCurso();
-    setupMiniwebAutoLinks();
 
     // Verificar acceso de profesor para Hoja de Asistencia
     const urlParams = new URLSearchParams(window.location.search);
@@ -2257,22 +2176,60 @@ Respuestas útiles:
   </script>
 
   <!-- Floating Action Button -->
-  <div class="fab" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Volver arriba">
-    ↑
+  <div class="fab" onclick="openQuickTools()" title="Herramientas Rápidas">
+    ⚡
   </div>
 
-  <script>
-    // Show/hide scroll to top button
-    const fabButton = document.querySelector('.fab');
+  <!-- Quick Tools Modal -->
+  <div id="quickTools" class="overlay" onclick="closeQuickTools(event)">
+    <div class="viewer" style="inset: 10% 20%; max-width: 600px; margin: auto;" onclick="event.stopPropagation()">
+      <div class="top">
+        <span>Herramientas de Aprendizaje Rápido</span>
+        <div class="spacer"></div>
+        <button class="btn" onclick="closeQuickTools()">✕</button>
+      </div>
+      <div class="content" style="padding: 1.5rem; text-align: center;">
+        <h3 style="color: var(--brand); margin-bottom: 1.5rem;">🚀 Acceso Rápido</h3>
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        fabButton.classList.add('visible');
-      } else {
-        fabButton.classList.remove('visible');
-      }
-    });
-  </script>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s2', '_self')">
+            🎯 Competencias
+          </button>
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s3', '_self')">
+            📚 Temario
+          </button>
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s5', '_self')">
+            📝 Evaluación
+          </button>
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#descargas', '_self')">
+            📂 Descargas
+          </button>
+        </div>
+
+        <h4 style="color: var(--secondary-color); margin-bottom: 1rem;">🎵 Recursos de Audio</h4>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+          <button class="btn" style="padding: 0.8rem;" onclick="alert('Próximamente: Audioprácticas')">
+            🎧 Audioprácticas
+          </button>
+          <button class="btn" style="padding: 0.8rem;" onclick="alert('Próximamente: Pronunciación')">
+            🔊 Pronunciación
+          </button>
+          <button class="btn" style="padding: 0.8rem;" onclick="startVocabularyTimer()">
+            ⏱️ Temporizador Vocab
+          </button>
+          <button class="btn" style="padding: 0.8rem;" onclick="openPronunciationGuide()">
+            🗣️ Guía Pronunciación
+          </button>
+        </div>
+
+        <div style="padding: 1rem; background: var(--s1); border-radius: 0.5rem; margin-top: 1rem;">
+          <p style="margin: 0; color: #92400e;">
+            <strong>💡 Tip del día:</strong> Practica español 15 minutos diarios para mejores resultados.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
