@@ -1154,12 +1154,14 @@
             const fileIcon = isPDF ? '📄' : '📝';
             const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
 
-          // Añadir enlace a miniweb si es la sesión 7 u 8
+          // Añadir enlace a miniweb si es la sesión 7, 8 o 9
             let miniwebLink = '';
             if (s.t.includes('Sesión 7')) {
               miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/', '_blank')" style="background: #27ae60;">🌐 MiniWeb: Transporte y Direcciones</button></li>`;
             } else if (s.t.includes('Sesión 8')) {
               miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/ocio/', '_blank')" style="background: #667eea;">🌐 MiniWeb: Ocio y Aficiones</button></li>`;
+            } else if (s.t.includes('Sesión 9')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/fotos/', '_blank')" style="background: #ff6b6b;">🌐 MiniWeb: Proyecto de Fotos</button></li>`;
             }
 
             let htmlContent = `

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulario - Sesión 9</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 70px;
+            overflow-y: auto;
+        }
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .vocab-section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #f7931e;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            font-size: 36px;
+        }
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .vocab-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-top: 4px solid #ff6b6b;
+        }
+        .vocab-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+        }
+        .vocab-icon {
+            font-size: 40px;
+            color: #f7931e;
+            margin-bottom: 10px;
+        }
+        .vocab-word {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+        }
+        .vocab-translation {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                position: static;
+                padding: 20px;
+            }
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            .section-title {
+                font-size: 24px;
+            }
+            .section-title i {
+                font-size: 28px;
+            }
+            .vocab-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            .vocab-card {
+                padding: 15px;
+            }
+            .vocab-icon {
+                font-size: 32px;
+            }
+            .vocab-word {
+                font-size: 18px;
+            }
+            .vocab-translation {
+                font-size: 14px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="page-title">Vocabulario</h1>
+
+            <div class="vocab-section">
+                <h2 class="section-title">
+                    <i class="material-icons">image</i>
+                    Descripción
+                </h2>
+                <div class="vocab-grid">
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">favorite</i>
+                        <div class="vocab-word">bonito/a</div>
+                        <div class="vocab-translation">beautiful, pretty</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">sentiment_dissatisfied</i>
+                        <div class="vocab-word">feo/a</div>
+                        <div class="vocab-translation">ugly</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">zoom_out_map</i>
+                        <div class="vocab-word">grande</div>
+                        <div class="vocab-translation">big, large</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">photo_size_select_small</i>
+                        <div class="vocab-word">pequeño/a</div>
+                        <div class="vocab-translation">small</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">museum</i>
+                        <div class="vocab-word">antiguo/a</div>
+                        <div class="vocab-translation">old, ancient</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">apartment</i>
+                        <div class="vocab-word">moderno/a</div>
+                        <div class="vocab-translation">modern</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">location_city</i>
+                        <div class="vocab-word">típico/a</div>
+                        <div class="vocab-translation">typical</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">star</i>
+                        <div class="vocab-word">interesante</div>
+                        <div class="vocab-translation">interesting</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vocab-section">
+                <h2 class="section-title">
+                    <i class="material-icons">schedule</i>
+                    Tiempo pasado
+                </h2>
+                <div class="vocab-grid">
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">today</i>
+                        <div class="vocab-word">ayer</div>
+                        <div class="vocab-translation">yesterday</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">date_range</i>
+                        <div class="vocab-word">la semana pasada</div>
+                        <div class="vocab-translation">last week</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">calendar_month</i>
+                        <div class="vocab-word">el año pasado</div>
+                        <div class="vocab-translation">last year</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">looks_one</i>
+                        <div class="vocab-word">primero</div>
+                        <div class="vocab-translation">first</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">looks_two</i>
+                        <div class="vocab-word">después</div>
+                        <div class="vocab-translation">after, then</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">looks_3</i>
+                        <div class="vocab-word">luego</div>
+                        <div class="vocab-translation">then, later</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">done_all</i>
+                        <div class="vocab-word">finalmente</div>
+                        <div class="vocab-translation">finally</div>
+                    </div>
+                    <div class="vocab-card">
+                        <i class="material-icons vocab-icon">last_page</i>
+                        <div class="vocab-word">por último</div>
+                        <div class="vocab-translation">lastly, finally</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="objetivos.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="preterito.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

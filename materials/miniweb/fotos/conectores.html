@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectores Temporales - Sesión 9</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 70px;
+            overflow-y: auto;
+        }
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .page-subtitle {
+            font-size: 20px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .connectors-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto 30px auto;
+        }
+        .connector-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #f7931e;
+            transition: all 0.3s;
+        }
+        .connector-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .connector-word {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .connector-translation {
+            font-size: 16px;
+            color: #888;
+            text-align: center;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .connector-example {
+            background: linear-gradient(135deg, #feca57 0%, #ffb347 100%);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .timeline-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .timeline-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f7931e;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b 0%, #f7931e 100%);
+            z-index: 0;
+        }
+        .timeline-item {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px auto;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .timeline-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ff6b6b;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .story-example {
+            background: linear-gradient(135deg, #feca57 0%, #ffb347 100%);
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-top: 20px;
+        }
+        .story-example strong {
+            color: #ff6b6b;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                position: static;
+                padding: 20px;
+            }
+            .page-title {
+                font-size: 28px;
+            }
+            .page-subtitle {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            .connectors-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .connector-word {
+                font-size: 22px;
+            }
+            .connector-example {
+                font-size: 14px;
+            }
+            .timeline-section {
+                padding: 20px;
+            }
+            .timeline-title {
+                font-size: 22px;
+            }
+            .timeline {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .timeline::before {
+                width: 4px;
+                height: 100%;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .story-example {
+                font-size: 14px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="page-title">Conectores Temporales</h1>
+            <p class="page-subtitle">Organiza tus historias en el tiempo</p>
+
+            <div class="connectors-grid">
+                <div class="connector-card">
+                    <div class="connector-word">primero</div>
+                    <div class="connector-translation">first</div>
+                    <div class="connector-example">
+                        <strong>Primero</strong>, llegamos al hotel y dejamos las maletas.
+                    </div>
+                </div>
+                <div class="connector-card">
+                    <div class="connector-word">después</div>
+                    <div class="connector-translation">after, then</div>
+                    <div class="connector-example">
+                        <strong>Después</strong>, salimos a pasear por la ciudad.
+                    </div>
+                </div>
+                <div class="connector-card">
+                    <div class="connector-word">luego</div>
+                    <div class="connector-translation">then, later</div>
+                    <div class="connector-example">
+                        <strong>Luego</strong>, visitamos el museo de arte moderno.
+                    </div>
+                </div>
+                <div class="connector-card">
+                    <div class="connector-word">entonces</div>
+                    <div class="connector-translation">then, so</div>
+                    <div class="connector-example">
+                        <strong>Entonces</strong>, decidimos comer en un restaurante típico.
+                    </div>
+                </div>
+                <div class="connector-card">
+                    <div class="connector-word">finalmente</div>
+                    <div class="connector-translation">finally</div>
+                    <div class="connector-example">
+                        <strong>Finalmente</strong>, volvimos al hotel muy cansados.
+                    </div>
+                </div>
+                <div class="connector-card">
+                    <div class="connector-word">por último</div>
+                    <div class="connector-translation">lastly, finally</div>
+                    <div class="connector-example">
+                        <strong>Por último</strong>, tomamos fotos del atardecer.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-section">
+                <h3 class="timeline-title">Secuencia de eventos</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot">1</div>
+                        <div class="timeline-label">Primero</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">2</div>
+                        <div class="timeline-label">Después</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">3</div>
+                        <div class="timeline-label">Luego</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">4</div>
+                        <div class="timeline-label">Entonces</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">5</div>
+                        <div class="timeline-label">Finalmente</div>
+                    </div>
+                </div>
+                <div class="story-example">
+                    <strong>Primero</strong>, llegué a Barcelona en avión. <strong>Después</strong>, tomé el metro hasta el centro.
+                    <strong>Luego</strong>, visité la Sagrada Familia y saqué muchas fotos. <strong>Entonces</strong>, caminé por Las Ramblas
+                    y comí tapas deliciosas. <strong>Finalmente</strong>, volví al hotel y descansé.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="preterito.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="actividades.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>
