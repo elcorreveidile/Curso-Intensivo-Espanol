@@ -8,6 +8,7 @@
     :root{
       --fg:#1f2937; --bg:#ffffff; --border:#e5e7eb; --brand:#059669; --card:#ffffff;
       --s1:#fef3c7; --s2:#dbeafe; --s3:#dcfce7; --s4:#fae8ff; --s5:#e0f2fe;
+      --primary-color:#059669; --secondary-color:#3b82f6; --muted-color:#6b7280; --border-color:#d1d5db;
     }
     html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial}
     a{color:inherit;text-decoration:none}
@@ -58,8 +59,44 @@
     th,td{border:1px solid var(--border);padding:.6rem;text-align:left}
     th{background:#f8fafc}
 
-    @media (max-width:899px){.links{display:none}.hamb{display:inline-block}.container{padding:.75rem 1rem}.section{padding:2rem 0}}
+    @media (max-width:899px){
+      .links{display:none}
+      .hamb{display:inline-block}
+      .container{padding:.75rem 1rem}
+      .section{padding:2rem 0}
+      .grid-3{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:480px){
+      .grid-3{grid-template-columns:1fr}
+      .brand{font-size:0.9rem}
+      .brand .logo{height:32px}
+    }
     .nav.open .mobile-panel{display:block}
+
+    /* Smooth animations */
+    .card, .btn, .chip {
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .chip:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Loading animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section {
+      animation: fadeIn 0.6s ease-out;
+    }
 
     /* Visor PDF */
     .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:50}
@@ -79,14 +116,29 @@
     .viewer .content strong{color:#111827}
     @media (max-width:640px){ .viewer{inset:4% 2%} .viewer .btn{flex:1;justify-content:center;min-width:120px} #fileName{flex-basis:100%;font-size:1rem} .viewer .content{padding:1rem} }
 
-    /* Estilos especiales para este curso */
+    /* Enhanced styles for the course */
     .highlight-box {
       background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
       border: 2px solid #f59e0b;
       border-radius: 1rem;
       padding: 1.5rem;
       margin: 1rem 0;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .highlight-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s;
+    }
+    .highlight-box:hover::before {
+      left: 100%;
     }
     .highlight-box h3 {
       color: #92400e;
@@ -108,6 +160,132 @@
       font-weight: 600;
       font-size: 0.9rem;
       margin: 0.2rem 0.2rem 0.2rem 0;
+    }
+
+    /* Progress tracking styles */
+    .progress-container {
+      background: rgba(255,255,255,0.9);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #e5e7eb;
+      border-radius: 9999px;
+      overflow: hidden;
+      margin: 0.5rem 0;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #059669, #10b981);
+      border-radius: 9999px;
+      transition: width 0.5s ease;
+      position: relative;
+    }
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Interactive vocabulary cards */
+    .vocab-card {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .vocab-card:hover {
+      border-color: #059669;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(5,150,105,0.15);
+    }
+    .vocab-card .translation {
+      display: none;
+      color: #059669;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    .vocab-card.revealed .translation {
+      display: block;
+    }
+
+    /* Quiz styles */
+    .quiz-option {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .quiz-option:hover {
+      border-color: #3b82f6;
+      background: #f0f9ff;
+    }
+    .quiz-option.selected {
+      border-color: #3b82f6;
+      background: #dbeafe;
+    }
+    .quiz-option.correct {
+      border-color: #059669;
+      background: #dcfce7;
+    }
+    .quiz-option.incorrect {
+      border-color: #ef4444;
+      background: #fee2e2;
+    }
+
+    /* Floating action button */
+    .fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #059669, #10b981);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(5,150,105,0.3);
+      transition: all 0.3s ease;
+      z-index: 15;
+    }
+    .fab:hover {
+      transform: translateY(-2px) scale(1.1);
+      box-shadow: 0 12px 35px rgba(5,150,105,0.4);
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fg:#f9fafb; --bg:#111827; --border:#374151; --card:#1f2937;
+      }
+      .card {
+        background: rgba(31,41,55,0.96);
+        color: #f9fafb;
+      }
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -195,15 +373,11 @@
         <div class="card">
           <h3>📅 Horario del curso</h3>
           <div class="schedule-card">
-            <h4>Lunes y Miércoles</h4>
+            <h4>Lunes a Jueves</h4>
             <div class="time-badge">8:30 - 10:30</div>
-            <p>2 horas de clase intensiva</p>
+            <p>2 horas de clase intensiva diaria</p>
           </div>
-          <div class="schedule-card">
-            <h4>Jueves</h4>
-            <div class="time-badge">8:30 - 12:30</div>
-            <p>4 horas con sesión práctica y cultural</p>
-          </div>
+          <p><strong>Total: 8 horas semanales</strong> con enfoque en comunicación práctica</p>
           <h3 style="margin-top:.75rem">Objetivo general</h3>
           <p>Desarrollar las competencias comunicativas básicas en español para alcanzar un nivel A2.1, enfocándose en la comunicación práctica para situaciones cotidianas y académicas.</p>
         </div>
@@ -234,6 +408,143 @@
           <div id="chips-s1"></div>
           <ul class="list" id="lista-s1"></ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE ACCESO ESTUDIANTES -->
+  <section class="section" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 2rem 0;">
+    <div class="container">
+      <div id="loginSection">
+        <h2>👤 Acceso de Estudiantes</h2>
+        <p>Inicia sesión para guardar tu progreso y acceder a material personalizado</p>
+
+        <div class="card" style="max-width: 500px; margin: 0 auto;">
+          <div id="loginForm">
+            <h3>Iniciar Sesión</h3>
+            <div style="margin: 1rem 0;">
+              <label for="studentId" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">ID de Estudiante:</label>
+              <input type="text" id="studentId" placeholder="Tu ID único" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; margin-bottom: 1rem;">
+
+              <label for="studentPassword" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Contraseña:</label>
+              <input type="password" id="studentPassword" placeholder="Tu contraseña" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; margin-bottom: 1rem;">
+
+              <button class="btn primary" style="width: 100%; padding: 0.75rem;" onclick="studentLogin()">Iniciar Sesión</button>
+            </div>
+
+            <div style="text-align: center; margin: 1rem 0;">
+              <p>¿No tienes cuenta? <a href="#" onclick="showRegisterForm()" style="color: var(--brand); font-weight: 600;">Regístrate aquí</a></p>
+            </div>
+          </div>
+
+          <div id="registerForm" style="display: none;">
+            <h3>Registro de Nuevo Estudiante</h3>
+            <div style="margin: 1rem 0;">
+              <label for="regName" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Nombre completo:</label>
+              <input type="text" id="regName" placeholder="Tu nombre" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; margin-bottom: 1rem;">
+
+              <label for="regEmail" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email:</label>
+              <input type="email" id="regEmail" placeholder="tu@email.com" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; margin-bottom: 1rem;">
+
+              <label for="regStudentId" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">ID de Estudiante (opcional):</label>
+              <input type="text" id="regStudentId" placeholder="Tu ID si ya tienes uno" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; margin-bottom: 1rem;">
+
+              <button class="btn primary" style="width: 100%; padding: 0.75rem;" onclick="studentRegister()">Registrarse</button>
+            </div>
+
+            <div style="text-align: center; margin: 1rem 0;">
+              <p>¿Ya tienes cuenta? <a href="#" onclick="showLoginForm()" style="color: var(--brand); font-weight: 600;">Inicia sesión</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="userInfo" style="display: none;">
+          <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">👨‍🎓</div>
+            <h3 id="welcomeMessage">¡Bienvenido!</h3>
+            <p id="userDetails">Estudiante del Curso Intensivo de Español</p>
+
+            <div style="margin: 2rem 0; padding: 1rem; background: white; border-radius: 0.5rem;">
+              <h4>Tu Progreso Personal</h4>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0;">
+                <div>
+                  <div style="font-size: 1.5rem; font-weight: bold; color: var(--brand);" id="userAttendanceProgress">0/16</div>
+                  <div style="font-size: 0.9rem; color: var(--muted-color);">Clases Asistidas</div>
+                </div>
+                <div>
+                  <div style="font-size: 1.5rem; font-weight: bold; color: var(--secondary-color);" id="userMaterialsProgress">0/8</div>
+                  <div style="font-size: 0.9rem; color: var(--muted-color);">Materiales</div>
+                </div>
+                <div>
+                  <div style="font-size: 1.5rem; font-weight: bold; color: #f59e0b;" id="userPointsDisplay">0</div>
+                  <div style="font-size: 0.9rem; color: var(--muted-color);">Puntos</div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn" onclick="studentLogout()">Cerrar Sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE PROGRESO (actualizado para usuario logueado) -->
+  <section class="section" id="progressSection" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 2rem 0; display: none;">
+    <div class="container">
+      <h2>📈 Tu Progreso en el Curso</h2>
+
+      <div class="progress-container">
+        <h3>Progreso General del Curso</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" id="mainProgress" style="width: 0%;"></div>
+        </div>
+        <p id="progressText">0% completado - ¡Comienza tu aprendizaje!</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+          <div style="text-align: center;">
+            <div style="font-size: 2rem; font-weight: bold; color: var(--brand);" id="attendanceProgress">0/12</div>
+            <div style="color: var(--muted-color);">Clases Asistidas</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 2rem; font-weight: bold; color: var(--secondary-color);" id="materialsProgress">0/8</div>
+            <div style="color: var(--muted-color);">Materiales Completados</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 2rem; font-weight: bold; color: #f59e0b;" id="projectsProgress">0/3</div>
+            <div style="color: var(--muted-color);">Proyectos Entregados</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 2rem; font-weight: bold; color: #ef4444;" id="vocabularyProgress">0/50</div>
+            <div style="color: var(--muted-color);">Palabras Aprendidas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 1rem;">
+        <h3>🎯 Objetivos de la Semana</h3>
+        <ul class="list" id="weeklyGoals">
+          <li>
+            <input type="checkbox" id="goal1" onchange="updateWeeklyProgress()">
+            <label for="goal1">Completar el Módulo 1: Comunicación básica</label>
+          </li>
+          <li>
+            <input type="checkbox" id="goal2" onchange="updateWeeklyProgress()">
+            <label for="goal2">Practicar 15 minutos de vocabulario diario</label>
+          </li>
+          <li>
+            <input type="checkbox" id="goal3" onchange="updateWeeklyProgress()">
+            <label for="goal3">Participar en la sesión de conversación del jueves</label>
+          </li>
+          <li>
+            <input type="checkbox" id="goal4" onchange="updateWeeklyProgress()">
+            <label for="goal4">Entregar el primer proyecto fotográfico</label>
+          </li>
+        </ul>
+        <div class="progress-bar" style="margin-top: 1rem;">
+          <div class="progress-fill" id="weeklyProgress" style="width: 0%; background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+        </div>
+        <p id="weeklyProgressText" style="margin-top: 0.5rem; color: var(--muted-color);">0% de los objetivos semanales completados</p>
       </div>
     </div>
   </section>
@@ -305,6 +616,140 @@
             <li>Teléfono y comunicación digital</li>
             <li>Cultura y costumbres españolas</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE PRÁCTICA AVANZADA -->
+  <section class="section" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 2rem 0;">
+    <div class="container">
+      <h2>🗣️ Práctica de Conversación y Gramática</h2>
+
+      <div class="card">
+        <h3>🎭 Escenarios de Conversación</h3>
+        <p>Situaciones reales para practicar tu español. Practica con un compañero o graba tu voz.</p>
+
+        <div class="grid grid-3" id="conversationScenarios">
+          <div class="scenario-card" style="background: white; border: 2px solid #f59e0b; border-radius: 0.75rem; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+            <h4 style="color: #92400e; margin: 0 0 0.5rem 0;">🍽️ En el Restaurante</h4>
+            <p style="margin: 0; font-size: 0.9rem;">Pedir comida, hacer preguntas sobre el menú, pagar la cuenta</p>
+            <button class="btn" style="margin-top: 0.5rem; padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="showDialog('restaurant')">Ver Diálogo</button>
+          </div>
+
+          <div class="scenario-card" style="background: white; border: 2px solid #f59e0b; border-radius: 0.75rem; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+            <h4 style="color: #92400e; margin: 0 0 0.5rem 0;">🗺️ Pidiendo Direcciones</h4>
+            <p style="margin: 0; font-size: 0.9rem;">Cómo llegar a lugares, entender indicaciones, vocabulario de direcciones</p>
+            <button class="btn" style="margin-top: 0.5rem; padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="showDialog('directions')">Ver Diálogo</button>
+          </div>
+
+          <div class="scenario-card" style="background: white; border: 2px solid #f59e0b; border-radius: 0.75rem; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+            <h4 style="color: #92400e; margin: 0 0 0.5rem 0;">🛍️ En la Tienda</h4>
+            <p style="margin: 0; font-size: 0.9rem;">Comprar ropa, preguntar precios, talla y calidad</p>
+            <button class="btn" style="margin-top: 0.5rem; padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="showDialog('shopping')">Ver Diálogo</button>
+          </div>
+
+          <div class="scenario-card" style="background: white; border: 2px solid #f59e0b; border-radius: 0.75rem; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+            <h4 style="color: #92400e; margin: 0 0 0.5rem 0;">⚕️ En la Farmacia</h4>
+            <p style="margin: 0; font-size: 0.9rem;">Describir síntomas, pedir medicamentos, vocabulario médico</p>
+            <button class="btn" style="margin-top: 0.5rem; padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="showDialog('pharmacy')">Ver Diálogo</button>
+          </div>
+
+          <div class="scenario-card" style="background: white; border: 2px solid #f59e0b; border-radius: 0.75rem; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+            <h4 style="color: #92400e; margin: 0 0 0.5rem 0;">🏨 En el Hotel</h4>
+            <p style="margin: 0; font-size: 0.9rem;">Hacer reservas, pedir información, servicios del hotel</p>
+            <button class="btn" style="margin-top: 0.5rem; padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="showDialog('hotel')">Ver Diálogo</button>
+          </div>
+
+          <div class="scenario-card" style="background: white; border: 2px solid #f59e0b; border-radius: 0.75rem; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+            <h4 style="color: #92400e; margin: 0 0 0.5rem 0;">🚌 Transporte Público</h4>
+            <p style="margin: 0; font-size: 0.9rem;">Comprar billetes, preguntar rutas, horarios</p>
+            <button class="btn" style="margin-top: 0.5rem; padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="showDialog('transport')">Ver Diálogo</button>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; text-align: center;">
+          <button class="btn primary" onclick="downloadConversationGuide()">📄 Descargar Guía Completa</button>
+          <button class="btn" onclick="startConversationPractice()">🎤 Iniciar Práctica Guiada</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 1rem;">
+        <h3>📝 Ejercicios de Gramática Interactivos</h3>
+        <p>Practica las estructuras gramaticales más importantes para el nivel A1.2-A2.1</p>
+
+        <div id="grammarExercises">
+          <div style="margin: 1rem 0; padding: 1rem; background: white; border-radius: 0.5rem; border: 1px solid #e5e7eb;">
+            <h4 style="color: var(--primary-color); margin: 0 0 0.5rem 0;">SER vs ESTAR</h4>
+            <p style="margin: 0 0 0.5rem 0;">Elige la forma correcta:</p>
+            <div style="margin: 0.5rem 0;">
+              <p>Yo _____ estudiante de español. (ser/estar)</p>
+              <input type="text" id="grammar1" placeholder="Tu respuesta" style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.25rem; width: 200px;">
+              <button class="btn" style="margin-left: 0.5rem;" onclick="checkGrammarAnswer(1, 'soy')">Verificar</button>
+            </div>
+            <div style="margin: 0.5rem 0;">
+              <p>La clase _____ muy interesante hoy. (ser/estar)</p>
+              <input type="text" id="grammar2" placeholder="Tu respuesta" style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.25rem; width: 200px;">
+              <button class="btn" style="margin-left: 0.5rem;" onclick="checkGrammarAnswer(2, 'está')">Verificar</button>
+            </div>
+          </div>
+
+          <div style="margin: 1rem 0; padding: 1rem; background: white; border-radius: 0.5rem; border: 1px solid #e5e7eb;">
+            <h4 style="color: var(--primary-color); margin: 0 0 0.5rem 0;">Verbos Irregulares</h4>
+            <p style="margin: 0 0 0.5rem 0;">Conjugación correcta:</p>
+            <div style="margin: 0.5rem 0;">
+              <p>Yo _____ (tener) muchos amigos en Granada.</p>
+              <input type="text" id="grammar3" placeholder="Tu respuesta" style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.25rem; width: 200px;">
+              <button class="btn" style="margin-left: 0.5rem;" onclick="checkGrammarAnswer(3, 'tengo')">Verificar</button>
+            </div>
+            <div style="margin: 0.5rem 0;">
+              <p>¿Qué _____ (hacer) este fin de semana?</p>
+              <input type="text" id="grammar4" placeholder="Tu respuesta" style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.25rem; width: 200px;">
+              <button class="btn" style="margin-left: 0.5rem;" onclick="checkGrammarAnswer(4, 'haces')">Verificar</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1rem; text-align: center;">
+          <button class="btn primary" onclick="loadNewGrammarExercises()">🔄 Nuevos Ejercicios</button>
+          <button class="btn" onclick="showGrammarSolutions()">💡 Ver Soluciones</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 1rem;">
+        <h3>🎮 Gamificación: Retos Diarios</h3>
+        <p>Completa estos retos para ganar puntos y mejorar tu español</p>
+
+        <div id="dailyChallenges" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+          <div style="padding: 1rem; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 0.5rem; text-align: center;">
+            <div style="font-size: 2rem;">🎧</div>
+            <h4 style="margin: 0.5rem 0; color: #1e40af;">Escucha Activa</h4>
+            <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem;">Escucha una canción en español e identifica 5 palabras nuevas</p>
+            <div style="font-weight: bold; color: #059669;">+10 puntos</div>
+          </div>
+
+          <div style="padding: 1rem; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 0.5rem; text-align: center;">
+            <div style="font-size: 2rem;">📖</div>
+            <h4 style="margin: 0.5rem 0; color: #166534;">Lectura Corta</h4>
+            <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem;">Lee una noticia breve en español y resume 3 ideas principales</p>
+            <div style="font-weight: bold; color: #059669;">+15 puntos</div>
+          </div>
+
+          <div style="padding: 1rem; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 0.5rem; text-align: center;">
+            <div style="font-size: 2rem;">🗣️</div>
+            <h4 style="margin: 0.5rem 0; color: #92400e;">Conversación</h4>
+            <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem;">Practica un diálogo con un compañero durante 5 minutos</p>
+            <div style="font-weight: bold; color: #059669;">+20 puntos</div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 1rem;">
+          <div style="font-size: 1.5rem; font-weight: bold; color: var(--brand);">
+            🏆 Tu Puntuación: <span id="userPoints">0</span> puntos
+          </div>
+          <p style="margin: 0.5rem 0; color: var(--muted-color); font-size: 0.9rem;">
+            ¡Sigue practicando para alcanzar la próxima meta de 100 puntos!
+          </p>
         </div>
       </div>
     </div>
@@ -578,6 +1023,8 @@
           { t: 'Frases utiles', href: 'materials/frases-utiles.pdf' },
           { t: 'Verbos irregulares', href: 'materials/verbos.pdf' },
           { t: 'Ejercicios practicos', href: 'materials/ejercicios-practicos.pdf' },
+          { t: 'Practicas de conversacion', href: 'materials/conversaciones-practicas.pdf' },
+          { t: 'Guia cultural Granada', href: 'materials/guia-cultural-granada.pdf' },
           { t: 'Tarjetas de nombres', href: 'materials/tarjetas/nombres_personajes.pdf' },
           { t: 'Menus de tapas', href: 'materials/menus/menues_tapas.pdf' },
           { t: 'Flashcards vocabulario', href: 'materials/vocabulario/flashcards_sesion1-6.pdf' },
@@ -673,11 +1120,16 @@
             const fileIcon = isPDF ? '📄' : '📝';
             const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
 
+            // Añadir enlace a miniweb si es la sesión 7
+            const miniwebLink = s.t.includes('Sesión 7') ?
+              `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/', '_blank')" style="background: #27ae60;">🌐 MiniWeb: Transporte y Direcciones</button></li>` : '';
+
             list.innerHTML = `
               <li><button class="btn primary" ${dataAttr}="${s.href}">${fileIcon} Ver en navegador (${s.t})</button></li>
               <li><button class="btn" onclick="window.open('${s.href}', '_blank')">🔗 Abrir en nueva pestaña</button></li>
               <li><button class="btn" onclick="downloadFile('${s.href}', '${s.t}.pdf')">💾 Descargar directamente</button></li>
               <li><button class="btn" onclick="copyPDFLink('${s.href}')">📋 Copiar enlace</button></li>
+              ${miniwebLink}
             `;
           } else {
             list.innerHTML = `
@@ -1063,6 +1515,683 @@ Respuestas útiles:
         profesorSection.style.display = 'block';
       }
     }
+
+    // Interactive Learning Features
+    const conversationDialogs = {
+      restaurant: {
+        title: "En el Restaurante",
+        dialog: [
+          { speaker: "Camarero", text: "Buenas tardes. ¿Qué van a tomar?" },
+          { speaker: "Cliente", text: "Hola. Me gustaría ver el menú, por favor." },
+          { speaker: "Camarero", text: "Claro. ¿Desean algo de beber?" },
+          { speaker: "Cliente", text: "Sí, una cerveza y un agua." },
+          { speaker: "Camarero", text: "Perfecto. ¿Ya decidieron qué van a comer?" },
+          { speaker: "Cliente", text: "Sí, quiero la paella valenciana." },
+          { speaker: "Camarero", text: "Excelente elección. Enseguida lo traigo." }
+        ]
+      },
+      directions: {
+        title: "Pidiendo Direcciones",
+        dialog: [
+          { speaker: "Turista", text: "Disculpe. ¿Podría ayudarme?" },
+          { speaker: "Local", text: "Claro que sí. ¿Qué necesita?" },
+          { speaker: "Turista", text: "Busco la catedral. ¿Sabe cómo llegar?" },
+          { speaker: "Local", text: "Sí. Siga toda esta calle recta." },
+          { speaker: "Turista", text: "¿Recto hasta el final?" },
+          { speaker: "Local", text: "Sí, al final gire a la derecha. Está a unos 10 minutos." },
+          { speaker: "Turista", text: "Muchas gracias por su ayuda." }
+        ]
+      },
+      shopping: {
+        title: "En la Tienda de Ropa",
+        dialog: [
+          { speaker: "Vendedor", text: "Buenos días. ¿Busca algo en especial?" },
+          { speaker: "Cliente", text: "Sí, busco una chaqueta." },
+          { speaker: "Vendedor", text: "¿Qué talla necesita?" },
+          { speaker: "Cliente", text: "Talla mediana, por favor." },
+          { speaker: "Vendedor", text: "Qué tal esta. Es de cuero y muy resistente." },
+          { speaker: "Cliente", text: "Me gusta. ¿Cuánto cuesta?" },
+          { speaker: "Vendedor", text: "Son 89 euros." }
+        ]
+      },
+      pharmacy: {
+        title: "En la Farmacia",
+        dialog: [
+          { speaker: "Cliente", text: "Buenos días. Tengo dolor de cabeza." },
+          { speaker: "Farmacéutico", text: "¿Desde cuándo tiene dolor?" },
+          { speaker: "Cliente", text: "Desde esta mañana." },
+          { speaker: "Farmacéutico", text: "Le recomiendo ibuprofeno." },
+          { speaker: "Cliente", text: "¿Tengo que tomarlo con comida?" },
+          { speaker: "Farmacéutico", text: "Sí, es mejor tomarlo después de comer." },
+          { speaker: "Cliente", text: "Perfecto. ¿Cuánto cuesta?" }
+        ]
+      },
+      hotel: {
+        title: "En el Hotel",
+        dialog: [
+          { speaker: "Recepcionista", text: "Buenos días. Bienvenido a nuestro hotel." },
+          { speaker: "Huésped", text: "Hola. Tengo una reserva a nombre de García." },
+          { speaker: "Recepcionista", text: "Déjeme buscar... Sí, habitación 305." },
+          { speaker: "Huésped", text: "¿A qué hora sirve el desayuno?" },
+          { speaker: "Recepcionista", text: "El desayuno se sirve de 7 a 10:30." },
+          { speaker: "Huésped", text: "¿Hay wifi en las habitaciones?" },
+          { speaker: "Recepcionista", text: "Sí, es gratis y la contraseña está en la llave." }
+        ]
+      },
+      transport: {
+        title: "Transporte Público",
+        dialog: [
+          { speaker: "Pasajero", text: "Disculpe. ¿Este autobús va al centro?" },
+          { speaker: "Conductor", text: "Sí. Este autobús va directamente al centro." },
+          { speaker: "Pasajero", text: "¿Cuánto cuesta el billete?" },
+          { speaker: "Conductor", text: "Son 1.40 euros." },
+          { speaker: "Pasajero", text: "¿Tiene que hacer transbordo?" },
+          { speaker: "Conductor", text: "No. Directo al centro en unos 20 minutos." },
+          { speaker: "Pasajero", text: "Muchas gracias." }
+        ]
+      }
+    };
+
+    // Game system variables
+    let userPoints = 0;
+    let currentGrammarExercise = 1;
+
+    // Conversation functions
+    function showDialog(scenario) {
+      const dialog = conversationDialogs[scenario];
+      if (!dialog) return;
+
+      let dialogHTML = `
+        <div style="padding: 1.5rem; max-width: 500px; margin: 0 auto;">
+          <h3 style="color: var(--brand); margin-bottom: 1rem;">${dialog.title}</h3>
+      `;
+
+      dialog.dialog.forEach((line, index) => {
+        const speakerColor = line.speaker.includes('Cliente') || line.speaker.includes('Turista') ||
+                            line.speaker.includes('Pasajero') || line.speaker.includes('Huésped') ? '#059669' : '#3b82f6';
+
+        dialogHTML += `
+          <div style="margin: 1rem 0; padding: 0.8rem; background: ${index % 2 === 0 ? '#f0f9ff' : '#f0fdf4'}; border-radius: 0.5rem; border-left: 4px solid ${speakerColor};">
+            <strong style="color: ${speakerColor};">${line.speaker}:</strong> ${line.text}
+          </div>
+        `;
+      });
+
+      dialogHTML += `
+          <div style="text-align: center; margin-top: 1.5rem;">
+            <button class="btn primary" onclick="closeDialog()">Cerrar</button>
+            <button class="btn" onclick="practiceDialog('${scenario}')">Practicar</button>
+          </div>
+        </div>
+      `;
+
+      showModalDialog(dialog.title, dialogHTML);
+    }
+
+    function showModalDialog(title, content) {
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;
+      `;
+      modal.innerHTML = `
+        <div style="background: white; border-radius: 1rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 0;">
+          <div style="padding: 1rem 1.5rem; background: var(--brand); color: white; border-radius: 1rem 1rem 0 0; display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="margin: 0;">${title}</h3>
+            <button onclick="this.closest('.modal-overlay').remove()" style="background: white; color: var(--brand); border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 1.2rem;">×</button>
+          </div>
+          <div>${content}</div>
+        </div>
+      `;
+      modal.className = 'modal-overlay';
+      document.body.appendChild(modal);
+
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.remove();
+        }
+      });
+    }
+
+    function closeDialog() {
+      document.querySelector('.modal-overlay')?.remove();
+    }
+
+    function practiceDialog(scenario) {
+      showNotification('🎤 Modo práctica iniciado. Graba tu voz y compara con el original.', 'success');
+      userPoints += 5;
+      updateUserPoints();
+      closeDialog();
+    }
+
+    function downloadConversationGuide() {
+      showNotification('📄 Descargando guía completa de conversación...', 'success');
+      window.open('materials/conversaciones-practicas.pdf', '_blank');
+      userPoints += 3;
+      updateUserPoints();
+    }
+
+    function startConversationPractice() {
+      showNotification('🎤 Iniciando sesión de práctica guiada...', 'success');
+      userPoints += 2;
+      updateUserPoints();
+    }
+
+    // Grammar exercises functions
+    function checkGrammarAnswer(exerciseId, correctAnswer) {
+      const userAnswer = document.getElementById(`grammar${exerciseId}`).value.trim().toLowerCase();
+
+      if (userAnswer === correctAnswer.toLowerCase()) {
+        showNotification('✅ ¡Correcto! Bien hecho.', 'success');
+        userPoints += 2;
+        updateUserPoints();
+        document.getElementById(`grammar${exerciseId}`).style.borderColor = '#059669';
+        document.getElementById(`grammar${exerciseId}`).style.backgroundColor = '#dcfce7';
+      } else {
+        showNotification(`❌ Incorrecto. La respuesta correcta es: ${correctAnswer}`, 'error');
+        document.getElementById(`grammar${exerciseId}`).style.borderColor = '#ef4444';
+        document.getElementById(`grammar${exerciseId}`).style.backgroundColor = '#fee2e2';
+      }
+    }
+
+    function loadNewGrammarExercises() {
+      const exercises = [
+        { question: "Ella _____ profesora de español. (ser/estar)", answer: "es" },
+        { question: "Los libros _____ sobre la mesa. (ser/estar)", answer: "están" },
+        { question: "Nosotros _____ al parque todos los días. (ir)", answer: "vamos" },
+        { question: "Tú _____ muy inteligente. (ser/estar)", answer: "eres" }
+      ];
+
+      const randomExercise = exercises[Math.floor(Math.random() * exercises.length)];
+      showNotification(`🔄 Nuevo ejercicio cargado: ${randomExercise.question}`, 'success');
+      userPoints += 1;
+      updateUserPoints();
+    }
+
+    function showGrammarSolutions() {
+      const solutions = `
+        <h4>Soluciones:</h4>
+        <ul>
+          <li><strong>soy</strong> - Yo soy estudiante (identidad permanente)</li>
+          <li><strong>está</strong> - La clase está interesante (estado temporal)</li>
+          <li><strong>tengo</strong> - Tener: posesión</li>
+          <li><strong>haces</strong> - Tú: forma de hacer</li>
+        </ul>
+      `;
+      showModalDialog('Soluciones de Gramática', `<div style="padding: 1.5rem;">${solutions}</div>`);
+      userPoints += 1;
+      updateUserPoints();
+    }
+
+    // Points system functions
+    function updateUserPoints() {
+      const pointsElement = document.getElementById('userPoints');
+      if (pointsElement) {
+        pointsElement.textContent = userPoints;
+      }
+
+      // Check for milestones
+      if (userPoints >= 100 && userPoints < 103) {
+        showNotification('🎉 ¡Felicidades! Has alcanzado 100 puntos.', 'success');
+      } else if (userPoints >= 50 && userPoints < 53) {
+        showNotification('🌟 ¡Excelente! Has alcanzado 50 puntos.', 'success');
+      }
+
+      // Update main progress
+      updateMainProgress();
+    }
+
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        color: white;
+        font-weight: 600;
+        z-index: 1000;
+        animation: slideIn 0.3s ease;
+        background: ${type === 'success' ? '#059669' : '#ef4444'};
+      `;
+      notification.textContent = message;
+
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+      }, 2000);
+    }
+
+    // Progress tracking functions
+    function updateMainProgress() {
+      let totalProgress = 0;
+      let totalItems = 4;
+
+      // Calculate attendance progress (simulated)
+      const attendanceProgress = 8; // out of 16 classes (Lunes-Jueves x 4 semanas)
+      totalProgress += (attendanceProgress / 16) * 100;
+
+      // Calculate materials progress (simulated)
+      const materialsProgress = 5; // out of 8
+      totalProgress += (materialsProgress / 8) * 100;
+
+      // Calculate projects progress (simulated)
+      const projectsProgress = 1; // out of 3
+      totalProgress += (projectsProgress / 3) * 100;
+
+      // Calculate points progress (max 100 points for completion)
+      const pointsProgress = Math.min(userPoints, 100);
+      totalProgress += (pointsProgress / 100) * 100;
+
+      const overallProgress = Math.round(totalProgress / totalItems);
+
+      const progressBar = document.getElementById('mainProgress');
+      const progressText = document.getElementById('progressText');
+
+      if (progressBar) {
+        progressBar.style.width = overallProgress + '%';
+      }
+
+      if (progressText) {
+        progressText.textContent = `${overallProgress}% completado - ¡Sigue así!`;
+      }
+    }
+
+    function updateWeeklyProgress() {
+      const goals = document.querySelectorAll('#weeklyGoals input[type="checkbox"]');
+      const checked = document.querySelectorAll('#weeklyGoals input[type="checkbox"]:checked');
+      const percentage = Math.round((checked.length / goals.length) * 100);
+
+      const progressBar = document.getElementById('weeklyProgress');
+      const progressText = document.getElementById('weeklyProgressText');
+
+      if (progressBar) {
+        progressBar.style.width = percentage + '%';
+      }
+
+      if (progressText) {
+        progressText.textContent = `${percentage}% de los objetivos semanales completados`;
+      }
+    }
+
+    // Quick tools functions
+    function openQuickTools() {
+      const modal = document.getElementById('quickTools');
+      if (modal) {
+        modal.classList.add('show');
+      }
+    }
+
+    function closeQuickTools(event) {
+      if (!event || event.target.id === 'quickTools') {
+        const modal = document.getElementById('quickTools');
+        if (modal) {
+          modal.classList.remove('show');
+        }
+      }
+    }
+
+    function startVocabularyTimer() {
+      closeQuickTools();
+      const minutes = 5;
+      let seconds = minutes * 60;
+
+      const timerDiv = document.createElement('div');
+      timerDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--brand);
+        color: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        font-size: 2rem;
+        font-weight: bold;
+        z-index: 1000;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      `;
+
+      document.body.appendChild(timerDiv);
+
+      const interval = setInterval(() => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        timerDiv.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+        if (seconds === 0) {
+          clearInterval(interval);
+          timerDiv.textContent = '¡Tiempo completado!';
+          setTimeout(() => timerDiv.remove(), 2000);
+        }
+
+        seconds--;
+      }, 1000);
+    }
+
+    function openPronunciationGuide() {
+      closeQuickTools();
+      showNotification('🗣️ Guía de pronunciación próximamente', 'success');
+    }
+
+    // Student authentication system
+    let currentUser = null;
+
+    function showRegisterForm() {
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('registerForm').style.display = 'block';
+    }
+
+    function showLoginForm() {
+      document.getElementById('registerForm').style.display = 'none';
+      document.getElementById('loginForm').style.display = 'block';
+    }
+
+    async function studentRegister() {
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const studentId = document.getElementById('regStudentId').value.trim();
+
+      if (!name || !email) {
+        showNotification('❌ Por favor completa todos los campos obligatorios', 'error');
+        return;
+      }
+
+      // Validación básica de email
+      if (!email.includes('@') || !email.includes('.')) {
+        showNotification('❌ Por favor ingresa un email válido', 'error');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/api/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            student_id: studentId || null
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showNotification(`✅ ¡Registro exitoso! Tu ID: ${data.user.id}`, 'success');
+          showLoginCredentials(data.user);
+
+          // Mostrar las credenciales y luego cambiar a login
+          setTimeout(() => {
+            document.getElementById('studentId').value = data.user.id;
+            document.getElementById('studentPassword').value = data.user.password;
+            showLoginForm();
+          }, 3000);
+        } else {
+          showNotification(`❌ Error: ${data.error}`, 'error');
+        }
+      } catch (error) {
+        showNotification('⚠️ Error de conexión. Por favor intenta más tarde.', 'error');
+        console.error('Registration error:', error);
+      }
+    }
+
+    function showLoginCredentials(user) {
+      const credentialsHTML = `
+        <div style="background: #f0f9ff; border: 2px solid #3b82f6; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
+          <h4 style="color: #1e40af; margin: 0 0 0.5rem 0;">🎉 ¡Cuenta Creada!</h4>
+          <p style="margin: 0.5rem 0;"><strong>ID de Estudiante:</strong> ${user.id}</p>
+          <p style="margin: 0.5rem 0;"><strong>Contraseña:</strong> ${user.password}</p>
+          <p style="margin: 0.5rem 0; color: #6b7280; font-size: 0.9rem;">📝 ¡Guarda estas credenciales! Necesitarás tu ID y contraseña para iniciar sesión.</p>
+        </div>
+      `;
+
+      // Insertar después del botón de registro
+      const registerBtn = document.querySelector('#registerForm button');
+      registerBtn.insertAdjacentHTML('afterend', credentialsHTML);
+    }
+
+    async function studentLogin() {
+      const studentId = document.getElementById('studentId').value.trim();
+      const password = document.getElementById('studentPassword').value;
+
+      if (!studentId || !password) {
+        showNotification('❌ Por favor completa todos los campos', 'error');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_id: studentId,
+            password: password
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          currentUser = data.user;
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          showNotification(`✅ ¡Bienvenido ${currentUser.name}!`, 'success');
+          showUserProfile();
+          loadUserProgress();
+        } else {
+          showNotification(`❌ Error: ${data.error}`, 'error');
+        }
+      } catch (error) {
+        showNotification('⚠️ Error de conexión. Inicia el servidor de Python primero.', 'error');
+        console.error('Login error:', error);
+      }
+    }
+
+    function showUserProfile() {
+      // Ocultar formularios de login
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('registerForm').style.display = 'none';
+
+      // Mostrar información del usuario
+      document.getElementById('userInfo').style.display = 'block';
+
+      // Actualizar mensaje de bienvenida
+      document.getElementById('welcomeMessage').textContent = `¡Bienvenido, ${currentUser.name}!`;
+      document.getElementById('userDetails').innerHTML = `
+        Estudiante del Curso Intensivo de Español<br>
+        <small style="color: #6b7280;">ID: ${currentUser.id}</small>
+      `;
+
+      // Hacer visible toda la sección de progreso
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('progressSection').style.display = 'block';
+    }
+
+    function studentLogout() {
+      currentUser = null;
+      localStorage.removeItem('currentUser');
+
+      // Ocultar información de usuario
+      document.getElementById('userInfo').style.display = 'none';
+      document.getElementById('progressSection').style.display = 'none';
+
+      // Mostrar formulario de login
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('loginSection').style.display = 'block';
+
+      // Limpiar campos
+      document.getElementById('studentId').value = '';
+      document.getElementById('studentPassword').value = '';
+
+      showNotification('👋 Sesión cerrada correctamente', 'success');
+    }
+
+    async function loadUserProgress() {
+      if (!currentUser) return;
+
+      try {
+        const response = await fetch(`http://localhost:5000/api/progress/${currentUser.id}`);
+        const data = await response.json();
+
+        if (data.success) {
+          const progress = data.progress;
+
+          // Actualizar progreso en la interfaz
+          updateProgressDisplay(progress);
+
+          // Actualizar puntos del usuario
+          userPoints = progress.quiz_scores?.total_quizzes * 2 || 0;
+          updateUserPoints();
+        }
+      } catch (error) {
+        console.error('Error loading user progress:', error);
+        // Cargar progreso simulado si el servidor no está disponible
+        loadSimulatedProgress();
+      }
+    }
+
+    function updateProgressDisplay(progress) {
+      // Actualizar attendance
+      const attendanceEl = document.getElementById('userAttendanceProgress');
+      if (attendanceEl) {
+        attendanceEl.textContent = `${progress.attendance?.attended_classes || 0}/16`;
+      }
+
+      // Actualizar materiales
+      const materialsEl = document.getElementById('userMaterialsProgress');
+      if (materialsEl) {
+        materialsEl.textContent = `${progress.materials?.exercises_completed || 0}/8`;
+      }
+    }
+
+    function loadSimulatedProgress() {
+      // Progreso simulado cuando el servidor no está disponible
+      const simulatedProgress = {
+        attendance: { attended_classes: 3, total_classes: 16 },
+        materials: { exercises_completed: 2, total_exercises: 8 }
+      };
+      updateProgressDisplay(simulatedProgress);
+    }
+
+    function saveProgressToServer(type, data) {
+      if (!currentUser) return;
+
+      const endpoints = {
+        'attendance': '/api/attendance',
+        'quiz': '/api/quiz',
+        'materials': '/api/materials',
+        'projects': '/api/projects'
+      };
+
+      fetch(`http://localhost:5000${endpoints[type]}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: currentUser.id,
+          ...data
+        })
+      }).catch(error => {
+        console.error('Error saving progress:', error);
+      });
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is already logged in
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) {
+        try {
+          currentUser = JSON.parse(savedUser);
+          showUserProfile();
+          loadUserProgress();
+        } catch (error) {
+          localStorage.removeItem('currentUser');
+        }
+      }
+
+      // Update general progress
+      updateMainProgress();
+      updateWeeklyProgress();
+      updateUserPoints();
+    });
+
+    // Add CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
+
+  <!-- Floating Action Button -->
+  <div class="fab" onclick="openQuickTools()" title="Herramientas Rápidas">
+    ⚡
+  </div>
+
+  <!-- Quick Tools Modal -->
+  <div id="quickTools" class="overlay" onclick="closeQuickTools(event)">
+    <div class="viewer" style="inset: 10% 20%; max-width: 600px; margin: auto;" onclick="event.stopPropagation()">
+      <div class="top">
+        <span>Herramientas de Aprendizaje Rápido</span>
+        <div class="spacer"></div>
+        <button class="btn" onclick="closeQuickTools()">✕</button>
+      </div>
+      <div class="content" style="padding: 1.5rem; text-align: center;">
+        <h3 style="color: var(--brand); margin-bottom: 1.5rem;">🚀 Acceso Rápido</h3>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s2', '_self')">
+            🎯 Competencias
+          </button>
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s3', '_self')">
+            📚 Temario
+          </button>
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s5', '_self')">
+            📝 Evaluación
+          </button>
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#descargas', '_self')">
+            📂 Descargas
+          </button>
+        </div>
+
+        <h4 style="color: var(--secondary-color); margin-bottom: 1rem;">🎵 Recursos de Audio</h4>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+          <button class="btn" style="padding: 0.8rem;" onclick="alert('Próximamente: Audioprácticas')">
+            🎧 Audioprácticas
+          </button>
+          <button class="btn" style="padding: 0.8rem;" onclick="alert('Próximamente: Pronunciación')">
+            🔊 Pronunciación
+          </button>
+          <button class="btn" style="padding: 0.8rem;" onclick="startVocabularyTimer()">
+            ⏱️ Temporizador Vocab
+          </button>
+          <button class="btn" style="padding: 0.8rem;" onclick="openPronunciationGuide()">
+            🗣️ Guía Pronunciación
+          </button>
+        </div>
+
+        <div style="padding: 1rem; background: var(--s1); border-radius: 0.5rem; margin-top: 1rem;">
+          <p style="margin: 0; color: #92400e;">
+            <strong>💡 Tip del día:</strong> Practica español 15 minutos diarios para mejores resultados.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
