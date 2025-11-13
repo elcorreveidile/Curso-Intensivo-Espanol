@@ -271,6 +271,12 @@
       box-shadow: 0 8px 25px rgba(5,150,105,0.3);
       transition: all 0.3s ease;
       z-index: 15;
+      opacity: 0;
+      visibility: hidden;
+    }
+    .fab.visible {
+      opacity: 1;
+      visibility: visible;
     }
     .fab:hover {
       transform: translateY(-2px) scale(1.1);
@@ -2176,6 +2182,19 @@ Respuestas útiles:
   <div class="fab" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Volver arriba">
     ↑
   </div>
+
+  <script>
+    // Show/hide scroll to top button
+    const fabButton = document.querySelector('.fab');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        fabButton.classList.add('visible');
+      } else {
+        fabButton.classList.remove('visible');
+      }
+    });
+  </script>
 
 </body>
 </html>
