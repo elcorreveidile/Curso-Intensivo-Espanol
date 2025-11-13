@@ -253,7 +253,7 @@
       background: #fee2e2;
     }
 
-    /* Floating action button */
+    /* Floating action button - Scroll to top */
     .fab {
       position: fixed;
       bottom: 2rem;
@@ -266,11 +266,17 @@
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.5rem;
+      font-size: 2rem;
       cursor: pointer;
       box-shadow: 0 8px 25px rgba(5,150,105,0.3);
       transition: all 0.3s ease;
       z-index: 15;
+      opacity: 0;
+      visibility: hidden;
+    }
+    .fab.show {
+      opacity: 1;
+      visibility: visible;
     }
     .fab:hover {
       transform: translateY(-2px) scale(1.1);
@@ -1871,6 +1877,26 @@ Respuestas útiles:
       }
     }
 
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Show/hide scroll to top button based on scroll position
+    window.addEventListener('scroll', function() {
+      const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+      if (scrollToTopBtn) {
+        if (window.pageYOffset > 300) {
+          scrollToTopBtn.classList.add('show');
+        } else {
+          scrollToTopBtn.classList.remove('show');
+        }
+      }
+    });
+
     function startVocabularyTimer() {
       closeQuickTools();
       const minutes = 5;
@@ -2175,9 +2201,9 @@ Respuestas útiles:
     document.head.appendChild(style);
   </script>
 
-  <!-- Floating Action Button -->
-  <div class="fab" onclick="openQuickTools()" title="Herramientas Rápidas">
-    ⚡
+  <!-- Floating Action Button - Scroll to Top -->
+  <div class="fab" id="scrollToTopBtn" onclick="scrollToTop()" title="Volver arriba">
+    ↑
   </div>
 
   <!-- Quick Tools Modal -->
