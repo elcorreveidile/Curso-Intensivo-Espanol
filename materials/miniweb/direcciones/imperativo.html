@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperativo para instrucciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+            background-color: #f1f3f5;
+            border-bottom: 3px solid #c82333;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            color: #c82333;
+        }
+        .content {
+            display: flex;
+            flex-grow: 1;
+            padding: 30px 70px;
+        }
+        .imperative-section {
+            width: 50%;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .examples-section {
+            width: 50%;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .section-title i {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        .conjugation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+        .conjugation-table th {
+            background-color: rgba(201, 76, 76, 0.15);
+            color: #c82333;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid rgba(201, 76, 76, 0.3);
+        }
+        .conjugation-table td {
+            padding: 10px 12px;
+            font-size: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .conjugation-table tr:last-child td {
+            border-bottom: none;
+        }
+        .verb-ending {
+            color: #c82333;
+            font-weight: 600;
+        }
+        .examples-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .examples-title i {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        .example-item {
+            background-color: rgba(201, 76, 76, 0.05);
+            border-left: 3px solid #c82333;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 0 6px 6px 0;
+        }
+        .example-spanish {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .example-translation {
+            font-size: 18px;
+            color: #555;
+        }
+        .note-box {
+            background-color: rgba(201, 76, 76, 0.08);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .note-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .note-title i {
+            margin-right: 10px;
+        }
+        .note-content {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+        .highlight {
+            font-weight: 600;
+            color: #c82333;
+        }
+        .image-container {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 200px;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Imperativo para instrucciones</h1>
+        </div>
+        <div class="content">
+            <div class="imperative-section">
+                <div class="section-title">
+                    <i class="material-icons">add_circle</i>
+                    Imperativo afirmativo
+                </div>
+                <table class="conjugation-table">
+                    <tr>
+                        <th>Verbo</th>
+                        <th>Tú</th>
+                        <th>Usted</th>
+                        <th>Ustedes</th>
+                    </tr>
+                    <tr>
+                        <td><span class="verb-ending">hablar</span></td>
+                        <td>habl<span class="verb-ending">a</span></td>
+                        <td>habl<span class="verb-ending">e</span></td>
+                        <td>habl<span class="verb-ending">en</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="verb-ending">comer</span></td>
+                        <td>com<span class="verb-ending">e</span></td>
+                        <td>com<span class="verb-ending">a</span></td>
+                        <td>com<span class="verb-ending">an</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="verb-ending">vivir</span></td>
+                        <td>viv<span class="verb-ending">e</span></td>
+                        <td>viv<span class="verb-ending">a</span></td>
+                        <td>viv<span class="verb-ending">an</span></td>
+                    </tr>
+                </table>
+                
+                <div class="section-title">
+                    <i class="material-icons">remove_circle</i>
+                    Imperativo negativo
+                </div>
+                <table class="conjugation-table">
+                    <tr>
+                        <th>Verbo</th>
+                        <th>Tú</th>
+                        <th>Usted</th>
+                        <th>Ustedes</th>
+                    </tr>
+                    <tr>
+                        <td><span class="verb-ending">hablar</span></td>
+                        <td>no habl<span class="verb-ending">es</span></td>
+                        <td>no habl<span class="verb-ending">e</span></td>
+                        <td>no habl<span class="verb-ending">en</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="verb-ending">comer</span></td>
+                        <td>no com<span class="verb-ending">as</span></td>
+                        <td>no com<span class="verb-ending">a</span></td>
+                        <td>no com<span class="verb-ending">an</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="verb-ending">vivir</span></td>
+                        <td>no viv<span class="verb-ending">as</span></td>
+                        <td>no viv<span class="verb-ending">a</span></td>
+                        <td>no viv<span class="verb-ending">an</span></td>
+                    </tr>
+                </table>
+                
+                <div class="image-container">
+                    <img src="https://sfile.chatglm.cn/images-ppt/78891c884b6b.jpg" alt="Imperativo en español">
+                </div>
+            </div>
+            
+            <div class="examples-section">
+                <div class="examples-title">
+                    <i class="material-icons">format_quote</i>
+                    Ejemplos para dar direcciones
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-spanish"><span class="highlight">Gira</span> a la derecha en la esquina.</div>
+                    <div class="example-translation">Turn right at the corner.</div>
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-spanish"><span class="highlight">Sigue</span> todo recto hasta el semáforo.</div>
+                    <div class="example-translation">Go straight until the traffic light.</div>
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-spanish"><span class="highlight">Cruce</span> la avenida con cuidado.</div>
+                    <div class="example-translation">Cross the avenue carefully.</div>
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-spanish"><span class="highlight">No sigan</span> todo recto, giren a la izquierda.</div>
+                    <div class="example-translation">Don't go straight, turn left.</div>
+                </div>
+                
+                <div class="example-item">
+                    <div class="example-spanish"><span class="highlight">No caminen</span> tan rápido, el museo está cerca.</div>
+                    <div class="example-translation">Don't walk so fast, the museum is nearby.</div>
+                </div>
+                
+                <div class="note-box">
+                    <div class="note-title">
+                        <i class="material-icons">lightbulb</i>
+                        Uso de "por favor"
+                    </div>
+                    <div class="note-content">
+                        Añade <span class="highlight">"por favor"</span> al final de tus instrucciones para ser más cortés:
+                        <br>
+                        "Gire a la izquierda, por favor."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
