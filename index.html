@@ -1159,9 +1159,7 @@
 
             // Añadir enlace a miniweb si hay una configurada para la sesión seleccionada
             let miniwebLink = '';
-            const miniwebData = MINIWEB_LINKS[sessionNumber];
-            if (miniwebData) {
-              miniwebLink = `<li><button class="btn" onclick="window.open('${miniwebData.url}', '_blank')" style="background: ${miniwebData.color};">${miniwebData.label}</button></li>`;
+
             }
 
             let htmlContent = `
