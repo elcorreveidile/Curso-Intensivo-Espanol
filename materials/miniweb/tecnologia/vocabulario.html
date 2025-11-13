@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulario clave - Sesión 16</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: #020617; color: #0f172a; }
+        .slide { width: 1280px; height: 720px; position: relative; overflow: hidden; background: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.18), transparent 55%), radial-gradient(circle at 90% 20%, rgba(236, 72, 153, 0.22), transparent 52%), #f8fafc; }
+        .wrapper { display: flex; flex-direction: column; gap: 28px; padding: 70px 90px; height: 100%; }
+        h1 { font-size: 46px; color: #1d4ed8; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .category { background: rgba(255, 255, 255, 0.92); border-radius: 22px; padding: 26px 24px; box-shadow: 0 15px 35px rgba(30, 64, 175, 0.16); display: grid; gap: 16px; position: relative; }
+        .category h2 { font-size: 22px; color: #1f2937; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: rgba(59, 130, 246, 0.1); color: #1d4ed8; font-weight: 600; font-size: 15px; }
+        ul { list-style: none; display: grid; gap: 8px; }
+        li { font-size: 18px; color: #334155; display: flex; align-items: center; gap: 10px; }
+        li i { color: #2563eb; font-size: 20px; }
+        .note { font-size: 15px; color: #475569; background: rgba(148, 163, 184, 0.12); padding: 12px 14px; border-radius: 12px; }
+        .navigation { position: fixed; bottom: 20px; left: 20px; display: flex; gap: 12px; z-index: 1000; }
+        .nav-button { background: #2563eb; color: white; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-size: 18px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(37, 99, 235, 0.45); }
+        @media (max-width: 992px) {
+            .grid { grid-template-columns: 1fr; }
+            .wrapper { padding: 32px 24px 130px; }
+            .slide { width: 100%; min-height: 100vh; }
+        }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <div class="wrapper">
+            <h1><i class="material-icons">translate</i> Vocabulario clave</h1>
+            <div class="grid">
+                <div class="category">
+                    <h2><i class="material-icons">devices</i> Tecnología</h2>
+                    <div class="chip"><i class="material-icons">inventory_2</i>Dispositivos</div>
+                    <ul>
+                        <li><i class="material-icons">smartphone</i>móvil / celular</li>
+                        <li><i class="material-icons">computer</i>ordenador / computadora</li>
+                        <li><i class="material-icons">tablet_mac</i>tableta</li>
+                        <li><i class="material-icons">router</i>wifi</li>
+                        <li><i class="material-icons">lock</i>contraseña</li>
+                        <li><i class="material-icons">download</i>descargar</li>
+                        <li><i class="material-icons">settings_input_hdmi</i>conectar</li>
+                    </ul>
+                    <p class="note">💡 Pregunta guía: ¿Qué dispositivos usas cada día? ¿Cuántas contraseñas recuerdas?</p>
+                </div>
+                <div class="category">
+                    <h2><i class="material-icons">phone_in_talk</i> Teléfono</h2>
+                    <div class="chip"><i class="material-icons">record_voice_over</i>Frases clave</div>
+                    <ul>
+                        <li><i class="material-icons">record_voice_over</i>¿Dígame?</li>
+                        <li><i class="material-icons">help_outline</i>¿De parte de quién?</li>
+                        <li><i class="material-icons">forward_to_inbox</i>Le paso con…</li>
+                        <li><i class="material-icons">hourglass_top</i>Un momento, por favor.</li>
+                        <li><i class="material-icons">phone_in_talk</i>No cuelgue.</li>
+                    </ul>
+                    <p class="note">🎧 Pronunciación: Practica la entonación interrogativa en “¿De parte de quién?”.</p>
+                </div>
+                <div class="category">
+                    <h2><i class="material-icons">share</i> Mundo digital</h2>
+                    <div class="chip"><i class="material-icons">alternate_email</i>Acciones en línea</div>
+                    <ul>
+                        <li><i class="material-icons">send</i>enviar mensaje</li>
+                        <li><i class="material-icons">cloud_upload</i>subir foto</li>
+                        <li><i class="material-icons">share</i>compartir</li>
+                        <li><i class="material-icons">group_add</i>seguir</li>
+                        <li><i class="material-icons">favorite</i>dar “me gusta”</li>
+                        <li><i class="material-icons">mode_comment</i>comentario</li>
+                        <li><i class="material-icons">sell</i>etiquetar</li>
+                    </ul>
+                    <p class="note">💬 Debate rápido: ¿Qué red social te resulta más útil para aprender idiomas?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="objetivos.html"><i class="material-icons">arrow_back</i> Anterior</a>
+        <a class="nav-button" href="llamadas.html">Siguiente <i class="material-icons">arrow_forward</i></a>
+    </nav>
+</body>
+</html>
