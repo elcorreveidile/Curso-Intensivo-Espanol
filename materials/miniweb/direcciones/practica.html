@@ -377,36 +377,47 @@
                 <div class="score" id="score">Puntuación: 0 / 5</div>
             </div>
 
-            <!-- Drag and Drop Game -->
+            <!-- Complete the Route Game -->
             <div class="game-container">
                 <h2 class="game-title">
-                    <i class="material-icons">map</i>
-                    Arrastra las Direcciones
+                    <i class="material-icons">directions</i>
+                    Completa la Ruta
                 </h2>
                 <p style="font-size: 18px; margin-bottom: 20px; color: #555;">
-                    Arrastra cada dirección al lugar correcto del mapa:
+                    📍 Estás en la <strong>Plaza Mayor</strong> y necesitas llegar al <strong>Museo</strong>. Selecciona las direcciones en el orden correcto:
                 </p>
-                <div class="directions-map" id="mapGrid">
-                    <div class="location" data-correct="museo">
-                        <span class="location-name">🏛️ Museo</span>
-                        <span style="font-size: 14px; color: #666;">(Al lado de la plaza)</span>
-                    </div>
-                    <div class="location" data-correct="banco">
-                        <span class="location-name">🏦 Banco</span>
-                        <span style="font-size: 14px; color: #666;">(Enfrente del parque)</span>
-                    </div>
-                    <div class="location" data-correct="restaurante">
-                        <span class="location-name">🍴 Restaurante</span>
-                        <span style="font-size: 14px; color: #666;">(A la derecha del hotel)</span>
+
+                <div style="text-align: center; margin: 30px 0;">
+                    <div style="display: inline-block; padding: 20px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 15px; font-size: 24px; font-weight: 700; box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);">
+                        📍 Plaza Mayor → 🏛️ Museo
                     </div>
                 </div>
-                <div class="words-bank" id="wordsBank">
-                    <div class="word-card" draggable="true" data-word="museo">Al lado de la plaza</div>
-                    <div class="word-card" draggable="true" data-word="banco">Enfrente del parque</div>
-                    <div class="word-card" draggable="true" data-word="restaurante">A la derecha del hotel</div>
+
+                <div class="question" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-left-color: #00acc1;">
+                    Instrucciones reales: "Sal de la plaza, sigue todo recto por la Calle Mayor hasta el semáforo, gira a la derecha en la Calle del Sol, y el museo está enfrente de ti."
                 </div>
-                <button class="btn-check" onclick="checkAnswers()">✓ Verificar Respuestas</button>
-                <div class="feedback" id="dragFeedback"></div>
+
+                <div style="background: #f5f5f5; padding: 25px; border-radius: 15px; margin: 25px 0;">
+                    <div style="font-size: 20px; font-weight: 600; color: #666; margin-bottom: 20px; text-align: center;">
+                        Selecciona cada paso en orden:
+                    </div>
+                    <div id="routeSteps" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; min-height: 80px; margin-bottom: 20px;"></div>
+
+                    <div style="text-align: center; margin: 20px 0;">
+                        <div style="font-size: 18px; color: #666; margin-bottom: 15px;">Opciones disponibles:</div>
+                        <div id="routeOptions" style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;"></div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-check" onclick="checkRoute()" style="background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);">
+                        ✓ Verificar Ruta
+                    </button>
+                    <button class="btn-check" onclick="resetRoute()" style="background: linear-gradient(135deg, #636e72 0%, #2d3436 100%);">
+                        🔄 Reiniciar
+                    </button>
+                </div>
+                <div class="feedback" id="routeFeedback"></div>
             </div>
         </div>
     </div>
@@ -522,91 +533,189 @@
             `;
         }
 
-        // Drag and Drop Logic
-        let draggedElement = null;
-        const answers = {};
+        // Route Completion Game Logic
+        const correctRoute = [
+            'Sal de la plaza',
+            'Sigue todo recto por la Calle Mayor',
+            'Gira a la derecha en la Calle del Sol',
+            'El museo está enfrente'
+        ];
 
-        document.querySelectorAll('.word-card').forEach(card => {
-            card.addEventListener('dragstart', function(e) {
-                draggedElement = this;
-                this.classList.add('dragging');
-                e.dataTransfer.effectAllowed = 'move';
-            });
+        const allOptions = [
+            'Sal de la plaza',
+            'Sigue todo recto por la Calle Mayor',
+            'Gira a la izquierda en la plaza',
+            'Gira a la derecha en la Calle del Sol',
+            'Cruza el parque',
+            'El museo está enfrente',
+            'Toma el autobús número 5',
+            'Gira a la izquierda después del semáforo'
+        ];
 
-            card.addEventListener('dragend', function() {
-                this.classList.remove('dragging');
-            });
-        });
+        let selectedSteps = [];
 
-        document.querySelectorAll('.location').forEach(location => {
-            location.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                this.classList.add('drag-over');
-                e.dataTransfer.dropEffect = 'move';
-            });
-
-            location.addEventListener('dragleave', function() {
-                this.classList.remove('drag-over');
-            });
-
-            location.addEventListener('drop', function(e) {
-                e.preventDefault();
-                this.classList.remove('drag-over');
-
-                if (draggedElement) {
-                    const word = draggedElement.dataset.word;
-                    const locationId = this.dataset.correct;
-
-                    // Remove existing word in this location
-                    const existing = this.querySelector('.word-card');
-                    if (existing) {
-                        document.getElementById('wordsBank').appendChild(existing);
-                    }
-
-                    this.appendChild(draggedElement);
-                    answers[locationId] = word;
-                }
-            });
-        });
-
-        function checkAnswers() {
-            let correct = 0;
-            const feedback = document.getElementById('dragFeedback');
-
-            document.querySelectorAll('.location').forEach(location => {
-                const expectedWord = location.dataset.correct;
-                const placedCard = location.querySelector('.word-card');
-
-                if (placedCard && placedCard.dataset.word === expectedWord) {
-                    correct++;
-                    location.style.background = 'linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%)';
-                    location.style.borderColor = '#4CAF50';
-                } else {
-                    location.style.background = 'linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%)';
-                    location.style.borderColor = '#f44336';
-                }
-            });
-
-            if (correct === 3) {
-                feedback.className = 'feedback correct';
-                feedback.innerHTML = '<i class="material-icons">check_circle</i> ¡Perfecto! ¡Todas las respuestas son correctas! 🎉';
-            } else {
-                feedback.className = 'feedback wrong';
-                feedback.innerHTML = `<i class="material-icons">cancel</i> ${correct} / 3 correctas. ¡Inténtalo de nuevo!`;
-            }
-
-            setTimeout(() => {
-                if (correct !== 3) {
-                    document.querySelectorAll('.location').forEach(location => {
-                        location.style.background = '';
-                        location.style.borderColor = '';
-                    });
-                }
-            }, 2000);
+        function initRouteGame() {
+            renderOptions();
+            renderSteps();
         }
 
-        // Initialize quiz
+        function renderOptions() {
+            const optionsContainer = document.getElementById('routeOptions');
+            optionsContainer.innerHTML = '';
+
+            allOptions.forEach((option, index) => {
+                if (!selectedSteps.includes(option)) {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.textContent = option;
+                    btn.style.cssText = `
+                        padding: 12px 20px;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: transform 0.2s, box-shadow 0.2s;
+                        box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+                    `;
+                    btn.onmouseover = () => {
+                        btn.style.transform = 'translateY(-2px)';
+                        btn.style.boxShadow = '0 5px 15px rgba(102, 126, 234, 0.5)';
+                    };
+                    btn.onmouseout = () => {
+                        btn.style.transform = 'translateY(0)';
+                        btn.style.boxShadow = '0 3px 10px rgba(102, 126, 234, 0.3)';
+                    };
+                    btn.onclick = () => selectStep(option);
+                    optionsContainer.appendChild(btn);
+                }
+            });
+        }
+
+        function renderSteps() {
+            const stepsContainer = document.getElementById('routeSteps');
+            stepsContainer.innerHTML = '';
+
+            if (selectedSteps.length === 0) {
+                stepsContainer.innerHTML = '<div style="color: #999; font-size: 16px; text-align: center; width: 100%;">Selecciona los pasos en orden...</div>';
+                return;
+            }
+
+            selectedSteps.forEach((step, index) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 12px 18px;
+                    background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+                    color: white;
+                    border-radius: 10px;
+                    font-weight: 600;
+                    font-size: 16px;
+                    cursor: pointer;
+                    transition: transform 0.2s;
+                    box-shadow: 0 3px 10px rgba(86, 171, 47, 0.3);
+                `;
+                stepDiv.onmouseover = () => {
+                    stepDiv.style.transform = 'scale(1.05)';
+                };
+                stepDiv.onmouseout = () => {
+                    stepDiv.style.transform = 'scale(1)';
+                };
+                stepDiv.onclick = () => removeStep(index);
+
+                const numberSpan = document.createElement('span');
+                numberSpan.style.cssText = `
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 30px;
+                    height: 30px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    font-weight: 700;
+                `;
+                numberSpan.textContent = index + 1;
+
+                const textSpan = document.createElement('span');
+                textSpan.textContent = step;
+
+                const removeIcon = document.createElement('span');
+                removeIcon.textContent = '✕';
+                removeIcon.style.cssText = `
+                    margin-left: auto;
+                    font-size: 18px;
+                    opacity: 0.8;
+                `;
+
+                stepDiv.appendChild(numberSpan);
+                stepDiv.appendChild(textSpan);
+                stepDiv.appendChild(removeIcon);
+                stepsContainer.appendChild(stepDiv);
+            });
+        }
+
+        function selectStep(option) {
+            if (selectedSteps.length < 4) {
+                selectedSteps.push(option);
+                renderOptions();
+                renderSteps();
+                document.getElementById('routeFeedback').innerHTML = '';
+            }
+        }
+
+        function removeStep(index) {
+            selectedSteps.splice(index, 1);
+            renderOptions();
+            renderSteps();
+            document.getElementById('routeFeedback').innerHTML = '';
+        }
+
+        function checkRoute() {
+            const feedback = document.getElementById('routeFeedback');
+
+            if (selectedSteps.length === 0) {
+                feedback.className = 'feedback wrong';
+                feedback.innerHTML = '<i class="material-icons">warning</i> Selecciona al menos un paso primero.';
+                return;
+            }
+
+            if (selectedSteps.length !== correctRoute.length) {
+                feedback.className = 'feedback wrong';
+                feedback.innerHTML = `<i class="material-icons">cancel</i> La ruta necesita exactamente ${correctRoute.length} pasos. Has seleccionado ${selectedSteps.length}.`;
+                return;
+            }
+
+            let allCorrect = true;
+            for (let i = 0; i < correctRoute.length; i++) {
+                if (selectedSteps[i] !== correctRoute[i]) {
+                    allCorrect = false;
+                    break;
+                }
+            }
+
+            if (allCorrect) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '<i class="material-icons">check_circle</i> ¡Perfecto! ¡Has completado la ruta correctamente! 🎉🗺️';
+            } else {
+                feedback.className = 'feedback wrong';
+                feedback.innerHTML = '<i class="material-icons">cancel</i> El orden no es correcto. ¡Inténtalo de nuevo! 💪';
+            }
+        }
+
+        function resetRoute() {
+            selectedSteps = [];
+            renderOptions();
+            renderSteps();
+            document.getElementById('routeFeedback').innerHTML = '';
+        }
+
+        // Initialize quiz and route game
         loadQuestion();
+        initRouteGame();
     </script>
 </body>
 </html>
