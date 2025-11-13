@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verbos Irregulares - Ocio y aficiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .overlay {
+            min-height: 720px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px 70px;
+            padding-bottom: 100px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .verbs-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .verb-card {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-left: 6px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .verb-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .conjugation-table {
+            width: 100%;
+        }
+        .conjugation-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        .conjugation-row:last-child {
+            border-bottom: none;
+        }
+        .pronoun {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 16px;
+        }
+        .conjugation {
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+        }
+        .example-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid rgba(102, 126, 234, 0.3);
+        }
+        .example-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        .example {
+            font-size: 15px;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                min-height: auto;
+                padding: 20px;
+                padding-bottom: 80px;
+            }
+            .title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            .verbs-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .verb-card {
+                padding: 15px;
+            }
+            .verb-title {
+                font-size: 22px;
+                margin-bottom: 12px;
+            }
+            .pronoun, .conjugation {
+                font-size: 14px;
+            }
+            .example-title {
+                font-size: 16px;
+            }
+            .example {
+                font-size: 13px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="title">Verbos Irregulares</h1>
+            <div class="verbs-container">
+                <div class="verb-card">
+                    <h2 class="verb-title">Poder</h2>
+                    <div class="conjugation-table">
+                        <div class="conjugation-row">
+                            <span class="pronoun">Yo</span>
+                            <span class="conjugation">puedo</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Tú</span>
+                            <span class="conjugation">puedes</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Él/Ella</span>
+                            <span class="conjugation">puede</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Nosotros</span>
+                            <span class="conjugation">podemos</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Vosotros</span>
+                            <span class="conjugation">podéis</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Ellos</span>
+                            <span class="conjugation">pueden</span>
+                        </div>
+                    </div>
+                    <div class="example-section">
+                        <div class="example-title">Ejemplos:</div>
+                        <div class="example">• Yo puedo nadar muy bien.</div>
+                        <div class="example">• Ella puede tocar la guitarra.</div>
+                        <div class="example">• Nosotros podemos jugar al fútbol.</div>
+                    </div>
+                </div>
+
+                <div class="verb-card">
+                    <h2 class="verb-title">Querer</h2>
+                    <div class="conjugation-table">
+                        <div class="conjugation-row">
+                            <span class="pronoun">Yo</span>
+                            <span class="conjugation">quiero</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Tú</span>
+                            <span class="conjugation">quieres</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Él/Ella</span>
+                            <span class="conjugation">quiere</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Nosotros</span>
+                            <span class="conjugation">queremos</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Vosotros</span>
+                            <span class="conjugation">queréis</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Ellos</span>
+                            <span class="conjugation">quieren</span>
+                        </div>
+                    </div>
+                    <div class="example-section">
+                        <div class="example-title">Ejemplos:</div>
+                        <div class="example">• Yo quiero aprender a bailar.</div>
+                        <div class="example">• Tú quieres ir al cine.</div>
+                        <div class="example">• Ellos quieren viajar a España.</div>
+                    </div>
+                </div>
+
+                <div class="verb-card">
+                    <h2 class="verb-title">Preferir</h2>
+                    <div class="conjugation-table">
+                        <div class="conjugation-row">
+                            <span class="pronoun">Yo</span>
+                            <span class="conjugation">prefiero</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Tú</span>
+                            <span class="conjugation">prefieres</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Él/Ella</span>
+                            <span class="conjugation">prefiere</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Nosotros</span>
+                            <span class="conjugation">preferimos</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Vosotros</span>
+                            <span class="conjugation">preferís</span>
+                        </div>
+                        <div class="conjugation-row">
+                            <span class="pronoun">Ellos</span>
+                            <span class="conjugation">prefieren</span>
+                        </div>
+                    </div>
+                    <div class="example-section">
+                        <div class="example-title">Ejemplos:</div>
+                        <div class="example">• Yo prefiero leer libros.</div>
+                        <div class="example">• Ella prefiere escuchar música.</div>
+                        <div class="example">• Nosotros preferimos hacer yoga.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="vocabulario.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="actividades.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

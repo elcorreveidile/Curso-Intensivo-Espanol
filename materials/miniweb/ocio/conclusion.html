@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conclusión - Ocio y aficiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .overlay {
+            min-height: 720px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px 70px;
+            padding-bottom: 100px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .summary-section {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-left: 6px solid #667eea;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            font-size: 32px;
+        }
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .key-point {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .key-point i {
+            font-size: 28px;
+            color: #667eea;
+        }
+        .key-point-text {
+            font-size: 17px;
+            font-weight: 600;
+            color: #333;
+        }
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .resource-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .resource-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .resource-description {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .resource-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .resource-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        .contact-section {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-left: 6px solid #667eea;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .contact-info {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .contact-item {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .contact-item i {
+            color: #667eea;
+            font-size: 24px;
+        }
+        .contact-label {
+            font-weight: 700;
+            color: #667eea;
+            margin-right: 5px;
+        }
+        .thank-you {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-radius: 8px;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                min-height: auto;
+                padding: 20px;
+                padding-bottom: 80px;
+            }
+            .title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            .summary-section, .contact-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            .section-title {
+                font-size: 20px;
+            }
+            .section-title i {
+                font-size: 24px;
+            }
+            .key-points {
+                grid-template-columns: 1fr;
+            }
+            .key-point {
+                padding: 12px;
+            }
+            .key-point i {
+                font-size: 22px;
+            }
+            .key-point-text {
+                font-size: 15px;
+            }
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            .resource-card {
+                padding: 15px;
+            }
+            .resource-name {
+                font-size: 18px;
+            }
+            .resource-description {
+                font-size: 14px;
+            }
+            .resource-link {
+                font-size: 14px;
+            }
+            .contact-item {
+                font-size: 15px;
+            }
+            .contact-item i {
+                font-size: 20px;
+            }
+            .thank-you {
+                font-size: 24px;
+                margin-top: 20px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="title">Conclusión</h1>
+
+            <div class="summary-section">
+                <h2 class="section-title">
+                    <i class="material-icons">checklist</i>
+                    Resumen de puntos clave
+                </h2>
+                <div class="key-points">
+                    <div class="key-point">
+                        <i class="material-icons">sports_tennis</i>
+                        <span class="key-point-text">Vocabulario de ocio y deportes</span>
+                    </div>
+                    <div class="key-point">
+                        <i class="material-icons">record_voice_over</i>
+                        <span class="key-point-text">Expresar preferencias y habilidades</span>
+                    </div>
+                    <div class="key-point">
+                        <i class="material-icons">auto_stories</i>
+                        <span class="key-point-text">Verbos irregulares: poder, querer, preferir</span>
+                    </div>
+                    <div class="key-point">
+                        <i class="material-icons">public</i>
+                        <span class="key-point-text">Cultura española de ocio y deporte</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-section">
+                <h2 class="section-title">
+                    <i class="material-icons">link</i>
+                    Recursos online
+                </h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-name">WordReference</div>
+                        <div class="resource-description">
+                            Diccionario español-inglés con foros de discusión sobre uso del idioma.
+                        </div>
+                        <a href="https://www.wordreference.com" target="_blank" class="resource-link">
+                            wordreference.com →
+                        </a>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-name">Duolingo</div>
+                        <div class="resource-description">
+                            Aplicación gratuita para practicar español de forma interactiva y divertida.
+                        </div>
+                        <a href="https://www.duolingo.com" target="_blank" class="resource-link">
+                            duolingo.com →
+                        </a>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-name">SpanishPod101</div>
+                        <div class="resource-description">
+                            Podcasts y lecciones en audio para mejorar la comprensión oral.
+                        </div>
+                        <a href="https://www.spanishpod101.com" target="_blank" class="resource-link">
+                            spanishpod101.com →
+                        </a>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-name">Gramática de uso del español</div>
+                        <div class="resource-description">
+                            Libro de referencia completo para gramática española (Ramón Palencia del Burgo).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-section">
+                <h2 class="section-title">
+                    <i class="material-icons">contact_mail</i>
+                    Información de contacto
+                </h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="material-icons">person</i>
+                        <span class="contact-label">Profesor:</span> Javier Benitez Lainez
+                    </div>
+                    <div class="contact-item">
+                        <i class="material-icons">email</i>
+                        <span class="contact-label">Email:</span> benitezl@go.ugr.es
+                    </div>
+                    <div class="contact-item">
+                        <i class="material-icons">schedule</i>
+                        <span class="contact-label">Tutorías:</span> Martes y jueves de 12:30 a 13:30
+                    </div>
+                </div>
+            </div>
+
+            <div class="thank-you">
+                ¡Gracias por participar! 🎉
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="tareas.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="index.html" class="nav-button">
+            <i class="material-icons">home</i>
+            Inicio
+        </a>
+    </div>
+</body>
+</html>

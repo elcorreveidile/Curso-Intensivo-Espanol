@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultura Española - Ocio y aficiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .overlay {
+            min-height: 720px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px 70px;
+            padding-bottom: 100px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .culture-section {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-left: 6px solid #667eea;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            font-size: 32px;
+        }
+        .culture-content {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        .highlight-box {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .highlight-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .highlight-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .highlight-list li {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.5;
+        }
+        .highlight-list li:before {
+            content: "⚽";
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+        .highlight-list li.basketball:before {
+            content: "🏀";
+        }
+        .highlight-list li.cultural:before {
+            content: "🎭";
+        }
+        .highlight-list li.traditional:before {
+            content: "💃";
+        }
+        .highlight-list li.gastronomy:before {
+            content: "🍽️";
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .comparison-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .comparison-country {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        .comparison-text {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                min-height: auto;
+                padding: 20px;
+                padding-bottom: 80px;
+            }
+            .title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            .culture-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            .section-title {
+                font-size: 20px;
+            }
+            .section-title i {
+                font-size: 24px;
+            }
+            .culture-content {
+                font-size: 15px;
+            }
+            .highlight-box {
+                padding: 15px;
+            }
+            .highlight-title {
+                font-size: 18px;
+            }
+            .highlight-list li {
+                font-size: 15px;
+            }
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            .comparison-country {
+                font-size: 16px;
+            }
+            .comparison-text {
+                font-size: 14px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="title">Cultura Española - Ocio y Deportes</h1>
+
+            <div class="culture-section">
+                <h2 class="section-title">
+                    <i class="material-icons">sports_soccer</i>
+                    Deportes populares en España
+                </h2>
+                <div class="culture-content">
+                    España es un país apasionado por los deportes, especialmente el fútbol. El fútbol no es solo un deporte,
+                    es una parte fundamental de la cultura española que une a familias y comunidades.
+                </div>
+                <div class="highlight-box">
+                    <div class="highlight-title">Deportes más practicados:</div>
+                    <ul class="highlight-list">
+                        <li><strong>Fútbol:</strong> El deporte rey. Equipos como el Real Madrid y el FC Barcelona tienen millones de seguidores en todo el mundo.</li>
+                        <li class="basketball"><strong>Baloncesto:</strong> La selección española ha ganado múltiples campeonatos mundiales y europeos.</li>
+                        <li class="cultural"><strong>Tenis:</strong> Jugadores como Rafael Nadal han puesto a España en lo más alto del tenis mundial.</li>
+                        <li class="traditional"><strong>Ciclismo:</strong> La Vuelta a España es una de las tres grandes vueltas ciclistas del mundo.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="culture-section">
+                <h2 class="section-title">
+                    <i class="material-icons">celebration</i>
+                    Hobbies y actividades tradicionales
+                </h2>
+                <div class="culture-content">
+                    Los españoles disfrutan de una vida social muy activa. El concepto de "ocio" en España incluye
+                    tanto actividades deportivas como culturales y sociales.
+                </div>
+                <div class="highlight-box">
+                    <div class="highlight-title">Actividades favoritas:</div>
+                    <ul class="highlight-list">
+                        <li class="cultural"><strong>Ir de tapas:</strong> Una tradición social donde se comparte comida y conversación con amigos.</li>
+                        <li class="traditional"><strong>Bailar flamenco:</strong> Un arte tradicional que combina música, canto y baile.</li>
+                        <li class="gastronomy"><strong>Pasear:</strong> Los paseos por la tarde ("dar una vuelta") son muy populares en todas las ciudades.</li>
+                        <li class="cultural"><strong>Visitar museos:</strong> España tiene museos mundialmente famosos como el Prado, el Reina Sofía y el Guggenheim.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="culture-section">
+                <h2 class="section-title">
+                    <i class="material-icons">public</i>
+                    Comparación con otras culturas
+                </h2>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <div class="comparison-country">España</div>
+                        <div class="comparison-text">Horarios más tardíos para el ocio. Las cenas suelen ser a las 21:00 o más tarde. Gran énfasis en las actividades sociales y familiares.</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-country">Reino Unido</div>
+                        <div class="comparison-text">Los pubs son centros sociales importantes. Deportes como el cricket y el rugby son muy populares. Horarios de comida más tempranos.</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-country">Estados Unidos</div>
+                        <div class="comparison-text">Cultura del gimnasio muy desarrollada. Deportes como el béisbol, el fútbol americano y el baloncesto dominan el interés deportivo.</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-country">Japón</div>
+                        <div class="comparison-text">Karaoke como actividad social popular. Artes marciales tradicionales. El manga y el anime son hobbies muy extendidos.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="dialogos.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="tareas.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>
