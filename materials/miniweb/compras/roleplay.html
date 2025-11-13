@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1 · Role-play en tienda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: #111827; color: #f8fafc; }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            padding: 80px 90px 130px;
+            background: linear-gradient(120deg, rgba(15, 23, 42, 0.94) 0%, rgba(30, 64, 175, 0.82) 50%, rgba(59, 130, 246, 0.8) 100%), url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1500&q=80') center/cover;
+            border-radius: 36px;
+            box-shadow: 0 40px 90px rgba(30, 64, 175, 0.45);
+        }
+        h1 { font-size: 38px; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        p.lead { font-size: 18px; color: #cbd5f5; max-width: 760px; margin-bottom: 32px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .card {
+            background: rgba(15, 23, 42, 0.76);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            border-radius: 24px;
+            padding: 26px;
+            display: grid;
+            gap: 18px;
+        }
+        .card h2 { font-size: 22px; display: flex; align-items: center; gap: 10px; }
+        .steps { display: grid; gap: 12px; }
+        .steps li {
+            list-style: none;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.5;
+            color: #e0f2fe;
+        }
+        .prompt {
+            background: rgba(30, 64, 175, 0.32);
+            border-radius: 18px;
+            padding: 20px;
+            border: 1px solid rgba(96, 165, 250, 0.35);
+            display: grid;
+            gap: 12px;
+        }
+        .prompt strong { color: #93c5fd; }
+        .toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(59, 130, 246, 0.2);
+            cursor: pointer;
+            font-weight: 600;
+            color: #bfdbfe;
+            border: 1px solid transparent;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .toggle:hover { transform: translateY(-2px); border-color: rgba(191, 219, 254, 0.5); }
+        .toggle[data-active="true"] { background: #38bdf8; color: #0f172a; }
+        .feedback { min-height: 24px; font-weight: 600; }
+        .correct { color: #34d399; }
+        .incorrect { color: #f87171; }
+        .navigation { position: fixed; bottom: 24px; left: 24px; display: flex; gap: 16px; }
+        .nav-button {
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 12px 26px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 18px 40px rgba(56, 189, 248, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 22px 45px rgba(56, 189, 248, 0.45); }
+        @media (max-width: 992px) {
+            .slide { width: 100%; border-radius: 0; padding: 40px 28px 140px; }
+            h1 { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <h1><i class="material-icons">storefront</i> Ejercicio 1 · Role-play en tienda</h1>
+        <p class="lead">Elige tu rol y usa las expresiones de cortesía. Activa los consejos que necesitas y consulta las respuestas modelo para dar feedback a tu pareja.</p>
+        <div class="grid">
+            <article class="card">
+                <h2><i class="material-icons">person</i> Cliente</h2>
+                <ul class="steps">
+                    <li><i class="material-icons">shopping_cart</i> Describe qué prenda buscas, color y talla.</li>
+                    <li><i class="material-icons">attach_money</i> Pregunta por el precio y posibles descuentos.</li>
+                    <li><i class="material-icons">published_with_changes</i> Pide cambiar de talla o probar otra prenda.</li>
+                </ul>
+                <div class="prompt">
+                    <strong>Consejos rápidos</strong>
+                    <span class="toggle" data-target="cliente-sugerencia">Ver frases modelo</span>
+                    <div id="cliente-sugerencia" hidden>
+                        <p>“Buenos días, ¿tienen <em>este</em> vestido en talla M?”<br>“¿Podría probarme <em>aquel</em> abrigo azul?”</p>
+                    </div>
+                </div>
+            </article>
+            <article class="card">
+                <h2><i class="material-icons">support_agent</i> Dependiente</h2>
+                <ul class="steps">
+                    <li><i class="material-icons">volunteer_activism</i> Saluda y ofrece ayuda.</li>
+                    <li><i class="material-icons">local_offer</i> Da información clara de precios y promociones.</li>
+                    <li><i class="material-icons">check_circle</i> Sugiere alternativas según los gustos del cliente.</li>
+                </ul>
+                <div class="prompt">
+                    <strong>Frases útiles</strong>
+                    <span class="toggle" data-target="dependiente-sugerencia">Mostrar ejemplos</span>
+                    <div id="dependiente-sugerencia" hidden>
+                        <p>“Esta chaqueta está al 20% de descuento.”<br>“Si prefiere algo más formal, tenemos <em>ese</em> modelo.”</p>
+                    </div>
+                </div>
+            </article>
+            <article class="card">
+                <h2><i class="material-icons">emoji_events</i> Chequeo rápido</h2>
+                <div class="prompt" data-answer="c">
+                    <strong>¿Cuál es la mejor respuesta para un cliente indeciso?</strong>
+                    <button class="toggle" data-option="a">“Pues decídete ya porque hay cola.”</button>
+                    <button class="toggle" data-option="b">“Mira tú mismo, no tengo tiempo.”</button>
+                    <button class="toggle" data-option="c">“Claro, puedo mostrarle otro modelo similar. ¿Prefiere este color?”</button>
+                    <p class="feedback" aria-live="polite"></p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="vocabulario.html"><i class="material-icons">arrow_back</i> Vocabulario</a>
+        <a class="nav-button" href="describir.html">Describir ropa <i class="material-icons">arrow_forward</i></a>
+    </nav>
+
+    <script>
+        document.querySelectorAll('.toggle[data-target]').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = document.getElementById(button.dataset.target);
+                if (!target) return;
+                const isHidden = target.hasAttribute('hidden');
+                if (isHidden) {
+                    target.removeAttribute('hidden');
+                    button.setAttribute('data-active', 'true');
+                } else {
+                    target.setAttribute('hidden', '');
+                    button.setAttribute('data-active', 'false');
+                }
+            });
+        });
+
+        document.querySelectorAll('.prompt[data-answer]').forEach(prompt => {
+            const answer = prompt.dataset.answer;
+            const feedback = prompt.querySelector('.feedback');
+            prompt.querySelectorAll('.toggle[data-option]').forEach(option => {
+                option.addEventListener('click', () => {
+                    prompt.querySelectorAll('.toggle[data-option]').forEach(btn => btn.setAttribute('data-active', 'false'));
+                    option.setAttribute('data-active', 'true');
+                    if (option.dataset.option === answer) {
+                        feedback.textContent = '✅ Excelente atención al cliente.';
+                        feedback.className = 'feedback correct';
+                    } else {
+                        feedback.textContent = '❌ Esa respuesta no suena muy profesional. ¡Prueba otra vez!';
+                        feedback.className = 'feedback incorrect';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

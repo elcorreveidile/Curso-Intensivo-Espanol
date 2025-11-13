@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda · Sesión 7 Compras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: #1f2937; color: #f9fafb; }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            padding: 70px 80px 120px;
+            background: linear-gradient(140deg, #1f2937 0%, #0f766e 60%, #14b8a6 100%);
+            border-radius: 36px;
+            box-shadow: 0 40px 80px rgba(15, 118, 110, 0.35);
+        }
+        h1 {
+            font-size: 42px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 22px;
+            padding: 26px;
+            display: grid;
+            gap: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            position: relative;
+        }
+        .card h2 {
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .time {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            background: rgba(20, 184, 166, 0.14);
+            padding: 6px 12px;
+            border-radius: 12px;
+            color: #99f6e4;
+        }
+        ul { list-style: none; display: grid; gap: 10px; }
+        li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.45;
+            color: #e2e8f0;
+        }
+        .chip {
+            background: rgba(148, 163, 184, 0.2);
+            color: #f9fafb;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .navigation { position: fixed; bottom: 24px; left: 24px; display: flex; gap: 16px; }
+        .nav-button {
+            background: #0f766e;
+            color: #ecfeff;
+            padding: 12px 26px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 15px 30px rgba(14, 116, 144, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 20px 36px rgba(14, 116, 144, 0.45); }
+        @media (max-width: 992px) {
+            .slide { width: 100%; border-radius: 0; padding: 40px 28px 130px; }
+            h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <h1><i class="material-icons">today</i> Plan de la sesión</h1>
+        <div class="grid">
+            <article class="card">
+                <h2><i class="material-icons">mic</i> Activación y vocabulario</h2>
+                <span class="time"><i class="material-icons" style="font-size:18px;">schedule</i> 15 min</span>
+                <ul>
+                    <li><i class="material-icons" style="font-size:20px;">check</i> Brainstorming rápido sobre experiencias de compra.</li>
+                    <li><i class="material-icons" style="font-size:20px;">palette</i> Clasificar ropa y colores con tarjetas.</li>
+                    <li><span class="chip"><i class="material-icons" style="font-size:18px;">psychology</i> Gamificación</span></li>
+                </ul>
+            </article>
+            <article class="card">
+                <h2><i class="material-icons">storefront</i> Role-play en tienda</h2>
+                <span class="time"><i class="material-icons" style="font-size:18px;">schedule</i> 20 min</span>
+                <ul>
+                    <li><i class="material-icons" style="font-size:20px;">people</i> Practicar diálogos cliente-dependiente.</li>
+                    <li><i class="material-icons" style="font-size:20px;">price_check</i> Preguntar por tallas y precios.</li>
+                    <li><span class="chip"><i class="material-icons" style="font-size:18px;">task_alt</i> Feedback inmediato</span></li>
+                </ul>
+            </article>
+            <article class="card">
+                <h2><i class="material-icons">content_copy</i> Uso de demostrativos</h2>
+                <span class="time"><i class="material-icons" style="font-size:18px;">schedule</i> 15 min</span>
+                <ul>
+                    <li><i class="material-icons" style="font-size:20px;">gesture</i> Construir frases con <em>este/ese/aquel</em>.</li>
+                    <li><i class="material-icons" style="font-size:20px;">compare_arrows</i> Contrastar opciones en un escaparate.</li>
+                    <li><span class="chip"><i class="material-icons" style="font-size:18px;">quiz</i> Miniquiz interactivo</span></li>
+                </ul>
+            </article>
+            <article class="card">
+                <h2><i class="material-icons">assignment</i> Proyecto catálogo</h2>
+                <span class="time"><i class="material-icons" style="font-size:18px;">schedule</i> 30 min</span>
+                <ul>
+                    <li><i class="material-icons" style="font-size:20px;">brush</i> Crear páginas de catálogo con descripciones.</li>
+                    <li><i class="material-icons" style="font-size:20px;">groups</i> Presentar en parejas y dar feedback.</li>
+                    <li><span class="chip"><i class="material-icons" style="font-size:18px;">campaign</i> Pequeño showroom</span></li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="index.html"><i class="material-icons">arrow_back</i> Portada</a>
+        <a class="nav-button" href="vocabulario.html">Vocabulario <i class="material-icons">arrow_forward</i></a>
+    </nav>
+</body>
+</html>
