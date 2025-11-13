@@ -305,6 +305,7 @@
         <a href="#descargas">Descargas</a>
         <a href="#foro">Foro</a>
         <a href="#taller">Taller</a>
+        <a href="#" id="quickToolsDesktopLink" role="button">Herramientas</a>
       </div>
       <button class="hamb" id="hamb" aria-label="Abrir menú">☰</button>
     </div>
@@ -318,6 +319,7 @@
         <a href="#descargas">Descargas</a>
         <a href="#foro">Foro</a>
         <a href="#taller">Taller</a>
+        <a href="#" id="quickToolsMobileLink" role="button">Herramientas</a>
       </div>
     </div>
   </div>
@@ -1885,6 +1887,69 @@ Respuestas útiles:
       }, 2000);
     }
 
+    function openQuickTools() {
+      const modal = document.getElementById('quickTools');
+      if (modal) {
+        modal.classList.add('show');
+      }
+    }
+
+    function closeQuickTools(event) {
+      if (event && event.preventDefault) {
+        event.preventDefault();
+      }
+
+      if (!event || event.target.id === 'quickTools' || event.currentTarget?.id === 'quickToolsClose') {
+        const modal = document.getElementById('quickTools');
+        if (modal) {
+          modal.classList.remove('show');
+        }
+      }
+    }
+
+    function startVocabularyTimer() {
+      closeQuickTools();
+      const minutes = 5;
+      let seconds = minutes * 60;
+
+      const timerDiv = document.createElement('div');
+      timerDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--brand);
+        color: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        font-size: 2rem;
+        font-weight: bold;
+        z-index: 1100;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      `;
+
+      document.body.appendChild(timerDiv);
+
+      const interval = setInterval(() => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        timerDiv.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+        if (seconds === 0) {
+          clearInterval(interval);
+          timerDiv.textContent = '¡Tiempo completado!';
+          setTimeout(() => timerDiv.remove(), 2000);
+        }
+
+        seconds--;
+      }, 1000);
+    }
+
+    function openPronunciationGuide() {
+      closeQuickTools();
+      showNotification('🗣️ Guía de pronunciación próximamente', 'success');
+    }
+
     // Progress tracking functions
     function updateMainProgress() {
       let totalProgress = 0;
@@ -2213,6 +2278,19 @@ Respuestas útiles:
       updateWeeklyProgress();
       updateUserPoints();
 
+      const desktopQuickTools = document.getElementById('quickToolsDesktopLink');
+      desktopQuickTools?.addEventListener('click', (event) => {
+        event.preventDefault();
+        openQuickTools();
+      });
+
+      const mobileQuickTools = document.getElementById('quickToolsMobileLink');
+      mobileQuickTools?.addEventListener('click', (event) => {
+        event.preventDefault();
+        openQuickTools();
+        nav.classList.remove('open');
+      });
+
       toggleScrollTopButton();
     });
 
@@ -2230,6 +2308,57 @@ Respuestas útiles:
     `;
     document.head.appendChild(style);
   </script>
+
+  <!-- Quick Tools Modal -->
+  <div id="quickTools" class="overlay" onclick="closeQuickTools(event)">
+    <div class="viewer" style="inset: 10% 20%; max-width: 600px; margin: auto;" onclick="event.stopPropagation()">
+      <div class="top">
+        <span>Herramientas de Aprendizaje Rápido</span>
+        <div class="spacer"></div>
+        <button class="btn" id="quickToolsClose" onclick="closeQuickTools(event)">✕</button>
+      </div>
+      <div class="content" style="padding: 1.5rem; text-align: center;">
+        <h3 style="color: var(--brand); margin-bottom: 1.5rem;">🚀 Acceso Rápido</h3>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s2', '_self')">
+            🎯 Competencias
+          </button>
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s3', '_self')">
+            📚 Temario
+          </button>
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s5', '_self')">
+            📝 Evaluación
+          </button>
+          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#descargas', '_self')">
+            📂 Descargas
+          </button>
+        </div>
+
+        <h4 style="color: var(--secondary-color); margin-bottom: 1rem;">🎵 Recursos de Audio</h4>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+          <button class="btn" style="padding: 0.8rem;" onclick="alert('Próximamente: Audioprácticas')">
+            🎧 Audioprácticas
+          </button>
+          <button class="btn" style="padding: 0.8rem;" onclick="alert('Próximamente: Pronunciación')">
+            🔊 Pronunciación
+          </button>
+          <button class="btn" style="padding: 0.8rem;" onclick="startVocabularyTimer()">
+            ⏱️ Temporizador Vocab
+          </button>
+          <button class="btn" style="padding: 0.8rem;" onclick="openPronunciationGuide()">
+            🗣️ Guía Pronunciación
+          </button>
+        </div>
+
+        <div style="padding: 1rem; background: var(--s1); border-radius: 0.5rem; margin-top: 1rem;">
+          <p style="margin: 0; color: #92400e;">
+            <strong>💡 Tip del día:</strong> Practica español 15 minutos diarios para mejores resultados.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Scroll-to-top button -->
   <button type="button" class="scroll-top" id="scrollTopBtn" aria-label="Volver arriba">
