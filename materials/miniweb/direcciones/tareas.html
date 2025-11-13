@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea para casa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+            background-color: #f1f3f5;
+            border-bottom: 3px solid #c82333;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            color: #c82333;
+        }
+        .content {
+            display: flex;
+            flex-grow: 1;
+            padding: 30px 70px;
+        }
+        .tasks {
+            width: 60%;
+            padding-right: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        .cultural-note {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+        }
+        .task-item {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .task-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #c82333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .task-icon i {
+            color: white;
+            font-size: 28px;
+        }
+        .task-content {
+            flex-grow: 1;
+        }
+        .task-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 10px;
+        }
+        .task-description {
+            font-size: 20px;
+            line-height: 1.4;
+        }
+        .cultural-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .cultural-title i {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        .cultural-content {
+            background-color: rgba(201, 76, 76, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .cultural-group {
+            margin-bottom: 20px;
+        }
+        .cultural-group-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .chinese {
+            color: #4CAF50;
+        }
+        .american {
+            color: #2196F3;
+        }
+        .cultural-group-title i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        .cultural-points {
+            font-size: 20px;
+            line-height: 1.4;
+        }
+        .cultural-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .cultural-point i {
+            font-size: 20px;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        .chinese .cultural-point i {
+            color: #4CAF50;
+        }
+        .american .cultural-point i {
+            color: #2196F3;
+        }
+        .image-container {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 220px;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Tarea para casa</h1>
+        </div>
+        <div class="content">
+            <div class="tasks">
+                <div class="task-item">
+                    <div class="task-icon">
+                        <i class="material-icons">home</i>
+                    </div>
+                    <div class="task-content">
+                        <h2 class="task-title">Escribir cómo llegar a tu casa</h2>
+                        <p class="task-description">
+                            Describe el camino desde un lugar conocido (estación, plaza, etc.) hasta tu casa usando el vocabulario de direcciones y el imperativo.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-icon">
+                        <i class="material-icons">location_city</i>
+                    </div>
+                    <div class="task-content">
+                        <h2 class="task-title">Describir tu barrio</h2>
+                        <p class="task-description">
+                            Escribe un párrafo describiendo tu barrio: lugares importantes, medios de transporte disponibles, y cómo moverse por la zona.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-icon">
+                        <i class="material-icons">record_voice_over</i>
+                    </div>
+                    <div class="task-content">
+                        <h2 class="task-title">Practicar imperativos</h2>
+                        <p class="task-description">
+                            Crea 10 frases usando el imperativo (5 afirmativas y 5 negativas) para dar instrucciones sobre cómo usar diferentes medios de transporte.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cultural-note">
+                <div class="cultural-title">
+                    <i class="material-icons">psychology</i>
+                    Nota cultural
+                </div>
+                <div class="cultural-content">
+                    <div class="cultural-group chinese">
+                        <div class="cultural-group-title">
+                            <i class="material-icons">east</i>
+                            Estudiantes chinos
+                        </div>
+                        <div class="cultural-points">
+                            <div class="cultural-point">
+                                <i class="material-icons">check_circle</i>
+                                <span>Usa tu habilidad para estructurar información</span>
+                            </div>
+                            <div class="cultural-point">
+                                <i class="material-icons">check_circle</i>
+                                <span>Organiza las direcciones con precisión y claridad</span>
+                            </div>
+                            <div class="cultural-point">
+                                <i class="material-icons">check_circle</i>
+                                <span>Enfócate en la corrección gramatical</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cultural-group american">
+                        <div class="cultural-group-title">
+                            <i class="material-icons">west</i>
+                            Estudiantes estadounidenses
+                        </div>
+                        <div class="cultural-points">
+                            <div class="cultural-point">
+                                <i class="material-icons">check_circle</i>
+                                <span>Aprovecha tu creatividad en las descripciones</span>
+                            </div>
+                            <div class="cultural-point">
+                                <i class="material-icons">check_circle</i>
+                                <span>Incluye detalles personales y culturales</span>
+                            </div>
+                            <div class="cultural-point">
+                                <i class="material-icons">check_circle</i>
+                                <span>Practica con expresiones coloquiales</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="https://sfile.chatglm.cn/images-ppt/abba28967c9f.jpg" alt="Mapa de la ciudad en español">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
