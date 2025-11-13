@@ -253,8 +253,8 @@
       background: #fee2e2;
     }
 
-    /* Floating action button */
-    .fab {
+    /* Scroll-to-top button */
+    .scroll-top {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
@@ -271,10 +271,18 @@
       box-shadow: 0 8px 25px rgba(5,150,105,0.3);
       transition: all 0.3s ease;
       z-index: 15;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
-    .fab:hover {
+    .scroll-top:hover {
       transform: translateY(-2px) scale(1.1);
       box-shadow: 0 12px 35px rgba(5,150,105,0.4);
+    }
+    .scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -1126,31 +1134,26 @@
 
           const fileName = s.href.split('/').pop();
           const fileExists = SESSIONS_AVAILABLE.includes(fileName);
-          const sessionNumber = index + 1;
-
-          // Handle web links (miniwebs)
-          if (s.type === 'web') {
-            let htmlContent = `
-              <li><button class="btn primary" onclick="window.open('${s.href}', '_blank')">🌐 Abrir miniweb</button></li>
-              <li><button class="btn" onclick="copyPDFLink('${s.href}')">📋 Copiar enlace</button></li>
-            `;
-            list.innerHTML = htmlContent;
-            return;
-          }
+          const sessionMatch = s.t.match(/Sesión\s+(\d+)/i);
+          const sessionNumber = sessionMatch ? parseInt(sessionMatch[1], 10) : index + 1;
 
           if (fileExists) {
             const isPDF = s.type === 'pdf' || s.href.endsWith('.pdf');
             const fileIcon = isPDF ? '📄' : '📝';
             const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
 
-          // Añadir enlace a miniweb si es la sesión 8, 9 o 10
+            // Añadir enlace a miniweb si hay una configurada para la sesión seleccionada
             let miniwebLink = '';
             if (s.t.includes('Sesión 8')) {
-              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/', '_blank')" style="background: #27ae60;">🌐 MiniWeb: Transporte y Direcciones</button></li>`;
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Transporte y Direcciones</button></li>`;
             } else if (s.t.includes('Sesión 9')) {
-              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/ocio/', '_blank')" style="background: #667eea;">🌐 MiniWeb: Ocio y Aficiones</button></li>`;
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/ocio/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Ocio y Aficiones</button></li>`;
             } else if (s.t.includes('Sesión 10')) {
-              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/fotos/', '_blank')" style="background: #ff6b6b;">🌐 MiniWeb: Proyecto de Fotos</button></li>`;
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/fotos/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Proyecto de Fotos</button></li>`;
+            } else if (s.t.includes('Sesión 11')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/tecnologia/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Tecnología y Comunicación</button></li>`;
+            } else if (s.t.includes('Sesión 13')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/cultura/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Cultura y Regiones de España</button></li>`;
             }
 
             let htmlContent = `
@@ -1187,6 +1190,82 @@
 
       if(GUIAS_S1[0]) setTimeout(()=> chips.querySelector('.chip')?.click(), 0);
       else list.innerHTML = '<li class="muted">No hay guías subidas todavía.</li>';
+    }
+
+    const MINIWEB_DYNAMIC_LINKS = {
+      7: {
+        label: '🌐 MiniWeb: Compras y Tiendas',
+        url: 'https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/compras/'
+      }
+    };
+
+    function setupMiniwebAutoLinks() {
+      const chipsContainer = document.getElementById('chips-s1');
+      const listContainer = document.getElementById('lista-s1');
+
+      if (!chipsContainer || !listContainer) {
+        return;
+      }
+
+      let isMutatingMiniweb = false;
+
+      const refreshMiniwebLink = () => {
+        if (isMutatingMiniweb) {
+          return;
+        }
+
+        isMutatingMiniweb = true;
+
+        try {
+          listContainer.querySelectorAll('li[data-miniweb-dynamic]').forEach(el => el.remove());
+
+          const activeChip = chipsContainer.querySelector('.chip.active');
+          if (!activeChip) {
+            return;
+          }
+
+          const match = activeChip.textContent.match(/Sesión\s+(\d+)/i);
+          if (!match) {
+            return;
+          }
+
+          const sessionNumber = parseInt(match[1], 10);
+          const config = MINIWEB_DYNAMIC_LINKS[sessionNumber];
+
+          if (!config) {
+            return;
+          }
+
+          const li = document.createElement('li');
+          li.setAttribute('data-miniweb-dynamic', sessionNumber.toString());
+
+          const button = document.createElement('button');
+          button.className = 'btn';
+          button.style.background = '#c82333';
+          button.style.color = 'white';
+          button.textContent = config.label;
+          button.addEventListener('click', () => window.open(config.url, '_blank'));
+
+          li.appendChild(button);
+          listContainer.appendChild(li);
+        } finally {
+          isMutatingMiniweb = false;
+        }
+      };
+
+      const observer = new MutationObserver(() => {
+        if (!isMutatingMiniweb) {
+          refreshMiniwebLink();
+        }
+      });
+
+      observer.observe(listContainer, { childList: true });
+
+      chipsContainer.addEventListener('click', () => {
+        setTimeout(refreshMiniwebLink, 0);
+      });
+
+      refreshMiniwebLink();
     }
 
     function downloadFile(url, filename) {
@@ -1545,6 +1624,7 @@ Respuestas útiles:
     initQRSystem();
     renderGuiasS1();
     renderMaterialesCurso();
+    setupMiniwebAutoLinks();
 
     // Verificar acceso de profesor para Hoja de Asistencia
     const urlParams = new URLSearchParams(window.location.search);
@@ -1857,65 +1937,36 @@ Respuestas útiles:
       }
     }
 
-    // Quick tools functions
-    function openQuickTools() {
-      const modal = document.getElementById('quickTools');
-      if (modal) {
-        modal.classList.add('show');
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    let scrollTopButton = null;
+    const scrollTopThreshold = 200;
+
+    function ensureScrollTopButton() {
+      if (!scrollTopButton) {
+        scrollTopButton = document.getElementById('scrollTopBtn');
+        if (scrollTopButton) {
+          scrollTopButton.addEventListener('click', scrollToTop);
+        }
+      }
+      return scrollTopButton;
+    }
+
+    function toggleScrollTopButton() {
+      const button = ensureScrollTopButton();
+      if (!button) return;
+      if (window.scrollY > scrollTopThreshold) {
+        button.classList.add('show');
+      } else {
+        button.classList.remove('show');
       }
     }
 
-    function closeQuickTools(event) {
-      if (!event || event.target.id === 'quickTools') {
-        const modal = document.getElementById('quickTools');
-        if (modal) {
-          modal.classList.remove('show');
-        }
-      }
-    }
-
-    function startVocabularyTimer() {
-      closeQuickTools();
-      const minutes = 5;
-      let seconds = minutes * 60;
-
-      const timerDiv = document.createElement('div');
-      timerDiv.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: var(--brand);
-        color: white;
-        padding: 2rem;
-        border-radius: 1rem;
-        font-size: 2rem;
-        font-weight: bold;
-        z-index: 1000;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      `;
-
-      document.body.appendChild(timerDiv);
-
-      const interval = setInterval(() => {
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        timerDiv.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-
-        if (seconds === 0) {
-          clearInterval(interval);
-          timerDiv.textContent = '¡Tiempo completado!';
-          setTimeout(() => timerDiv.remove(), 2000);
-        }
-
-        seconds--;
-      }, 1000);
-    }
-
-    function openPronunciationGuide() {
-      closeQuickTools();
-      showNotification('🗣️ Guía de pronunciación próximamente', 'success');
-    }
+    window.addEventListener('scroll', toggleScrollTopButton);
+    window.addEventListener('resize', toggleScrollTopButton);
+    window.addEventListener('load', toggleScrollTopButton);
 
     // Student authentication system
     let currentUser = null;
@@ -2161,6 +2212,8 @@ Respuestas útiles:
       updateMainProgress();
       updateWeeklyProgress();
       updateUserPoints();
+
+      toggleScrollTopButton();
     });
 
     // Add CSS animations
@@ -2178,61 +2231,11 @@ Respuestas útiles:
     document.head.appendChild(style);
   </script>
 
-  <!-- Floating Action Button -->
-  <div class="fab" onclick="openQuickTools()" title="Herramientas Rápidas">
-    ⚡
-  </div>
+  <!-- Scroll-to-top button -->
+  <button type="button" class="scroll-top" id="scrollTopBtn" aria-label="Volver arriba">
+    ↑
+  </button>
 
-  <!-- Quick Tools Modal -->
-  <div id="quickTools" class="overlay" onclick="closeQuickTools(event)">
-    <div class="viewer" style="inset: 10% 20%; max-width: 600px; margin: auto;" onclick="event.stopPropagation()">
-      <div class="top">
-        <span>Herramientas de Aprendizaje Rápido</span>
-        <div class="spacer"></div>
-        <button class="btn" onclick="closeQuickTools()">✕</button>
-      </div>
-      <div class="content" style="padding: 1.5rem; text-align: center;">
-        <h3 style="color: var(--brand); margin-bottom: 1.5rem;">🚀 Acceso Rápido</h3>
-
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s2', '_self')">
-            🎯 Competencias
-          </button>
-          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s3', '_self')">
-            📚 Temario
-          </button>
-          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#s5', '_self')">
-            📝 Evaluación
-          </button>
-          <button class="btn primary" style="padding: 1rem; font-size: 1.1rem;" onclick="window.open('#descargas', '_self')">
-            📂 Descargas
-          </button>
-        </div>
-
-        <h4 style="color: var(--secondary-color); margin-bottom: 1rem;">🎵 Recursos de Audio</h4>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-          <button class="btn" style="padding: 0.8rem;" onclick="alert('Próximamente: Audioprácticas')">
-            🎧 Audioprácticas
-          </button>
-          <button class="btn" style="padding: 0.8rem;" onclick="alert('Próximamente: Pronunciación')">
-            🔊 Pronunciación
-          </button>
-          <button class="btn" style="padding: 0.8rem;" onclick="startVocabularyTimer()">
-            ⏱️ Temporizador Vocab
-          </button>
-          <button class="btn" style="padding: 0.8rem;" onclick="openPronunciationGuide()">
-            🗣️ Guía Pronunciación
-          </button>
-        </div>
-
-        <div style="padding: 1rem; background: var(--s1); border-radius: 0.5rem; margin-top: 1rem;">
-          <p style="margin: 0; color: #92400e;">
-            <strong>💡 Tip del día:</strong> Practica español 15 minutos diarios para mejores resultados.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </body>
 </html>
