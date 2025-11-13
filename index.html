@@ -1190,6 +1190,82 @@
       else list.innerHTML = '<li class="muted">No hay guías subidas todavía.</li>';
     }
 
+    const MINIWEB_DYNAMIC_LINKS = {
+      7: {
+        label: '🌐 MiniWeb: Compras y Tiendas',
+        url: 'https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/compras/'
+      }
+    };
+
+    function setupMiniwebAutoLinks() {
+      const chipsContainer = document.getElementById('chips-s1');
+      const listContainer = document.getElementById('lista-s1');
+
+      if (!chipsContainer || !listContainer) {
+        return;
+      }
+
+      let isMutatingMiniweb = false;
+
+      const refreshMiniwebLink = () => {
+        if (isMutatingMiniweb) {
+          return;
+        }
+
+        isMutatingMiniweb = true;
+
+        try {
+          listContainer.querySelectorAll('li[data-miniweb-dynamic]').forEach(el => el.remove());
+
+          const activeChip = chipsContainer.querySelector('.chip.active');
+          if (!activeChip) {
+            return;
+          }
+
+          const match = activeChip.textContent.match(/Sesión\s+(\d+)/i);
+          if (!match) {
+            return;
+          }
+
+          const sessionNumber = parseInt(match[1], 10);
+          const config = MINIWEB_DYNAMIC_LINKS[sessionNumber];
+
+          if (!config) {
+            return;
+          }
+
+          const li = document.createElement('li');
+          li.setAttribute('data-miniweb-dynamic', sessionNumber.toString());
+
+          const button = document.createElement('button');
+          button.className = 'btn';
+          button.style.background = '#c82333';
+          button.style.color = 'white';
+          button.textContent = config.label;
+          button.addEventListener('click', () => window.open(config.url, '_blank'));
+
+          li.appendChild(button);
+          listContainer.appendChild(li);
+        } finally {
+          isMutatingMiniweb = false;
+        }
+      };
+
+      const observer = new MutationObserver(() => {
+        if (!isMutatingMiniweb) {
+          refreshMiniwebLink();
+        }
+      });
+
+      observer.observe(listContainer, { childList: true });
+
+      chipsContainer.addEventListener('click', () => {
+        setTimeout(refreshMiniwebLink, 0);
+      });
+
+      refreshMiniwebLink();
+    }
+
     function downloadFile(url, filename) {
       // Para archivos PDF, intentar múltiples métodos
       if (url.endsWith('.pdf')) {
@@ -1546,6 +1622,7 @@ Respuestas útiles:
     initQRSystem();
     renderGuiasS1();
     renderMaterialesCurso();
+    setupMiniwebAutoLinks();
 
     // Verificar acceso de profesor para Hoja de Asistencia
     const urlParams = new URLSearchParams(window.location.search);
