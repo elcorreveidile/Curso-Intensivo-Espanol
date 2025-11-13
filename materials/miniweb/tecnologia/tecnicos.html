@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 · Servicio técnico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: #0b1120; color: #0f172a; }
+        .slide { width: 1280px; min-height: 720px; position: relative; overflow: hidden; background: linear-gradient(160deg, #111827, #1e293b 55%, #3b82f6 120%); padding: 70px 80px 120px; }
+        .panel { background: rgba(248, 250, 252, 0.97); border-radius: 28px; padding: 40px; box-shadow: 0 25px 60px rgba(15, 23, 42, 0.55); display: flex; flex-direction: column; gap: 26px; }
+        h1 { font-size: 38px; color: #1e3a8a; display: flex; align-items: center; gap: 12px; font-weight: 700; }
+        p.lead { font-size: 18px; color: #475569; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .issue { background: white; border-radius: 20px; padding: 22px; border: 1px solid #e2e8f0; display: grid; gap: 12px; }
+        .issue h2 { font-size: 18px; color: #1f2937; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .issue p { font-size: 15px; color: #475569; line-height: 1.4; }
+        select { padding: 10px 14px; border-radius: 12px; border: 1px solid #cbd5f5; font-size: 15px; background: #f1f5f9; color: #1e293b; }
+        .btn { background: #0ea5e9; color: white; border: none; padding: 10px 16px; border-radius: 999px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 12px 26px rgba(14, 165, 233, 0.35); }
+        .btn:hover { background: #0284c7; }
+        .feedback { min-height: 22px; font-size: 15px; font-weight: 600; }
+        .correct { color: #059669; }
+        .incorrect { color: #dc2626; }
+        ul.solutions { list-style: none; display: grid; gap: 8px; margin-top: 8px; }
+        ul.solutions li { font-size: 14px; color: #475569; display: flex; align-items: center; gap: 6px; }
+        ul.solutions li i { font-size: 18px; color: #0ea5e9; }
+        .navigation { position: fixed; bottom: 20px; left: 20px; display: flex; gap: 12px; z-index: 1000; }
+        .nav-button { background: #38bdf8; color: #0f172a; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-size: 18px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 12px 30px rgba(56, 189, 248, 0.3); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(56, 189, 248, 0.45); }
+        @media (max-width: 992px) { .slide { width: 100%; padding: 30px 24px 130px; } }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <div class="panel">
+            <h1><i class="material-icons">support_agent</i> Ejercicio 2 · Servicio técnico</h1>
+            <p class="lead">Empareja cada problema con la respuesta adecuada que darías como agente de soporte. Después, dramatiza la conversación en pareja usando las expresiones completas.</p>
+            <div class="grid">
+                <article class="issue" data-answer="b">
+                    <h2><i class="material-icons">wifi_off</i> Problema 1 · Sin conexión</h2>
+                    <p>El cliente no puede conectarse al wifi de casa.</p>
+                    <select aria-label="Respuesta sugerida 1">
+                        <option value="">Selecciona una respuesta</option>
+                        <option value="a">¿Ha probado a reiniciar su teléfono?</option>
+                        <option value="b">Vamos a reiniciar el router: apáguelo 30 segundos y vuelva a encenderlo.</option>
+                        <option value="c">Puede venir mañana a la tienda y lo revisamos.</option>
+                    </select>
+                    <button class="btn"><i class="material-icons">done_all</i> Verificar</button>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+                <article class="issue" data-answer="c">
+                    <h2><i class="material-icons">lock_reset</i> Problema 2 · Contraseña olvidada</h2>
+                    <p>La usuaria ha olvidado la contraseña de la plataforma.</p>
+                    <select aria-label="Respuesta sugerida 2">
+                        <option value="">Selecciona una respuesta</option>
+                        <option value="a">No puedo ayudarle, inténtelo de nuevo.</option>
+                        <option value="b">¿Puede dictarme su contraseña para comprobarla?</option>
+                        <option value="c">Le envío un enlace para restablecer la contraseña. Revise su correo.</option>
+                    </select>
+                    <button class="btn"><i class="material-icons">done_all</i> Verificar</button>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+                <article class="issue" data-answer="a">
+                    <h2><i class="material-icons">apps</i> Problema 3 · Aplicación bloqueada</h2>
+                    <p>La app se cierra cada vez que intenta abrir un archivo.</p>
+                    <select aria-label="Respuesta sugerida 3">
+                        <option value="">Selecciona una respuesta</option>
+                        <option value="a">Vamos a actualizar la aplicación y limpiar la memoria caché.</option>
+                        <option value="b">Desinstale el sistema operativo completo.</option>
+                        <option value="c">No podemos hacer nada, lo siento.</option>
+                    </select>
+                    <button class="btn"><i class="material-icons">done_all</i> Verificar</button>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+                <article class="issue" data-answer="b">
+                    <h2><i class="material-icons">print_disabled</i> Problema 4 · Impresora</h2>
+                    <p>Una oficina reporta que la impresora imprime en blanco.</p>
+                    <select aria-label="Respuesta sugerida 4">
+                        <option value="">Selecciona una respuesta</option>
+                        <option value="a">¿Seguro que quiere imprimir?</option>
+                        <option value="b">Compruebe si los cartuchos tienen tinta y limpie los cabezales, por favor.</option>
+                        <option value="c">Llévela al contenedor más cercano.</option>
+                    </select>
+                    <button class="btn"><i class="material-icons">done_all</i> Verificar</button>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+            </div>
+            <div>
+                <h2 style="font-size:20px; color:#1f2937; display:flex; align-items:center; gap:8px;"><i class="material-icons">tips_and_updates</i> Frases útiles</h2>
+                <ul class="solutions">
+                    <li><i class="material-icons">forward</i>¿Le parece si comprobamos...?</li>
+                    <li><i class="material-icons">forward</i>Enseguida le envío un correo con instrucciones.</li>
+                    <li><i class="material-icons">forward</i>Le llamo en unos minutos para confirmar que funciona.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="llamadas.html"><i class="material-icons">arrow_back</i> Anterior</a>
+        <a class="nav-button" href="mensajes.html">Siguiente <i class="material-icons">arrow_forward</i></a>
+    </nav>
+
+    <script>
+        document.querySelectorAll('.issue').forEach(issue => {
+            const button = issue.querySelector('button');
+            const select = issue.querySelector('select');
+            const feedback = issue.querySelector('.feedback');
+            button.addEventListener('click', () => {
+                if (!select.value) {
+                    feedback.textContent = 'Elige una respuesta antes de verificar.';
+                    feedback.className = 'feedback incorrect';
+                    return;
+                }
+                if (select.value === issue.dataset.answer) {
+                    feedback.textContent = '✅ Respuesta profesional y útil. ¡Buen trabajo!';
+                    feedback.className = 'feedback correct';
+                } else {
+                    feedback.textContent = '❌ Esa respuesta no soluciona el problema. Piensa en pasos técnicos concretos.';
+                    feedback.className = 'feedback incorrect';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
