@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diálogos - Cultura y Regiones</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .dialog-section {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+        }
+
+        .dialog-title {
+            font-size: 28px;
+            color: #c82333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dialog-context {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #c82333;
+            font-style: italic;
+            color: #666;
+        }
+
+        .conversation {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .message.left {
+            flex-direction: row;
+        }
+
+        .message.right {
+            flex-direction: row-reverse;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .bubble {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .message.left .bubble {
+            background: #f8f9fa;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.right .bubble {
+            background: #c82333;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .speaker-name {
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .message.left .speaker-name {
+            color: #c82333;
+        }
+
+        .message.right .speaker-name {
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        .bubble-text {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .bubble {
+                max-width: 85%;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💬 Diálogos sobre Cultura Española</h1>
+        </div>
+
+        <!-- Dialog 1 -->
+        <div class="dialog-section">
+            <div class="dialog-title">
+                <span>1️⃣</span>
+                Planificando un Viaje a España
+            </div>
+            <div class="dialog-context">
+                Situación: Dos amigos están planeando un viaje a España y discuten qué regiones visitar.
+            </div>
+            <div class="conversation">
+                <div class="message left">
+                    <div class="avatar">👨</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Carlos</div>
+                        <div class="bubble-text">Creo que deberíamos visitar Andalucía. Me parece que es la región más auténtica de España.</div>
+                    </div>
+                </div>
+
+                <div class="message right">
+                    <div class="avatar">👩</div>
+                    <div class="bubble">
+                        <div class="speaker-name">María</div>
+                        <div class="bubble-text">Estoy de acuerdo, pero en mi opinión también deberíamos ir a Barcelona. La Sagrada Familia es impresionante.</div>
+                    </div>
+                </div>
+
+                <div class="message left">
+                    <div class="avatar">👨</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Carlos</div>
+                        <div class="bubble-text">Buena idea. ¿Qué te parece si vamos primero a Sevilla para la Feria de Abril y luego a Barcelona?</div>
+                    </div>
+                </div>
+
+                <div class="message right">
+                    <div class="avatar">👩</div>
+                    <div class="bubble">
+                        <div class="speaker-name">María</div>
+                        <div class="bubble-text">¡Perfecto! Y pienso que no podemos irnos sin probar la paella en Valencia.</div>
+                    </div>
+                </div>
+
+                <div class="message left">
+                    <div class="avatar">👨</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Carlos</div>
+                        <div class="bubble-text">Me parece un plan excelente. Tres regiones diferentes, ¡va a ser un viaje inolvidable!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dialog 2 -->
+        <div class="dialog-section">
+            <div class="dialog-title">
+                <span>2️⃣</span>
+                Comparando Tradiciones
+            </div>
+            <div class="dialog-context">
+                Situación: Un estudiante internacional pregunta a su profesora sobre las diferencias culturales entre regiones españolas.
+            </div>
+            <div class="conversation">
+                <div class="message left">
+                    <div class="avatar">🧑</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Student</div>
+                        <div class="bubble-text">Profesora, ¿es verdad que cada región de España tiene su propia cultura?</div>
+                    </div>
+                </div>
+
+                <div class="message right">
+                    <div class="avatar">👩‍🏫</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Profesora</div>
+                        <div class="bubble-text">Sí, exactamente. Por ejemplo, en Cataluña hablan catalán y tienen tradiciones como los castells, que son torres humanas.</div>
+                    </div>
+                </div>
+
+                <div class="message left">
+                    <div class="avatar">🧑</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Student</div>
+                        <div class="bubble-text">¡Qué interesante! ¿Y en Andalucía?</div>
+                    </div>
+                </div>
+
+                <div class="message right">
+                    <div class="avatar">👩‍🏫</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Profesora</div>
+                        <div class="bubble-text">En Andalucía, el flamenco es muy importante. Creo que es uno de los bailes más emotivos del mundo.</div>
+                    </div>
+                </div>
+
+                <div class="message left">
+                    <div class="avatar">🧑</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Student</div>
+                        <div class="bubble-text">Me parece fascinante. ¿Qué región recomienda visitar primero?</div>
+                    </div>
+                </div>
+
+                <div class="message right">
+                    <div class="avatar">👩‍🏫</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Profesora</div>
+                        <div class="bubble-text">En mi opinión, Madrid es un buen punto de partida. Desde allí puedes viajar fácilmente a otras regiones.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dialog 3 -->
+        <div class="dialog-section">
+            <div class="dialog-title">
+                <span>3️⃣</span>
+                Debate sobre Festividades
+            </div>
+            <div class="dialog-context">
+                Situación: Tres amigos debaten cuál es la festividad española más interesante.
+            </div>
+            <div class="conversation">
+                <div class="message left">
+                    <div class="avatar">👨</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Luis</div>
+                        <div class="bubble-text">Pienso que San Fermín es la festividad más emocionante. ¡Correr delante de los toros es increíble!</div>
+                    </div>
+                </div>
+
+                <div class="message right">
+                    <div class="avatar">👩</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Ana</div>
+                        <div class="bubble-text">No estoy de acuerdo. Me parece que es muy peligroso. Yo prefiero la Tomatina, es más divertida y segura.</div>
+                    </div>
+                </div>
+
+                <div class="message left">
+                    <div class="avatar">🧔</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Pedro</div>
+                        <div class="bubble-text">Creo que ambas son interesantes, pero en mi opinión, la Semana Santa es la más impresionante. Las procesiones son espectaculares.</div>
+                    </div>
+                </div>
+
+                <div class="message right">
+                    <div class="avatar">👩</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Ana</div>
+                        <div class="bubble-text">Tienes razón, Pedro. La Semana Santa de Sevilla es muy bonita. ¿Has estado alguna vez?</div>
+                    </div>
+                </div>
+
+                <div class="message left">
+                    <div class="avatar">🧔</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Pedro</div>
+                        <div class="bubble-text">Sí, hace dos años. Me parece que es una experiencia única que todos deberían vivir.</div>
+                    </div>
+                </div>
+
+                <div class="message right">
+                    <div class="avatar">👨</div>
+                    <div class="bubble">
+                        <div class="speaker-name">Luis</div>
+                        <div class="bubble-text">Bueno, ¡estoy de acuerdo en que España tiene festividades increíbles! ¿Por qué no visitamos las tres?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="practica.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="cultura.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

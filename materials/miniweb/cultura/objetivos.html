@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetivos - Cultura y Regiones de España</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .objective-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #c82333;
+        }
+
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(200, 35, 51, 0.2);
+        }
+
+        .objective-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .objective-title {
+            font-size: 24px;
+            color: #c82333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .objective-text {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            background: #c82333;
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .info-box h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            font-size: 18px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .objectives-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .objective-card {
+                padding: 20px;
+            }
+
+            .objective-title {
+                font-size: 20px;
+            }
+
+            .objective-text {
+                font-size: 16px;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Objetivos de la Sesión</h1>
+            <p>¿Qué aprenderemos hoy?</p>
+        </div>
+
+        <div class="objectives-grid">
+            <div class="objective-card">
+                <div class="objective-icon">🗺️</div>
+                <div class="objective-title">Conocer las Comunidades Autónomas</div>
+                <div class="objective-text">
+                    Identificar y ubicar las 17 comunidades autónomas de España, conociendo sus características principales y capitales.
+                </div>
+            </div>
+
+            <div class="objective-card">
+                <div class="objective-icon">🎉</div>
+                <div class="objective-title">Tradiciones y Festividades</div>
+                <div class="objective-text">
+                    Descubrir las festividades más importantes de España como la Semana Santa, San Fermín y la Tomatina, y entender su significado cultural.
+                </div>
+            </div>
+
+            <div class="objective-card">
+                <div class="objective-icon">🌟</div>
+                <div class="objective-title">Diferencias Culturales Regionales</div>
+                <div class="objective-text">
+                    Aprender sobre las diferencias gastronómicas, lingüísticas y culturales entre las distintas regiones españolas.
+                </div>
+            </div>
+
+            <div class="objective-card">
+                <div class="objective-icon">💭</div>
+                <div class="objective-title">Expresar Opiniones sobre Cultura</div>
+                <div class="objective-text">
+                    Practicar expresiones para dar opiniones como "Creo que...", "En mi opinión...", "Me parece que..." aplicadas a temas culturales.
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>🇪🇸 ¿Sabías que...?</h3>
+            <p>España tiene 17 comunidades autónomas y 2 ciudades autónomas (Ceuta y Melilla), cada una con su propia identidad cultural única.</p>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="index.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="vocabulario.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

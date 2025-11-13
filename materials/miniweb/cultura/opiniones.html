@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expresar Opiniones - Cultura y Regiones</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .expressions-container {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .expression-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .expression-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(200, 35, 51, 0.15);
+        }
+
+        .expression-title {
+            font-size: 32px;
+            color: #c82333;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .expression-translation {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .examples {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #c82333;
+        }
+
+        .example-title {
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .example {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .example-spanish {
+            color: #c82333;
+            font-size: 17px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .example-english {
+            color: #666;
+            font-size: 15px;
+        }
+
+        .usage-tip {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .usage-tip h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .usage-tip p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .expression-title {
+                font-size: 24px;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💭 Expresar Opiniones</h1>
+            <p>Aprende a dar tu opinión sobre la cultura española</p>
+        </div>
+
+        <div class="usage-tip">
+            <h3>💡 Consejo de Uso</h3>
+            <p>En español, es común usar el subjuntivo después de expresiones de opinión en forma negativa o interrogativa. Por ejemplo: "No creo que sea difícil" o "¿Crees que sea interesante?"</p>
+        </div>
+
+        <div class="expressions-container">
+            <!-- Creo que -->
+            <div class="expression-card">
+                <div class="expression-title">Creo que...</div>
+                <div class="expression-translation">I think that... / I believe that...</div>
+                <div class="examples">
+                    <div class="example-title">📝 Ejemplos:</div>
+                    <div class="example">
+                        <div class="example-spanish">Creo que la cultura española es muy rica.</div>
+                        <div class="example-english">I think Spanish culture is very rich.</div>
+                    </div>
+                    <div class="example">
+                        <div class="example-spanish">Creo que la paella valenciana es deliciosa.</div>
+                        <div class="example-english">I think Valencian paella is delicious.</div>
+                    </div>
+                    <div class="example">
+                        <div class="example-spanish">Creo que Andalucía es la región más interesante.</div>
+                        <div class="example-english">I think Andalusia is the most interesting region.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pienso que -->
+            <div class="expression-card">
+                <div class="expression-title">Pienso que...</div>
+                <div class="expression-translation">I think that... (more formal)</div>
+                <div class="examples">
+                    <div class="example-title">📝 Ejemplos:</div>
+                    <div class="example">
+                        <div class="example-spanish">Pienso que las tradiciones españolas son únicas.</div>
+                        <div class="example-english">I think Spanish traditions are unique.</div>
+                    </div>
+                    <div class="example">
+                        <div class="example-spanish">Pienso que el flamenco es un arte extraordinario.</div>
+                        <div class="example-english">I think flamenco is an extraordinary art.</div>
+                    </div>
+                    <div class="example">
+                        <div class="example-spanish">Pienso que cada región tiene su encanto.</div>
+                        <div class="example-english">I think each region has its charm.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- En mi opinión -->
+            <div class="expression-card">
+                <div class="expression-title">En mi opinión...</div>
+                <div class="expression-translation">In my opinion...</div>
+                <div class="examples">
+                    <div class="example-title">📝 Ejemplos:</div>
+                    <div class="example">
+                        <div class="example-spanish">En mi opinión, la Semana Santa es la festividad más impresionante.</div>
+                        <div class="example-english">In my opinion, Holy Week is the most impressive celebration.</div>
+                    </div>
+                    <div class="example">
+                        <div class="example-spanish">En mi opinión, Barcelona es una ciudad fascinante.</div>
+                        <div class="example-english">In my opinion, Barcelona is a fascinating city.</div>
+                    </div>
+                    <div class="example">
+                        <div class="example-spanish">En mi opinión, las tapas son una tradición genial.</div>
+                        <div class="example-english">In my opinion, tapas are a great tradition.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Me parece que -->
+            <div class="expression-card">
+                <div class="expression-title">Me parece que...</div>
+                <div class="expression-translation">It seems to me that...</div>
+                <div class="examples">
+                    <div class="example-title">📝 Ejemplos:</div>
+                    <div class="example">
+                        <div class="example-spanish">Me parece que la siesta es una costumbre saludable.</div>
+                        <div class="example-english">It seems to me that the siesta is a healthy custom.</div>
+                    </div>
+                    <div class="example">
+                        <div class="example-spanish">Me parece que San Fermín es peligroso pero emocionante.</div>
+                        <div class="example-english">It seems to me that San Fermín is dangerous but exciting.</div>
+                    </div>
+                    <div class="example">
+                        <div class="example-spanish">Me parece que hay mucha diversidad cultural en España.</div>
+                        <div class="example-english">It seems to me that there is a lot of cultural diversity in Spain.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estoy de acuerdo / No estoy de acuerdo -->
+            <div class="expression-card">
+                <div class="expression-title">Estoy de acuerdo / No estoy de acuerdo</div>
+                <div class="expression-translation">I agree / I disagree</div>
+                <div class="examples">
+                    <div class="example-title">📝 Ejemplos:</div>
+                    <div class="example">
+                        <div class="example-spanish">Estoy de acuerdo contigo, Galicia tiene paisajes hermosos.</div>
+                        <div class="example-english">I agree with you, Galicia has beautiful landscapes.</div>
+                    </div>
+                    <div class="example">
+                        <div class="example-spanish">No estoy de acuerdo. Creo que la Tomatina es muy divertida.</div>
+                        <div class="example-english">I disagree. I think La Tomatina is very fun.</div>
+                    </div>
+                    <div class="example">
+                        <div class="example-spanish">Estoy completamente de acuerdo en que la gastronomía vasca es excelente.</div>
+                        <div class="example-english">I completely agree that Basque cuisine is excellent.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="regiones.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="actividades.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

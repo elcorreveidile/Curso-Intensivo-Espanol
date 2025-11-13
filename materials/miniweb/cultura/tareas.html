@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas - Cultura y Regiones</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .task-card {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .task-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(200, 35, 51, 0.15);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .task-number {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .task-title {
+            font-size: 28px;
+            color: #c82333;
+            font-weight: 700;
+        }
+
+        .task-description {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .task-requirements {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #c82333;
+        }
+
+        .requirements-title {
+            font-weight: 700;
+            color: #c82333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .requirements-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .requirements-list li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .requirements-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #c82333;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .deadline-box {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .deadline-box h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .deadline-box p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .tips-box {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+        }
+
+        .tips-box h3 {
+            color: #c82333;
+            font-size: 26px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tip-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-left: 4px solid #c82333;
+        }
+
+        .tip-item strong {
+            color: #c82333;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .task-title {
+                font-size: 22px;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Tareas para Casa</h1>
+            <p>Actividades de refuerzo y práctica</p>
+        </div>
+
+        <div class="deadline-box">
+            <h3>📅 Fecha de Entrega</h3>
+            <p>Próxima sesión - 27 de noviembre de 2025</p>
+        </div>
+
+        <!-- Tarea 1 -->
+        <div class="task-card">
+            <div class="task-header">
+                <div class="task-number">1</div>
+                <div class="task-title">Presentación sobre una Comunidad Autónoma</div>
+            </div>
+            <div class="task-description">
+                Investiga una comunidad autónoma española de tu elección y prepara una presentación oral
+                de 3 minutos para compartir con la clase.
+            </div>
+            <div class="task-requirements">
+                <div class="requirements-title">Requisitos de la presentación:</div>
+                <ul class="requirements-list">
+                    <li>Ubicación geográfica y capital de la comunidad</li>
+                    <li>Población y datos demográficos básicos</li>
+                    <li>Al menos 3 platos típicos de la región</li>
+                    <li>2-3 festividades o tradiciones importantes</li>
+                    <li>Lugares turísticos destacados</li>
+                    <li>Lengua(s) hablada(s) en la región</li>
+                    <li>Datos curiosos o interesantes</li>
+                    <li>Tu opinión personal usando expresiones aprendidas ("Creo que...", "Me parece que...")</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tarea 2 -->
+        <div class="task-card">
+            <div class="task-header">
+                <div class="task-number">2</div>
+                <div class="task-title">Comparación Escrita entre Dos Regiones</div>
+            </div>
+            <div class="task-description">
+                Escribe un texto de 150 palabras comparando dos regiones españolas diferentes.
+                Usa conectores y expresiones de opinión.
+            </div>
+            <div class="task-requirements">
+                <div class="requirements-title">El texto debe incluir:</div>
+                <ul class="requirements-list">
+                    <li>Introducción presentando las dos regiones elegidas</li>
+                    <li>Comparación de gastronomía (platos típicos)</li>
+                    <li>Comparación de festividades y tradiciones</li>
+                    <li>Diferencias culturales o lingüísticas</li>
+                    <li>Al menos 4 expresiones de opinión diferentes</li>
+                    <li>Conclusión con tu preferencia personal y por qué</li>
+                    <li>Vocabulario específico de la sesión</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tarea 3 -->
+        <div class="task-card">
+            <div class="task-header">
+                <div class="task-number">3</div>
+                <div class="task-title">Lista de 10 Festividades Españolas</div>
+            </div>
+            <div class="task-description">
+                Crea una lista detallada de 10 festividades españolas con información específica de cada una.
+            </div>
+            <div class="task-requirements">
+                <div class="requirements-title">Para cada festividad incluye:</div>
+                <ul class="requirements-list">
+                    <li>Nombre de la festividad</li>
+                    <li>Fecha o período del año en que se celebra</li>
+                    <li>Ciudad o región donde se celebra</li>
+                    <li>Breve descripción de qué se celebra (2-3 líneas)</li>
+                    <li>Una curiosidad o dato interesante</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="tips-box">
+            <h3><i class="material-icons">lightbulb</i> Consejos para las Tareas</h3>
+            <div class="tip-item">
+                <strong>Para la presentación:</strong> Practica varias veces antes de presentar. Usa notas
+                pequeñas pero no leas todo el texto. Mantén contacto visual con la audiencia.
+            </div>
+            <div class="tip-item">
+                <strong>Para la comparación:</strong> Usa conectores como "mientras que", "sin embargo",
+                "por otro lado", "en cambio" para hacer comparaciones más naturales.
+            </div>
+            <div class="tip-item">
+                <strong>Recursos recomendados:</strong> Visita las páginas oficiales de turismo de España
+                (spain.info), usa fuentes fiables y verifica las fechas de las festividades.
+            </div>
+            <div class="tip-item">
+                <strong>Revisión:</strong> Revisa tu ortografía, especialmente las tildes y la letra "ñ".
+                Lee en voz alta para verificar que suene natural.
+            </div>
+            <div class="tip-item">
+                <strong>Creatividad:</strong> Puedes incluir imágenes, mapas o elementos visuales en tu
+                presentación para hacerla más interesante y memorable.
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="cultura.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="conclusion.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>
