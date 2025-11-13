@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidades Autónomas - Cultura y Regiones</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .region-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .region-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(200, 35, 51, 0.2);
+        }
+
+        .region-header {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .region-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .region-capital {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .region-body {
+            padding: 25px;
+        }
+
+        .region-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .region-icon {
+            color: #c82333;
+            font-size: 24px;
+        }
+
+        .region-text {
+            flex: 1;
+        }
+
+        .region-label {
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 5px;
+        }
+
+        .region-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .info-banner {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .info-banner h3 {
+            color: #c82333;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .info-banner p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .regions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗺️ Comunidades Autónomas de España</h1>
+            <p>Diversidad y riqueza cultural</p>
+        </div>
+
+        <div class="info-banner">
+            <h3>🇪🇸 España: Un País Diverso</h3>
+            <p>España está formada por 17 comunidades autónomas y 2 ciudades autónomas. Cada región tiene su propia identidad, cultura, gastronomía y, en algunos casos, lengua cooficial.</p>
+        </div>
+
+        <div class="regions-grid">
+            <!-- Andalucía -->
+            <div class="region-card">
+                <div class="region-header">
+                    <div class="region-name">Andalucía</div>
+                    <div class="region-capital">Capital: Sevilla</div>
+                </div>
+                <div class="region-body">
+                    <div class="region-info">
+                        <i class="material-icons region-icon">restaurant</i>
+                        <div class="region-text">
+                            <div class="region-label">Gastronomía</div>
+                            <div class="region-description">Gazpacho, jamón ibérico, pescaíto frito</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">celebration</i>
+                        <div class="region-text">
+                            <div class="region-label">Festividades</div>
+                            <div class="region-description">Feria de Abril, Semana Santa sevillana, flamenco</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">info</i>
+                        <div class="region-text">
+                            <div class="region-description">La región más poblada de España, conocida por su clima cálido y playas.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cataluña -->
+            <div class="region-card">
+                <div class="region-header">
+                    <div class="region-name">Cataluña</div>
+                    <div class="region-capital">Capital: Barcelona</div>
+                </div>
+                <div class="region-body">
+                    <div class="region-info">
+                        <i class="material-icons region-icon">restaurant</i>
+                        <div class="region-text">
+                            <div class="region-label">Gastronomía</div>
+                            <div class="region-description">Pan con tomate, crema catalana, butifarra</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">celebration</i>
+                        <div class="region-text">
+                            <div class="region-label">Festividades</div>
+                            <div class="region-description">La Diada, Sant Jordi, castells (torres humanas)</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">info</i>
+                        <div class="region-text">
+                            <div class="region-description">Lengua cooficial: catalán. Centro económico y cultural importante.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Madrid -->
+            <div class="region-card">
+                <div class="region-header">
+                    <div class="region-name">Madrid</div>
+                    <div class="region-capital">Capital: Madrid</div>
+                </div>
+                <div class="region-body">
+                    <div class="region-info">
+                        <i class="material-icons region-icon">restaurant</i>
+                        <div class="region-text">
+                            <div class="region-label">Gastronomía</div>
+                            <div class="region-description">Cocido madrileño, bocadillo de calamares, churros</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">celebration</i>
+                        <div class="region-text">
+                            <div class="region-label">Festividades</div>
+                            <div class="region-description">San Isidro, Dos de Mayo, verbenas populares</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">info</i>
+                        <div class="region-text">
+                            <div class="region-description">Capital de España, centro político y cultural del país.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Valencia -->
+            <div class="region-card">
+                <div class="region-header">
+                    <div class="region-name">Valencia</div>
+                    <div class="region-capital">Capital: Valencia</div>
+                </div>
+                <div class="region-body">
+                    <div class="region-info">
+                        <i class="material-icons region-icon">restaurant</i>
+                        <div class="region-text">
+                            <div class="region-label">Gastronomía</div>
+                            <div class="region-description">Paella valenciana, horchata, fartons</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">celebration</i>
+                        <div class="region-text">
+                            <div class="region-label">Festividades</div>
+                            <div class="region-description">Las Fallas, La Tomatina (Buñol)</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">info</i>
+                        <div class="region-text">
+                            <div class="region-description">Lengua cooficial: valenciano. Origen de la paella tradicional.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Galicia -->
+            <div class="region-card">
+                <div class="region-header">
+                    <div class="region-name">Galicia</div>
+                    <div class="region-capital">Capital: Santiago de Compostela</div>
+                </div>
+                <div class="region-body">
+                    <div class="region-info">
+                        <i class="material-icons region-icon">restaurant</i>
+                        <div class="region-text">
+                            <div class="region-label">Gastronomía</div>
+                            <div class="region-description">Pulpo a la gallega, empanada, mariscos</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">celebration</i>
+                        <div class="region-text">
+                            <div class="region-label">Festividades</div>
+                            <div class="region-description">Camino de Santiago, Rapa das Bestas</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">info</i>
+                        <div class="region-text">
+                            <div class="region-description">Lengua cooficial: gallego. Conocida por su paisaje verde y costa atlántica.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- País Vasco -->
+            <div class="region-card">
+                <div class="region-header">
+                    <div class="region-name">País Vasco</div>
+                    <div class="region-capital">Capital: Vitoria-Gasteiz</div>
+                </div>
+                <div class="region-body">
+                    <div class="region-info">
+                        <i class="material-icons region-icon">restaurant</i>
+                        <div class="region-text">
+                            <div class="region-label">Gastronomía</div>
+                            <div class="region-description">Pintxos, bacalao al pil-pil, marmitako</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">celebration</i>
+                        <div class="region-text">
+                            <div class="region-label">Festividades</div>
+                            <div class="region-description">San Fermín (Pamplona), Semana Grande (Bilbao)</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">info</i>
+                        <div class="region-text">
+                            <div class="region-description">Lengua cooficial: euskera. Famosa por su alta gastronomía.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Castilla y León -->
+            <div class="region-card">
+                <div class="region-header">
+                    <div class="region-name">Castilla y León</div>
+                    <div class="region-capital">Capital: Valladolid</div>
+                </div>
+                <div class="region-body">
+                    <div class="region-info">
+                        <i class="material-icons region-icon">restaurant</i>
+                        <div class="region-text">
+                            <div class="region-label">Gastronomía</div>
+                            <div class="region-description">Lechazo asado, morcilla, vino de Ribera del Duero</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">celebration</i>
+                        <div class="region-text">
+                            <div class="region-label">Festividades</div>
+                            <div class="region-description">Semana Santa (Valladolid, Zamora), fiestas medievales</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">info</i>
+                        <div class="region-text">
+                            <div class="region-description">La comunidad más extensa de España, rica en patrimonio histórico.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aragón -->
+            <div class="region-card">
+                <div class="region-header">
+                    <div class="region-name">Aragón</div>
+                    <div class="region-capital">Capital: Zaragoza</div>
+                </div>
+                <div class="region-body">
+                    <div class="region-info">
+                        <i class="material-icons region-icon">restaurant</i>
+                        <div class="region-text">
+                            <div class="region-label">Gastronomía</div>
+                            <div class="region-description">Ternasco, migas, frutas de Aragón</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">celebration</i>
+                        <div class="region-text">
+                            <div class="region-label">Festividades</div>
+                            <div class="region-description">Fiestas del Pilar, Carnaval de Bielsa</div>
+                        </div>
+                    </div>
+                    <div class="region-info">
+                        <i class="material-icons region-icon">info</i>
+                        <div class="region-text">
+                            <div class="region-description">Región montañosa con los Pirineos, importante centro logístico.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="vocabulario.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="opiniones.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>
