@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 · Redes sociales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: #020617; color: #0f172a; }
+        .slide { width: 1280px; min-height: 720px; position: relative; overflow: hidden; background: linear-gradient(145deg, #1d4ed8 0%, #0f172a 40%, #9333ea 100%); padding: 70px 80px 120px; }
+        .board { background: rgba(248, 250, 252, 0.96); border-radius: 28px; padding: 40px; box-shadow: 0 25px 65px rgba(76, 29, 149, 0.45); display: grid; gap: 28px; }
+        h1 { font-size: 38px; color: #312e81; display: flex; align-items: center; gap: 12px; font-weight: 700; }
+        p.lead { font-size: 18px; color: #475569; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; display: grid; gap: 12px; }
+        .card h2 { font-size: 18px; color: #1f2937; display: flex; align-items: center; gap: 8px; }
+        .scenario { font-size: 15px; color: #475569; line-height: 1.45; }
+        .options { display: grid; gap: 8px; }
+        button.choice { border: 1px solid rgba(79, 70, 229, 0.2); background: rgba(129, 140, 248, 0.12); color: #4338ca; border-radius: 12px; padding: 8px 12px; font-size: 15px; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
+        button.choice:hover { transform: translateY(-1px); background: rgba(129, 140, 248, 0.2); }
+        .feedback { min-height: 24px; font-size: 14px; font-weight: 600; }
+        .correct { color: #10b981; }
+        .incorrect { color: #ef4444; }
+        .idea { background: rgba(129, 140, 248, 0.14); border-radius: 16px; padding: 18px; color: #312e81; font-size: 15px; display: flex; gap: 12px; align-items: flex-start; }
+        .navigation { position: fixed; bottom: 20px; left: 20px; display: flex; gap: 12px; z-index: 1000; }
+        .nav-button { background: #38bdf8; color: #0f172a; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-size: 18px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 12px 30px rgba(56, 189, 248, 0.3); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(56, 189, 248, 0.45); }
+        @media (max-width: 992px) { .slide { width: 100%; padding: 30px 24px 130px; } }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <div class="board">
+            <h1><i class="material-icons">share</i> Ejercicio 4 · Redes sociales</h1>
+            <p class="lead">Escoge la expresión que mejor encaja en cada publicación. Piensa en el tono, los emojis y el objetivo de la interacción. Después crea tu propia publicación en voz alta.</p>
+            <div class="cards">
+                <article class="card" data-answer="seguir">
+                    <h2><i class="material-icons">group_add</i> Post 1 · Cuenta de fotografía</h2>
+                    <p class="scenario">Quieres animar a tus compañeros a descubrir una nueva cuenta de Instagram sobre Granada.</p>
+                    <div class="options">
+                        <button class="choice" data-value="compartir">#ComparteTuHistoria</button>
+                        <button class="choice" data-value="seguir">¡Tienes que seguir a @GranadaEnFoco! Sus fotos nocturnas son increíbles.</button>
+                        <button class="choice" data-value="me-gusta">Dejad muchos ❤️ en la última publicación.</button>
+                    </div>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+                <article class="card" data-answer="compartir">
+                    <h2><i class="material-icons">campaign</i> Post 2 · Evento cultural</h2>
+                    <p class="scenario">Vas a publicar una historia sobre una exposición y quieres que tus seguidores la difundan.</p>
+                    <div class="options">
+                        <button class="choice" data-value="seguir">Sígueme para más recomendaciones.</button>
+                        <button class="choice" data-value="compartir">Si te gusta el arte, comparte esta historia y etiqueta a quien quieras llevar.</button>
+                        <button class="choice" data-value="comentario">¿Qué opinas de las obras? Déjame tu comentario.</button>
+                    </div>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+                <article class="card" data-answer="comentario">
+                    <h2><i class="material-icons">mode_comment</i> Post 3 · Debate en red</h2>
+                    <p class="scenario">Abres una conversación sobre el uso responsable de la tecnología en clase.</p>
+                    <div class="options">
+                        <button class="choice" data-value="comentario">Cuéntame en comentarios: ¿cuántas horas pasas con el móvil?</button>
+                        <button class="choice" data-value="me-gusta">Dale like si te gusta la tecnología.</button>
+                        <button class="choice" data-value="seguir">No olvides seguirme para más debates.</button>
+                    </div>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+                <article class="card" data-answer="me-gusta">
+                    <h2><i class="material-icons">favorite</i> Post 4 · Campaña solidaria</h2>
+                    <p class="scenario">Organizas una campaña solidaria y quieres medir apoyo rápidamente.</p>
+                    <div class="options">
+                        <button class="choice" data-value="seguir">Sigue a la ONG @GranadaAyuda para ver su trabajo diario.</button>
+                        <button class="choice" data-value="me-gusta">Si apoyas la causa, deja un “me gusta” y comparte el mensaje.</button>
+                        <button class="choice" data-value="etiquetar">Etiqueta a tres amigos que siempre participan.</button>
+                    </div>
+                    <p class="feedback" aria-live="polite"></p>
+                </article>
+            </div>
+            <div class="idea">
+                <i class="material-icons">tips_and_updates</i>
+                <p>Reto extra: graba un audio de 30 segundos describiendo tu publicación. Usa al menos tres verbos digitales (subir, compartir, seguir, comentar...).</p>
+            </div>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="mensajes.html"><i class="material-icons">arrow_back</i> Anterior</a>
+        <a class="nav-button" href="dictado.html">Siguiente <i class="material-icons">arrow_forward</i></a>
+    </nav>
+
+    <script>
+        document.querySelectorAll('.card').forEach(card => {
+            const feedback = card.querySelector('.feedback');
+            const answer = card.dataset.answer;
+            card.querySelectorAll('.choice').forEach(button => {
+                button.addEventListener('click', () => {
+                    const value = button.dataset.value;
+                    if (value === answer) {
+                        feedback.textContent = '✅ ¡Exacto! Es la llamada a la acción adecuada.';
+                        feedback.className = 'feedback correct';
+                    } else {
+                        feedback.textContent = '❌ Esa expresión no logra el objetivo del post. Revisa qué quieres que haga tu audiencia.';
+                        feedback.className = 'feedback incorrect';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

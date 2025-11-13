@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5 · Dictado digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: #0b1120; color: #f8fafc; }
+        .slide { width: 1280px; min-height: 720px; position: relative; overflow: hidden; background: radial-gradient(circle at 0% 0%, rgba(14, 165, 233, 0.35), transparent 55%), radial-gradient(circle at 100% 0%, rgba(124, 58, 237, 0.35), transparent 55%), #111827; padding: 70px 80px 120px; }
+        .panel { background: rgba(15, 23, 42, 0.88); border-radius: 28px; padding: 40px; box-shadow: 0 25px 65px rgba(15, 23, 42, 0.65); display: grid; gap: 26px; }
+        h1 { font-size: 38px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        p.lead { font-size: 18px; color: #cbd5f5; line-height: 1.5; }
+        .steps { display: grid; gap: 12px; font-size: 15px; color: #e2e8f0; }
+        .exercise { background: rgba(248, 250, 252, 0.08); border-radius: 20px; padding: 24px; border: 1px solid rgba(148, 163, 184, 0.25); display: grid; gap: 14px; }
+        .exercise h2 { font-size: 18px; color: #f8fafc; display: flex; align-items: center; gap: 8px; }
+        label { font-size: 15px; color: #e0f2fe; }
+        input[type="text"] { width: 100%; padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.4); background: rgba(15, 23, 42, 0.8); color: #f8fafc; font-size: 16px; }
+        button.check { background: #22d3ee; color: #0f172a; border: none; padding: 10px 16px; border-radius: 999px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 12px 28px rgba(34, 211, 238, 0.35); }
+        button.check:hover { background: #0ea5e9; }
+        .feedback { min-height: 24px; font-size: 15px; font-weight: 600; }
+        .correct { color: #34d399; }
+        .incorrect { color: #f87171; }
+        .transcript { font-size: 14px; color: #94a3b8; background: rgba(15, 23, 42, 0.7); border-radius: 14px; padding: 14px; display: none; }
+        .navigation { position: fixed; bottom: 20px; left: 20px; display: flex; gap: 12px; z-index: 1000; }
+        .nav-button { background: #38bdf8; color: #0f172a; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-size: 18px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 12px 30px rgba(56, 189, 248, 0.3); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(56, 189, 248, 0.45); }
+        .reveal { background: transparent; border: none; color: #60a5fa; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+        @media (max-width: 992px) { .slide { width: 100%; padding: 30px 24px 130px; } }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <div class="panel">
+            <h1><i class="material-icons">graphic_eq</i> Ejercicio 5 · Dictado digital</h1>
+            <p class="lead">Escucha los audios que comparte el profesor (mensaje de voz 1, 2 y 3). Escribe la palabra o expresión clave que falta en cada transcripción. Luego revisa en grupo si la información coincide.</p>
+            <div class="steps">
+                <span>1️⃣ Reproduce el audio en tu dispositivo.</span>
+                <span>2️⃣ Escribe en el cuadro la palabra que escuchas.</span>
+                <span>3️⃣ Comprueba tu respuesta y comenta con tu compañero.</span>
+            </div>
+            <article class="exercise" data-answer="conectar">
+                <h2><i class="material-icons">wifi</i> Audio 1 · Mensaje del técnico</h2>
+                <label>“Buenos días, para resolver el problema solo tenemos que _____ de nuevo el router.”</label>
+                <input type="text" placeholder="Escribe la palabra" aria-label="Respuesta audio 1">
+                <div>
+                    <button class="check"><i class="material-icons">check_circle</i> Comprobar</button>
+                    <button class="reveal" type="button"><i class="material-icons">visibility</i> Mostrar transcripción</button>
+                </div>
+                <p class="feedback" aria-live="polite"></p>
+                <p class="transcript">Transcripción completa: “Buenos días, para resolver el problema solo tenemos que <strong>conectar</strong> de nuevo el router.”</p>
+            </article>
+            <article class="exercise" data-answer="contraseña">
+                <h2><i class="material-icons">lock</i> Audio 2 · Oficina</h2>
+                <label>“Por seguridad debemos cambiar la _____ cada tres meses.”</label>
+                <input type="text" placeholder="Escribe la palabra" aria-label="Respuesta audio 2">
+                <div>
+                    <button class="check"><i class="material-icons">check_circle</i> Comprobar</button>
+                    <button class="reveal" type="button"><i class="material-icons">visibility</i> Mostrar transcripción</button>
+                </div>
+                <p class="feedback" aria-live="polite"></p>
+                <p class="transcript">Transcripción completa: “Por seguridad debemos cambiar la <strong>contraseña</strong> cada tres meses.”</p>
+            </article>
+            <article class="exercise" data-answer="compartir">
+                <h2><i class="material-icons">share</i> Audio 3 · Redes sociales</h2>
+                <label>“Gracias por _____ la información con tus seguidores, nos ayudas mucho.”</label>
+                <input type="text" placeholder="Escribe la palabra" aria-label="Respuesta audio 3">
+                <div>
+                    <button class="check"><i class="material-icons">check_circle</i> Comprobar</button>
+                    <button class="reveal" type="button"><i class="material-icons">visibility</i> Mostrar transcripción</button>
+                </div>
+                <p class="feedback" aria-live="polite"></p>
+                <p class="transcript">Transcripción completa: “Gracias por <strong>compartir</strong> la información con tus seguidores, nos ayudas mucho.”</p>
+            </article>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="redes.html"><i class="material-icons">arrow_back</i> Anterior</a>
+        <a class="nav-button" href="tareas.html">Siguiente <i class="material-icons">arrow_forward</i></a>
+    </nav>
+
+    <script>
+        document.querySelectorAll('.exercise').forEach(exercise => {
+            const input = exercise.querySelector('input');
+            const feedback = exercise.querySelector('.feedback');
+            const transcript = exercise.querySelector('.transcript');
+            const answer = exercise.dataset.answer;
+            exercise.querySelector('.check').addEventListener('click', () => {
+                const value = input.value.trim().toLowerCase();
+                if (!value) {
+                    feedback.textContent = 'Escribe tu respuesta antes de comprobar.';
+                    feedback.className = 'feedback incorrect';
+                    return;
+                }
+                if (value === answer) {
+                    feedback.textContent = '✅ ¡Correcto! Coincide con el audio.';
+                    feedback.className = 'feedback correct';
+                } else {
+                    feedback.textContent = '❌ Escucha otra vez y revisa la pronunciación.';
+                    feedback.className = 'feedback incorrect';
+                }
+            });
+            exercise.querySelector('.reveal').addEventListener('click', () => {
+                transcript.style.display = transcript.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>
