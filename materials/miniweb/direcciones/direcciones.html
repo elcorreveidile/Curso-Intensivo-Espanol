@@ -125,6 +125,34 @@
             height: 100%;
             object-fit: cover;
         }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background-color: #c82333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background-color: #a01d28;
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -253,6 +281,16 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="navigation">
+        <a href="objetivos.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="vocabulario.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
     </div>
 </body>
 </html>
