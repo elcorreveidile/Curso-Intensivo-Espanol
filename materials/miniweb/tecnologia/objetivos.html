@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetivos y agenda - Sesión 16</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: #0f172a; color: #0f172a; }
+        .slide { width: 1280px; height: 720px; position: relative; overflow: hidden; background: linear-gradient(140deg, #f8fafc 0%, #dbeafe 40%, #bfdbfe 100%); }
+        .content { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 70px 80px; height: 100%; }
+        .card { background: rgba(255, 255, 255, 0.88); border-radius: 26px; padding: 32px; box-shadow: 0 25px 60px rgba(15, 23, 42, 0.18); display: flex; flex-direction: column; gap: 24px; }
+        h1 { font-size: 48px; color: #1e3a8a; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        h2 { font-size: 24px; color: #1d4ed8; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(37, 99, 235, 0.12); border-radius: 999px; color: #1d4ed8; font-weight: 600; }
+        .list { display: grid; gap: 12px; }
+        .list-item { display: flex; align-items: flex-start; gap: 12px; font-size: 18px; color: #1f2937; line-height: 1.45; }
+        .list-item i { color: #2563eb; font-size: 22px; margin-top: 2px; }
+        .timeline { display: grid; gap: 16px; }
+        .timeline-card { border-left: 4px solid #2563eb; padding-left: 18px; padding-right: 12px; display: grid; gap: 6px; }
+        .timeline-card strong { font-size: 19px; color: #1f2937; }
+        .timeline-card span { font-size: 16px; color: #475569; }
+        .navigation { position: fixed; bottom: 20px; left: 20px; display: flex; gap: 12px; z-index: 1000; }
+        .nav-button { background: #2563eb; color: white; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-size: 18px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(37, 99, 235, 0.45); }
+        @media (max-width: 768px) {
+            .slide { width: 100%; min-height: 100vh; }
+            .content { grid-template-columns: 1fr; padding: 30px 22px 130px; }
+            h1 { font-size: 34px; }
+            .list-item { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <div class="content">
+            <article class="card">
+                <h1><i class="material-icons">map</i> Agenda de la sesión</h1>
+                <span class="badge"><i class="material-icons">event</i> 19 de noviembre de 2025 · 120 minutos</span>
+                <div class="timeline">
+                    <div class="timeline-card">
+                        <strong>Inicio tecnológico (10')</strong>
+                        <span>Brainstorming de dispositivos y hábitos digitales.</span>
+                    </div>
+                    <div class="timeline-card">
+                        <strong>Vocabulario guiado (20')</strong>
+                        <span>Clasificación y pronunciación de términos clave.</span>
+                    </div>
+                    <div class="timeline-card">
+                        <strong>Prácticas comunicativas (75')</strong>
+                        <span>Llamadas, servicio técnico, mensajes y redes sociales.</span>
+                    </div>
+                    <div class="timeline-card">
+                        <strong>Cierre activo (15')</strong>
+                        <span>Dictado digital + planificación de tareas.</span>
+                    </div>
+                </div>
+            </article>
+            <article class="card">
+                <h2><i class="material-icons">flag</i> Objetivos específicos</h2>
+                <div class="list">
+                    <div class="list-item"><i class="material-icons">translate</i><span>Identificar vocabulario tecnológico y expresarlo en contextos cotidianos.</span></div>
+                    <div class="list-item"><i class="material-icons">support_agent</i><span>Interactuar en llamadas telefónicas siguiendo protocolos formales e informales.</span></div>
+                    <div class="list-item"><i class="material-icons">mark_email_read</i><span>Seleccionar estructuras apropiadas para emails y mensajes en diferentes registros.</span></div>
+                    <div class="list-item"><i class="material-icons">campaign</i><span>Usar expresiones digitales en situaciones reales de redes sociales.</span></div>
+                    <div class="list-item"><i class="material-icons">record_voice_over</i><span>Entrenar la comprensión auditiva mediante dictados de voz.</span></div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="index.html"><i class="material-icons">arrow_back</i> Anterior</a>
+        <a class="nav-button" href="vocabulario.html">Siguiente <i class="material-icons">arrow_forward</i></a>
+    </nav>
+</body>
+</html>
