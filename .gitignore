@@ -17,3 +17,59 @@ node_modules/
 
 # Archivos generados automáticamente
 materials/generated/
+
+# ========================================
+# BACKEND & DATABASE
+# ========================================
+
+# Environment variables - NUNCA COMMITEAR
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# MongoDB data exports
+*.json.backup
+attendance_export.json
+users_export.json
+
+# Database backups
+backup/
+*.dump
+*.bson
+
+# Credentials & Secrets
+credentials.json
+secrets.json
+*.pem
+*.key
+*.crt
+
+# User database files (old system)
+users_database.json
+progress_database.json
