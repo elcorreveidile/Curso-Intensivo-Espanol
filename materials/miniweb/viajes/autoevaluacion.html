@@ -603,7 +603,7 @@
                     <button class="play-button" onclick="playAudio()">
                         <i class="material-icons">play_arrow</i>
                     </button>
-                    <span>▶️ Simular audio (en clase real, tu profesor/a leería esto)</span>
+                    <span>🎧 Escucha esta conversación (presiona para reproducir)</span>
                 </div>
 
                 <div class="question">
@@ -1022,20 +1022,61 @@
             }
         }
 
+        // Variable global para mantener el audio actual
+        let currentAudio = null;
+
         function playAudio() {
-            // Simular reproducción de audio
             const button = event.target.closest('.play-button');
             const icon = button.querySelector('i');
 
             if (icon.textContent === 'play_arrow') {
+                // Detener cualquier audio que esté reproduciéndose
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                }
+
                 icon.textContent = 'stop';
                 button.style.background = '#f44336';
-                // En una clase real, aquí reproduciríamos el audio
 
-                setTimeout(() => {
+                // Crear y reproducir audio real
+                currentAudio = new Audio('Embarque.m4a');
+
+                // Configurar volumen
+                currentAudio.volume = 0.8;
+
+                currentAudio.play().catch(e => {
+                    console.error('Error al reproducir el audio:', e);
+                    alert('No se pudo reproducir el archivo de audio. Verifica que Embarque.m4a esté en la carpeta y que tu navegador soporte este formato.');
                     icon.textContent = 'play_arrow';
                     button.style.background = '#FF9800';
-                }, 3000);
+                });
+
+                // Cuando termine el audio, volver al estado inicial
+                currentAudio.addEventListener('ended', () => {
+                    icon.textContent = 'play_arrow';
+                    button.style.background = '#FF9800';
+                    currentAudio = null;
+                });
+
+                // Manejar errores de carga
+                currentAudio.addEventListener('error', (e) => {
+                    console.error('Error al cargar el audio:', e);
+                    alert('No se pudo cargar el archivo de audio. Verifica que Embarque.m4a esté en la carpeta.');
+                    icon.textContent = 'play_arrow';
+                    button.style.background = '#FF9800';
+                    currentAudio = null;
+                });
+            } else {
+                // Detener el audio actual
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                    currentAudio = null;
+                }
+
+                icon.textContent = 'play_arrow';
+                button.style.background = '#FF9800';
             }
         }
 
