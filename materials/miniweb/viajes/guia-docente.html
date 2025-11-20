@@ -810,6 +810,34 @@
         </div>
     </div>
 
+    <!-- Navegación para la profesora -->
+    <div class="teacher-navigation" style="position: fixed; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 100;">
+        <a href="index.html" target="_blank" style="background: #4CAF50; color: white; text-decoration: none; padding: 10px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2); transition: all 0.3s ease; display: flex; align-items: center; gap: 5px;">
+            <i class="material-icons" style="font-size: 16px;">home</i>
+            Presentación
+        </a>
+        <a href="fichas-situaciones.html" target="_blank" style="background: #2196F3; color: white; text-decoration: none; padding: 10px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; box-shadow: 0 4px 10px rgba(33, 150, 243, 0.2); transition: all 0.3s ease; display: flex; align-items: center; gap: 5px;">
+            <i class="material-icons" style="font-size: 16px;">description</i>
+            Fichas
+        </a>
+        <a href="tarjetas-reserva.html" target="_blank" style="background: #FF9800; color: white; text-decoration: none; padding: 10px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; box-shadow: 0 4px 10px rgba(255, 152, 0, 0.2); transition: all 0.3s ease; display: flex; align-items: center; gap: 5px;">
+            <i class="material-icons" style="font-size: 16px;">card_giftcard</i>
+            Tarjetas
+        </a>
+    </div>
+
+    <!-- Botones de acción inferior -->
+    <div class="action-buttons" style="position: fixed; bottom: 20px; left: 20px; right: 20px; display: flex; justify-content: center; gap: 15px; z-index: 100;">
+        <button onclick="window.print()" style="background: #9C27B0; color: white; border: none; padding: 12px 24px; border-radius: 25px; font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(156, 39, 176, 0.2); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;">
+            <i class="material-icons" style="font-size: 18px;">print</i>
+            Imprimir Guía
+        </button>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background: #607D8B; color: white; border: none; padding: 12px 24px; border-radius: 25px; font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(96, 125, 139, 0.2); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;">
+            <i class="material-icons" style="font-size: 18px;">keyboard_arrow_up</i>
+            Subir
+        </button>
+    </div>
+
     <script>
         // Para imprimir automáticamente (opcional)
         window.onload = function() {
