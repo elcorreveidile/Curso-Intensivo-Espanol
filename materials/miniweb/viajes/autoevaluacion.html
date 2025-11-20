@@ -512,6 +512,18 @@
                 2. Arrastra las Palabras Correctas
             </h2>
 
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #2196F3;">
+                <h4 style="color: #1976D2; margin-bottom: 10px;">
+                    <i class="material-icons">touch_app</i>
+                    Cómo usar en móvil:
+                </h4>
+                <ul style="color: #1976D2; margin-left: 20px; line-height: 1.6;">
+                    <li><strong>Opción 1:</strong> Mantén presionada una palabra y arrástrala con el dedo</li>
+                    <li><strong>Opción 2:</strong> Toca una palabra (se iluminará) y luego toca la zona donde quieres ponerla</li>
+                    <li><strong>Para cambiar:</strong> Toca otra palabra diferente y luego la zona correcta</li>
+                </ul>
+            </div>
+
             <div class="drag-drop-container">
                 <div class="words-bank">
                     <h4>📝 Banco de Palabras:</h4>
@@ -816,18 +828,98 @@
         function initDragAndDrop() {
             const draggables = document.querySelectorAll('.draggable-word');
             const dropZones = document.querySelectorAll('.drop-zone');
+            let selectedWord = null;
+            let selectedElement = null;
 
+            // Detectar si es móvil
+            const isMobile = 'ontouchstart' in window;
+
+            // Función para manejar el inicio del arrastre
+            function handleDragStart(element, word) {
+                selectedWord = word;
+                selectedElement = element;
+                element.style.opacity = '0.5';
+                element.style.transform = 'scale(1.1)';
+                element.style.zIndex = '1000';
+            }
+
+            // Función para manejar el fin del arrastre
+            function handleDragEnd(element) {
+                element.style.opacity = '';
+                element.style.transform = '';
+                element.style.zIndex = '';
+                selectedWord = null;
+                selectedElement = null;
+            }
+
+            // Configurar draggables para desktop
             draggables.forEach(draggable => {
+                // Eventos de desktop
                 draggable.addEventListener('dragstart', (e) => {
                     e.dataTransfer.setData('text', e.target.dataset.word);
-                    e.target.style.opacity = '0.5';
+                    handleDragStart(e.target, e.target.dataset.word);
                 });
 
                 draggable.addEventListener('dragend', (e) => {
-                    e.target.style.opacity = '';
+                    handleDragEnd(e.target);
+                });
+
+                // Eventos táctiles para móvil
+                draggable.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    const word = draggable.dataset.word;
+
+                    handleDragStart(draggable, word);
+
+                    // Crear un clon que sigue el dedo
+                    const clone = draggable.cloneNode(true);
+                    clone.style.position = 'fixed';
+                    clone.style.left = touch.clientX - 25 + 'px';
+                    clone.style.top = touch.clientY - 15 + 'px';
+                    clone.style.zIndex = '1000';
+                    clone.style.pointerEvents = 'none';
+                    clone.id = 'mobile-drag-clone';
+                    document.body.appendChild(clone);
+
+                    // Seguir el movimiento del dedo
+                    const moveHandler = (e) => {
+                        const touch = e.touches[0];
+                        const clone = document.getElementById('mobile-drag-clone');
+                        if (clone) {
+                            clone.style.left = touch.clientX - 25 + 'px';
+                            clone.style.top = touch.clientY - 15 + 'px';
+                        }
+                    };
+
+                    const endHandler = (e) => {
+                        const touch = e.changedTouches[0];
+                        const clone = document.getElementById('mobile-drag-clone');
+
+                        // Encontrar la zona debajo del dedo
+                        const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                        const dropZone = elementBelow?.closest('.drop-zone');
+
+                        if (dropZone && selectedWord) {
+                            handleDrop(dropZone, selectedWord);
+                        }
+
+                        if (clone) {
+                            clone.remove();
+                        }
+
+                        handleDragEnd(draggable);
+
+                        document.removeEventListener('touchmove', moveHandler);
+                        document.removeEventListener('touchend', endHandler);
+                    };
+
+                    document.addEventListener('touchmove', moveHandler, { passive: false });
+                    document.addEventListener('touchend', endHandler);
                 });
             });
 
+            // Configurar drop zones para desktop
             dropZones.forEach(zone => {
                 zone.addEventListener('dragover', (e) => {
                     e.preventDefault();
@@ -843,27 +935,91 @@
                     zone.classList.remove('drag-over');
 
                     const word = e.dataTransfer.getData('text');
-                    const correctAnswer = zone.dataset.answer;
-
-                    // Limpiar zona anterior
-                    zone.innerHTML = `<span class="draggable-word">${word}</span>`;
-                    zone.classList.add('has-word');
-
-                    if (word === correctAnswer) {
-                        zone.style.borderColor = '#4CAF50';
-                        zone.style.background = '#e8f5e8';
-
-                        // Actualizar puntuación
-                        if (!zone.dataset.scored) {
-                            scores.section2.correct++;
-                            zone.dataset.scored = 'true';
-                        }
-                    } else {
-                        zone.style.borderColor = '#f44336';
-                        zone.style.background = '#ffeaea';
+                    if (word) {
+                        handleDrop(zone, word);
                     }
                 });
+
+                // Para móvil: resaltar al pasar sobre la zona
+                if (isMobile) {
+                    zone.addEventListener('touchenter', () => {
+                        zone.classList.add('drag-over');
+                    });
+
+                    zone.addEventListener('touchleave', () => {
+                        zone.classList.remove('drag-over');
+                    });
+                }
             });
+
+            // Función para manejar el drop
+            function handleDrop(zone, word) {
+                zone.classList.remove('drag-over');
+
+                const correctAnswer = zone.dataset.answer;
+
+                // Limpiar zona anterior
+                zone.innerHTML = `<span class="draggable-word">${word}</span>`;
+                zone.classList.add('has-word');
+
+                if (word === correctAnswer) {
+                    zone.style.borderColor = '#4CAF50';
+                    zone.style.background = '#e8f5e8';
+
+                    // Actualizar puntuación
+                    if (!zone.dataset.scored) {
+                        scores.section2.correct++;
+                        zone.dataset.scored = 'true';
+                    }
+                } else {
+                    zone.style.borderColor = '#f44336';
+                    zone.style.background = '#ffeaea';
+                }
+            }
+
+            // Para móvil: permitir hacer click en una palabra y luego en una zona
+            if (isMobile) {
+                let wordToPlace = null;
+                let wordElement = null;
+
+                draggables.forEach(draggable => {
+                    draggable.addEventListener('click', (e) => {
+                        // Limpiar selección anterior
+                        draggables.forEach(d => {
+                            d.style.border = 'none';
+                            d.style.background = '#c82333';
+                        });
+
+                        if (wordToPlace === draggable.dataset.word) {
+                            // Deseleccionar si se hace click de nuevo
+                            wordToPlace = null;
+                            wordElement = null;
+                        } else {
+                            // Seleccionar nueva palabra
+                            wordToPlace = draggable.dataset.word;
+                            wordElement = draggable;
+                            draggable.style.border = '3px solid white';
+                            draggable.style.background = '#a71d2a';
+                        }
+                    });
+                });
+
+                dropZones.forEach(zone => {
+                    zone.addEventListener('click', () => {
+                        if (wordToPlace) {
+                            handleDrop(zone, wordToPlace);
+
+                            // Limpiar selección
+                            if (wordElement) {
+                                wordElement.style.border = 'none';
+                                wordElement.style.background = '#c82333';
+                            }
+                            wordToPlace = null;
+                            wordElement = null;
+                        }
+                    });
+                });
+            }
         }
 
         function playAudio() {
