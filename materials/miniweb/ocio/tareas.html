@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas - Ocio y aficiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .overlay {
+            min-height: 720px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px 70px;
+            padding-bottom: 100px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .homework-section {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-left: 6px solid #667eea;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .task-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .task-number i {
+            font-size: 36px;
+        }
+        .task-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .task-description {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .task-details {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .detail-item {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .detail-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .exercise-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .exercise-item {
+            background: white;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 17px;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .exercise-number {
+            font-weight: 700;
+            color: #667eea;
+            margin-right: 8px;
+        }
+        .deadline-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        .deadline-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #856404;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                min-height: auto;
+                padding: 20px;
+                padding-bottom: 80px;
+            }
+            .title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            .homework-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            .task-number {
+                font-size: 22px;
+            }
+            .task-number i {
+                font-size: 26px;
+            }
+            .task-title {
+                font-size: 18px;
+            }
+            .task-description {
+                font-size: 15px;
+            }
+            .task-details {
+                padding: 12px;
+            }
+            .detail-item {
+                font-size: 15px;
+            }
+            .exercise-item {
+                font-size: 15px;
+                padding: 10px 12px;
+            }
+            .deadline-text {
+                font-size: 16px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="title">Tareas para casa</h1>
+
+            <div class="homework-section">
+                <div class="task-number">
+                    <i class="material-icons">edit_note</i>
+                    Tarea 1
+                </div>
+                <div class="task-title">Escribir sobre tus aficiones</div>
+                <div class="task-description">
+                    Escribe un texto de aproximadamente 150 palabras sobre tus aficiones y pasatiempos favoritos.
+                </div>
+                <div class="task-details">
+                    <div class="detail-item">Describe al menos 3 actividades diferentes que te gustan</div>
+                    <div class="detail-item">Explica por qué te gustan estas actividades</div>
+                    <div class="detail-item">Menciona con qué frecuencia las practicas</div>
+                    <div class="detail-item">Usa los verbos irregulares: poder, querer, preferir</div>
+                    <div class="detail-item">Mínimo 150 palabras, máximo 200 palabras</div>
+                </div>
+            </div>
+
+            <div class="homework-section">
+                <div class="task-number">
+                    <i class="material-icons">weekend</i>
+                    Tarea 2
+                </div>
+                <div class="task-title">Describir tu fin de semana ideal</div>
+                <div class="task-description">
+                    Describe cómo sería tu fin de semana perfecto. ¿Qué actividades harías? ¿Con quién? ¿Dónde?
+                </div>
+                <div class="task-details">
+                    <div class="detail-item">Planifica actividades para el sábado y el domingo</div>
+                    <div class="detail-item">Incluye diferentes tipos de actividades (deportes, ocio, cultura)</div>
+                    <div class="detail-item">Usa expresiones de tiempo: por la mañana, por la tarde, por la noche</div>
+                    <div class="detail-item">Practica los verbos de preferencia y habilidad</div>
+                    <div class="detail-item">Escribe entre 100-150 palabras</div>
+                </div>
+            </div>
+
+            <div class="homework-section">
+                <div class="task-number">
+                    <i class="material-icons">school</i>
+                    Tarea 3
+                </div>
+                <div class="task-title">Practicar verbos irregulares</div>
+                <div class="task-description">
+                    Completa los siguientes ejercicios de conjugación y crea oraciones originales.
+                </div>
+                <ul class="exercise-list">
+                    <li class="exercise-item">
+                        <span class="exercise-number">A)</span>
+                        Conjuga los verbos PODER, QUERER y PREFERIR en todas las personas
+                    </li>
+                    <li class="exercise-item">
+                        <span class="exercise-number">B)</span>
+                        Escribe 3 frases con cada verbo usando diferentes personas gramaticales
+                    </li>
+                    <li class="exercise-item">
+                        <span class="exercise-number">C)</span>
+                        Crea un pequeño diálogo (6-8 líneas) usando los tres verbos irregulares
+                    </li>
+                    <li class="exercise-item">
+                        <span class="exercise-number">D)</span>
+                        Traduce al español: "I can swim, but I prefer to run. My sister wants to play tennis."
+                    </li>
+                </ul>
+            </div>
+
+            <div class="deadline-box">
+                <div class="deadline-text">
+                    📅 Fecha de entrega: Antes de la próxima clase | Enviar a: benitezl@go.ugr.es
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="cultura.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="conclusion.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

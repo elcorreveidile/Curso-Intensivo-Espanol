@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica Interactiva - Ocio y aficiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .overlay {
+            min-height: 720px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px 70px;
+            padding-bottom: 100px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .practice-section {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-left: 6px solid #667eea;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            font-size: 32px;
+        }
+        .quiz-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .quiz-question {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .quiz-option {
+            background: #f0f0f0;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 16px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .quiz-option:hover {
+            border-color: #667eea;
+            background: #e8eaff;
+        }
+        .verb-practice {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .verb-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .verb-infinitive {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .conjugation-practice {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .blank-line {
+            display: inline-block;
+            width: 80px;
+            border-bottom: 2px solid #667eea;
+            margin: 0 5px;
+        }
+        .matching-game {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .match-column {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .match-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .match-item {
+            background: #f0f0f0;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .match-item:hover {
+            background: #e8eaff;
+            transform: translateX(5px);
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                min-height: auto;
+                padding: 20px;
+                padding-bottom: 80px;
+            }
+            .title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            .practice-section {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            .section-title {
+                font-size: 20px;
+            }
+            .section-title i {
+                font-size: 24px;
+            }
+            .quiz-question {
+                font-size: 16px;
+            }
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            .quiz-option {
+                font-size: 14px;
+            }
+            .verb-practice {
+                grid-template-columns: 1fr;
+            }
+            .verb-infinitive {
+                font-size: 18px;
+            }
+            .conjugation-practice {
+                font-size: 14px;
+            }
+            .matching-game {
+                grid-template-columns: 1fr;
+            }
+            .match-item {
+                font-size: 14px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="title">Práctica Interactiva</h1>
+
+            <div class="practice-section">
+                <h2 class="section-title">
+                    <i class="material-icons">quiz</i>
+                    Quiz de vocabulario
+                </h2>
+                <div class="quiz-item">
+                    <div class="quiz-question">1. ¿Qué actividad haces con un libro?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">a) Bailar</div>
+                        <div class="quiz-option">b) Leer</div>
+                        <div class="quiz-option">c) Correr</div>
+                        <div class="quiz-option">d) Cantar</div>
+                    </div>
+                </div>
+                <div class="quiz-item">
+                    <div class="quiz-question">2. ¿Qué deporte se juega con una pelota redonda?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">a) Tenis</div>
+                        <div class="quiz-option">b) Yoga</div>
+                        <div class="quiz-option">c) Fútbol</div>
+                        <div class="quiz-option">d) Natación</div>
+                    </div>
+                </div>
+                <div class="quiz-item">
+                    <div class="quiz-question">3. ¿Qué actividad requiere agua?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">a) Baloncesto</div>
+                        <div class="quiz-option">b) Natación</div>
+                        <div class="quiz-option">c) Ver películas</div>
+                        <div class="quiz-option">d) Viajar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h2 class="section-title">
+                    <i class="material-icons">edit</i>
+                    Práctica de conjugación
+                </h2>
+                <div class="verb-practice">
+                    <div class="verb-box">
+                        <div class="verb-infinitive">PODER</div>
+                        <div class="conjugation-practice">Yo <span class="blank-line"></span></div>
+                        <div class="conjugation-practice">Tú <span class="blank-line"></span></div>
+                        <div class="conjugation-practice">Él <span class="blank-line"></span></div>
+                    </div>
+                    <div class="verb-box">
+                        <div class="verb-infinitive">QUERER</div>
+                        <div class="conjugation-practice">Nosotros <span class="blank-line"></span></div>
+                        <div class="conjugation-practice">Vosotros <span class="blank-line"></span></div>
+                        <div class="conjugation-practice">Ellos <span class="blank-line"></span></div>
+                    </div>
+                    <div class="verb-box">
+                        <div class="verb-infinitive">PREFERIR</div>
+                        <div class="conjugation-practice">Yo <span class="blank-line"></span></div>
+                        <div class="conjugation-practice">Ella <span class="blank-line"></span></div>
+                        <div class="conjugation-practice">Nosotros <span class="blank-line"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h2 class="section-title">
+                    <i class="material-icons">shuffle</i>
+                    Relaciona actividades con preferencias
+                </h2>
+                <div class="matching-game">
+                    <div class="match-column">
+                        <div class="match-title">Actividades</div>
+                        <div class="match-item">1. Leer novelas</div>
+                        <div class="match-item">2. Jugar al fútbol</div>
+                        <div class="match-item">3. Escuchar música clásica</div>
+                        <div class="match-item">4. Ver películas de acción</div>
+                        <div class="match-item">5. Practicar yoga</div>
+                    </div>
+                    <div class="match-column">
+                        <div class="match-title">Preferencias</div>
+                        <div class="match-item">A. Me gusta la relajación</div>
+                        <div class="match-item">B. Prefiero los deportes de equipo</div>
+                        <div class="match-item">C. Me encanta la literatura</div>
+                        <div class="match-item">D. Quiero emociones fuertes</div>
+                        <div class="match-item">E. Puedo tocar instrumentos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="actividades.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="dialogos.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

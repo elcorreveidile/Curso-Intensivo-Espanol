@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas - Sesión 9</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 70px;
+            overflow-y: auto;
+        }
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .page-subtitle {
+            font-size: 20px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .task-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 6px solid #ff6b6b;
+        }
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .task-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        .task-title-section {
+            flex: 1;
+        }
+        .task-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+        .task-icon {
+            font-size: 40px;
+            color: #f7931e;
+        }
+        .task-description {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .task-requirements {
+            background: linear-gradient(135deg, #feca57 0%, #ffb347 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .task-requirements h4 {
+            font-size: 18px;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        .task-requirements ul {
+            margin-left: 25px;
+        }
+        .task-requirements li {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .submission-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 5px solid #f7931e;
+        }
+        .submission-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f7931e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .submission-title i {
+            font-size: 30px;
+        }
+        .submission-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .info-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+        }
+        .info-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+        }
+        .info-text {
+            font-size: 16px;
+            color: #555;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                position: static;
+                padding: 20px;
+            }
+            .page-title {
+                font-size: 28px;
+            }
+            .page-subtitle {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            .task-card {
+                padding: 20px;
+            }
+            .task-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .task-number {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            .task-title {
+                font-size: 22px;
+            }
+            .task-icon {
+                font-size: 32px;
+            }
+            .task-description {
+                font-size: 16px;
+            }
+            .task-requirements li {
+                font-size: 14px;
+            }
+            .submission-section {
+                padding: 20px;
+            }
+            .submission-title {
+                font-size: 20px;
+            }
+            .submission-info {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="page-title">Tareas para Casa</h1>
+            <p class="page-subtitle">Para la próxima sesión</p>
+
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-number">1</div>
+                    <div class="task-title-section">
+                        <h2 class="task-title">Traer fotos personales</h2>
+                    </div>
+                    <i class="material-icons task-icon">photo_library</i>
+                </div>
+                <p class="task-description">
+                    Trae 5 fotos personales de lugares que visitaste o experiencias especiales.
+                    Prepárate para presentarlas y describirlas en clase usando el vocabulario aprendido.
+                </p>
+                <div class="task-requirements">
+                    <h4>Requisitos:</h4>
+                    <ul>
+                        <li>5 fotos impresas o en formato digital</li>
+                        <li>Fotos de diferentes lugares o momentos</li>
+                        <li>Prepara una breve descripción de cada foto</li>
+                        <li>Practica usar el pretérito y conectores temporales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-number">2</div>
+                    <div class="task-title-section">
+                        <h2 class="task-title">Escribir sobre un viaje memorable</h2>
+                    </div>
+                    <i class="material-icons task-icon">edit_note</i>
+                </div>
+                <p class="task-description">
+                    Escribe una composición de 200 palabras sobre un viaje memorable que hiciste.
+                    Describe los lugares que visitaste, qué hiciste, y por qué fue especial.
+                </p>
+                <div class="task-requirements">
+                    <h4>Incluir en tu composición:</h4>
+                    <ul>
+                        <li>Mínimo 200 palabras</li>
+                        <li>Usar el pretérito perfecto simple correctamente</li>
+                        <li>Incluir conectores temporales (primero, después, luego, finalmente)</li>
+                        <li>Usar vocabulario descriptivo aprendido en clase</li>
+                        <li>Describir al menos 3 lugares específicos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-number">3</div>
+                    <div class="task-title-section">
+                        <h2 class="task-title">Practicar conjugaciones</h2>
+                    </div>
+                    <i class="material-icons task-icon">quiz</i>
+                </div>
+                <p class="task-description">
+                    Completa los ejercicios de práctica del pretérito perfecto simple.
+                    Practica con los verbos regulares (-ar, -er, -ir) y revisa los irregulares comunes.
+                </p>
+                <div class="task-requirements">
+                    <h4>Ejercicios recomendados:</h4>
+                    <ul>
+                        <li>Conjugar 10 verbos regulares en todas las personas</li>
+                        <li>Escribir 5 frases originales usando el pretérito</li>
+                        <li>Repasar verbos irregulares: ir, ser, hacer, tener, ver</li>
+                        <li>Usar recursos online para práctica adicional</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="submission-section">
+                <h3 class="submission-title">
+                    <i class="material-icons">send</i>
+                    Información de entrega
+                </h3>
+                <div class="submission-info">
+                    <div class="info-box">
+                        <div class="info-label">Fecha de entrega:</div>
+                        <div class="info-text">Próxima sesión: 19 de noviembre de 2025</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Método de entrega:</div>
+                        <div class="info-text">En clase o por email a benitezl@go.ugr.es</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Formato:</div>
+                        <div class="info-text">Documento Word/PDF para la composición</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Consultas:</div>
+                        <div class="info-text">Tutorías: martes y jueves 12:30-13:30</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="cultura.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="conclusion.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

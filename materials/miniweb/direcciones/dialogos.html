@@ -189,31 +189,6 @@
             color: #666;
             font-style: italic;
         }
-        .play-btn {
-            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(33, 147, 176, 0.3);
-            margin: 0 auto;
-        }
-        .play-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(33, 147, 176, 0.4);
-        }
-        .play-btn:active {
-            transform: scale(0.95);
-        }
-        .play-btn i {
-            font-size: 28px;
-        }
         .practice-section {
             background: linear-gradient(135deg, #fff5f7 0%, #ffe6eb 100%);
             padding: 25px;
@@ -434,10 +409,6 @@
                     </div>
                 </div>
 
-                <button class="play-btn" onclick="playDialogue(1)" title="Reproducir diálogo">
-                    <i class="material-icons">play_arrow</i>
-                </button>
-
                 <div class="vocab-highlight">
                     <div class="vocab-title">
                         <i class="material-icons">auto_stories</i>
@@ -544,10 +515,6 @@
                     </div>
                 </div>
 
-                <button class="play-btn" onclick="playDialogue(2)" title="Reproducir diálogo">
-                    <i class="material-icons">play_arrow</i>
-                </button>
-
                 <div class="vocab-highlight">
                     <div class="vocab-title">
                         <i class="material-icons">auto_stories</i>
@@ -601,48 +568,5 @@
         </a>
     </div>
 
-    <script>
-        function playDialogue(num) {
-            const btn = event.target.closest('.play-btn');
-            const icon = btn.querySelector('i');
-            const messages = btn.closest('.dialogue-container').querySelectorAll('.message');
-
-            // Change icon to pause
-            icon.textContent = 'pause';
-            btn.disabled = true;
-
-            // Animate messages sequentially
-            messages.forEach((msg, index) => {
-                setTimeout(() => {
-                    msg.style.animation = 'none';
-                    setTimeout(() => {
-                        msg.style.animation = 'slideInMessage 0.4s ease-out';
-                    }, 10);
-
-                    // Play a subtle sound effect (simulated with visual feedback)
-                    msg.style.transform = 'scale(1.02)';
-                    setTimeout(() => {
-                        msg.style.transform = 'scale(1)';
-                    }, 200);
-                }, index * 800);
-            });
-
-            // Reset button after animation
-            setTimeout(() => {
-                icon.textContent = 'play_arrow';
-                btn.disabled = false;
-            }, messages.length * 800 + 500);
-        }
-
-        // Add hover effect to messages
-        document.querySelectorAll('.message').forEach(msg => {
-            msg.addEventListener('mouseenter', function() {
-                this.querySelector('.bubble').style.transform = 'scale(1.02)';
-            });
-            msg.addEventListener('mouseleave', function() {
-                this.querySelector('.bubble').style.transform = 'scale(1)';
-            });
-        });
-    </script>
 </body>
 </html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultura Española - Sesión 9</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 70px;
+            overflow-y: auto;
+        }
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .page-subtitle {
+            font-size: 20px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .landmarks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .landmark-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 5px solid #ff6b6b;
+            transition: all 0.3s;
+        }
+        .landmark-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .landmark-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .landmark-icon {
+            font-size: 40px;
+            color: #f7931e;
+        }
+        .landmark-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ff6b6b;
+            flex: 1;
+        }
+        .landmark-location {
+            font-size: 16px;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        .landmark-description {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .landmark-highlight {
+            background: linear-gradient(135deg, #feca57 0%, #ffb347 100%);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+        .comparison-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #f7931e;
+        }
+        .comparison-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .comparison-title i {
+            font-size: 30px;
+            color: #f7931e;
+        }
+        .comparison-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .comparison-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #f7931e;
+        }
+        .comparison-country {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+        }
+        .comparison-place {
+            font-size: 16px;
+            color: #555;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                position: static;
+                padding: 20px;
+            }
+            .page-title {
+                font-size: 28px;
+            }
+            .page-subtitle {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            .landmarks-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .landmark-card {
+                padding: 20px;
+            }
+            .landmark-icon {
+                font-size: 32px;
+            }
+            .landmark-name {
+                font-size: 20px;
+            }
+            .landmark-description {
+                font-size: 15px;
+            }
+            .comparison-section {
+                padding: 20px;
+            }
+            .comparison-title {
+                font-size: 20px;
+            }
+            .comparison-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="page-title">Lugares Emblemáticos de España</h1>
+            <p class="page-subtitle">Descubre los mejores lugares para fotografiar</p>
+
+            <div class="landmarks-grid">
+                <div class="landmark-card">
+                    <div class="landmark-header">
+                        <i class="material-icons landmark-icon">mosque</i>
+                        <h2 class="landmark-name">La Alhambra</h2>
+                    </div>
+                    <p class="landmark-location">Granada, Andalucía</p>
+                    <p class="landmark-description">
+                        Es un palacio antiguo y bonito de la época musulmana. Tiene jardines increíbles
+                        y vistas espectaculares de la ciudad. Es uno de los monumentos más visitados de España.
+                    </p>
+                    <div class="landmark-highlight">
+                        📸 Mejor hora: Al atardecer para ver el reflejo dorado
+                    </div>
+                </div>
+
+                <div class="landmark-card">
+                    <div class="landmark-header">
+                        <i class="material-icons landmark-icon">church</i>
+                        <h2 class="landmark-name">Sagrada Familia</h2>
+                    </div>
+                    <p class="landmark-location">Barcelona, Cataluña</p>
+                    <p class="landmark-description">
+                        Es una basílica moderna y única diseñada por Antoni Gaudí. Todavía está en construcción
+                        después de más de 140 años. Su arquitectura es extraordinaria e interesante.
+                    </p>
+                    <div class="landmark-highlight">
+                        📸 Mejor hora: Por la mañana temprano para evitar multitudes
+                    </div>
+                </div>
+
+                <div class="landmark-card">
+                    <div class="landmark-header">
+                        <i class="material-icons landmark-icon">location_city</i>
+                        <h2 class="landmark-name">Plaza Mayor</h2>
+                    </div>
+                    <p class="landmark-location">Madrid, Comunidad de Madrid</p>
+                    <p class="landmark-description">
+                        Es una plaza grande y típica del centro de Madrid. Tiene edificios antiguos muy bonitos
+                        con balcones característicos. Es perfecta para fotografiar la vida española.
+                    </p>
+                    <div class="landmark-highlight">
+                        📸 Mejor hora: Por la noche con las luces encendidas
+                    </div>
+                </div>
+
+                <div class="landmark-card">
+                    <div class="landmark-header">
+                        <i class="material-icons landmark-icon">beach_access</i>
+                        <h2 class="landmark-name">Costa del Sol</h2>
+                    </div>
+                    <p class="landmark-location">Málaga, Andalucía</p>
+                    <p class="landmark-description">
+                        Son playas bonitas con agua azul y arena dorada. Tiene pueblos blancos típicos
+                        en las montañas cerca del mar. Es ideal para fotos de paisajes naturales.
+                    </p>
+                    <div class="landmark-highlight">
+                        📸 Mejor hora: Durante el amanecer en la playa
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <h3 class="comparison-title">
+                    <i class="material-icons">public</i>
+                    Lugares fotográficos famosos en otros países
+                </h3>
+                <div class="comparison-content">
+                    <div class="comparison-item">
+                        <div class="comparison-country">🇫🇷 Francia</div>
+                        <div class="comparison-place">Torre Eiffel (París)<br>Mont Saint-Michel (Normandía)</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-country">🇮🇹 Italia</div>
+                        <div class="comparison-place">Coliseo Romano (Roma)<br>Canales de Venecia</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-country">🇬🇷 Grecia</div>
+                        <div class="comparison-place">Partenón (Atenas)<br>Santorini (Islas Cícladas)</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-country">🇵🇹 Portugal</div>
+                        <div class="comparison-place">Torre de Belém (Lisboa)<br>Puente Dom Luís (Porto)</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-country">🇩🇪 Alemania</div>
+                        <div class="comparison-place">Puerta de Brandeburgo (Berlín)<br>Castillo Neuschwanstein</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-country">🇬🇧 Reino Unido</div>
+                        <div class="comparison-place">Big Ben (Londres)<br>Stonehenge (Wiltshire)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="dialogos.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="tareas.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

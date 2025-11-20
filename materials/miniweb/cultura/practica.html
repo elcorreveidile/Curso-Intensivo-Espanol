@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica Interactiva - Cultura y Regiones</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .exercise {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+        }
+
+        .exercise-title {
+            font-size: 28px;
+            color: #c82333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .exercise-instructions {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #c82333;
+        }
+
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .matching-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .matching-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .matching-item.selected {
+            background: #c82333;
+            color: white;
+            border-color: #a71d2a;
+        }
+
+        .matching-item.correct {
+            background: #28a745;
+            color: white;
+            border-color: #1e7e34;
+        }
+
+        .matching-item.incorrect {
+            background: #dc3545;
+            color: white;
+            border-color: #bd2130;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-option {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background: #e9ecef;
+            border-color: #c82333;
+        }
+
+        .quiz-option.selected {
+            background: #c82333;
+            color: white;
+            border-color: #a71d2a;
+        }
+
+        .quiz-option.correct {
+            background: #28a745;
+            color: white;
+            border-color: #1e7e34;
+        }
+
+        .quiz-option.incorrect {
+            background: #dc3545;
+            color: white;
+            border-color: #bd2130;
+        }
+
+        .fill-blank {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .fill-blank input {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            min-width: 150px;
+        }
+
+        .fill-blank input.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .fill-blank input.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .btn {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(200, 35, 51, 0.3);
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .feedback.wrong {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+
+        .tf-container {
+            display: grid;
+            gap: 15px;
+        }
+
+        .tf-statement {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #c82333;
+        }
+
+        .tf-statement-text {
+            margin-bottom: 12px;
+            font-size: 17px;
+            color: #333;
+        }
+
+        .tf-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .tf-btn {
+            padding: 10px 25px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .tf-btn:hover {
+            border-color: #c82333;
+            background: #fff5f5;
+        }
+
+        .tf-btn.correct {
+            background: #28a745;
+            color: white;
+            border-color: #1e7e34;
+        }
+
+        .tf-btn.incorrect {
+            background: #dc3545;
+            color: white;
+            border-color: #bd2130;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✏️ Práctica Interactiva</h1>
+        </div>
+
+        <!-- Exercise 1: Matching Regions with Dishes -->
+        <div class="exercise">
+            <div class="exercise-title">
+                <span>1️⃣</span>
+                Emparejar Regiones con Platos Típicos
+            </div>
+            <div class="exercise-instructions">
+                Haz clic en una región y luego en el plato típico correspondiente. Después presiona "Verificar".
+            </div>
+            <div class="matching-container">
+                <div class="matching-column" id="regions">
+                    <div class="matching-item" data-id="andalucia">Andalucía</div>
+                    <div class="matching-item" data-id="valencia">Valencia</div>
+                    <div class="matching-item" data-id="galicia">Galicia</div>
+                    <div class="matching-item" data-id="paiavasco">País Vasco</div>
+                </div>
+                <div class="matching-column" id="dishes">
+                    <div class="matching-item" data-match="valencia">Paella</div>
+                    <div class="matching-item" data-match="galicia">Pulpo a la gallega</div>
+                    <div class="matching-item" data-match="andalucia">Gazpacho</div>
+                    <div class="matching-item" data-match="paiavasco">Pintxos</div>
+                </div>
+            </div>
+            <button class="btn" onclick="checkMatching()">Verificar</button>
+            <div id="matching-feedback" class="feedback" style="display: none;"></div>
+        </div>
+
+        <!-- Exercise 2: Quiz about Festivities -->
+        <div class="exercise">
+            <div class="exercise-title">
+                <span>2️⃣</span>
+                Quiz de Festividades
+            </div>
+            <div class="exercise-instructions">
+                Selecciona la respuesta correcta para cada pregunta.
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <p style="font-weight: 600; margin-bottom: 12px;">¿En qué ciudad se celebra San Fermín?</p>
+                <div class="quiz-options" id="quiz1">
+                    <div class="quiz-option" data-answer="wrong">Sevilla</div>
+                    <div class="quiz-option" data-answer="correct">Pamplona</div>
+                    <div class="quiz-option" data-answer="wrong">Barcelona</div>
+                    <div class="quiz-option" data-answer="wrong">Valencia</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <p style="font-weight: 600; margin-bottom: 12px;">¿Qué festividad incluye lanzamiento de tomates?</p>
+                <div class="quiz-options" id="quiz2">
+                    <div class="quiz-option" data-answer="wrong">Las Fallas</div>
+                    <div class="quiz-option" data-answer="wrong">Feria de Abril</div>
+                    <div class="quiz-option" data-answer="correct">La Tomatina</div>
+                    <div class="quiz-option" data-answer="wrong">San Fermín</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <p style="font-weight: 600; margin-bottom: 12px;">¿En qué región se celebra la Feria de Abril?</p>
+                <div class="quiz-options" id="quiz3">
+                    <div class="quiz-option" data-answer="correct">Andalucía</div>
+                    <div class="quiz-option" data-answer="wrong">Cataluña</div>
+                    <div class="quiz-option" data-answer="wrong">Madrid</div>
+                    <div class="quiz-option" data-answer="wrong">Galicia</div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="checkQuiz()">Verificar Respuestas</button>
+            <div id="quiz-feedback" class="feedback" style="display: none;"></div>
+        </div>
+
+        <!-- Exercise 3: Complete Opinions -->
+        <div class="exercise">
+            <div class="exercise-title">
+                <span>3️⃣</span>
+                Completar Expresiones de Opinión
+            </div>
+            <div class="exercise-instructions">
+                Completa las siguientes frases con la expresión de opinión correcta.
+            </div>
+
+            <div class="fill-blank">
+                <span><input type="text" id="op1" placeholder="..."> que el flamenco es muy emotivo.</span>
+            </div>
+            <div class="fill-blank">
+                <span><input type="text" id="op2" placeholder="..."> opinión, Barcelona es fascinante.</span>
+            </div>
+            <div class="fill-blank">
+                <span><input type="text" id="op3" placeholder="..."> parece que las tapas son deliciosas.</span>
+            </div>
+            <div class="fill-blank">
+                <span><input type="text" id="op4" placeholder="..."> de acuerdo con tu opinión sobre Madrid.</span>
+            </div>
+
+            <button class="btn" onclick="checkOpinions()">Verificar</button>
+            <div id="opinions-feedback" class="feedback" style="display: none;"></div>
+        </div>
+
+        <!-- Exercise 4: Identify Region by Description -->
+        <div class="exercise">
+            <div class="exercise-title">
+                <span>4️⃣</span>
+                Identificar la Región
+            </div>
+            <div class="exercise-instructions">
+                Lee la descripción y escribe el nombre de la región española correspondiente.
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <p style="font-weight: 600; margin-bottom: 10px;">Esta región es conocida por la Sagrada Familia y habla catalán:</p>
+                <input type="text" id="region1" placeholder="Escribe la región" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <p style="font-weight: 600; margin-bottom: 10px;">En esta región se celebra la Feria de Abril y se baila flamenco:</p>
+                <input type="text" id="region2" placeholder="Escribe la región" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <p style="font-weight: 600; margin-bottom: 10px;">Es famosa por el Camino de Santiago y habla gallego:</p>
+                <input type="text" id="region3" placeholder="Escribe la región" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
+            </div>
+
+            <button class="btn" onclick="checkRegions()">Verificar</button>
+            <div id="regions-feedback" class="feedback" style="display: none;"></div>
+        </div>
+
+        <!-- Exercise 5: True or False -->
+        <div class="exercise">
+            <div class="exercise-title">
+                <span>5️⃣</span>
+                Verdadero o Falso
+            </div>
+            <div class="exercise-instructions">
+                Indica si las siguientes afirmaciones sobre la cultura española son verdaderas o falsas.
+            </div>
+
+            <div class="tf-container">
+                <div class="tf-statement">
+                    <div class="tf-statement-text">1. La paella es un plato típico de Andalucía.</div>
+                    <div class="tf-buttons">
+                        <button class="tf-btn" onclick="checkTF(this, false)">Verdadero</button>
+                        <button class="tf-btn" onclick="checkTF(this, true)">Falso</button>
+                    </div>
+                </div>
+
+                <div class="tf-statement">
+                    <div class="tf-statement-text">2. España tiene 17 comunidades autónomas.</div>
+                    <div class="tf-buttons">
+                        <button class="tf-btn" onclick="checkTF(this, true)">Verdadero</button>
+                        <button class="tf-btn" onclick="checkTF(this, false)">Falso</button>
+                    </div>
+                </div>
+
+                <div class="tf-statement">
+                    <div class="tf-statement-text">3. El euskera se habla en el País Vasco.</div>
+                    <div class="tf-buttons">
+                        <button class="tf-btn" onclick="checkTF(this, true)">Verdadero</button>
+                        <button class="tf-btn" onclick="checkTF(this, false)">Falso</button>
+                    </div>
+                </div>
+
+                <div class="tf-statement">
+                    <div class="tf-statement-text">4. La capital de España es Barcelona.</div>
+                    <div class="tf-buttons">
+                        <button class="tf-btn" onclick="checkTF(this, false)">Verdadero</button>
+                        <button class="tf-btn" onclick="checkTF(this, true)">Falso</button>
+                    </div>
+                </div>
+
+                <div class="tf-statement">
+                    <div class="tf-statement-text">5. La siesta es una costumbre tradicional española.</div>
+                    <div class="tf-buttons">
+                        <button class="tf-btn" onclick="checkTF(this, true)">Verdadero</button>
+                        <button class="tf-btn" onclick="checkTF(this, false)">Falso</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 6: Select Traditions by Region -->
+        <div class="exercise">
+            <div class="exercise-title">
+                <span>6️⃣</span>
+                Tradiciones por Región
+            </div>
+            <div class="exercise-instructions">
+                Para cada región, selecciona la festividad o tradición que NO le corresponde.
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <p style="font-weight: 600; margin-bottom: 12px;">Andalucía:</p>
+                <div class="quiz-options" id="trad1">
+                    <div class="quiz-option" data-answer="wrong">Semana Santa</div>
+                    <div class="quiz-option" data-answer="wrong">Feria de Abril</div>
+                    <div class="quiz-option" data-answer="wrong">Flamenco</div>
+                    <div class="quiz-option" data-answer="correct">Las Fallas</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <p style="font-weight: 600; margin-bottom: 12px;">País Vasco:</p>
+                <div class="quiz-options" id="trad2">
+                    <div class="quiz-option" data-answer="correct">La Tomatina</div>
+                    <div class="quiz-option" data-answer="wrong">Pintxos</div>
+                    <div class="quiz-option" data-answer="wrong">San Fermín</div>
+                    <div class="quiz-option" data-answer="wrong">Semana Grande de Bilbao</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <p style="font-weight: 600; margin-bottom: 12px;">Galicia:</p>
+                <div class="quiz-options" id="trad3">
+                    <div class="quiz-option" data-answer="wrong">Camino de Santiago</div>
+                    <div class="quiz-option" data-answer="correct">Feria de Abril</div>
+                    <div class="quiz-option" data-answer="wrong">Pulpo a la gallega</div>
+                    <div class="quiz-option" data-answer="wrong">Rapa das Bestas</div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="checkTraditions()">Verificar</button>
+            <div id="traditions-feedback" class="feedback" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="actividades.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="dialogos.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+
+    <script>
+        // Exercise 1: Matching
+        let selectedRegion = null;
+        let selectedDish = null;
+        let matches = [];
+
+        document.querySelectorAll('#regions .matching-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('#regions .matching-item').forEach(i => i.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedRegion = this.getAttribute('data-id');
+            });
+        });
+
+        document.querySelectorAll('#dishes .matching-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if (selectedRegion) {
+                    matches.push({region: selectedRegion, dish: this.getAttribute('data-match')});
+                    document.querySelectorAll('#regions .matching-item').forEach(i => i.classList.remove('selected'));
+                    this.style.opacity = '0.5';
+                    selectedRegion = null;
+                }
+            });
+        });
+
+        function checkMatching() {
+            const answers = {
+                'andalucia': 'andalucia',
+                'valencia': 'valencia',
+                'galicia': 'galicia',
+                'paiavasco': 'paiavasco'
+            };
+
+            let correct = 0;
+            matches.forEach(match => {
+                if (match.region === match.dish) {
+                    correct++;
+                }
+            });
+
+            const feedback = document.getElementById('matching-feedback');
+            feedback.style.display = 'block';
+
+            if (correct === 4) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '¡Perfecto! Todas las parejas son correctas. 🎉';
+                document.querySelectorAll('.matching-item').forEach(item => item.classList.add('correct'));
+            } else {
+                feedback.className = 'feedback wrong';
+                feedback.innerHTML = `${correct}/4 correctas. Intenta de nuevo. Parejas correctas: Andalucía-Gazpacho, Valencia-Paella, Galicia-Pulpo, País Vasco-Pintxos`;
+            }
+        }
+
+        // Exercise 2: Quiz
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        function checkQuiz() {
+            let correct = 0;
+            let total = 3;
+
+            ['quiz1', 'quiz2', 'quiz3'].forEach(quizId => {
+                const selected = document.querySelector(`#${quizId} .quiz-option.selected`);
+                if (selected) {
+                    if (selected.getAttribute('data-answer') === 'correct') {
+                        selected.classList.add('correct');
+                        correct++;
+                    } else {
+                        selected.classList.add('incorrect');
+                        const correctOption = document.querySelector(`#${quizId} .quiz-option[data-answer="correct"]`);
+                        correctOption.classList.add('correct');
+                    }
+                }
+            });
+
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.style.display = 'block';
+
+            if (correct === total) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '¡Excelente! Todas las respuestas son correctas. 🎉';
+            } else {
+                feedback.className = 'feedback wrong';
+                feedback.innerHTML = `${correct}/${total} correctas. Las respuestas correctas están marcadas en verde.`;
+            }
+        }
+
+        // Exercise 3: Opinions
+        function checkOpinions() {
+            const answers = {
+                op1: ['creo', 'pienso'],
+                op2: ['en mi', 'en'],
+                op3: ['me'],
+                op4: ['estoy']
+            };
+
+            let correct = 0;
+            let total = 4;
+
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                let isCorrect = false;
+
+                answers[id].forEach(answer => {
+                    if (userAnswer.includes(answer)) {
+                        isCorrect = true;
+                    }
+                });
+
+                if (isCorrect) {
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                    correct++;
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('incorrect');
+                }
+            }
+
+            const feedback = document.getElementById('opinions-feedback');
+            feedback.style.display = 'block';
+
+            if (correct === total) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '¡Perfecto! Todas las expresiones son correctas. 🎉';
+            } else {
+                feedback.className = 'feedback wrong';
+                feedback.innerHTML = `${correct}/${total} correctas. Respuestas: 1. Creo/Pienso que, 2. En mi opinión, 3. Me parece que, 4. Estoy de acuerdo`;
+            }
+        }
+
+        // Exercise 4: Regions
+        function checkRegions() {
+            const answers = {
+                region1: 'cataluña',
+                region2: 'andalucía',
+                region3: 'galicia'
+            };
+
+            let correct = 0;
+            let total = 3;
+
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase().replace(/á/g, 'a').replace(/ñ/g, 'n');
+                const correctAnswer = answers[id].replace(/á/g, 'a').replace(/ñ/g, 'n');
+
+                if (userAnswer === correctAnswer || userAnswer === answers[id]) {
+                    input.style.borderColor = '#28a745';
+                    input.style.background = '#d4edda';
+                    correct++;
+                } else {
+                    input.style.borderColor = '#dc3545';
+                    input.style.background = '#f8d7da';
+                }
+            }
+
+            const feedback = document.getElementById('regions-feedback');
+            feedback.style.display = 'block';
+
+            if (correct === total) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '¡Excelente! Todas las regiones son correctas. 🎉';
+            } else {
+                feedback.className = 'feedback wrong';
+                feedback.innerHTML = `${correct}/${total} correctas. Respuestas: 1. Cataluña, 2. Andalucía, 3. Galicia`;
+            }
+        }
+
+        // Exercise 5: True/False
+        function checkTF(button, isCorrect) {
+            const buttons = button.parentElement.querySelectorAll('.tf-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('correct', 'incorrect');
+                btn.disabled = true;
+            });
+
+            if (isCorrect) {
+                button.classList.add('correct');
+            } else {
+                button.classList.add('incorrect');
+                buttons.forEach(btn => {
+                    if (btn !== button) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        // Exercise 6: Traditions
+        function checkTraditions() {
+            let correct = 0;
+            let total = 3;
+
+            ['trad1', 'trad2', 'trad3'].forEach(tradId => {
+                const selected = document.querySelector(`#${tradId} .quiz-option.selected`);
+                if (selected) {
+                    if (selected.getAttribute('data-answer') === 'correct') {
+                        selected.classList.add('correct');
+                        correct++;
+                    } else {
+                        selected.classList.add('incorrect');
+                        const correctOption = document.querySelector(`#${tradId} .quiz-option[data-answer="correct"]`);
+                        correctOption.classList.add('correct');
+                    }
+                }
+            });
+
+            const feedback = document.getElementById('traditions-feedback');
+            feedback.style.display = 'block';
+
+            if (correct === total) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '¡Perfecto! Identificaste correctamente las tradiciones que NO corresponden. 🎉';
+            } else {
+                feedback.className = 'feedback wrong';
+                feedback.innerHTML = `${correct}/${total} correctas. Las respuestas correctas: 1. Las Fallas (es de Valencia), 2. La Tomatina (es de Valencia), 3. Feria de Abril (es de Andalucía)`;
+            }
+        }
+    </script>
+</body>
+</html>

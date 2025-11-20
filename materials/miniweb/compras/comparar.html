@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3 · Comparar precios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Source Sans Pro', sans-serif; background: #f0f9ff; color: #0f172a; }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            padding: 70px 80px 120px;
+            background: linear-gradient(150deg, rgba(226, 232, 240, 0.95) 0%, rgba(191, 219, 254, 0.92) 50%, rgba(125, 211, 252, 0.9) 100%);
+            border-radius: 36px;
+            box-shadow: 0 35px 85px rgba(37, 99, 235, 0.28);
+        }
+        h1 { font-size: 36px; display: flex; align-items: center; gap: 12px; color: #1d4ed8; margin-bottom: 16px; }
+        p.lead { font-size: 18px; color: #1e3a8a; margin-bottom: 30px; max-width: 760px; }
+        .comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .item {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 24px;
+            display: grid;
+            gap: 12px;
+            border: 1px solid rgba(147, 197, 253, 0.45);
+        }
+        .item h2 { font-size: 22px; color: #1d4ed8; display: flex; align-items: center; gap: 8px; }
+        .price-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(37, 99, 235, 0.15);
+            color: #1e40af;
+            font-weight: 700;
+        }
+        .quiz {
+            background: rgba(37, 99, 235, 0.12);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px dashed rgba(59, 130, 246, 0.4);
+            display: grid;
+            gap: 12px;
+        }
+        .quiz button {
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: rgba(96, 165, 250, 0.25);
+            color: #1d4ed8;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: transform 0.2s ease, border 0.2s ease;
+        }
+        .quiz button:hover { transform: translateX(3px); border-color: rgba(37, 99, 235, 0.5); }
+        .quiz button[data-selected="true"] { background: #2563eb; color: #eff6ff; }
+        .feedback { min-height: 24px; font-weight: 600; }
+        .correct { color: #047857; }
+        .incorrect { color: #dc2626; }
+        .navigation { position: fixed; bottom: 24px; left: 24px; display: flex; gap: 16px; }
+        .nav-button {
+            background: #2563eb;
+            color: #eff6ff;
+            padding: 12px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 18px 40px rgba(37, 99, 235, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 22px 46px rgba(37, 99, 235, 0.45); }
+        @media (max-width: 992px) {
+            .slide { width: 100%; border-radius: 0; padding: 40px 24px 130px; }
+            h1 { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <h1><i class="material-icons">price_change</i> Ejercicio 3 · Comparar precios</h1>
+        <p class="lead">Analiza las ofertas y selecciona la mejor opción según la necesidad del cliente. Usa los demostrativos para justificar la elección.</p>
+        <div class="comparison">
+            <article class="item">
+                <h2><i class="material-icons">checkroom</i> Abrigo invierno</h2>
+                <p class="price-tag"><i class="material-icons" style="font-size:18px;">euro</i> 89,99 € · lana reciclada</p>
+                <p>Disponible en tallas S-XL. Descuento adicional del 10% con tarjeta cliente.</p>
+            </article>
+            <article class="item">
+                <h2><i class="material-icons">checkroom</i> Abrigo ligero</h2>
+                <p class="price-tag"><i class="material-icons" style="font-size:18px;">euro</i> 69,99 € · impermeable</p>
+                <p>Disponible en tallas XS-L. Incluye capucha desmontable.</p>
+            </article>
+            <article class="item">
+                <h2><i class="material-icons">shopping_bag</i> Paquete outfit</h2>
+                <p class="price-tag"><i class="material-icons" style="font-size:18px;">euro</i> 110,00 € · chaqueta + bufanda</p>
+                <p>Combinación de colores neutros. Posibilidad de cambio gratuito.</p>
+            </article>
+            <article class="item quiz" data-answer="b">
+                <strong>¿Qué opción recomiendas a un estudiante que necesita algo resistente a la lluvia y económico?</strong>
+                <button data-option="a">El abrigo de invierno porque es más caro pero elegante.</button>
+                <button data-option="b">El abrigo ligero porque resiste la lluvia y es más barato.</button>
+                <button data-option="c">El paquete outfit porque incluye bufanda.</button>
+                <p class="feedback" aria-live="polite"></p>
+            </article>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="describir.html"><i class="material-icons">arrow_back</i> Describir ropa</a>
+        <a class="nav-button" href="catalogo.html">Catálogo de moda <i class="material-icons">arrow_forward</i></a>
+    </nav>
+
+    <script>
+        document.querySelectorAll('.quiz').forEach(quiz => {
+            const answer = quiz.dataset.answer;
+            const feedback = quiz.querySelector('.feedback');
+            quiz.querySelectorAll('button[data-option]').forEach(button => {
+                button.addEventListener('click', () => {
+                    quiz.querySelectorAll('button[data-option]').forEach(btn => btn.setAttribute('data-selected', 'false'));
+                    button.setAttribute('data-selected', 'true');
+                    if (button.dataset.option === answer) {
+                        feedback.textContent = '✅ Exacto. Ese abrigo cumple con los requisitos.';
+                        feedback.className = 'feedback correct';
+                    } else {
+                        feedback.textContent = '❌ Piensa en la lluvia y el presupuesto limitado.';
+                        feedback.className = 'feedback incorrect';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetivos - Sesión 9</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 50px 70px;
+            overflow-y: auto;
+        }
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .objective-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-left: 5px solid #ff6b6b;
+        }
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .objective-icon {
+            font-size: 48px;
+            color: #f7931e;
+            margin-bottom: 15px;
+        }
+        .objective-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .objective-description {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                position: static;
+                padding: 20px;
+            }
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            .objectives-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .objective-card {
+                padding: 20px;
+            }
+            .objective-icon {
+                font-size: 36px;
+            }
+            .objective-title {
+                font-size: 20px;
+            }
+            .objective-description {
+                font-size: 16px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="page-title">Objetivos de la Sesión</h1>
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <i class="material-icons objective-icon">photo_camera</i>
+                    <h2 class="objective-title">Describir fotos y lugares</h2>
+                    <p class="objective-description">
+                        Aprender a describir imágenes y lugares usando vocabulario específico.
+                        Practicar adjetivos descriptivos y expresiones para hablar sobre fotografías.
+                    </p>
+                </div>
+                <div class="objective-card">
+                    <i class="material-icons objective-icon">travel_explore</i>
+                    <h2 class="objective-title">Narrar experiencias pasadas</h2>
+                    <p class="objective-description">
+                        Contar historias y anécdotas de viajes y experiencias pasadas.
+                        Estructurar una narrativa coherente en tiempo pasado.
+                    </p>
+                </div>
+                <div class="objective-card">
+                    <i class="material-icons objective-icon">history</i>
+                    <h2 class="objective-title">Pretérito perfecto simple</h2>
+                    <p class="objective-description">
+                        Dominar la conjugación del pretérito perfecto simple (indefinido)
+                        con verbos regulares e irregulares para narrar acciones completas del pasado.
+                    </p>
+                </div>
+                <div class="objective-card">
+                    <i class="material-icons objective-icon">link</i>
+                    <h2 class="objective-title">Conectores temporales</h2>
+                    <p class="objective-description">
+                        Usar conectores temporales para organizar el discurso: primero, después,
+                        luego, entonces, finalmente. Crear secuencias lógicas al narrar.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="index.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="vocabulario.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diálogos - Ocio y aficiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .overlay {
+            min-height: 720px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px 70px;
+            padding-bottom: 100px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .dialogue-section {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-left: 6px solid #667eea;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .dialogue-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dialogue-title i {
+            font-size: 32px;
+        }
+        .dialogue-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .speech-bubble {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            max-width: 80%;
+        }
+        .speech-bubble.left {
+            align-self: flex-start;
+            border-left: 4px solid #667eea;
+        }
+        .speech-bubble.right {
+            align-self: flex-end;
+            border-right: 4px solid #764ba2;
+        }
+        .speaker {
+            font-size: 16px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        .speech-bubble.right .speaker {
+            color: #764ba2;
+        }
+        .spanish-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .english-text {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+            line-height: 1.4;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                min-height: auto;
+                padding: 20px;
+                padding-bottom: 80px;
+            }
+            .title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            .dialogue-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            .dialogue-title {
+                font-size: 20px;
+            }
+            .dialogue-title i {
+                font-size: 24px;
+            }
+            .speech-bubble {
+                padding: 15px;
+                max-width: 95%;
+            }
+            .speaker {
+                font-size: 14px;
+            }
+            .spanish-text {
+                font-size: 16px;
+            }
+            .english-text {
+                font-size: 14px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="title">Diálogos</h1>
+
+            <div class="dialogue-section">
+                <h2 class="dialogue-title">
+                    <i class="material-icons">forum</i>
+                    Diálogo 1: Hablando de hobbies
+                </h2>
+                <div class="dialogue-container">
+                    <div class="speech-bubble left">
+                        <div class="speaker">María</div>
+                        <div class="spanish-text">¡Hola Ana! ¿Qué te gusta hacer en tu tiempo libre?</div>
+                        <div class="english-text">Hi Ana! What do you like to do in your free time?</div>
+                    </div>
+                    <div class="speech-bubble right">
+                        <div class="speaker">Ana</div>
+                        <div class="spanish-text">Me encanta leer novelas y escuchar música. ¿Y a ti?</div>
+                        <div class="english-text">I love reading novels and listening to music. And you?</div>
+                    </div>
+                    <div class="speech-bubble left">
+                        <div class="speaker">María</div>
+                        <div class="spanish-text">Yo prefiero hacer deporte. Puedo jugar al tenis muy bien.</div>
+                        <div class="english-text">I prefer to do sports. I can play tennis very well.</div>
+                    </div>
+                    <div class="speech-bubble right">
+                        <div class="speaker">Ana</div>
+                        <div class="spanish-text">¡Qué interesante! Yo también quiero aprender a jugar al tenis.</div>
+                        <div class="english-text">How interesting! I also want to learn to play tennis.</div>
+                    </div>
+                    <div class="speech-bubble left">
+                        <div class="speaker">María</div>
+                        <div class="spanish-text">Perfecto. Podemos practicar juntas este fin de semana.</div>
+                        <div class="english-text">Perfect. We can practice together this weekend.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dialogue-section">
+                <h2 class="dialogue-title">
+                    <i class="material-icons">weekend</i>
+                    Diálogo 2: Planes para el fin de semana
+                </h2>
+                <div class="dialogue-container">
+                    <div class="speech-bubble left">
+                        <div class="speaker">Carlos</div>
+                        <div class="spanish-text">¿Qué quieres hacer este fin de semana, Luis?</div>
+                        <div class="english-text">What do you want to do this weekend, Luis?</div>
+                    </div>
+                    <div class="speech-bubble right">
+                        <div class="speaker">Luis</div>
+                        <div class="spanish-text">Quiero ir al cine para ver la nueva película de acción.</div>
+                        <div class="english-text">I want to go to the cinema to see the new action movie.</div>
+                    </div>
+                    <div class="speech-bubble left">
+                        <div class="speaker">Carlos</div>
+                        <div class="spanish-text">Yo prefiero ver películas en casa. Pero podemos hacer otras cosas.</div>
+                        <div class="english-text">I prefer to watch movies at home. But we can do other things.</div>
+                    </div>
+                    <div class="speech-bubble right">
+                        <div class="speaker">Luis</div>
+                        <div class="spanish-text">¿Qué te parece si vamos a jugar al fútbol en el parque?</div>
+                        <div class="english-text">What if we go play football in the park?</div>
+                    </div>
+                    <div class="speech-bubble left">
+                        <div class="speaker">Carlos</div>
+                        <div class="spanish-text">¡Excelente idea! Me encanta jugar al fútbol. ¿A qué hora?</div>
+                        <div class="english-text">Excellent idea! I love to play football. What time?</div>
+                    </div>
+                    <div class="speech-bubble right">
+                        <div class="speaker">Luis</div>
+                        <div class="spanish-text">A las diez de la mañana. Después podemos ir a comer juntos.</div>
+                        <div class="english-text">At ten in the morning. Afterwards we can go eat together.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="practica.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="cultura.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulario - Cultura y Regiones de España</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .vocab-section {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #c82333;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-icon {
+            font-size: 36px;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .vocab-card {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(200, 35, 51, 0.3);
+        }
+
+        .vocab-word {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .vocab-translation {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .expressions-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .expression-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #c82333;
+            transition: all 0.3s ease;
+        }
+
+        .expression-item:hover {
+            background: #fff;
+            transform: translateX(10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .expression-spanish {
+            font-size: 20px;
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 8px;
+        }
+
+        .expression-usage {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Vocabulario Clave</h1>
+        </div>
+
+        <!-- Regiones -->
+        <div class="vocab-section">
+            <h2 class="section-title">
+                <span class="section-icon">🗺️</span>
+                Regiones de España
+            </h2>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-word">Andalucía</div>
+                    <div class="vocab-translation">Andalusia</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Cataluña</div>
+                    <div class="vocab-translation">Catalonia</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Madrid</div>
+                    <div class="vocab-translation">Madrid (Community)</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Valencia</div>
+                    <div class="vocab-translation">Valencia</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Galicia</div>
+                    <div class="vocab-translation">Galicia</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">País Vasco</div>
+                    <div class="vocab-translation">Basque Country</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Castilla</div>
+                    <div class="vocab-translation">Castile</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Aragón</div>
+                    <div class="vocab-translation">Aragon</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cultura -->
+        <div class="vocab-section">
+            <h2 class="section-title">
+                <span class="section-icon">🎭</span>
+                Cultura y Tradiciones
+            </h2>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-word">Flamenco</div>
+                    <div class="vocab-translation">Flamenco dance/music</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Paella</div>
+                    <div class="vocab-translation">Paella (rice dish)</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Tapas</div>
+                    <div class="vocab-translation">Small dishes/appetizers</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Siesta</div>
+                    <div class="vocab-translation">Afternoon nap</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Semana Santa</div>
+                    <div class="vocab-translation">Holy Week</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Feria de Abril</div>
+                    <div class="vocab-translation">April Fair (Seville)</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">San Fermín</div>
+                    <div class="vocab-translation">Running of the Bulls</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">La Tomatina</div>
+                    <div class="vocab-translation">Tomato throwing festival</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expresiones de opinión -->
+        <div class="vocab-section">
+            <h2 class="section-title">
+                <span class="section-icon">💭</span>
+                Expresar Opiniones
+            </h2>
+            <ul class="expressions-list">
+                <li class="expression-item">
+                    <div class="expression-spanish">Creo que...</div>
+                    <div class="expression-usage">I think that... / I believe that...</div>
+                </li>
+                <li class="expression-item">
+                    <div class="expression-spanish">Pienso que...</div>
+                    <div class="expression-usage">I think that... (more formal)</div>
+                </li>
+                <li class="expression-item">
+                    <div class="expression-spanish">En mi opinión...</div>
+                    <div class="expression-usage">In my opinion...</div>
+                </li>
+                <li class="expression-item">
+                    <div class="expression-spanish">Me parece que...</div>
+                    <div class="expression-usage">It seems to me that...</div>
+                </li>
+                <li class="expression-item">
+                    <div class="expression-spanish">Estoy de acuerdo</div>
+                    <div class="expression-usage">I agree</div>
+                </li>
+                <li class="expression-item">
+                    <div class="expression-spanish">No estoy de acuerdo</div>
+                    <div class="expression-usage">I disagree</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="objetivos.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="regiones.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

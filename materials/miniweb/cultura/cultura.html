@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festividades y Tradiciones - Cultura de España</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .festivals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .festival-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .festival-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(200, 35, 51, 0.2);
+        }
+
+        .festival-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .festival-content {
+            padding: 25px;
+        }
+
+        .festival-name {
+            font-size: 26px;
+            color: #c82333;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .festival-date {
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .festival-location {
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .festival-description {
+            color: #555;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+        }
+
+        .info-section h2 {
+            color: #c82333;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .info-section p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 17px;
+            margin-bottom: 15px;
+        }
+
+        .traditions-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .tradition-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #c82333;
+            transition: all 0.3s ease;
+        }
+
+        .tradition-item:hover {
+            background: #fff;
+            transform: translateX(10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .tradition-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #c82333;
+            margin-bottom: 8px;
+        }
+
+        .tradition-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .festivals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Festividades y Tradiciones de España</h1>
+        </div>
+
+        <div class="festivals-grid">
+            <!-- Semana Santa -->
+            <div class="festival-card">
+                <div class="festival-image">⛪</div>
+                <div class="festival-content">
+                    <div class="festival-name">Semana Santa</div>
+                    <div class="festival-date">
+                        <i class="material-icons">event</i>
+                        Marzo/Abril (variable)
+                    </div>
+                    <div class="festival-location">
+                        <i class="material-icons">place</i>
+                        Toda España (especialmente Sevilla, Málaga)
+                    </div>
+                    <div class="festival-description">
+                        Procesiones religiosas con imágenes de Cristo y la Virgen María. Las hermandades desfilan
+                        por las calles con música de bandas y saetas. La Semana Santa de Sevilla es Patrimonio Cultural
+                        Inmaterial de la Humanidad.
+                    </div>
+                </div>
+            </div>
+
+            <!-- San Fermín -->
+            <div class="festival-card">
+                <div class="festival-image">🐂</div>
+                <div class="festival-content">
+                    <div class="festival-name">San Fermín</div>
+                    <div class="festival-date">
+                        <i class="material-icons">event</i>
+                        6-14 de julio
+                    </div>
+                    <div class="festival-location">
+                        <i class="material-icons">place</i>
+                        Pamplona (Navarra)
+                    </div>
+                    <div class="festival-description">
+                        Famoso por el "encierro" donde los participantes corren delante de los toros por las calles.
+                        También incluye conciertos, fuegos artificiales y eventos culturales. Internacionalmente conocido
+                        gracias a Ernest Hemingway.
+                    </div>
+                </div>
+            </div>
+
+            <!-- La Tomatina -->
+            <div class="festival-card">
+                <div class="festival-image">🍅</div>
+                <div class="festival-content">
+                    <div class="festival-name">La Tomatina</div>
+                    <div class="festival-date">
+                        <i class="material-icons">event</i>
+                        Último miércoles de agosto
+                    </div>
+                    <div class="festival-location">
+                        <i class="material-icons">place</i>
+                        Buñol (Valencia)
+                    </div>
+                    <div class="festival-description">
+                        Una batalla gigante de tomates en la que miles de personas lanzan más de 100 toneladas de
+                        tomates maduros. Es una de las festividades más únicas y divertidas del mundo, atrae a
+                        visitantes de todos los países.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feria de Abril -->
+            <div class="festival-card">
+                <div class="festival-image">💃</div>
+                <div class="festival-content">
+                    <div class="festival-name">Feria de Abril</div>
+                    <div class="festival-date">
+                        <i class="material-icons">event</i>
+                        Abril (dos semanas después de Semana Santa)
+                    </div>
+                    <div class="festival-location">
+                        <i class="material-icons">place</i>
+                        Sevilla (Andalucía)
+                    </div>
+                    <div class="festival-description">
+                        Una semana de celebración con casetas (carpas), baile flamenco, caballos, trajes tradicionales
+                        andaluces y música sevillana. Las mujeres visten trajes de flamenca y se baila hasta el amanecer.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Las Fallas -->
+            <div class="festival-card">
+                <div class="festival-image">🔥</div>
+                <div class="festival-content">
+                    <div class="festival-name">Las Fallas</div>
+                    <div class="festival-date">
+                        <i class="material-icons">event</i>
+                        15-19 de marzo
+                    </div>
+                    <div class="festival-location">
+                        <i class="material-icons">place</i>
+                        Valencia
+                    </div>
+                    <div class="festival-description">
+                        Monumentos artísticos de cartón y madera (fallas) se construyen durante meses y se queman
+                        la noche del 19 de marzo. Incluye fuegos artificiales diarios, música y ofrendas florales.
+                        Patrimonio Cultural Inmaterial de la Humanidad.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carnaval -->
+            <div class="festival-card">
+                <div class="festival-image">🎭</div>
+                <div class="festival-content">
+                    <div class="festival-name">Carnaval</div>
+                    <div class="festival-date">
+                        <i class="material-icons">event</i>
+                        Febrero/Marzo (antes de Cuaresma)
+                    </div>
+                    <div class="festival-location">
+                        <i class="material-icons">place</i>
+                        Canarias (especialmente Tenerife y Cádiz)
+                    </div>
+                    <div class="festival-description">
+                        Desfiles con disfraces elaborados, música, baile y celebraciones callejeras. El Carnaval de
+                        Tenerife es uno de los más importantes del mundo, junto con el de Río. En Cádiz destacan
+                        las chirigotas (grupos satíricos musicales).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Traditions Section -->
+        <div class="info-section">
+            <h2>🇪🇸 Otras Tradiciones Españolas</h2>
+            <div class="traditions-list">
+                <div class="tradition-item">
+                    <div class="tradition-title">La Siesta</div>
+                    <div class="tradition-description">
+                        Descanso después del almuerzo, tradicionalmente entre las 2 y 5 PM. Aunque está desapareciendo
+                        en las ciudades grandes, sigue siendo parte de la cultura española, especialmente en verano.
+                    </div>
+                </div>
+
+                <div class="tradition-item">
+                    <div class="tradition-title">Tapas</div>
+                    <div class="tradition-description">
+                        Pequeñas porciones de comida servidas con bebidas en los bares. La tradición de "ir de tapas"
+                        es social y cultural: se visitan varios bares, probando diferentes especialidades en cada uno.
+                    </div>
+                </div>
+
+                <div class="tradition-item">
+                    <div class="tradition-title">Sobremesa</div>
+                    <div class="tradition-description">
+                        El tiempo que se pasa en la mesa después de comer, conversando. Es una parte importante de
+                        las comidas familiares y puede durar varias horas, especialmente los domingos.
+                    </div>
+                </div>
+
+                <div class="tradition-item">
+                    <div class="tradition-title">Los Reyes Magos</div>
+                    <div class="tradition-description">
+                        El 6 de enero, los Reyes Magos traen regalos a los niños. Hay cabalgatas (desfiles) la noche
+                        del 5 de enero. Es más importante que Papá Noel en la tradición española.
+                    </div>
+                </div>
+
+                <div class="tradition-item">
+                    <div class="tradition-title">Flamenco</div>
+                    <div class="tradition-description">
+                        Arte andaluz que combina cante (canto), baile y guitarra. Expresa emociones profundas y es
+                        Patrimonio Cultural Inmaterial de la Humanidad. Cada palo (estilo) tiene su carácter único.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cultural Note -->
+        <div class="info-section">
+            <h2>💡 ¿Sabías que...?</h2>
+            <p>
+                España tiene 49 sitios declarados Patrimonio de la Humanidad por la UNESCO, siendo el tercer país
+                del mundo con más lugares protegidos, después de Italia y China.
+            </p>
+            <p>
+                La diversidad cultural de España se refleja en sus cuatro lenguas cooficiales: castellano, catalán,
+                gallego y euskera (vasco). Cada lengua representa siglos de historia y tradición única.
+            </p>
+            <p>
+                La gastronomía española es extremadamente variada: cada región tiene sus platos típicos, técnicas
+                culinarias y productos locales. España es líder mundial en producción de aceite de oliva y jamón ibérico.
+            </p>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="dialogos.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="tareas.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

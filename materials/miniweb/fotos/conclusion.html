@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conclusión - Sesión 9</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 70px;
+            overflow-y: auto;
+        }
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .summary-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 5px solid #ff6b6b;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f7931e;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            font-size: 32px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .summary-item {
+            background: linear-gradient(135deg, #feca57 0%, #ffb347 100%);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .summary-icon {
+            font-size: 32px;
+            color: #ff6b6b;
+        }
+        .summary-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        .resources-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #f7931e;
+        }
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .resource-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+            transition: all 0.3s;
+        }
+        .resource-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .resource-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+        .resource-link {
+            font-size: 14px;
+            color: #f7931e;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+        .resource-description {
+            font-size: 15px;
+            color: #666;
+            margin-top: 8px;
+        }
+        .contact-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 5px solid #ff6b6b;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .contact-box {
+            background: linear-gradient(135deg, #feca57 0%, #ffb347 100%);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .contact-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .contact-label i {
+            font-size: 20px;
+        }
+        .contact-info {
+            font-size: 16px;
+            color: #333;
+        }
+        .footer-text {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav-button i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+                height: auto;
+            }
+            .overlay {
+                position: static;
+                padding: 20px;
+            }
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            .summary-section, .resources-section, .contact-section {
+                padding: 20px;
+            }
+            .section-title {
+                font-size: 22px;
+            }
+            .section-title i {
+                font-size: 24px;
+            }
+            .summary-grid, .resources-grid, .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .summary-icon {
+                font-size: 24px;
+            }
+            .summary-text {
+                font-size: 16px;
+            }
+            .resource-name {
+                font-size: 16px;
+            }
+            .resource-description {
+                font-size: 14px;
+            }
+            .contact-info {
+                font-size: 14px;
+            }
+            .footer-text {
+                font-size: 16px;
+            }
+            .navigation {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                justify-content: center;
+            }
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .nav-button i {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="overlay">
+            <h1 class="page-title">¡Excelente trabajo!</h1>
+
+            <div class="summary-section">
+                <h2 class="section-title">
+                    <i class="material-icons">checklist</i>
+                    Resumen de la sesión
+                </h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <i class="material-icons summary-icon">photo_camera</i>
+                        <span class="summary-text">Describir fotos y lugares con vocabulario específico</span>
+                    </div>
+                    <div class="summary-item">
+                        <i class="material-icons summary-icon">travel_explore</i>
+                        <span class="summary-text">Narrar experiencias pasadas de forma coherente</span>
+                    </div>
+                    <div class="summary-item">
+                        <i class="material-icons summary-icon">history</i>
+                        <span class="summary-text">Usar el pretérito perfecto simple correctamente</span>
+                    </div>
+                    <div class="summary-item">
+                        <i class="material-icons summary-icon">link</i>
+                        <span class="summary-text">Conectar ideas con conectores temporales</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resources-section">
+                <h2 class="section-title">
+                    <i class="material-icons">school</i>
+                    Recursos recomendados
+                </h2>
+                <div class="resources-grid">
+                    <div class="resource-item">
+                        <div class="resource-name">WordReference</div>
+                        <a href="https://www.wordreference.com" target="_blank" class="resource-link">
+                            www.wordreference.com
+                        </a>
+                        <div class="resource-description">
+                            Diccionario y foro de traducción español-inglés
+                        </div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-name">Duolingo</div>
+                        <a href="https://www.duolingo.com" target="_blank" class="resource-link">
+                            www.duolingo.com
+                        </a>
+                        <div class="resource-description">
+                            App para practicar español de forma interactiva
+                        </div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-name">SpanishPod101</div>
+                        <a href="https://www.spanishpod101.com" target="_blank" class="resource-link">
+                            www.spanishpod101.com
+                        </a>
+                        <div class="resource-description">
+                            Podcasts y lecciones de español para todos los niveles
+                        </div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-name">Gramática de uso del español</div>
+                        <div class="resource-description">
+                            Libro de referencia recomendado para gramática (disponible en biblioteca CLM)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-section">
+                <h2 class="section-title">
+                    <i class="material-icons">contact_mail</i>
+                    Información de contacto
+                </h2>
+                <div class="contact-grid">
+                    <div class="contact-box">
+                        <div class="contact-label">
+                            <i class="material-icons">person</i>
+                            Profesor
+                        </div>
+                        <div class="contact-info">Javier Benitez Lainez</div>
+                    </div>
+                    <div class="contact-box">
+                        <div class="contact-label">
+                            <i class="material-icons">email</i>
+                            Email
+                        </div>
+                        <div class="contact-info">benitezl@go.ugr.es</div>
+                    </div>
+                    <div class="contact-box">
+                        <div class="contact-label">
+                            <i class="material-icons">schedule</i>
+                            Tutorías
+                        </div>
+                        <div class="contact-info">Martes y jueves de 12:30 a 13:30</div>
+                    </div>
+                    <div class="contact-box">
+                        <div class="contact-label">
+                            <i class="material-icons">apartment</i>
+                            Institución
+                        </div>
+                        <div class="contact-info">Universidad de Granada<br>Centro de Lenguas Modernas</div>
+                    </div>
+                </div>
+                <p class="footer-text">¡Nos vemos en la próxima sesión! 📸</p>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="tareas.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="index.html" class="nav-button">
+            <i class="material-icons">home</i>
+            Inicio
+        </a>
+    </div>
+</body>
+</html>

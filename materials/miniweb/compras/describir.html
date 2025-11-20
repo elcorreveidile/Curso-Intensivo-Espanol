@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 · Describir ropa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Source Sans Pro', sans-serif; background: #fdf2f8; color: #312e81; }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            padding: 70px 80px 120px;
+            background: linear-gradient(130deg, rgba(250, 232, 255, 0.95) 0%, rgba(251, 207, 232, 0.9) 55%, rgba(244, 114, 182, 0.88) 100%);
+            border-radius: 36px;
+            box-shadow: 0 35px 80px rgba(236, 72, 153, 0.25);
+        }
+        h1 { font-size: 36px; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #9d174d; }
+        p.lead { font-size: 18px; color: #6b21a8; margin-bottom: 28px; max-width: 760px; }
+        .grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 22px;
+            padding: 24px;
+            display: grid;
+            gap: 16px;
+            border: 1px solid rgba(244, 114, 182, 0.35);
+        }
+        .card h2 { font-size: 22px; display: flex; align-items: center; gap: 8px; color: #9d174d; }
+        .card p { color: #6d28d9; line-height: 1.5; }
+        .activity {
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px dashed rgba(219, 39, 119, 0.35);
+            border-radius: 18px;
+            padding: 18px;
+            display: grid;
+            gap: 12px;
+        }
+        .activity button {
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: rgba(236, 72, 153, 0.2);
+            color: #9d174d;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: transform 0.2s ease, border 0.2s ease;
+        }
+        .activity button:hover { transform: translateX(3px); border-color: rgba(236, 72, 153, 0.35); }
+        .activity button[data-selected="true"] {
+            background: #9d174d;
+            color: #fdf2f8;
+        }
+        .feedback { min-height: 24px; font-weight: 600; }
+        .correct { color: #047857; }
+        .incorrect { color: #be123c; }
+        .navigation { position: fixed; bottom: 24px; left: 24px; display: flex; gap: 16px; }
+        .nav-button {
+            background: #ec4899;
+            color: #fff1f2;
+            padding: 12px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 18px 36px rgba(236, 72, 153, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 22px 44px rgba(236, 72, 153, 0.45); }
+        @media (max-width: 992px) {
+            .slide { width: 100%; border-radius: 0; padding: 40px 24px 130px; }
+            h1 { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="slide">
+        <h1><i class="material-icons">visibility</i> Ejercicio 2 · Describir ropa</h1>
+        <p class="lead">Selecciona los adjetivos que combinan mejor con cada prenda y crea descripciones completas usando colores y demostrativos.</p>
+        <div class="grid">
+            <article class="card">
+                <h2><i class="material-icons">female</i> Conjunto 1 · Evento formal</h2>
+                <p>Vestido largo, color esmeralda, complemento con chaqueta ligera.</p>
+                <div class="activity" data-answer="b">
+                    <strong>¿Qué adjetivo describe mejor el vestido?</strong>
+                    <button data-option="a">informal y deportivo</button>
+                    <button data-option="b">elegante y sofisticado</button>
+                    <button data-option="c">viejo y roto</button>
+                    <p class="feedback" aria-live="polite"></p>
+                </div>
+            </article>
+            <article class="card">
+                <h2><i class="material-icons">male</i> Conjunto 2 · Día de compras</h2>
+                <p>Pantalón vaquero oscuro, camisa blanca y zapatillas cómodas.</p>
+                <div class="activity" data-answer="c">
+                    <strong>Selecciona el mejor complemento:</strong>
+                    <button data-option="a">sombrero elegante</button>
+                    <button data-option="b">zapatos de tacón</button>
+                    <button data-option="c">chaqueta ligera azul</button>
+                    <p class="feedback" aria-live="polite"></p>
+                </div>
+            </article>
+            <article class="card">
+                <h2><i class="material-icons">child_friendly</i> Conjunto 3 · Tiempo libre</h2>
+                <p>Sudadera amarilla, falda plisada y deportivas blancas.</p>
+                <div class="activity" data-answer="a">
+                    <strong>Elige la mejor frase completa:</strong>
+                    <button data-option="a">“Me gusta este look porque es cómodo y colorido.”</button>
+                    <button data-option="b">“Quiero ese traje porque es demasiado serio.”</button>
+                    <button data-option="c">“Prefiero aquel abrigo, aunque no combina.”</button>
+                    <p class="feedback" aria-live="polite"></p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <a class="nav-button" href="roleplay.html"><i class="material-icons">arrow_back</i> Role-play</a>
+        <a class="nav-button" href="comparar.html">Comparar precios <i class="material-icons">arrow_forward</i></a>
+    </nav>
+
+    <script>
+        document.querySelectorAll('.activity').forEach(activity => {
+            const answer = activity.dataset.answer;
+            const feedback = activity.querySelector('.feedback');
+            activity.querySelectorAll('button[data-option]').forEach(button => {
+                button.addEventListener('click', () => {
+                    activity.querySelectorAll('button[data-option]').forEach(btn => btn.setAttribute('data-selected', 'false'));
+                    button.setAttribute('data-selected', 'true');
+                    if (button.dataset.option === answer) {
+                        feedback.textContent = '✅ ¡Perfecto! Esa descripción encaja con la situación.';
+                        feedback.className = 'feedback correct';
+                    } else {
+                        feedback.textContent = '❌ No coincide con la imagen. Piensa en el contexto.';
+                        feedback.className = 'feedback incorrect';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

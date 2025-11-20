@@ -253,7 +253,7 @@
       background: #fee2e2;
     }
 
-    /* Floating action button */
+    /* Floating action button - Scroll to top */
     .fab {
       position: fixed;
       bottom: 2rem;
@@ -266,26 +266,21 @@
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.5rem;
+      font-size: 2rem;
       cursor: pointer;
       box-shadow: 0 8px 25px rgba(5,150,105,0.3);
       transition: all 0.3s ease;
       z-index: 15;
+      opacity: 0;
+      visibility: hidden;
+    }
+    .fab.show {
+      opacity: 1;
+      visibility: visible;
     }
     .fab:hover {
       transform: translateY(-2px) scale(1.1);
       box-shadow: 0 12px 35px rgba(5,150,105,0.4);
-    }
-
-    /* Dark mode support */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --fg:#f9fafb; --bg:#111827; --border:#374151; --card:#1f2937;
-      }
-      .card {
-        background: rgba(31,41,55,0.96);
-        color: #f9fafb;
-      }
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -1075,18 +1070,18 @@ Responsable: Javier Benítez Láinez | Contacto: jbenitez@ugr.es</div></footer>
       { t: 'Sesión 3 · Familia y descripciones', href: 'materials/cuadernos/S3_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 4 · Rutina diaria', href: 'materials/cuadernos/S4_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 5 · Comida y restaurante', href: 'materials/cuadernos/S5_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 6 · Compras y tiendas', href: 'materials/cuadernos/S6_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 7 · Transporte y direcciones', href: 'materials/cuadernos/S7_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 8 · Tiempo libre y hobbies', href: 'materials/cuadernos/S8_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 9 · Proyecto fotográfico', href: 'materials/cuadernos/S9_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 10 · Taller de cocina', href: 'materials/cuadernos/S10_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 11 · Repaso general', href: 'materials/cuadernos/S11_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 12 · Evaluación final', href: 'materials/cuadernos/S12_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 6 · Taller de cocina', href: 'materials/cuadernos/S10_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 7 · Compras y tiendas', href: 'materials/cuadernos/S6_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 8 · Transporte y direcciones', href: 'materials/cuadernos/S7_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 9 · Tiempo libre y hobbies', href: 'materials/cuadernos/S8_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 10 · Proyecto fotográfico', href: 'materials/cuadernos/S9_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 11 · Tecnología y comunicación', href: 'materials/cuadernos/S16_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 12 · Proyecto final integrador', href: 'materials/cuadernos/S17_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 13 · Cultura y regiones de España', href: 'materials/cuadernos/S13_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 14 · Salud y emergencias', href: 'materials/cuadernos/S14_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 15 · Viajes y alojamiento', href: 'materials/cuadernos/S15_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 16 · Tecnología y comunicación', href: 'materials/cuadernos/S16_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 17 · Proyecto final integrador', href: 'materials/cuadernos/S17_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 16 · Repaso general', href: 'materials/cuadernos/S11_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 17 · Evaluación final', href: 'materials/cuadernos/S12_Espanol_Intensivo.pdf', type: 'pdf' },
     ];
 
     const SESSIONS_AVAILABLE = [
@@ -1138,26 +1133,29 @@ Responsable: Javier Benítez Láinez | Contacto: jbenitez@ugr.es</div></footer>
 
           const fileName = s.href.split('/').pop();
           const fileExists = SESSIONS_AVAILABLE.includes(fileName);
-          const sessionNumber = index + 1;
-
-          // Handle web links (miniwebs)
-          if (s.type === 'web') {
-            let htmlContent = `
-              <li><button class="btn primary" onclick="window.open('${s.href}', '_blank')">🌐 Abrir miniweb</button></li>
-              <li><button class="btn" onclick="copyPDFLink('${s.href}')">📋 Copiar enlace</button></li>
-            `;
-            list.innerHTML = htmlContent;
-            return;
-          }
+          const sessionMatch = s.t.match(/Sesión\s+(\d+)/i);
+          const sessionNumber = sessionMatch ? parseInt(sessionMatch[1], 10) : index + 1;
 
           if (fileExists) {
             const isPDF = s.type === 'pdf' || s.href.endsWith('.pdf');
             const fileIcon = isPDF ? '📄' : '📝';
             const dataAttr = isPDF ? 'data-pdf' : 'data-doc';
 
-          // Añadir enlace a miniweb si es la sesión 7
-            const miniwebLink = s.t.includes('Sesión 7') ?
-              `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/', '_blank')" style="background: #27ae60;">🌐 MiniWeb: Transporte y Direcciones</button></li>` : '';
+            // Añadir enlace a miniweb si hay una configurada para la sesión seleccionada
+            let miniwebLink = '';
+            if (s.t.includes('Sesión 7')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/compras/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Compras y Tiendas</button></li>`;
+            } else if (s.t.includes('Sesión 8')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/direcciones/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Transporte y Direcciones</button></li>`;
+            } else if (s.t.includes('Sesión 9')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/ocio/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Ocio y Aficiones</button></li>`;
+            } else if (s.t.includes('Sesión 10')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/fotos/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Proyecto de Fotos</button></li>`;
+            } else if (s.t.includes('Sesión 11')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/tecnologia/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Tecnología y Comunicación</button></li>`;
+            } else if (s.t.includes('Sesión 13')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/cultura/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Cultura y Regiones de España</button></li>`;
+            }
 
             let htmlContent = `
               <li><button class="btn primary" ${dataAttr}="${s.href}">${fileIcon} Ver en navegador (${s.t})</button></li>
@@ -1880,6 +1878,26 @@ Respuestas útiles:
       }
     }
 
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Show/hide scroll to top button based on scroll position
+    window.addEventListener('scroll', function() {
+      const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+      if (scrollToTopBtn) {
+        if (window.pageYOffset > 300) {
+          scrollToTopBtn.classList.add('show');
+        } else {
+          scrollToTopBtn.classList.remove('show');
+        }
+      }
+    });
+
     function startVocabularyTimer() {
       closeQuickTools();
       const minutes = 5;
@@ -2184,9 +2202,9 @@ Respuestas útiles:
     document.head.appendChild(style);
   </script>
 
-  <!-- Floating Action Button -->
-  <div class="fab" onclick="openQuickTools()" title="Herramientas Rápidas">
-    ⚡
+  <!-- Floating Action Button - Scroll to Top -->
+  <div class="fab" id="scrollToTopBtn" onclick="scrollToTop()" title="Volver arriba">
+    ↑
   </div>
 
   <!-- Quick Tools Modal -->
