@@ -1076,10 +1076,10 @@ Responsable: Javier Benítez Láinez | Contacto: jbenitez@ugr.es</div></footer>
       { t: 'Sesión 9 · Tiempo libre y hobbies', href: 'materials/cuadernos/S8_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 10 · Proyecto fotográfico', href: 'materials/cuadernos/S9_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 11 · Tecnología y comunicación', href: 'materials/cuadernos/S16_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 12 · Proyecto final integrador', href: 'materials/cuadernos/S17_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 12 · Viajes y alojamiento', href: 'materials/cuadernos/S15_Espanol_Intensivo.pdf', type: 'pdf', miniweb: 'materials/miniweb/viajes/index.html' },
       { t: 'Sesión 13 · Cultura y regiones de España', href: 'materials/cuadernos/S13_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 14 · Salud y emergencias', href: 'materials/cuadernos/S14_Espanol_Intensivo.pdf', type: 'pdf' },
-      { t: 'Sesión 15 · Viajes y alojamiento', href: 'materials/cuadernos/S15_Espanol_Intensivo.pdf', type: 'pdf' },
+      { t: 'Sesión 15 · Proyecto final integrador', href: 'materials/cuadernos/S17_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 16 · Repaso general', href: 'materials/cuadernos/S11_Espanol_Intensivo.pdf', type: 'pdf' },
       { t: 'Sesión 17 · Evaluación final', href: 'materials/cuadernos/S12_Espanol_Intensivo.pdf', type: 'pdf' },
     ];
@@ -1153,6 +1153,8 @@ Responsable: Javier Benítez Láinez | Contacto: jbenitez@ugr.es</div></footer>
               miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/fotos/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Proyecto de Fotos</button></li>`;
             } else if (s.t.includes('Sesión 11')) {
               miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/tecnologia/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Tecnología y Comunicación</button></li>`;
+            } else if (s.t.includes('Sesión 12')) {
+              miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/viajes/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Viajes y Alojamiento</button></li>`;
             } else if (s.t.includes('Sesión 13')) {
               miniwebLink = `<li><button class="btn" onclick="window.open('https://elcorreveidile.github.io/Curso-Intensivo-Espanol/materials/miniweb/cultura/', '_blank')" style="background: #c82333; color: white;">🌐 MiniWeb: Cultura y Regiones de España</button></li>`;
             }
