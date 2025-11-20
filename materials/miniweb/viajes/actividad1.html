@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 1 - Teléfonos Rotos</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .activity-info {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .time-icon {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .time-icon .material-icons {
+            font-size: 40px;
+        }
+
+        .activity-details h2 {
+            font-size: 28px;
+            color: #c82333;
+            margin-bottom: 10px;
+        }
+
+        .activity-details p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #c82333;
+        }
+
+        .instructions h3 {
+            font-size: 24px;
+            color: #c82333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .example-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+        }
+
+        .example-section h3 {
+            font-size: 24px;
+            color: #c82333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .message {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #c82333;
+        }
+
+        .message-header {
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .message-content {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .message-time {
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .vocabulary-box {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .vocabulary-box h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .vocab-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .vocab-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .vocab-term {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .vocab-translation {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .activity-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .vocab-list {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📞 Actividad 1: Teléfonos Rotos</h1>
+            <p>Cadena de información de reservas hoteleras</p>
+        </div>
+
+        <div class="activity-info">
+            <div class="time-icon">
+                <i class="material-icons">timer</i>
+            </div>
+            <div class="activity-details">
+                <h2>Duración: 20 minutos</h2>
+                <p>Práctica oral: comunicación de información de reservas de hotel en cadena</p>
+            </div>
+        </div>
+
+        <div class="vocabulary-box">
+            <h3>🏨 Vocabulario Útil para Reservas</h3>
+            <div class="vocab-list">
+                <div class="vocab-item">
+                    <div class="vocab-term">Quisiera hacer una reserva</div>
+                    <div class="vocab-translation">I'd like to make a reservation</div>
+                </div>
+                <div class="vocab-item">
+                    <div class="vocab-term">habitación individual/doble</div>
+                    <div class="vocab-translation">single/double room</div>
+                </div>
+                <div class="vocab-item">
+                    <div class="vocab-term">del 15 al 20 de mayo</div>
+                    <div class="vocab-translation">from May 15th to 20th</div>
+                </div>
+                <div class="vocab-item">
+                    <div class="vocab-term">¿Qué precio tiene?</div>
+                    <div class="vocab-translation">How much does it cost?</div>
+                </div>
+                <div class="vocab-item">
+                    <div class="vocab-term">desayuno incluido</div>
+                    <div class="vocab-translation">breakfast included</div>
+                </div>
+                <div class="vocab-item">
+                    <div class="vocab-term">nombre y apellido</div>
+                    <div class="vocab-translation">first name and last name</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>
+                <i class="material-icons">info</i>
+                Instrucciones
+            </h3>
+            <ol>
+                <li>Formen equipos de 4-5 personas</li>
+                <li>El profesor/a dará una tarjeta con información de reserva a la primera persona</li>
+                <li>La primera persona le susurra la información al siguiente estudiante</li>
+                <li>Continúan pasando la información hasta el último estudiante</li>
+                <li>El último estudiante escribe la información que recibió</li>
+                <li>Comparamos la información original con la final</li>
+                <li>Cambiemos roles y repetimos con otra información</li>
+            </ol>
+        </div>
+
+        <div class="example-section">
+            <h3>
+                <i class="material-icons">example</i>
+                Ejemplo de Información de Reserva
+            </h3>
+
+            <div class="message">
+                <div class="message-header">📝 Información Original</div>
+                <div class="message-content">
+                    "Hola, soy María García. Quisiera hacer una reserva en el Hotel Sol por favor.
+                    Necesito una habitación doble para dos personas, del 22 al 25 de junio.
+                    ¿Qué precio tiene? ¿Incluye el desayuno? Mi teléfono es 600-123-456."
+                </div>
+            </div>
+
+            <div class="message">
+                <div class="message-header">👂 Lo que podría escuchar el último estudiante:</div>
+                <div class="message-content">
+                    "Hola, soy Ana Martínez. Quiero una habitación individual en el Hotel Luna.
+                    Para una persona, del 12 al 15 de julio. No sé el precio.
+                    Mi teléfono es 600-987-654."
+                </div>
+                <div class="message-time">
+                    ¡La información cambió completamente durante la cadena! 😄
+                </div>
+            </div>
+        </div>
+
+        <div class="example-section">
+            <h3>
+                <i class="material-icons">tips_and_updates</i>
+                Consejos para Éxito
+            </h3>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li style="margin-bottom: 10px; font-size: 18px;">🗣️ <strong>Habla claro y despacio</strong> - Articula bien cada palabra</li>
+                <li style="margin-bottom: 10px; font-size: 18px;">👂 <strong>Escucha atentamente</strong> - Concentrate en la información importante</li>
+                <li style="margin-bottom: 10px; font-size: 18px;">📝 <strong>Repite mentalmente</strong> - Repite la información antes de pasarla</li>
+                <li style="margin-bottom: 10px; font-size: 18px;">🎯 <strong>Identifica datos clave</strong> - Nombres, fechas, números, lugares</li>
+                <li style="margin-bottom: 10px; font-size: 18px;">😄 <strong>No te preocupes por errores</strong> - ¡Es para practicar y divertirse!</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="vocabulario.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="actividad2.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

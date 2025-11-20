@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 4 - Resolver Problemas</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%); min-height: 100vh; padding: 40px 20px 100px 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-size: 48px; color: #c82333; margin-bottom: 15px; }
+        .activity-info { background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1); display: flex; align-items: center; gap: 20px; }
+        .time-icon { background: linear-gradient(135deg, #c82333, #c94c4c); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .activity-details h2 { font-size: 28px; color: #c82333; margin-bottom: 10px; }
+        .scenario-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-bottom: 30px; }
+        .scenario-card { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1); }
+        .scenario-title { font-size: 22px; color: #c82333; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .expressions-box { background: linear-gradient(135deg, #c82333, #c94c4c); color: white; padding: 25px; border-radius: 15px; margin-bottom: 30px; }
+        .navigation { position: fixed; bottom: 20px; left: 20px; display: flex; gap: 15px; z-index: 100; }
+        .nav-button { background: #c82333; color: white; border: none; padding: 12px 24px; border-radius: 25px; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.3s ease; }
+        .nav-button:hover { background: #a71d2a; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
+        .material-icons { font-size: 20px; }
+        .expression-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚠️ Actividad 4: Resolver Problemas</h1>
+        </div>
+
+        <div class="activity-info">
+            <div class="time-icon">
+                <i class="material-icons">timer</i>
+            </div>
+            <div class="activity-details">
+                <h2>Duración: 25 minutos</h2>
+                <p>Grupos reciben situaciones problemáticas de viaje</p>
+            </div>
+        </div>
+
+        <div class="expressions-box">
+            <h3>🔧 Expresiones para Resolver Problemas</h3>
+            <div class="expression-list">
+                <div><strong>He perdido...</strong> = I've lost...</div>
+                <div><strong>No funciona...</strong> = It doesn't work...</div>
+                <div><strong>Hay un problema con...</strong> = There's a problem with...</div>
+                <div><strong>¿Podría ayudarme?</strong> = Could you help me?</div>
+                <div><strong>¿Qué podemos hacer?</strong> = What can we do?</div>
+                <div><strong>Necesito urgentemente...</strong> = I urgently need...</div>
+            </div>
+        </div>
+
+        <div class="scenario-grid">
+            <div class="scenario-card">
+                <div class="scenario-title">
+                    <i class="material-icons">luggage</i>
+                    Situación 1: Equipaje Perdido
+                </div>
+                <p><strong>Problema:</strong> Tu maleta no ha llegado al aeropuerto de destino.</p>
+                <p><strong>Tarea:</strong> Habla con el personal del mostrador de equipajes.</p>
+                <p><strong>Datos que necesitas dar:</strong></p>
+                <ul style="margin-left: 20px; line-height: 1.6;">
+                    <li>Nombre completo y dirección del hotel</li>
+                    <li>Número de vuelo y origen</li>
+                    <li>Descripción de la maleta (color, tamaño, marcas)</li>
+                    <li>Teléfono de contacto</li>
+                </ul>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-title">
+                    <i class="material-icons">hotel</i>
+                    Situación 2: Cancelación de Reserva
+                </div>
+                <p><strong>Problema:</strong> Tu reserva de hotel no está en el sistema.</p>
+                <p><strong>Tarea:</strong> Habla con el recepcionista del hotel.</p>
+                <p><strong>Información importante:</strong></p>
+                <ul style="margin-left: 20px; line-height: 1.6;">
+                    <li>Numero de confirmación de la reserva</li>
+                    <li>Copia del email de confirmación</li>
+                    <li>Fechas de estancia</li>
+                    <li>Tipo de habitación reservada</li>
+                </ul>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-title">
+                    <i class="material-icons">directions_car</i>
+                    Situación 3: Alquiler de Coche
+                </div>
+                <p><strong>Problema:</strong> El coche de alquiler tiene un problema mecánico.</p>
+                <p><strong>Tarea:</strong> Llama a la empresa de alquiler.</p>
+                <p><strong>Qué decir:</strong></p>
+                <ul style="margin-left: 20px; line-height: 1.6;">
+                    <li>Número de contrato de alquiler</li>
+                    <li>Descripción del problema (no arranca, ruido extraño)</li>
+                    <strong>"El coche no funciona bien"</strong>
+                    <strong>"¿Podrían traerme un coche nuevo?"</strong>
+                </ul>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-title">
+                    <i class="material-icons">train</i>
+                    Situación 4: Tren Cancelado
+                </div>
+                <p><strong>Problema:</strong> Tu tren ha sido cancelado y tienes una conexión importante.</p>
+                <p><strong>Tarea:</strong> Habla con información en la estación.</p>
+                <p><strong>Preguntas importantes:</strong></p>
+                <ul style="margin-left: 20px; line-height: 1.6;">
+                    <li><strong>"¿Hay otro tren disponible?"</strong></li>
+                    <li><strong>"¿Cómo puedo llegar a mi destino?"</strong></li>
+                    <li><strong>"¿Me devolverán el dinero?"</strong></li>
+                    <li><strong>"¿Hay autobuses sustitutivos?"</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="actividad3.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="actividad5.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

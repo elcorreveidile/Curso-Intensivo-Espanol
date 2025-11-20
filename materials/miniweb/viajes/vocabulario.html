@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulario Clave - Viajes y Alojamiento</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .vocab-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+        }
+
+        .vocab-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .vocab-icon {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vocab-icon .material-icons {
+            font-size: 28px;
+        }
+
+        .vocab-title {
+            font-size: 32px;
+            color: #c82333;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .vocab-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #c82333;
+            transition: all 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(200, 35, 51, 0.1);
+        }
+
+        .vocab-term {
+            font-size: 20px;
+            font-weight: 600;
+            color: #c82333;
+            margin-bottom: 5px;
+        }
+
+        .vocab-translation {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .vocab-example {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .example-spanish {
+            color: #c82333;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .example-english {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .tip-box h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .tip-box p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .vocab-title {
+                font-size: 24px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Vocabulario Clave</h1>
+            <p>Palabras esenciales para viajar por España</p>
+        </div>
+
+        <div class="tip-box">
+            <h3>💡 Consejo</h3>
+            <p>¡Practica estas palabras con un compañero! Haz frases sobre tus propios viajes y experiencias.</p>
+        </div>
+
+        <!-- Vocabulario de Hotel -->
+        <div class="vocab-section">
+            <div class="vocab-header">
+                <div class="vocab-icon">
+                    <i class="material-icons">hotel</i>
+                </div>
+                <h2 class="vocab-title">Hotel</h2>
+            </div>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-term">reserva</div>
+                    <div class="vocab-translation">reservation, booking</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">Necesito hacer una reserva para dos noches.</div>
+                        <div class="example-english">I need to make a reservation for two nights.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">habitación individual/doble</div>
+                    <div class="vocab-translation">single/double room</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">¿Hay una habitación doble disponible?</div>
+                        <div class="example-english">Is there a double room available?</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">pensión completa</div>
+                    <div class="vocab-translation">full board</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">El precio incluye pensión completa.</div>
+                        <div class="example-english">The price includes full board.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">media pensión</div>
+                    <div class="vocab-translation">half board</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">Prefiero media pensión para comer fuera.</div>
+                        <div class="example-english">I prefer half board to eat out.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">check-in / check-out</div>
+                    <div class="vocab-translation">registration / departure</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">El check-in es a las 15:00.</div>
+                        <div class="example-english">Check-in is at 15:00.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vocabulario de Aeropuerto -->
+        <div class="vocab-section">
+            <div class="vocab-header">
+                <div class="vocab-icon">
+                    <i class="material-icons">flight</i>
+                </div>
+                <h2 class="vocab-title">Aeropuerto</h2>
+            </div>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-term">vuelo</div>
+                    <div class="vocab-translation">flight</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">Mi vuelo sale en dos horas.</div>
+                        <div class="example-english">My flight departs in two hours.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">puerta de embarque</div>
+                    <div class="vocab-translation">boarding gate</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">La puerta de embarque es la A12.</div>
+                        <div class="example-english">The boarding gate is A12.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">equipaje</div>
+                    <div class="vocab-translation">luggage, baggage</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">¿Dónde puedo facturar el equipaje?</div>
+                        <div class="example-english">Where can I check the luggage?</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">retraso</div>
+                    <div class="vocab-translation">delay</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">Hay un retraso de una hora.</div>
+                        <div class="example-english">There's a one-hour delay.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">cancelado</div>
+                    <div class="vocab-translation">cancelled</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">Mi vuelo ha sido cancelado.</div>
+                        <div class="example-english">My flight has been cancelled.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">pasaporte</div>
+                    <div class="vocab-translation">passport</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">Necesito mi pasaporte para embarcar.</div>
+                        <div class="example-english">I need my passport to board.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">tarjeta de embarque</div>
+                    <div class="vocab-translation">boarding pass</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">Aquí está mi tarjeta de embarque.</div>
+                        <div class="example-english">Here is my boarding pass.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Problemas Comunes -->
+        <div class="vocab-section">
+            <div class="vocab-header">
+                <div class="vocab-icon">
+                    <i class="material-icons">warning</i>
+                </div>
+                <h2 class="vocab-title">Problemas y Soluciones</h2>
+            </div>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-term">He perdido...</div>
+                    <div class="vocab-translation">I've lost...</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">He perdido mi maleta.</div>
+                        <div class="example-english">I've lost my suitcase.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">No funciona...</div>
+                    <div class="vocab-translation">It doesn't work...</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">No funciona el aire acondicionado.</div>
+                        <div class="example-english">The air conditioning doesn't work.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Hay un problema con...</div>
+                    <div class="vocab-translation">There's a problem with...</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">Hay un problema con mi reserva.</div>
+                        <div class="example-english">There's a problem with my reservation.</div>
+                    </div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">¿Podría ayudarme?</div>
+                    <div class="vocab-translation">Could you help me?</div>
+                    <div class="vocab-example">
+                        <div class="example-spanish">¿Podría ayudarme, por favor?</div>
+                        <div class="example-english">Could you help me, please?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="objetivos.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="actividad1.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

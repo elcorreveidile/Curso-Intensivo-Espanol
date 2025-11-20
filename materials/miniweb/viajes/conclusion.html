@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conclusión - Viajes y Alojamiento</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%); min-height: 100vh; padding: 40px 20px 100px 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 50px; }
+        .header h1 { font-size: 48px; color: #c82333; margin-bottom: 15px; }
+        .summary-card { background: white; border-radius: 15px; padding: 35px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1); }
+        .card-title { font-size: 28px; color: #c82333; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .skill-item { background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #c82333; }
+        .skill-title { font-weight: 600; color: #c82333; margin-bottom: 10px; }
+        .next-steps { background: linear-gradient(135deg, #c82333, #c94c4c); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center; }
+        .navigation { position: fixed; bottom: 20px; left: 20px; display: flex; gap: 15px; z-index: 100; }
+        .nav-button { background: #c82333; color: white; border: none; padding: 12px 24px; border-radius: 25px; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.3s ease; }
+        .nav-button:hover { background: #a71d2a; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
+        .material-icons { font-size: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Conclusión</h1>
+            <p>¡Felicidades por completar la sesión!</p>
+        </div>
+
+        <div class="summary-card">
+            <h2 class="card-title">
+                <i class="material-icons">check_circle</i>
+                Lo que hemos aprendido hoy
+            </h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-title">🏨 Reservas de Hotel</div>
+                    <p>Hacer reservas, confirmar fechas, describir habitaciones</p>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-title">✈️ Aeropuertos</div>
+                    <p>Vocabulario de vuelos, facturación, seguridad, embarque</p>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-title">⚠️ Solución de Problemas</div>
+                    <p>Comunicar problemas, pedir ayuda, encontrar soluciones</p>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-title">🗣️ Comunicación Formal</div>
+                    <p>Escribir emails de queja, hacer reclamaciones profesionales</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h2 class="card-title" style="justify-content: center; color: white;">
+                <i class="material-icons">flight_takeoff</i>
+                Próximos Pasos
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div>✅ Practicar el vocabulario en casa</div>
+                <div>✅ Completar las tareas asignadas</div>
+                <div>✅ Usar estas frases en futuros viajes</div>
+                <div>✅ Seguir practicando el subjuntivo</div>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <h2 class="card-title">
+                <i class="material-icons">emoji_events</i>
+                ¡Buen trabajo!
+            </h2>
+            <p style="font-size: 18px; line-height: 1.6; color: #666;">
+                Ahora tienes las herramientas necesarias para viajar por España con confianza.
+                Has aprendido vocabulario esencial, cómo resolver problemas y comunicarte efectivamente en situaciones de viaje.
+                ¡Sigue practicando y tus habilidades mejorarán cada día más!
+            </p>
+            <div style="text-align: center; margin-top: 30px;">
+                <div style="font-size: 60px;">🇪🇸</div>
+                <p style="font-size: 20px; color: #c82333; margin-top: 10px;">
+                    ¡Nos vemos en la próxima clase!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="tareas.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="index.html" class="nav-button">
+            <i class="material-icons">home</i>
+            Inicio
+        </a>
+    </div>
+</body>
+</html>

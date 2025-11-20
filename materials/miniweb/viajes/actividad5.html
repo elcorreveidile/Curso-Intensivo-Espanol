@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 5 - Escribir Quejas Formales</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%); min-height: 100vh; padding: 40px 20px 100px 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-size: 48px; color: #c82333; margin-bottom: 15px; }
+        .activity-info { background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1); display: flex; align-items: center; gap: 20px; }
+        .time-icon { background: linear-gradient(135deg, #c82333, #c94c4c); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .activity-details h2 { font-size: 28px; color: #c82333; margin-bottom: 10px; }
+        .email-template { background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1); }
+        .template-title { font-size: 24px; color: #c82333; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .email-content { background: #f8f9fa; border-radius: 10px; padding: 25px; font-family: 'Courier New', monospace; line-height: 1.6; }
+        .email-header { font-weight: bold; color: #c82333; margin-bottom: 15px; }
+        .email-body { margin-bottom: 20px; }
+        .useful-phrases { background: linear-gradient(135deg, #c82333, #c94c4c); color: white; padding: 25px; border-radius: 15px; margin-bottom: 30px; }
+        .navigation { position: fixed; bottom: 20px; left: 20px; display: flex; gap: 15px; z-index: 100; }
+        .nav-button { background: #c82333; color: white; border: none; padding: 12px 24px; border-radius: 25px; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.3s ease; }
+        .nav-button:hover { background: #a71d2a; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
+        .material-icons { font-size: 20px; }
+        .tips-box { background: #f8f9fa; border-radius: 15px; padding: 25px; margin-bottom: 30px; border-left: 5px solid #4CAF50; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✉️ Actividad 5: Escribir Quejas Formales</h1>
+        </div>
+
+        <div class="activity-info">
+            <div class="time-icon">
+                <i class="material-icons">timer</i>
+            </div>
+            <div class="activity-details">
+                <h2>Duración: 20 minutos</h2>
+                <p>Email al hotel sobre problemas durante la estancia</p>
+            </div>
+        </div>
+
+        <div class="useful-phrases">
+            <h3>📝 Frases Útiles para Emails Formales</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                <div><strong>Asunto:</strong> Reclamación sobre mi estancia</div>
+                <div><strong>Estimados señores/as:</strong> Dear Sir/Madam</div>
+                <div><strong>Les escribo para informarles...</strong> I'm writing to inform you...</div>
+                <div><strong>Quería quejarme sobre...</strong> I wanted to complain about...</div>
+                <div><strong>Tuve varios problemas:</strong> I had several problems:</div>
+                <div><strong>Les agradecería una respuesta:</strong> I would appreciate a response</div>
+                <div><strong>Atentamente,</strong> Sincerely</div>
+            </div>
+        </div>
+
+        <div class="email-template">
+            <div class="template-title">
+                <i class="material-icons">email</i>
+                Plantilla de Email de Queja
+            </div>
+            <div class="email-content">
+                <div class="email-header">Asunto: Reclamación sobre mi estancia - [FECHAS]</div>
+
+                <div class="email-body">
+                    Estimados señores/as,<br><br>
+
+                    Les escribo en relación con mi reciente estancia en su hotel del [fecha de llegada] al [fecha de salida] en la habitación [número de habitación].<br><br>
+
+                    Durante mi estancia, experimenté varios problemas que afectaron negativamente mi experiencia:<br><br>
+
+                    1. [Describir primer problema con detalles específicos]<br>
+                    2. [Describir segundo problema con detalles específicos]<br>
+                    3. [Describir tercer problema con detalles específicos]<br><br>
+
+                    A pesar de informar al personal sobre estos problemas, no recibí una solución satisfactoria.<br><br>
+
+                    Les agradecería una compensación por estos inconvenientes y espero que tomen medidas para evitar que futuros huéspedes experimenten situaciones similares.<br><br>
+
+                    Espero su respuesta a la mayor brevedad posible.
+                </div>
+
+                <div>
+                    Atentamente,<br>
+                    [Su nombre completo]<br>
+                    [Número de reserva]<br>
+                    [Teléfono de contacto]<br>
+                    [Email de contacto]
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-box">
+            <h3>💡 Consejos para Escribir Emails Efectivos</h3>
+            <ul style="margin-left: 20px; line-height: 1.8;">
+                <li>Sé específico con fechas, números de habitación y detalles</li>
+                <li>Usa un tono formal pero firme</li>
+                <li>Incluye tu información de contacto completa</li>
+                <li>Especifica qué tipo de solución o compensación esperas</li>
+                <li>Mantén una copia del email para tus registros</li>
+            </ul>
+        </div>
+
+        <div class="tips-box" style="border-left-color: #FF9800;">
+            <h3>✍️ Tarea Práctica</h3>
+            <p>Escribe un email de queja sobre uno de estos problemas:</p>
+            <ol style="margin-left: 20px; line-height: 1.8;">
+                <li>El aire acondicionado no funcionó durante 2 noches</li>
+                <li>La limpieza de la habitación fue inadecuada</li>
+                <li>El WiFi no funcionaba en tu habitación</li>
+                <li>Te cobraron servicios que no utilizaste</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="actividad4.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="tareas.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>

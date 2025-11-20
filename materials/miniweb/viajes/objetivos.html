@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetivos - Viajes y Alojamiento</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .objective-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(200, 35, 51, 0.15);
+        }
+
+        .objective-icon {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .objective-icon .material-icons {
+            font-size: 30px;
+        }
+
+        .objective-content h3 {
+            font-size: 24px;
+            color: #c82333;
+            margin-bottom: 10px;
+        }
+
+        .objective-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .session-info {
+            background: linear-gradient(135deg, #c82333, #c94c4c);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .session-info h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .session-details {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .session-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .session-detail .material-icons {
+            font-size: 24px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .material-icons {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .objectives-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .session-details {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .navigation {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Objetivos de la Sesión</h1>
+            <p>Lo que aprenderemos hoy sobre viajes y alojamiento</p>
+        </div>
+
+        <div class="session-info">
+            <h2>Curso Intensivo de Español - Nivel 3 CLM</h2>
+            <div class="session-details">
+                <div class="session-detail">
+                    <i class="material-icons">calendar_today</i>
+                    <span>6 - 27 de noviembre de 2025</span>
+                </div>
+                <div class="session-detail">
+                    <i class="material-icons">schedule</i>
+                    <span>2 horas</span>
+                </div>
+                <div class="session-detail">
+                    <i class="material-icons">person</i>
+                    <span>Lucía Pérez Azor</span>
+                </div>
+                <div class="session-detail">
+                    <i class="material-icons">room</i>
+                    <span>Aula 24</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="objectives-grid">
+            <div class="objective-card">
+                <div class="objective-icon">
+                    <i class="material-icons">hotel</i>
+                </div>
+                <div class="objective-content">
+                    <h3>Reservar Hotel y Alojamiento</h3>
+                    <p>Aprenderemos a hacer reservas de hotel, entender diferentes tipos de habitación y regímenes de pensión.</p>
+                </div>
+            </div>
+
+            <div class="objective-card">
+                <div class="objective-icon">
+                    <i class="material-icons">flight</i>
+                </div>
+                <div class="objective-content">
+                    <h3>Vocabulario de Aeropuerto y Estación</h3>
+                    <p>Terminología esencial para viajar: vuelos, puertas de embarque, equipaje, documentos y procedimientos.</p>
+                </div>
+            </div>
+
+            <div class="objective-card">
+                <div class="objective-icon">
+                    <i class="material-icons">warning</i>
+                </div>
+                <div class="objective-content">
+                    <h3>Resolver Problemas de Viaje</h3>
+                    <p>Expresiones para comunicar problemas, pedir ayuda y encontrar soluciones durante nuestros viajes.</p>
+                </div>
+            </div>
+
+            <div class="objective-card">
+                <div class="objective-icon">
+                    <i class="material-icons">info</i>
+                </div>
+                <div class="objective-content">
+                    <h3>Dar y Entender Información Turística</h3>
+                    <p>Cómo pedir directions, recommendations y información sobre lugares turísticos en español.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="index.html" class="nav-button">
+            <i class="material-icons">arrow_back</i>
+            Anterior
+        </a>
+        <a href="vocabulario.html" class="nav-button">
+            Siguiente
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+</body>
+</html>
