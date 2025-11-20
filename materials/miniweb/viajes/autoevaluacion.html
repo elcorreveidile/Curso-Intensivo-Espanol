@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoevaluación - Viajes y Alojamiento</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 100%);
+            min-height: 100vh;
+            padding: 40px 20px 100px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            color: #c82333;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .progress-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #c82333, #4CAF50);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: #c82333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #c82333;
+        }
+
+        .question h3 {
+            color: #c82333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option:hover {
+            border-color: #c82333;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #c82333;
+            color: white;
+            border-color: #c82333;
+        }
+
+        .option.correct {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .option.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #e8f5e8;
+            border-left: 4px solid #4CAF50;
+            color: #2e7d32;
+        }
+
+        .feedback.incorrect {
+            background: #ffeaea;
+            border-left: 4px solid #f44336;
+            color: #c62828;
+        }
+
+        .drag-drop-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .words-bank, .answers-area {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 200px;
+        }
+
+        .draggable-word {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #c82333;
+            color: white;
+            border-radius: 20px;
+            margin: 5px;
+            cursor: move;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .draggable-word:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(200, 35, 51, 0.3);
+        }
+
+        .drop-zone {
+            background: white;
+            border: 2px dashed #c0c0c0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #c82333;
+            background: #ffeaea;
+        }
+
+        .drop-zone.has-word {
+            border-style: solid;
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .complete-sentence {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+        }
+
+        .complete-sentence textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .complete-sentence textarea:focus {
+            outline: none;
+            border-color: #c82333;
+        }
+
+        .role-play-scenario {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .role-play-scenario h4 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-primary {
+            background: #c82333;
+        }
+
+        .btn-primary:hover {
+            background: #a71d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(200, 35, 51, 0.3);
+        }
+
+        .btn-success {
+            background: #4CAF50;
+        }
+
+        .btn-success:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-secondary {
+            background: #607D8B;
+        }
+
+        .btn-secondary:hover {
+            background: #546E7A;
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(200, 35, 51, 0.1);
+        }
+
+        .score-number {
+            font-size: 72px;
+            font-weight: bold;
+            color: #c82333;
+            margin-bottom: 10px;
+        }
+
+        .score-message {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .material-icons {
+            font-size: 24px;
+        }
+
+        .listening-activity {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #FF9800;
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .play-button {
+            background: #FF9800;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background: #F57C00;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .drag-drop-container {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 20px;
+            }
+
+            .btn, .audio-controls {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Autoevaluación: Viajes y Alojamiento</h1>
+            <p>Evalúa tu conocimiento sobre vocabulario, situaciones y comunicación en español</p>
+        </div>
+
+        <div class="progress-container">
+            <h3>📊 Tu Progreso</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar">0%</div>
+            </div>
+            <p id="progressText">Comencemos con la autoevaluación</p>
+        </div>
+
+        <!-- Sección 1: Vocabulario -->
+        <div class="section active" id="section1">
+            <h2 class="section-title">
+                <i class="material-icons">menu_book</i>
+                1. Vocabulario de Viajes
+            </h2>
+
+            <div class="question">
+                <h3>🏨 Selecciona la palabra correcta para cada definición:</h3>
+
+                <div style="margin: 20px 0;">
+                    <p><strong>"Documento que te permite entrar en un país extranjero"</strong></p>
+                    <div class="options">
+                        <div class="option" onclick="checkAnswer(this, false, 'section1', 'q1')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Billete
+                        </div>
+                        <div class="option" onclick="checkAnswer(this, true, 'section1', 'q1')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Pasaporte
+                        </div>
+                        <div class="option" onclick="checkAnswer(this, false, 'section1', 'q1')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Equipaje
+                        </div>
+                        <div class="option" onclick="checkAnswer(this, false, 'section1', 'q1')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Tarjeta de embarque
+                        </div>
+                    </div>
+                    <div class="feedback" id="section1-q1-feedback"></div>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <p><strong>"Donde te registras cuando llegas al hotel"</strong></p>
+                    <div class="options">
+                        <div class="option" onclick="checkAnswer(this, false, 'section1', 'q2')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Restaurante
+                        </div>
+                        <div class="option" onclick="checkAnswer(this, false, 'section1', 'q2')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Gimnasio
+                        </div>
+                        <div class="option" onclick="checkAnswer(this, true, 'section1', 'q2')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Recepción
+                        </div>
+                        <div class="option" onclick="checkAnswer(this, false, 'section1', 'q2')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Piscina
+                        </div>
+                    </div>
+                    <div class="feedback" id="section1-q2-feedback"></div>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <p><strong>"Boleto que puedes usar solo para ir"</strong></p>
+                    <div class="options">
+                        <div class="option" onclick="checkAnswer(this, true, 'section1', 'q3')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Solo ida
+                        </div>
+                        <div class="option" onclick="checkAnswer(this, false, 'section1', 'q3')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Ida y vuelta
+                        </div>
+                        <div class="option" onclick="checkAnswer(this, false, 'section1', 'q3')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Abierto
+                        </div>
+                        <div class="option" onclick="checkAnswer(this, false, 'section1', 'q3')">
+                            <i class="material-icons">radio_button_unchecked</i>
+                            Cancelable
+                        </div>
+                    </div>
+                    <div class="feedback" id="section1-q3-feedback"></div>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary" onclick="previousSection()">
+                    <i class="material-icons">arrow_back</i>
+                    Anterior
+                </button>
+                <button class="btn btn-primary" onclick="nextSection()">
+                    Siguiente
+                    <i class="material-icons">arrow_forward</i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sección 2: Arrastrar y Soltar -->
+        <div class="section" id="section2">
+            <h2 class="section-title">
+                <i class="material-icons">drag_indicator</i>
+                2. Arrastra las Palabras Correctas
+            </h2>
+
+            <div class="drag-drop-container">
+                <div class="words-bank">
+                    <h4>📝 Banco de Palabras:</h4>
+                    <div>
+                        <span class="draggable-word" draggable="true" data-word="facturación">facturación</span>
+                        <span class="draggable-word" draggable="true" data-word="embarque">embarque</span>
+                        <span class="draggable-word" draggable="true" data-word="seguridad">seguridad</span>
+                        <span class="draggable-word" draggable="true" data-word="pasaporte">pasaporte</span>
+                        <span class="draggable-word" draggable="true" data-word="equipaje">equipaje</span>
+                        <span class="draggable-word" draggable="true" data-word="tarjeta">tarjeta</span>
+                    </div>
+                </div>
+
+                <div class="answers-area">
+                    <h4>✈️ Completa las frases del aeropuerto:</h4>
+
+                    <div class="complete-sentence">
+                        <p><strong>En la</strong>
+                            <div class="drop-zone" data-answer="facturación">
+                                <span style="color: #999;">Arrastra la palabra aquí</span>
+                            </div>
+                            <strong>, entregas tu</strong>
+                            <div class="drop-zone" data-answer="equipaje">
+                                <span style="color: #999;">Arrastra la palabra aquí</span>
+                            </div>
+                            <strong>y muestras tu</strong>
+                            <div class="drop-zone" data-answer="pasaporte">
+                                <span style="color: #999;">Arrastra la palabra aquí</span>
+                            </div>
+                        </p>
+                    </div>
+
+                    <div class="complete-sentence">
+                        <p><strong>Después de pasar por</strong>
+                            <div class="drop-zone" data-answer="seguridad">
+                                <span style="color: #999;">Arrastra la palabra aquí</span>
+                            </div>
+                            <strong>, vas a la puerta de</strong>
+                            <div class="drop-zone" data-answer="embarque">
+                                <span style="color: #999;">Arrastra la palabra aquí</span>
+                            </div>
+                            <strong>con tu</strong>
+                            <div class="drop-zone" data-answer="tarjeta">
+                                <span style="color: #999;">Arrastra la palabra aquí</span>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary" onclick="previousSection()">
+                    <i class="material-icons">arrow_back</i>
+                    Anterior
+                </button>
+                <button class="btn btn-primary" onclick="nextSection()">
+                    Siguiente
+                    <i class="material-icons">arrow_forward</i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sección 3: Comprensión Auditiva -->
+        <div class="section" id="section3">
+            <h2 class="section-title">
+                <i class="material-icons">headphones</i>
+                3. Comprensión Auditiva
+            </h2>
+
+            <div class="listening-activity">
+                <h4>✈️ Escucha esta conversación en el aeropuerto:</h4>
+                <p><strong>Empleado:</strong> "Buenos días. ¿Tiene su pasaporte y tarjeta de embarque?"</p>
+                <p><strong>Cliente:</strong> "Sí, aquí están. ¿Por qué puerta tengo que ir?"</p>
+                <p><strong>Empleado:</strong> "Puerta B23. El embarque será a las 10:30."</p>
+
+                <div class="audio-controls">
+                    <button class="play-button" onclick="playAudio()">
+                        <i class="material-icons">play_arrow</i>
+                    </button>
+                    <span>▶️ Simular audio (en clase real, tu profesor/a leería esto)</span>
+                </div>
+
+                <div class="question">
+                    <h3>🎧 Responde a estas preguntas:</h3>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>¿Por qué puerta debe ir el cliente?</strong></p>
+                        <div class="options">
+                            <div class="option" onclick="checkAnswer(this, false, 'section3', 'q1')">
+                                <i class="material-icons">radio_button_unchecked</i>
+                                Puerta A15
+                            </div>
+                            <div class="option" onclick="checkAnswer(this, true, 'section3', 'q1')">
+                                <i class="material-icons">radio_button_unchecked</i>
+                                Puerta B23
+                            </div>
+                            <div class="option" onclick="checkAnswer(this, false, 'section3', 'q1')">
+                                <i class="material-icons">radio_button_unchecked</i>
+                                Puerta C10
+                            </div>
+                        </div>
+                        <div class="feedback" id="section3-q1-feedback"></div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <p><strong>¿A qué hora es el embarque?</strong></p>
+                        <div class="options">
+                            <div class="option" onclick="checkAnswer(this, false, 'section3', 'q2')">
+                                <i class="material-icons">radio_button_unchecked</i>
+                                A las 9:30
+                            </div>
+                            <div class="option" onclick="checkAnswer(this, false, 'section3', 'q2')">
+                                <i class="material-icons">radio_button_unchecked</i>
+                                A las 10:00
+                            </div>
+                            <div class="option" onclick="checkAnswer(this, true, 'section3', 'q2')">
+                                <i class="material-icons">radio_button_unchecked</i>
+                                A las 10:30
+                            </div>
+                        </div>
+                        <div class="feedback" id="section3-q2-feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary" onclick="previousSection()">
+                    <i class="material-icons">arrow_back</i>
+                    Anterior
+                </button>
+                <button class="btn btn-primary" onclick="nextSection()">
+                    Siguiente
+                    <i class="material-icons">arrow_forward</i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sección 4: Producción Escrita -->
+        <div class="section" id="section4">
+            <h2 class="section-title">
+                <i class="material-icons">edit</i>
+                4. Escribe Tus Propias Frases
+            </h2>
+
+            <div class="role-play-scenario">
+                <h4>🏨 Situación en el hotel:</h4>
+                <p>Has llegado al Hotel Sol y tienes una reserva. Escribe lo que dirías al recepcionista.</p>
+            </div>
+
+            <div class="complete-sentence">
+                <h4>✍️ Escribe tu frase (mínimo 20 palabras):</h4>
+                <textarea id="receptionPhrase" placeholder="Buenas tardes, tengo una reserva a nombre de..." rows="4"></textarea>
+                <button class="btn btn-success" onclick="checkWrittenAnswer()" style="margin-top: 10px;">
+                    <i class="material-icons">check</i>
+                    Revisar mi respuesta
+                </button>
+                <div class="feedback" id="writtenFeedback"></div>
+            </div>
+
+            <div class="role-play-scenario">
+                <h4>🛍️ Escribiendo una queja:</h4>
+                <p>Estás en tu habitación y no funciona el aire acondicionado. Escribe un email al hotel.</p>
+            </div>
+
+            <div class="complete-sentence">
+                <h4>✍️ Escribe tu email (incluir saludo y despedida):</h4>
+                <textarea id="complaintEmail" placeholder="Estimados señores/as, Les escribo porque..." rows="6"></textarea>
+                <button class="btn btn-success" onclick="checkEmailAnswer()" style="margin-top: 10px;">
+                    <i class="material-icons">check</i>
+                    Revisar mi email
+                </button>
+                <div class="feedback" id="emailFeedback"></div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary" onclick="previousSection()">
+                    <i class="material-icons">arrow_back</i>
+                    Anterior
+                </button>
+                <button class="btn btn-primary" onclick="finishEvaluation()">
+                    Finalizar Evaluación
+                    <i class="material-icons">flag</i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div class="section" id="results">
+            <div class="score-display">
+                <div class="score-number" id="finalScore">0%</div>
+                <div class="score-message" id="scoreMessage">¡Buena suerte!</div>
+                <p id="scoreDetails"></p>
+
+                <div class="navigation-buttons">
+                    <button class="btn btn-primary" onclick="restartEvaluation()">
+                        <i class="material-icons">refresh</i>
+                        Hacer de Nuevo
+                    </button>
+                    <button class="btn btn-success" onclick="goToMain()">
+                        <i class="material-icons">home</i>
+                        Volver al Inicio
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegación inferior -->
+        <div class="navigation" style="position: fixed; bottom: 20px; left: 20px; display: flex; gap: 15px; z-index: 100;">
+            <a href="index.html" class="btn btn-secondary">
+                <i class="material-icons">arrow_back</i>
+                Volver
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 1;
+        let totalSections = 5;
+        let scores = {
+            section1: { correct: 0, total: 3 },
+            section2: { correct: 0, total: 5 },
+            section3: { correct: 0, total: 2 },
+            section4: { correct: 0, total: 2 }
+        };
+
+        function updateProgress() {
+            const progress = Math.round((currentSection - 1) / (totalSections - 1) * 100);
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = progress + '%';
+
+            if (currentSection === 1) {
+                progressText.textContent = 'Comencemos con la autoevaluación';
+            } else if (currentSection === totalSections) {
+                progressText.textContent = '¡Has completado la evaluación!';
+            } else {
+                progressText.textContent = `Sección ${currentSection - 1} de ${totalSections - 1} completada`;
+            }
+        }
+
+        function showSection(sectionNumber) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Mostrar la sección actual
+            const targetSection = document.getElementById(`section${sectionNumber}`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            updateProgress();
+        }
+
+        function nextSection() {
+            if (currentSection < totalSections) {
+                currentSection++;
+                showSection(currentSection);
+            }
+        }
+
+        function previousSection() {
+            if (currentSection > 1) {
+                currentSection--;
+                showSection(currentSection);
+            }
+        }
+
+        function checkAnswer(element, isCorrect, section, questionId) {
+            // Desmarcar otras opciones en la misma pregunta
+            const question = element.parentElement;
+            question.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            element.classList.add('selected');
+
+            // Mostrar feedback
+            const feedback = document.getElementById(`${section}-${questionId}-feedback`);
+            feedback.classList.add('show');
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '<i class="material-icons">check_circle</i> ¡Correcto! ¡Bien hecho!';
+
+                // Actualizar puntuación
+                if (!element.dataset.scored) {
+                    scores[section].correct++;
+                    element.dataset.scored = 'true';
+                }
+            } else {
+                element.classList.add('incorrect');
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = '<i class="material-icons">error</i> Incorrecto. Inténtalo de nuevo.';
+            }
+        }
+
+        function initDragAndDrop() {
+            const draggables = document.querySelectorAll('.draggable-word');
+            const dropZones = document.querySelectorAll('.drop-zone');
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text', e.target.dataset.word);
+                    e.target.style.opacity = '0.5';
+                });
+
+                draggable.addEventListener('dragend', (e) => {
+                    e.target.style.opacity = '';
+                });
+            });
+
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('drag-over');
+                });
+
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+
+                    const word = e.dataTransfer.getData('text');
+                    const correctAnswer = zone.dataset.answer;
+
+                    // Limpiar zona anterior
+                    zone.innerHTML = `<span class="draggable-word">${word}</span>`;
+                    zone.classList.add('has-word');
+
+                    if (word === correctAnswer) {
+                        zone.style.borderColor = '#4CAF50';
+                        zone.style.background = '#e8f5e8';
+
+                        // Actualizar puntuación
+                        if (!zone.dataset.scored) {
+                            scores.section2.correct++;
+                            zone.dataset.scored = 'true';
+                        }
+                    } else {
+                        zone.style.borderColor = '#f44336';
+                        zone.style.background = '#ffeaea';
+                    }
+                });
+            });
+        }
+
+        function playAudio() {
+            // Simular reproducción de audio
+            const button = event.target.closest('.play-button');
+            const icon = button.querySelector('i');
+
+            if (icon.textContent === 'play_arrow') {
+                icon.textContent = 'stop';
+                button.style.background = '#f44336';
+                // En una clase real, aquí reproduciríamos el audio
+
+                setTimeout(() => {
+                    icon.textContent = 'play_arrow';
+                    button.style.background = '#FF9800';
+                }, 3000);
+            }
+        }
+
+        function checkWrittenAnswer() {
+            const phrase = document.getElementById('receptionPhrase').value.trim();
+            const feedback = document.getElementById('writtenFeedback');
+
+            const requiredWords = ['reserva', 'nombre', 'hola', 'buenos', 'días', 'tardes'];
+            const phraseLower = phrase.toLowerCase();
+
+            let hasRequiredWords = requiredWords.some(word => phraseLower.includes(word));
+            let hasGoodLength = phrase.length >= 20;
+
+            feedback.classList.add('show');
+
+            if (hasRequiredWords && hasGoodLength) {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '<i class="material-icons">check_circle</i> ¡Excelente! Tu frase es apropiada para la situación.';
+                scores.section4.correct++;
+            } else if (hasGoodLength) {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '<i class="material-icons">check_circle</i> Buena longitud. Intenta incluir palabras clave como "reserva" o "nombre".';
+                scores.section4.correct++;
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = '<i class="material-icons">error</i> Tu frase es muy corta. Escribe al menos 20 palabras incluyendo información de reserva.';
+            }
+        }
+
+        function checkEmailAnswer() {
+            const email = document.getElementById('complaintEmail').value.trim();
+            const feedback = document.getElementById('emailFeedback');
+
+            const requiredElements = ['estimados', 'asunto', 'problema', 'solución', 'atentamente'];
+            const emailLower = email.toLowerCase();
+
+            let hasFormalElements = requiredElements.filter(element => emailLower.includes(element)).length >= 3;
+            let hasGoodStructure = email.length >= 50;
+
+            feedback.classList.add('show');
+
+            if (hasFormalElements && hasGoodStructure) {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '<i class="material-icons">check_circle</i> ¡Perfecto! Tu email tiene una estructura formal y completa.';
+                scores.section4.correct++;
+            } else if (hasGoodStructure) {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '<i class="material-icons">check_circle</i> Buen contenido. Intenta incluir elementos formales como "Estimados" y "Atentamente".';
+                scores.section4.correct++;
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = '<i class="material-icons">error</i> Tu email necesita más desarrollo. Incluye saludo formal, descripción del problema y cierre.';
+            }
+        }
+
+        function calculateFinalScore() {
+            let totalCorrect = 0;
+            let totalPossible = 0;
+
+            Object.values(scores).forEach(section => {
+                totalCorrect += section.correct;
+                totalPossible += section.total;
+            });
+
+            return Math.round((totalCorrect / totalPossible) * 100);
+        }
+
+        function getScoreMessage(score) {
+            if (score >= 90) return "¡Excelente! ¡Dominas el vocabulario de viajes!";
+            if (score >= 70) return "¡Muy bien! Tienes un buen nivel de español para viajes.";
+            if (score >= 50) return "¡Bien hecho! Sigue practicando para mejorar.";
+            return "¡No te preocupes! La práctica hace al maestro. Sigue intentando.";
+        }
+
+        function finishEvaluation() {
+            currentSection = totalSections;
+            showSection(currentSection);
+
+            const finalScore = calculateFinalScore();
+            const scoreNumber = document.getElementById('finalScore');
+            const scoreMessage = document.getElementById('scoreMessage');
+            const scoreDetails = document.getElementById('scoreDetails');
+
+            scoreNumber.textContent = finalScore + '%';
+            scoreMessage.textContent = getScoreMessage(finalScore);
+
+            // Detalles de la puntuación
+            let details = '<h4>Tu rendimiento por sección:</h4><ul>';
+            Object.entries(scores).forEach(([section, score]) => {
+                const sectionName = section === 'section1' ? 'Vocabulario' :
+                                  section === 'section2' ? 'Arrastrar y Soltar' :
+                                  section === 'section3' ? 'Comprensión Auditiva' : 'Producción Escrita';
+                details += `<li><strong>${sectionName}:</strong> ${score.correct}/${score.total} correctas</li>`;
+            });
+            details += '</ul>';
+            scoreDetails.innerHTML = details;
+        }
+
+        function restartEvaluation() {
+            // Resetear todo
+            currentSection = 1;
+            scores = {
+                section1: { correct: 0, total: 3 },
+                section2: { correct: 0, total: 5 },
+                section3: { correct: 0, total: 2 },
+                section4: { correct: 0, total: 2 }
+            };
+
+            // Limpiar selecciones y feedback
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+                delete opt.dataset.scored;
+            });
+
+            document.querySelectorAll('.feedback').forEach(fb => {
+                fb.classList.remove('show');
+            });
+
+            document.querySelectorAll('textarea').forEach(txt => {
+                txt.value = '';
+            });
+
+            showSection(1);
+        }
+
+        function goToMain() {
+            window.location.href = 'index.html';
+        }
+
+        // Inicializar cuando carga la página
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection(1);
+            initDragAndDrop();
+        });
+    </script>
+</body>
+</html>
