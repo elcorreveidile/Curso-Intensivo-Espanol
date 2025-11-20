@@ -84,7 +84,7 @@
   </div>
 
   <!-- Botones de navegación -->
-  <div class="navigation-buttons">
+  <div class="navigation-buttons" id="navButtons" style="display: none;">
     <button class="nav-btn" onclick="navigatePrevious()" id="prevBtn">
       ← Anterior
     </button>
@@ -143,18 +143,21 @@
       const currentPage = window.location.pathname.split('/').pop();
       const currentIndex = pages.indexOf(currentPage);
 
+      const navButtons = document.getElementById('navButtons');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
 
-      // Desactivar botón anterior si estamos en la primera página
-      if (currentIndex === 0) {
-        prevBtn.disabled = false; // Permitir volver al curso
-        prevBtn.textContent = '← Volver al curso';
-      }
+      // Mostrar botones solo si no estamos en la primera página
+      if (currentIndex > 0) {
+        navButtons.style.display = 'flex';
 
-      // Desactivar botón siguiente si estamos en la última página
-      if (currentIndex === pages.length - 1 || currentIndex === -1) {
-        nextBtn.disabled = true;
+        // Desactivar botón siguiente si estamos en la última página
+        if (currentIndex === pages.length - 1) {
+          nextBtn.disabled = true;
+        }
+      } else {
+        // En la primera página, no mostrar botones
+        navButtons.style.display = 'none';
       }
     });
   </script>
